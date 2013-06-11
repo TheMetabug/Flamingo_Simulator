@@ -1,0 +1,59 @@
+/*
+**
+**
+**
+*/
+
+// Copyright Asko Lahti, Esko Haila, Iida Korpela, Hanna Karvonen, Aleksi Jeskanen, Aleksi Jokihaara
+// SFML is copyrighted to respective owners
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include "game.h"
+
+int main()
+{
+	
+
+	// Set window parametres
+	
+
+    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
+	window->setFramerateLimit(120);
+
+	// Deltatime stuff
+	sf::Clock clock;
+	sf::Time dt;
+
+	game MainGame(window);
+
+
+	// Run the program as long as the window is open
+    while (window->isOpen())
+    {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			window->close();
+		}
+
+        sf::Event event;
+        while (window->pollEvent(event))
+        {
+			// This is called when window is closed
+            if (event.type == sf::Event::Closed)
+			{
+                window->close();
+			}
+        }
+		window->clear(sf::Color::Transparent);
+
+		
+		//end the current frame
+        window->display();
+
+		dt = clock.restart();
+    }
+
+	delete window;
+
+    return 0;
+}
