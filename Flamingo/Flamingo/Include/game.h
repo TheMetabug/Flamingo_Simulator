@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "head.h"
+#include "background.h"
 
 class game 
 {
@@ -16,16 +17,8 @@ private:
 	sf::RenderWindow *window;
 
 	head flamingoHead;
+	background water;
 
-
-	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
-	int drag;
-
-	sf::Texture testitexture;
-	sf::Sprite testi;
-
-	sf::Texture crosstexture;
-	sf::Sprite crosshair;
 };
 
 #endif

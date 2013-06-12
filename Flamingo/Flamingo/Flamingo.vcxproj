@@ -80,12 +80,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\background.cpp" />
     <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\head.cpp" />
     <ClCompile Include="Source\input.cpp" />
     <ClCompile Include="Source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\background.h" />
     <ClInclude Include="Include\game.h" />
     <ClInclude Include="Include\head.h" />
     <ClInclude Include="Include\input.h" />

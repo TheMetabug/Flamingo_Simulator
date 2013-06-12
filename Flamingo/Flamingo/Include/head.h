@@ -16,15 +16,15 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	sf::Vector2f headPosition, headOrigin, crossHair;
-	sf::Vector2f mousePosition;
+	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
+
 	int drag;
 
 	sf::Texture *headTexture;
 	sf::Sprite flamingoHead;
 
-	sf::Texture *crosstexture;
-	sf::Sprite crosshair;
+	sf::Texture *crossTexture;
+	sf::Sprite crosshairSprite;
 };
 
 

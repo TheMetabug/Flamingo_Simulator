@@ -10,14 +10,14 @@ head::head(sf::RenderWindow *Window)
 	headTexture = new sf::Texture();
 	headTexture->loadFromFile("image.png");
 	flamingoHead.setTexture(*headTexture);
-	flamingoHead.setPosition(640, 360);
+	flamingoHead.setPosition(headOrigin);
 	flamingoHead.setOrigin(sf::Vector2f(50, 50));
 
-	crosstexture = new sf::Texture();	
-	crosstexture->loadFromFile("crosshair.png");
-	crosshair.setTexture(*crosstexture);
-	crosshair.setPosition(640, 360);
-	crosshair.setOrigin(sf::Vector2f(25, 25));
+	crossTexture = new sf::Texture();	
+	crossTexture->loadFromFile("crosshair.png");
+	crosshairSprite.setTexture(*crossTexture);
+	crosshairSprite.setPosition(headOrigin);
+	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
 }
 
@@ -29,33 +29,53 @@ void head::update(sf::Time DeltaTime)
 {
 			switch(drag)
 		{
-			case 0:
-				flamingoHead.setPosition(640, 360);
+			case 0: // head in origin
+				headPosition = headOrigin;
 				break;
 
-			case 1:
+			case 1: // head being dragged
 				mousePosition.x = sf::Mouse::getPosition(*window).x;
 				mousePosition.y = sf::Mouse::getPosition(*window).y;
 
-				flamingoHead.setPosition(mousePosition);
+				headPosition = mousePosition;
 
-				headPosition.x = flamingoHead.getPosition().x;
-				headPosition.y = flamingoHead.getPosition().y;
-
+				{
+				sf::Vector2f Direction(headOrigin - headPosition);
+				float multiplier = 1.5f;
+				crossHair = headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
+				crosshairSprite.setPosition(crossHair);
+				}
 				break;
 
-			case 2:
+			case 2: // head released, goes to crosshair
+				{
+				sf::Vector2f Direction(crossHair - headPosition);
+				sf::Vector2f Movement(Direction.x/15,Direction.y/15);
+				headPosition += Movement;
+				}
+
+				//std::cout << "X: " << headPosition.x << std::endl << "Y: " << headPosition.y << std::endl;
+
+				//check if head gets back to start position
+				if(headPosition.x < crossHair.x+4 && headPosition.x > crossHair.x-4 &&
+					headPosition.y < crossHair.y+4 && headPosition.y > crossHair.y-4)
+				{
+					drag = 3;
+				}
+				break;
+			case 3: //head goes back to 
 				{
 				sf::Vector2f Direction(headOrigin - headPosition);
 				sf::Vector2f Movement(Direction.x/15,Direction.y/15);
 				headPosition += Movement;
-
-				flamingoHead.setPosition(headPosition);
 				}
 
-				if(headPosition.x == 640, headPosition.y == 320)
-				drag = 0;
-
+				if(headPosition.x < headOrigin.x+1 && headPosition.x > headOrigin.x-1 &&
+					headPosition.y < headOrigin.y+1 && headPosition.y > headOrigin.y-1)
+				{
+					drag = 0;
+					crossHair = headOrigin;
+				}
 				break;
 		}
 
@@ -70,17 +90,19 @@ void head::update(sf::Time DeltaTime)
 			if(drag == 0)
 			drag = 1;
 		}
-		else
+		else if (drag == 1)
 		{	
-			drag = 0;
-			if(flamingoHead.getPosition().x != 640 && flamingoHead.getPosition().y != 360)
+			// if(flamingoHead.getPosition().x != 640 && flamingoHead.getPosition().y != 360)
 				drag = 2;
 		}
 
+		// set sprites to their Positions
+		flamingoHead.setPosition(headPosition);
+		crosshairSprite.setPosition(crossHair);
 }
 
 void head::draw()
 {
 	window->draw(flamingoHead);
-	window->draw(crosshair);
+	window->draw(crosshairSprite);
 }
