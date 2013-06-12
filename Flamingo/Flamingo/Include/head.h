@@ -8,10 +8,23 @@
 class head
 {
 public:
-	
-	head();
+	head(){}
+	head(sf::RenderWindow *Window);
 	~head();
+	void update(sf::Time DeltaTime);
+	void draw();
+private:
+	sf::RenderWindow *window;
 
+	sf::Vector2f headPosition, headOrigin, crossHair;
+	sf::Vector2f mousePosition;
+	int drag;
+
+	sf::Texture *headTexture;
+	sf::Sprite flamingoHead;
+
+	sf::Texture *crosstexture;
+	sf::Sprite crosshair;
 };
 
 

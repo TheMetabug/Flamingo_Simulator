@@ -44,9 +44,17 @@ int main()
                 window->close();
 			}
         }
+
+		// Update
+
+		MainGame.update(dt);
+
+		// Draw
+
 		window->clear(sf::Color::Transparent);
 
-		
+		MainGame.draw();
+
 		//end the current frame
         window->display();
 

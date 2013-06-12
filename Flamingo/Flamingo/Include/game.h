@@ -3,22 +3,29 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "head.h"
 
 class game 
 {
 public:
 	game(sf::RenderWindow *Window);
 	~game();
-	void update();
+	void update(sf::Time DeltaTime);
 	void draw();
 private:
 	sf::RenderWindow *window;
-	float mouseX, mouseY, headX, headY;
+
+	head flamingoHead;
+
+
 	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
-	sf::Vector2f testiVektori;
 	int drag;
 
 	sf::Texture testitexture;
+	sf::Sprite testi;
+
+	sf::Texture crosstexture;
+	sf::Sprite crosshair;
 };
 
 #endif
