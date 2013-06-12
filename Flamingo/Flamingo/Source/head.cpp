@@ -8,13 +8,17 @@ head::head(sf::RenderWindow *Window)
 	headOrigin.y = 360;
 
 	headTexture = new sf::Texture();
-	headTexture->loadFromFile("image.png");
+	headTexture->loadFromFile("FlamingoEmo_Head.png");
+	headTexture->setSmooth(true);
 	flamingoHead.setTexture(*headTexture);
 	flamingoHead.setPosition(headOrigin);
-	flamingoHead.setOrigin(sf::Vector2f(50, 50));
+	flamingoHead.setOrigin(sf::Vector2f(311, 128));
+	flamingoHead.setScale(0.3f, 0.3f);
+	
 
 	crossTexture = new sf::Texture();	
 	crossTexture->loadFromFile("crosshair.png");
+	crossTexture->setSmooth(true);
 	crosshairSprite.setTexture(*crossTexture);
 	crosshairSprite.setPosition(headOrigin);
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
@@ -94,6 +98,7 @@ void head::update(sf::Time DeltaTime)
 		else if (drag == 1)
 		{	
 			// if(flamingoHead.getPosition().x != 640 && flamingoHead.getPosition().y != 360)
+			if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				drag = 2;
 		}
 

@@ -6,6 +6,7 @@ background::background(sf::RenderWindow *Window)
 
 	waterTexture = new sf::Texture();
 	waterTexture->loadFromFile("waterpuddle.png");
+	waterTexture->setSmooth(true);
 	water.setTexture(*waterTexture);
 	water.setPosition(768, 465);
 	water.setOrigin(sf::Vector2f(512, 256));
