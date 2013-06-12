@@ -63,7 +63,7 @@ void head::update(sf::Time DeltaTime)
 					drag = 3;
 				}
 				break;
-			case 3: //head goes back to 
+			case 3: //head goes back to starting point/origin
 				{
 				sf::Vector2f Direction(headOrigin - headPosition);
 				sf::Vector2f Movement(Direction.x/15,Direction.y/15);
@@ -81,6 +81,7 @@ void head::update(sf::Time DeltaTime)
 
 		// MOUSE INPUT
 
+		// check if 
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
 			sf::Mouse::getPosition(*window).x > flamingoHead.getPosition().x - 50 &&
 			sf::Mouse::getPosition(*window).x < flamingoHead.getPosition().x + 50 &&
