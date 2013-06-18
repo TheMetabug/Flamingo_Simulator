@@ -3,11 +3,34 @@
 game::game(sf::RenderWindow* Window)
 {
 	window = Window;
-	enemyBird = enemy(window);
-	flamingoHead = head(window);
-	water = background(window);
+
+	// hitbox
+
+
+	// animation
+
+
+	// gui
 	text = new gui(window);
+
+	// head
+	flamingoHead = head(window);
+
+	// nest
 	flamingonest = nest(window);
+
+	// enemy
+	enemyBird = enemy(window);
+
+	// pickups
+
+
+	// water
+	water = background(window);
+
+	// particles
+
+
 	
 }
 
@@ -18,17 +41,64 @@ game::~game()
 
 void game::update(sf::Time DeltaTime)
 {
-	flamingoHead.update(DeltaTime);
-	water.update(DeltaTime);
+	// hitbox
+
+
+	// animation
+
+
+	// gui
 	text->update(DeltaTime);
+
+	// head
+	flamingoHead.update(DeltaTime);
+
+	// nest
+
+
+	// enemy
 	enemyBird.update(DeltaTime);
+
+	// pickups
+
+
+	// water
+	water.update(DeltaTime);
+
+	// particles
+
+
+
 }
 
 void game::draw()
 {
-	water.draw();
-	flamingoHead.draw();
+	// hitbox
+
+
+	// animation
+
+
+	// gui
 	text->draw();
-	enemyBird.draw();
+
+	// head
+	flamingoHead.draw();
+
+	// nest
 	flamingonest.draw();
+
+	// enemy
+	enemyBird.draw();
+
+	// pickups
+
+
+	// water
+	water.draw();
+
+	// particles
+
+
+
 }

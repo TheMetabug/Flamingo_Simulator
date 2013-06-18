@@ -13,17 +13,43 @@ class game
 {
 public:
 	game(sf::RenderWindow *Window);
+
 	~game();
+
 	void update(sf::Time DeltaTime);
+
 	void draw();
+
 private:
 	sf::RenderWindow *window;
 
-	head flamingoHead;
-	nest flamingonest;
+	// hitbox
+
+
+	// animation
+
+
+	// gui
 	gui *text;
-	background water;
+
+	// head
+	head flamingoHead;
+
+	// nest
+	nest flamingonest;
+
+	// enemy
 	enemy enemyBird;
+
+	// pickups
+
+
+	// water
+	background water;
+
+	// particles
+
+
 
 };
 

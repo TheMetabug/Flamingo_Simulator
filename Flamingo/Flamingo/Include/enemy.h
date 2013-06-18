@@ -18,7 +18,7 @@ private:
 	
 	sf::Vector2f enemyOrigin, enemyBirdPosition;
 
-	int enemyRotate;
+	float enemyRotate;
 
 
 	sf::Texture *enemyTexture;
