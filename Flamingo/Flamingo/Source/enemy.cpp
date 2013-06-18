@@ -6,8 +6,8 @@ enemy::enemy(sf::RenderWindow *Window)
 
 	
 	enemyRotate = 5;
-	enemyOrigin.x = 50;
-	enemyOrigin.y = 50;
+	enemyOrigin.x = 350;
+	enemyOrigin.y = 100;
 
 	enemyTexture = new sf::Texture();
 	enemyTexture->loadFromFile("Assets/enemyplaceholder.png");
