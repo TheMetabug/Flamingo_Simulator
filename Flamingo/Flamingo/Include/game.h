@@ -6,6 +6,7 @@
 #include "head.h"
 #include "background.h"
 #include "enemy.h"
+#include "nest.h"
 
 class game 
 {
@@ -18,6 +19,7 @@ private:
 	sf::RenderWindow *window;
 
 	head flamingoHead;
+	nest flamingonest;
 	background water;
 	enemy enemyBird;
 

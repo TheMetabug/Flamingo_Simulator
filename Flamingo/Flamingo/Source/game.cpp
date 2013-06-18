@@ -6,6 +6,7 @@ game::game(sf::RenderWindow* Window)
 	enemyBird = enemy(window);
 	flamingoHead = head(window);
 	water = background(window);
+	flamingonest = nest(window);
 
 }
 
@@ -25,5 +26,6 @@ void game::draw()
 	water.draw();
 	flamingoHead.draw();
 	enemyBird.draw();
+	flamingonest.draw();
 	
 }
