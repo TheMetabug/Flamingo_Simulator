@@ -5,6 +5,7 @@
 #include <iostream>
 #include "head.h"
 #include "background.h"
+#include "enemy.h"
 
 class game 
 {
@@ -18,6 +19,7 @@ private:
 
 	head flamingoHead;
 	background water;
+	enemy enemyBird;
 
 };
 
