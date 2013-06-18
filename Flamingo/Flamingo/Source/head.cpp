@@ -8,7 +8,7 @@ head::head(sf::RenderWindow *Window)
 	headOrigin.y = 360;
 
 	headTexture = new sf::Texture();
-	headTexture->loadFromFile("FlamingoEmo_Head.png");
+	headTexture->loadFromFile("Assets/FlamingoEmo_Head.png");
 	headTexture->setSmooth(true);
 	flamingoHead.setTexture(*headTexture);
 	flamingoHead.setPosition(headOrigin);
@@ -17,7 +17,7 @@ head::head(sf::RenderWindow *Window)
 	
 
 	crossTexture = new sf::Texture();	
-	crossTexture->loadFromFile("crosshair.png");
+	crossTexture->loadFromFile("Assets/crosshair.png");
 	crossTexture->setSmooth(true);
 	crosshairSprite.setTexture(*crossTexture);
 	crosshairSprite.setPosition(headOrigin);
