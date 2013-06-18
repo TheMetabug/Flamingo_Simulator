@@ -12,12 +12,12 @@ public:
 	~gui();
 	void update(sf::Time DeltaTime);
 	void draw();
-	
+
 private:
 	sf::RenderWindow *window;
 
-
-
+	sf::Text *text;
+	sf::Font *font;
 };
 
 #endif

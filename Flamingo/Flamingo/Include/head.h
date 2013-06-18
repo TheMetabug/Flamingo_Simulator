@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-
 class head
 {
 public:
@@ -22,11 +21,8 @@ private:
 
 	sf::Texture *headTexture;
 	sf::Sprite flamingoHead;
-
 	sf::Texture *crossTexture;
 	sf::Sprite crosshairSprite;
 };
-
-
 
 #endif

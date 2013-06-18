@@ -5,6 +5,7 @@
 #include <iostream>
 #include "head.h"
 #include "background.h"
+#include "gui.h"
 
 class game 
 {
@@ -17,6 +18,7 @@ private:
 	sf::RenderWindow *window;
 
 	head flamingoHead;
+	gui *text;
 	background water;
 
 };

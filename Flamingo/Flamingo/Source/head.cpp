@@ -57,7 +57,7 @@ void head::update(sf::Time DeltaTime)
 						Direction.y /= multiplier;
 					}
 
-					std::cout<<distance<<std::endl;
+					//std::cout<<distance<<std::endl;
 					
 					headPosition = headOrigin - Direction;
 
