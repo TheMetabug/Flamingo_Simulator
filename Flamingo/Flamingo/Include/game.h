@@ -6,6 +6,8 @@
 #include "head.h"
 #include "background.h"
 #include "gui.h"
+#include "enemy.h"
+#include "nest.h"
 
 class game 
 {
@@ -18,8 +20,10 @@ private:
 	sf::RenderWindow *window;
 
 	head flamingoHead;
+	nest flamingonest;
 	gui *text;
 	background water;
+	enemy enemyBird;
 
 };
 
