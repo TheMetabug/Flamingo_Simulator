@@ -44,10 +44,26 @@ void head::update(sf::Time DeltaTime)
 				headPosition = mousePosition;
 
 				{
-				sf::Vector2f Direction(headOrigin - headPosition);
-				float multiplier = 1.5f;
-				crossHair = headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
-				crosshairSprite.setPosition(crossHair);
+					sf::Vector2f Direction(headOrigin - headPosition);
+					float multiplier = 1.5f;
+
+					//cant drag head too far away.
+					float distance = sqrt(pow(Direction.x,2) + pow(Direction.y,2));
+
+					if (distance > 100)
+					{
+						float multiplier = distance/100;
+						Direction.x /= multiplier;
+						Direction.y /= multiplier;
+					}
+
+					std::cout<<distance<<std::endl;
+					
+					headPosition = headOrigin - Direction;
+
+					// crosshair goes opposite direction of the head from the origin
+					crossHair = headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
+					crosshairSprite.setPosition(crossHair);
 				}
 				break;
 

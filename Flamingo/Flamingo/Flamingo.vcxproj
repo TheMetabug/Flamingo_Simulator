@@ -80,17 +80,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\animation.cpp" />
     <ClCompile Include="Source\background.cpp" />
     <ClCompile Include="Source\game.cpp" />
+    <ClCompile Include="Source\gui.cpp" />
     <ClCompile Include="Source\head.cpp" />
+    <ClCompile Include="Source\hitbox.cpp" />
     <ClCompile Include="Source\input.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\nest.cpp" />
+    <ClCompile Include="Source\pickups.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\animation.h" />
     <ClInclude Include="Include\background.h" />
     <ClInclude Include="Include\game.h" />
+    <ClInclude Include="Include\gui.h" />
     <ClInclude Include="Include\head.h" />
+    <ClInclude Include="Include\hitbox.h" />
     <ClInclude Include="Include\input.h" />
+    <ClInclude Include="Include\nest.h" />
+    <ClInclude Include="Include\pickups.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
