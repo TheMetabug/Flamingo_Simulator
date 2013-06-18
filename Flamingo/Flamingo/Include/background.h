@@ -11,7 +11,7 @@ public:
 	background(){}
 	background(sf::RenderWindow *Window);
 	~background();
-	void update(sf::Time DeltaTime);
+	void update(float DeltaTime);
 	void draw();
 
 private:

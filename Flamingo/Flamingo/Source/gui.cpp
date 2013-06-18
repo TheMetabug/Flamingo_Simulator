@@ -51,7 +51,7 @@ gui::~gui()
 	delete font;
 }
 
-void gui::update(sf::Time DeltaTime)
+void gui::update(float DeltaTime)
 {
 }
 

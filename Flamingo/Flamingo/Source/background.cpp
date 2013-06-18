@@ -16,7 +16,7 @@ background::~background()
 {
 
 }
-void background::update(sf::Time DeltaTime)
+void background::update(float DeltaTime)
 {
 	//water.setPosition(100,100);
 }

@@ -4,14 +4,17 @@ game::game(sf::RenderWindow* Window)
 {
 	window = Window;
 
+	// gameStates
+
+	state = Play;
+
+
+
 	// hitbox
 
 
 	// animation
 
-
-	// gui
-	text = new gui(window);
 
 	// head
 	flamingoHead = head(window);
@@ -31,6 +34,8 @@ game::game(sf::RenderWindow* Window)
 	// particles
 
 
+	// gui
+	text = new gui(window);
 	
 }
 
@@ -41,64 +46,102 @@ game::~game()
 
 void game::update(sf::Time DeltaTime)
 {
-	// hitbox
+	float deltaTime = DeltaTime.asMicroseconds()/1000000.0f;
 
+	// gameStates
+
+	switch(state)
+	{
+	case TitleScreen:
+		break;
+	case Play:
+
+		// hitbox
+
+
+		// head
+		flamingoHead.update(deltaTime);
+
+
+		// nest
+
+
+		// enemy
+		enemyBird.update(deltaTime);
+
+		// pickups
+
+
+		// water
+		water.update(deltaTime);
+
+		// gui
+		text->update(deltaTime);
+
+		break;
+	case Menu:
+		break;
+	case Pause:
+		break;
+	case Credits:
+		break;
+	}
 
 	// animation
 
 
-	// gui
-	text->update(DeltaTime);
-
-	// head
-	flamingoHead.update(DeltaTime);
-
-	// nest
-
-
-	// enemy
-	enemyBird.update(DeltaTime);
-
-	// pickups
-
-
-	// water
-	water.update(DeltaTime);
-
 	// particles
-
 
 
 }
 
 void game::draw()
 {
-	// hitbox
+	// gameStates
+
+		switch(state)
+	{
+	case TitleScreen:
+		break;
+	case Play:
+
+		// water
+		water.draw();
+
+		// nest
+		flamingonest.draw();
+
+		// hitbox
+
+
+		// enemy
+		enemyBird.draw();
+
+		// pickups
+
+
+		// head
+		flamingoHead.draw();
+
+
+		// gui
+		text->draw();
+
+
+		break;
+	case Menu:
+		break;
+	case Pause:
+		break;
+	case Credits:
+		break;
+	}
 
 
 	// animation
 
 
-	// gui
-	text->draw();
-
-	// head
-	flamingoHead.draw();
-
-	// nest
-	flamingonest.draw();
-
-	// enemy
-	enemyBird.draw();
-
-	// pickups
-
-
-	// water
-	water.draw();
-
 	// particles
 
-
-
+	
 }

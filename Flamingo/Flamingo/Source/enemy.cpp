@@ -24,10 +24,9 @@ enemy::~enemy()
 {
 }
 
-void enemy::update(sf::Time DeltaTime)
+void enemy::update(float DeltaTime)
 {
-	enemyRotate += (float)DeltaTime.asMilliseconds()/10.0f;
-	std::cout<< enemyRotate;
+	enemyRotate += DeltaTime*100;
 	//enemyBird.setPosition(enemyBirdPosition);
 	enemyBird.setRotation(enemyRotate);
 

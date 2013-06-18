@@ -29,7 +29,7 @@ head::~head()
 {
 }
 
-void head::update(sf::Time DeltaTime)
+void head::update(float DeltaTime)
 {
 			switch(drag)
 		{
@@ -45,7 +45,7 @@ void head::update(sf::Time DeltaTime)
 
 				{
 					sf::Vector2f Direction(headOrigin - headPosition);
-					float multiplier = 1.5f;
+					float multiplier = 3.0f;
 
 					//cant drag head too far away.
 					float distance = sqrt(pow(Direction.x,2) + pow(Direction.y,2));
@@ -70,7 +70,7 @@ void head::update(sf::Time DeltaTime)
 			case 2: // head released, goes to crosshair
 				{
 				sf::Vector2f Direction(crossHair - headPosition);
-				sf::Vector2f Movement(Direction.x/15,Direction.y/15);
+				sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
 				headPosition += Movement;
 				}
 
@@ -86,7 +86,7 @@ void head::update(sf::Time DeltaTime)
 			case 3: //head goes back to starting point/origin
 				{
 				sf::Vector2f Direction(headOrigin - headPosition);
-				sf::Vector2f Movement(Direction.x/15,Direction.y/15);
+				sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
 				headPosition += Movement;
 				}
 

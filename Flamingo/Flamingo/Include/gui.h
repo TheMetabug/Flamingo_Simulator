@@ -10,7 +10,7 @@ public:
 	gui(){}
 	gui(sf::RenderWindow *Window);
 	~gui();
-	void update(sf::Time DeltaTime);
+	void update(float DeltaTime);
 	void draw();
 
 private:

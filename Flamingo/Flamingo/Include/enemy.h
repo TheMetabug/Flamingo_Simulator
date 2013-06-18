@@ -10,7 +10,7 @@ public:
 	enemy(){}
 	enemy(sf::RenderWindow *Window);
 	~enemy();
-	void update(sf::Time DeltaTime);
+	void update(float DeltaTime);
 	void draw();
 
 private:

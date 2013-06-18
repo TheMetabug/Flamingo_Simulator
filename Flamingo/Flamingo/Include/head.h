@@ -10,7 +10,7 @@ public:
 	head(){}
 	head(sf::RenderWindow *Window);
 	~head();
-	void update(sf::Time DeltaTime);
+	void update(float DeltaTime);
 	void draw();
 private:
 	sf::RenderWindow *window;

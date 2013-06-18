@@ -23,6 +23,18 @@ public:
 private:
 	sf::RenderWindow *window;
 
+	// gameStates
+	enum GameState
+	{
+		TitleScreen = 0,
+		Play,
+		Menu,
+		Pause,
+		Credits
+	};
+
+	GameState state;
+
 	// hitbox
 
 
