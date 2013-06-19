@@ -8,6 +8,7 @@
 #include "gui.h"
 #include "enemy.h"
 #include "nest.h"
+#include "flamingo.h"
 
 class game 
 {
@@ -46,6 +47,9 @@ private:
 
 	// head
 	head flamingoHead;
+
+	//flamingo
+	body flamingoBase;
 
 	// nest
 	nest flamingonest;

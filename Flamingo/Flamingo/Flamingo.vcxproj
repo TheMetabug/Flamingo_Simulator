@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\flamingo.cpp" />
     <ClCompile Include="Source\particle.cpp" />
     <ClCompile Include="Source\particleEngine.cpp" />
     <ClCompile Include="Source\animation.cpp" />
@@ -98,6 +99,7 @@
     <ClInclude Include="Include\animation.h" />
     <ClInclude Include="Include\background.h" />
     <ClInclude Include="Include\enemy.h" />
+    <ClInclude Include="Include\flamingo.h" />
     <ClInclude Include="Include\game.h" />
     <ClInclude Include="Include\gui.h" />
     <ClInclude Include="Include\head.h" />

@@ -19,6 +19,9 @@ game::game(sf::RenderWindow* Window)
 	// head
 	flamingoHead = head(window);
 
+	//flamingo
+	flamingoBase = body(window);
+
 	// nest
 	flamingonest = nest(window);
 
@@ -61,6 +64,9 @@ void game::update(sf::Time DeltaTime)
 
 		// head
 		flamingoHead.update(deltaTime);
+
+		//body
+		flamingoBase.update(deltaTime);
 
 
 		// nest
@@ -119,6 +125,9 @@ void game::draw()
 
 		// pickups
 
+		// flamingo
+
+		flamingoBase.draw();
 
 		// head
 		flamingoHead.draw();
