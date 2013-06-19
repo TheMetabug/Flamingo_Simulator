@@ -4,8 +4,7 @@ body::body(sf::RenderWindow *Window)
 {
 	window = Window;
 	bodyOrigin.x = 740;
-	bodyOrigin.y = 550
-	;
+	bodyOrigin.y = 550;
 
 	bodyTexture = new sf::Texture();
 	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
