@@ -18,7 +18,8 @@ void animation::update(float deltaTime)
 {
 	timer += deltaTime;
 
-    if (timer > 1000 / fps) //frame changes
+
+	if (timer > 1000 / fps) //frame changes
 	{
 		currentFrame++;
 		if (currentFrame >= firstFrame + frames)
