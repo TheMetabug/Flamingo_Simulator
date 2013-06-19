@@ -22,7 +22,7 @@ head::head(sf::RenderWindow *Window, collision* Collide)
 	crosshairSprite.setPosition(headOrigin);
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
-	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), true);
+	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), sf::Vector2f(311, 128), true);
 }
 
 head::~head()
