@@ -10,6 +10,13 @@ background::background(sf::RenderWindow *Window)
 	water.setTexture(*waterTexture);
 	water.setPosition(768, 465);
 	water.setOrigin(sf::Vector2f(512, 256));
+
+	skyTexture = new sf::Texture();
+	skyTexture->loadFromFile("Assets/skyplaceholder.png");
+	skyTexture->setSmooth(true);
+	sky.setTexture(*skyTexture);
+	sky.setPosition(0, 0);
+	sky.setOrigin(sf::Vector2f(0, 0));
 }
 
 background::~background()
@@ -22,5 +29,7 @@ void background::update(float DeltaTime)
 }
 void background::draw()	
 {
+	window->draw(sky);
 	window->draw(water);
+	
 }

@@ -19,6 +19,8 @@ private:
 
 	sf::Vector2f waterPosition;
 
+	sf::Texture *skyTexture;
+	sf::Sprite sky;
 	sf::Texture *waterTexture;
 	sf::Sprite water;
 
