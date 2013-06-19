@@ -9,6 +9,7 @@
 #include "enemy.h"
 #include "nest.h"
 #include "flamingo.h"
+#include "neck.h"
 
 class game 
 {
@@ -47,6 +48,9 @@ private:
 
 	// head
 	head flamingoHead;
+
+	//neck
+	neck flamingoNeck;
 
 	//flamingo
 	body flamingoBase;

@@ -3,7 +3,7 @@ head::head(sf::RenderWindow *Window)
 {
 	window = Window;
 	drag = 0;
-	headOrigin.x = 640;
+	headOrigin.x = 740;
 	headOrigin.y = 360;
 
 	headTexture = new sf::Texture();
