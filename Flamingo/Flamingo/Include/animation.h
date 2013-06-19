@@ -3,15 +3,17 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
 
 
-class Animation
+class animation
 {
 public:
-	Animation(sf::Texture *Texture, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
+	animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
+	void update(float deltaTime);
+	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);
 private:
-	sf::Texture *texture;
-	sf::Sprite sprite;
+	sf::Sprite *sprite;
 
 	float timer;
 	int currentFrame;
@@ -23,7 +25,6 @@ private:
 	bool flip;
 	bool transition;
 	int counter;
-
 };
 
 #endif

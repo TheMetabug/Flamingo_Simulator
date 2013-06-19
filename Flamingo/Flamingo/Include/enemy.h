@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "animation.h"
 
 class enemy
 {
@@ -14,6 +15,7 @@ public:
 	void draw();
 
 private:
+	animation *Animator;
 	sf::RenderWindow *window;
 	
 	sf::Vector2f enemyOrigin, enemyBirdPosition;
@@ -22,7 +24,7 @@ private:
 
 
 	sf::Texture *enemyTexture;
-	sf::Sprite enemyBird;
+	sf::Sprite *enemyBird;
 
 };
 
