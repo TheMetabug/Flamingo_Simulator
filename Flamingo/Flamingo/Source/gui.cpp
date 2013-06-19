@@ -10,7 +10,7 @@ gui::gui(sf::RenderWindow* Window)
 
 	font->loadFromFile("Assets/arial.ttf");
 
-	text = new sf::Text("<GOOD>", *font, 50);
+	text = new sf::Text("FLAMINGOES", *font, 50);
 
 
 
@@ -35,8 +35,8 @@ gui::gui(sf::RenderWindow* Window)
 	//// set the character size
 	//text.setCharacterSize(24); // in pixels, not points!
 
-	//// set the color
-	//text.setColor(sf::Color::Red);
+	//set the color
+	text->setColor(sf::Color::Magenta);
 
 	//// set the text style
 	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
