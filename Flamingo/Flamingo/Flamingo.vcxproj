@@ -81,7 +81,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\flamingo.cpp" />
-    <ClCompile Include="Source\neck.cpp" />
     <ClCompile Include="Source\particle.cpp" />
     <ClCompile Include="Source\particleEngine.cpp" />
     <ClCompile Include="Source\animation.cpp" />
@@ -89,7 +88,6 @@
     <ClCompile Include="Source\enemy.cpp" />
     <ClCompile Include="Source\game.cpp" />
     <ClCompile Include="Source\gui.cpp" />
-    <ClCompile Include="Source\head.cpp" />
     <ClCompile Include="Source\hitbox.cpp" />
     <ClCompile Include="Source\input.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -103,10 +101,8 @@
     <ClInclude Include="Include\flamingo.h" />
     <ClInclude Include="Include\game.h" />
     <ClInclude Include="Include\gui.h" />
-    <ClInclude Include="Include\head.h" />
     <ClInclude Include="Include\hitbox.h" />
     <ClInclude Include="Include\input.h" />
-    <ClInclude Include="Include\neck.h" />
     <ClInclude Include="Include\nest.h" />
     <ClInclude Include="Include\particle.h" />
     <ClInclude Include="Include\particleEngine.h" />

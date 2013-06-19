@@ -4,13 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "hitbox.h"
-#include "head.h"
 #include "background.h"
 #include "gui.h"
 #include "enemy.h"
 #include "nest.h"
 #include "flamingo.h"
-#include "neck.h"
 
 class game 
 {
