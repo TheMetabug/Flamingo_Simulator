@@ -9,13 +9,14 @@ class hitbox
 {
 public:
 	hitbox(){}
-	hitbox(sf::Vector2f _Position, sf::Vector2f _Size, bool _isEnabled);
+	hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, bool _isEnabled);
 	~hitbox();
 
-	sf::Rect<int> hitRect();
+	sf::Rect<float> hitRect();
 
 	sf::Vector2f Position;
 	sf::Vector2f Size;
+	sf::Vector2f Origo;
 
 	bool isEnabled;
 
@@ -28,21 +29,22 @@ class collision
 public:
 	collision();
 	~collision();
-
-	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, int id);
+	
+	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
+	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled = true);
 
 	void headPickup();
 	void pickupHatchling();
 	void pickupEnemy();
 	void headEnemy();
 
-	bool isCollided;
+	bool isCollided(hitbox *hitbox1,hitbox *hitbox2);
 
 private:
-	std::vector<hitbox> pickups;
-	std::vector<hitbox> hatchlings;
-	hitbox head;
-	hitbox enemy;
+	std::vector<hitbox*> pickups;
+	std::vector<hitbox*> hatchlings;
+	hitbox* head;
+	hitbox* enemy;
 
 };
 

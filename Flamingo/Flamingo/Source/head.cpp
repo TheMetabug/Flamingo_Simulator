@@ -1,5 +1,5 @@
 #include "head.h"
-head::head(sf::RenderWindow *Window)
+head::head(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
 	drag = 0;
@@ -22,6 +22,7 @@ head::head(sf::RenderWindow *Window)
 	crosshairSprite.setPosition(headOrigin);
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
+	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), true);
 }
 
 head::~head()

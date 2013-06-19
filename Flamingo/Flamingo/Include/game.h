@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "hitbox.h"
 #include "head.h"
 #include "background.h"
 #include "gui.h"
@@ -38,7 +39,7 @@ private:
 	GameState state;
 
 	// hitbox
-
+	collision* collide;
 
 	// animation
 

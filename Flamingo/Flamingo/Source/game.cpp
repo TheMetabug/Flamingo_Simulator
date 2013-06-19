@@ -11,13 +11,13 @@ game::game(sf::RenderWindow* Window)
 
 
 	// hitbox
-
+	collide = new collision();
 
 	// animation
 
 
 	// head
-	flamingoHead = head(window);
+	flamingoHead = head(window, collide);
 
 	//neck
 	flamingoNeck = neck(window);
