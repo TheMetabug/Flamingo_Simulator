@@ -2,7 +2,6 @@
 head::head(sf::RenderWindow *Window)
 {
 	window = Window;
-
 	drag = 0;
 	headOrigin.x = 640;
 	headOrigin.y = 360;
