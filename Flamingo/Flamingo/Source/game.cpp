@@ -17,13 +17,13 @@ game::game(sf::RenderWindow* Window)
 
 
 	// head
-	flamingoHead = head(window, collide);
-
-	//neck
-	flamingoNeck = neck(window);
-
-	//flamingo
-	flamingoBase = body(window);
+	flamingoHead = flamingo(window, collide);
+				   
+	//neck		   
+	flamingoNeck = flamingo(window, collide);
+				   
+	//flamingo	   
+	flamingoBase = flamingo(window, collide);
 
 	// nest
 	flamingonest = nest(window);

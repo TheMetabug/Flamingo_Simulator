@@ -1,80 +1,12 @@
 #include "flamingo.h"
 
 
-body::body(sf::RenderWindow *Window)
+flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
-	bodyOrigin.x = 740;
-	bodyOrigin.y = 550;
 
-	bodyTexture = new sf::Texture();
-	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
-	bodyTexture->setSmooth(true);
-	flamingoBody.setTexture(*bodyTexture);
-	flamingoBody.setPosition(bodyOrigin);
-	flamingoBody.setOrigin(sf::Vector2f(266, 368));
-	flamingoBody.setScale(0.3f, 0.3f);
+	/////////////////
 
-}
-
-body::~body()
-{
-}
-
-void body::update(float DeltaTime)
-{
-
-}
-
-void body::draw()
-{
-	window->draw(flamingoBody);
-}
-
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-
-
-neck::neck(sf::RenderWindow *Window)
-{
-	window = Window;
-	
-	neckOrigin.x = 740;
-	neckOrigin.y = 550;
-
-	neckTexture = new sf::Texture();
-	neckTexture->loadFromFile("Assets/FlamingoEmo_Neck.png");
-	neckTexture->setSmooth(true);
-	flamingoNeck.setTexture(*neckTexture);
-	flamingoNeck.setPosition(neckOrigin);
-	flamingoNeck.setOrigin(sf::Vector2f(302, 774));
-	flamingoNeck.setScale(0.3f, 0.3f);
-	
-
-
-}
-
-neck::~neck()
-{
-}
-
-void neck::update(float DeltaTime)
-{
-}
-
-void neck::draw()
-{
-	window->draw(flamingoNeck);
-}
-
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-
-head::head(sf::RenderWindow *Window, collision* Collide)
-{
-	window = Window;
 	drag = 0;
 	headOrigin.x = 740;
 	headOrigin.y = 360;
@@ -96,13 +28,40 @@ head::head(sf::RenderWindow *Window, collision* Collide)
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
 	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), sf::Vector2f(311, 128), true);
+
+	////////////////
+
+	
+	neckOrigin.x = 740;
+	neckOrigin.y = 550;
+
+	neckTexture = new sf::Texture();
+	neckTexture->loadFromFile("Assets/FlamingoEmo_Neck.png");
+	neckTexture->setSmooth(true);
+	flamingoNeck.setTexture(*neckTexture);
+	flamingoNeck.setPosition(neckOrigin);
+	flamingoNeck.setOrigin(sf::Vector2f(302, 774));
+	flamingoNeck.setScale(0.3f, 0.3f);
+
+	///////////////
+
+	bodyOrigin.x = 740;
+	bodyOrigin.y = 550;
+
+	bodyTexture = new sf::Texture();
+	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
+	bodyTexture->setSmooth(true);
+	flamingoBody.setTexture(*bodyTexture);
+	flamingoBody.setPosition(bodyOrigin);
+	flamingoBody.setOrigin(sf::Vector2f(266, 368));
+	flamingoBody.setScale(0.3f, 0.3f);
 }
 
-head::~head()
+flamingo::~flamingo()
 {
 }
 
-void head::update(float DeltaTime)
+void flamingo::update(float DeltaTime)
 {
 			switch(drag)
 		{
@@ -196,8 +155,10 @@ void head::update(float DeltaTime)
 		crosshairSprite.setPosition(crossHair);
 }
 
-void head::draw()
+void flamingo::draw()
 {
+	window->draw(flamingoNeck);
 	window->draw(flamingoHead);
 	window->draw(crosshairSprite);
+	window->draw(flamingoBody);
 }

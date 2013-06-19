@@ -46,13 +46,13 @@ private:
 	gui *text;
 
 	// head
-	head flamingoHead;
+	flamingo flamingoHead;
 
 	//neck
-	neck flamingoNeck;
+	flamingo flamingoNeck;
 
 	//flamingo
-	body flamingoBase;
+	flamingo flamingoBase;
 
 	// nest
 	nest flamingonest;
