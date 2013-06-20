@@ -13,6 +13,7 @@ pickup::pickup(std::string TextureLocation, int Id, bool Edible)
 
 pickup::~pickup()
 {
+	std::cout<<"deleted pickup"<<std::endl;
 }
 
 item::item(sf::Vector2f Position, pickup Pickup)
@@ -35,6 +36,7 @@ pickups::pickups(sf::RenderWindow *Window)
 
 pickups::~pickups()
 {
+	std::cout<<"deleting pickups"<<std::endl;
 	for (int i = 0; i < pickupList.size(); ++i)
 	{
 		delete pickupList[i];

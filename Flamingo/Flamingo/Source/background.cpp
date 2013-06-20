@@ -21,12 +21,14 @@ background::background(sf::RenderWindow *Window)
 
 background::~background()
 {
-
+	std::cout<<"deleted background"<<std::endl;
 }
+
 void background::update(float DeltaTime)
 {
 	//water.setPosition(100,100);
 }
+
 void background::draw()	
 {
 	window->draw(sky);

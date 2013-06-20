@@ -59,6 +59,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 
 flamingo::~flamingo()
 {
+	std::cout<<"deleted flamingo"<<std::endl;
 }
 
 void flamingo::update(float DeltaTime)

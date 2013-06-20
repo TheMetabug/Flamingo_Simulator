@@ -47,6 +47,7 @@ gui::gui(sf::RenderWindow* Window)
 
 gui::~gui()
 {
+	std::cout<<"deleted gui"<<std::endl;
 	delete text;
 	delete font;
 }

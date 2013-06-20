@@ -10,9 +10,12 @@ class animation
 {
 public:
 	animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
+	~animation();
 	void update(float deltaTime);
 	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);
 private:
+	void setVisibleFrame();
+	
 	sf::Sprite *sprite;
 
 	float timer;

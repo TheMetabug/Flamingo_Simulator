@@ -23,6 +23,7 @@ enemy::enemy(sf::RenderWindow *Window)
 
 enemy::~enemy()
 {
+	std::cout<<"deleted enemy"<<std::endl;
 	delete Animator;
 }
 

@@ -9,14 +9,21 @@ animation::animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int Framesi
 	framesizeX = FramesizeX;
 	framesizeY = FramesizeY;
 	fps = Fps;
-	firstFrame = FirstFrame;
+	currentFrame = firstFrame = FirstFrame;
 	flip = Flip;
 	timer = 0.0f;
+	setVisibleFrame();
+}
+
+animation::~animation()
+{
+	std::cout<<"deleted animation"<<std::endl;
 }
 
 void animation::update(float deltaTime)
 {
 	timer += deltaTime;
+	std::cout<<"timer "<< deltaTime<<std::endl;
 
 
 	if (timer > 1000 / fps) //frame changes
@@ -29,9 +36,7 @@ void animation::update(float deltaTime)
 		timer -= 1000 / fps;
 		counter++;
 		
-		int currentFrameX = currentFrame % (sprite->getTexture()->getSize().x / framesizeX) * framesizeX;
-		int currentFrameY = (int)(floor((double)currentFrame / ((double)sprite->getTexture()->getSize().x / (double)framesizeX))) * framesizeY;
-		sprite->setTextureRect(sf::Rect<int>(currentFrameX, currentFrameY, framesizeX, framesizeY));
+		setVisibleFrame();
 	}
 }
 
@@ -42,4 +47,11 @@ void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int Anim
 	currentFrame = AnimationStartPoint;
 	fps = Fps;
 	timer = 0;
+}
+
+void animation::setVisibleFrame()
+{
+	int currentFrameX = currentFrame % (sprite->getTexture()->getSize().x / framesizeX) * framesizeX;
+	int currentFrameY = (int)(floor((double)currentFrame / ((double)sprite->getTexture()->getSize().x / (double)framesizeX))) * framesizeY;
+	sprite->setTextureRect(sf::Rect<int>(currentFrameX, currentFrameY, framesizeX, framesizeY));
 }

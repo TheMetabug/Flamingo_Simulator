@@ -11,7 +11,7 @@ hitbox::hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, 
 
 hitbox::~hitbox()
 {
-
+	std::cout<<"deleted hitbox"<<std::endl;
 }
 
 sf::Rect<float> hitbox::hitRect()

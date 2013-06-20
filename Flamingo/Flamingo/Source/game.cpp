@@ -47,6 +47,7 @@ game::game(sf::RenderWindow* Window)
 
 game::~game()
 {
+	std::cout<<"deleted maingame"<<std::endl;
 	delete text;
 }
 

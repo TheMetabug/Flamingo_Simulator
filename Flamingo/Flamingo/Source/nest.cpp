@@ -13,11 +13,10 @@ nest::nest(sf::RenderWindow *Window)
 }
 nest::~nest()
 {
-
+	std::cout<<"deleted nest"<<std::endl;
 }
 void nest::update(sf::Time DeltaTime)
 {
-
 }
 void nest::draw()
 {
