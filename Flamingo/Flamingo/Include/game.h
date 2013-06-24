@@ -9,6 +9,7 @@
 #include "enemy.h"
 #include "nest.h"
 #include "flamingo.h"
+#include "pickups.h"
 
 class game 
 {
@@ -55,7 +56,7 @@ private:
 	enemy* enemyBird;
 
 	// pickups
-
+	pickups* m_pickups;
 
 	// water
 	background* backGround;

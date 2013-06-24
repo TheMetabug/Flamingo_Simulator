@@ -20,7 +20,6 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoHead.setPosition(headOrigin);
 	flamingoHead.setOrigin(sf::Vector2f(311, 128));
 	flamingoHead.setScale(0.3f, 0.3f);
-	
 
 	crossTexture = new sf::Texture();	
 	crossTexture->loadFromFile("Assets/crosshair.png");
@@ -62,6 +61,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 flamingo::~flamingo()
 {
 	std::cout<<"deleted flamingo"<<std::endl;
+	delete bodyTexture;
 }
 
 void flamingo::update(float DeltaTime)

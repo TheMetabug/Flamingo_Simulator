@@ -24,7 +24,7 @@ game::game(sf::RenderWindow* Window)
 	enemyBird = new enemy(window);
 
 	// pickups
-
+	m_pickups = new pickups(window);
 
 	// backGround
 	backGround = new background(window);
@@ -44,6 +44,7 @@ game::~game()
 	delete flamingonest;
 	delete enemyBird;
 	delete backGround;
+	delete m_pickups;
 	delete collide;
 	delete text;
 }
@@ -73,7 +74,7 @@ void game::update(sf::Time DeltaTime)
 		enemyBird->update(deltaTime);
 
 		// pickups
-
+		m_pickups->update(deltaTime);
 
 		// backGround
 		backGround->update(deltaTime);
@@ -121,6 +122,7 @@ void game::draw()
 		enemyBird->draw();
 
 		// pickups
+		m_pickups->draw();
 
 		// flamingo
 
