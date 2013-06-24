@@ -27,7 +27,7 @@ private:
 	int framesizeY;
 	bool flip;
 	bool transition;
-	int counter;
+	//int counter;
 };
 
 #endif

@@ -33,7 +33,7 @@ collision::~collision()
 		delete hatchlings[i];
 
 	delete head;
-	delete enemy;
+	//delete enemy;
 }
 
 hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled)

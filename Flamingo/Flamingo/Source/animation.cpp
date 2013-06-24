@@ -23,18 +23,18 @@ animation::~animation()
 void animation::update(float deltaTime)
 {
 	timer += deltaTime;
-	std::cout<<"timer "<< deltaTime<<std::endl;
+	//std::cout<<"timer "<< deltaTime<<std::endl;
 
 
-	if (timer > 1000 / fps) //frame changes
+	if (timer > 1.0 / fps) //frame changes
 	{
 		currentFrame++;
 		if (currentFrame >= firstFrame + frames)
 		{
 			currentFrame = firstFrame;
 		}
-		timer -= 1000 / fps;
-		counter++;
+		timer -= 1.0 / fps;
+		//counter++;
 		
 		setVisibleFrame();
 	}
