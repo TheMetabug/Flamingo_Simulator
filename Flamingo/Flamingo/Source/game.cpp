@@ -8,8 +8,6 @@ game::game(sf::RenderWindow* Window)
 
 	state = Play;
 
-
-
 	// hitbox
 	collide = new collision();
 
@@ -17,25 +15,19 @@ game::game(sf::RenderWindow* Window)
 
 
 	// head
-	flamingoHead = flamingo(window, collide);
-				   
-	//neck		   
-	flamingoNeck = flamingo(window, collide);
-				   
-	//flamingo	   
-	flamingoBase = flamingo(window, collide);
+	flamingoBase = new flamingo(window, collide);
 
 	// nest
-	flamingonest = nest(window);
+	flamingonest = new nest(window);
 
 	// enemy
-	enemyBird = enemy(window);
+	enemyBird = new enemy(window);
 
 	// pickups
 
 
-	// water
-	water = background(window);
+	// backGround
+	backGround = new background(window);
 
 	// particles
 
@@ -48,6 +40,11 @@ game::game(sf::RenderWindow* Window)
 game::~game()
 {
 	std::cout<<"deleted maingame"<<std::endl;
+	delete flamingoBase;
+	delete flamingonest;
+	delete enemyBird;
+	delete backGround;
+	delete collide;
 	delete text;
 }
 
@@ -65,28 +62,21 @@ void game::update(sf::Time DeltaTime)
 
 		// hitbox
 
-
-		// head
-		flamingoHead.update(deltaTime);
-
-		//neck
-		flamingoNeck.update(deltaTime);
-
-		//body
-		flamingoBase.update(deltaTime);
+		//flamingo
+		flamingoBase->update(deltaTime);
 
 
 		// nest
 
 
 		// enemy
-		enemyBird.update(deltaTime);
+		enemyBird->update(deltaTime);
 
 		// pickups
 
 
-		// water
-		water.update(deltaTime);
+		// backGround
+		backGround->update(deltaTime);
 
 		// gui
 		text->update(deltaTime);
@@ -118,29 +108,23 @@ void game::draw()
 		break;
 	case Play:
 
-		// water
-		water.draw();
+		// backGround
+		backGround->draw();
 
 		// nest
-		flamingonest.draw();
+		flamingonest->draw();
 
 		// hitbox
 
 
 		// enemy
-		enemyBird.draw();
+		enemyBird->draw();
 
 		// pickups
 
 		// flamingo
 
-		flamingoBase.draw();
-		//neck
-		flamingoNeck.draw();
-		// head
-		flamingoHead.draw();
-		
-		
+		flamingoBase->draw();		
 
 
 		// gui

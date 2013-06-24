@@ -18,27 +18,27 @@ class flamingo
 
 	sf::RenderWindow *window;
 
-	///////////////////////
+	///////////BODY////////////
 
 	sf::Vector2f bodyPosition, bodyOrigin;
 
 	sf::Texture *bodyTexture;
 	sf::Sprite flamingoBody;
 
-	///////////////////////
+	////////////HEAD///////////
 
 	hitbox *headHitbox;
 
 	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
 
-	int drag;
+	int drag, h_rotate;
 
 	sf::Texture *headTexture;
 	sf::Sprite flamingoHead;
 	sf::Texture *crossTexture;
 	sf::Sprite crosshairSprite;
 
-	///////////////////////
+	/////////////NECK//////////
 
 	sf::Vector2f neckPosition, neckOrigin, neckHead;
 

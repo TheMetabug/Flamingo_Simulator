@@ -5,11 +5,13 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
 
-	/////////////////
+	////////HEAD/////////
 
 	drag = 0;
-	headOrigin.x = 740;
-	headOrigin.y = 360;
+	headOrigin.x = 721;
+	headOrigin.y = 385;
+
+	h_rotate = 0;
 
 	headTexture = new sf::Texture();
 	headTexture->loadFromFile("Assets/FlamingoEmo_Head.png");
@@ -29,7 +31,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 
 	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), sf::Vector2f(311, 128), true);
 
-	////////////////
+	/////////NECK///////
 
 	
 	neckOrigin.x = 740;
@@ -43,7 +45,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoNeck.setOrigin(sf::Vector2f(302, 774));
 	flamingoNeck.setScale(0.3f, 0.3f);
 
-	///////////////
+	/////////BODY//////////
 
 	bodyOrigin.x = 740;
 	bodyOrigin.y = 550;
@@ -83,6 +85,7 @@ void flamingo::update(float DeltaTime)
 					//cant drag head too far away.
 					float distance = sqrt(pow(Direction.x,2) + pow(Direction.y,2));
 
+					// count where head will be when we add multiplier to it
 					if (distance > 100)
 					{
 						float multiplier = distance/100;
@@ -97,6 +100,9 @@ void flamingo::update(float DeltaTime)
 					// crosshair goes opposite direction of the head from the origin
 					crossHair = headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
 					crosshairSprite.setPosition(crossHair);
+
+					// count angle from headposition and headposition.x
+					h_rotate = 0 ;
 				}
 				break;
 

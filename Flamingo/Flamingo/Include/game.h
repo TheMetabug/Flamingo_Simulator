@@ -45,26 +45,20 @@ private:
 	// gui
 	gui *text;
 
-	// head
-	flamingo flamingoHead;
-
-	//neck
-	flamingo flamingoNeck;
-
 	//flamingo
-	flamingo flamingoBase;
+	flamingo* flamingoBase;
 
 	// nest
-	nest flamingonest;
+	nest* flamingonest;
 
 	// enemy
-	enemy enemyBird;
+	enemy* enemyBird;
 
 	// pickups
 
 
 	// water
-	background water;
+	background* backGround;
 
 	// particles
 
