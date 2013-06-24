@@ -26,8 +26,6 @@ collision::collision()
 
 collision::~collision()
 {
-	for (int i = 0; i < pickups.size(); ++i)
-		delete pickups[i];
 
 	for (int i = 0; i < hatchlings.size(); ++i)
 		delete hatchlings[i];
@@ -35,6 +33,9 @@ collision::~collision()
 	delete head;
 	//delete enemy;
 }
+
+// Public
+
 
 hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled)
 {
@@ -48,36 +49,53 @@ hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Ve
 	switch (id)
 	{
 	case 0:
-		pickups.push_back(retHitbox);
-		break;
-	case 1:
 		hatchlings.push_back(retHitbox);
 		break;
-	case 2:
+	case 1:
 		head = retHitbox;
 		break;
-	case 3:
+	case 2:
 		enemy = retHitbox;
+		break;
+	default:
+		std::cout<<"Invalid hitbox id, cannot create hitbox"<<std::endl;
 		break;
 	}
 
 	return retHitbox;
 }
 
-void collision::headPickup()
+
+bool collision::HitHead(hitbox* ItemHitbox)
 {
-	for (int i = 0; i < pickups.size(); ++i)
+	if (isCollided(ItemHitbox,head))
 	{
-		if (isCollided(head, pickups[i]))
-		{
-			std::cout<< "hit " << i << std::endl;
-		}
+		return true;
 	}
+
+	return false;
 }
 
-void collision::pickupHatchling()	{}
-void collision::pickupEnemy()		{}
-void collision::headEnemy()			{}
+int collision::HitHatchling(hitbox* ItemHitbox)
+{
+	for (int i = 0; i < hatchlings.size(); ++i)
+	{
+		if (isCollided(ItemHitbox,hatchlings[i]))
+			return i+1;
+	}
+
+	return 0;
+}
+
+bool collision::HitEnemy(hitbox* ItemHitbox)
+{
+	if (isCollided(ItemHitbox,enemy))
+	{
+		return true;
+	}
+
+	return false;
+}
 
 bool collision::isCollided(hitbox *hitbox1,hitbox *hitbox2)
 {

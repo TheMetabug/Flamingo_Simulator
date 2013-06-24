@@ -29,23 +29,20 @@ class collision
 public:
 	collision();
 	~collision();
-	
+
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled = true);
 
-	void headPickup();
-	void pickupHatchling();
-	void pickupEnemy();
-	void headEnemy();
+	bool HitHead(hitbox* ItemHitbox);
+	int HitHatchling(hitbox* ItemHitbox);
+	bool HitEnemy(hitbox* ItemHitbox);
 
 	bool isCollided(hitbox *hitbox1,hitbox *hitbox2);
 
 private:
-	std::vector<hitbox*> pickups;
 	std::vector<hitbox*> hatchlings;
 	hitbox* head;
 	hitbox* enemy;
-
 };
 
 #endif
