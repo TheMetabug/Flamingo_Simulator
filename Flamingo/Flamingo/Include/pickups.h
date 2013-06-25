@@ -56,7 +56,7 @@ class pickups
 
 public:
 	pickups(){}
-	pickups(sf::RenderWindow *Window);
+	pickups(sf::RenderWindow *Window, collision *Collision);
 	~pickups();
 	void update(float DeltaTime);
 	void draw();
@@ -66,6 +66,8 @@ private:
 	float timer;
 
 	sf::RenderWindow *window;
+	collision *m_collision;
+
 	sf::Vector2f spawnPosition;
 
 	std::vector<pups::pickup*> pickupList;

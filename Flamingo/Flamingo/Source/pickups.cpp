@@ -25,13 +25,13 @@ item::item(sf::Vector2f Position, pickup* Pickup)
 	: m_position(Position),
 	  m_pickup(Pickup)
 {
-	srand(time(NULL));
 	m_sprite = new sf::Sprite(*(Pickup->m_texture));
 	m_sprite->setPosition(m_position);
 	m_sprite->setScale(0.5f,0.5f);
 	m_sprite->setOrigin(
 		sf::Vector2f(	m_sprite->getGlobalBounds().height / 2, 
 						m_sprite->getGlobalBounds().width / 2));
+
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
 	m_hitbox = new hitbox(m_position, sf::Vector2f(128,128), sf::Vector2f(64,64), true);
 	m_direction = sf::Vector2f((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
@@ -59,11 +59,12 @@ void item::draw(sf::RenderWindow *window)
 
 // Pickups
 
-pickups::pickups(sf::RenderWindow *Window)
+pickups::pickups(sf::RenderWindow *Window, collision *Collision)
 	: window(Window),
+	  m_collision(Collision),
 	  timer(0)
 {
-	srand(time(NULL));
+	spawnPosition = sf::Vector2f(500,500);
 
 	texture = new sf::Texture();
 	texture->loadFromFile("Assets/itemsplaceholder.png"); // Texture containing all item animations
@@ -117,7 +118,7 @@ void pickups::update(float DeltaTime)
 			name = Plancton;
 		}
 
-		itemList.push_back(new item(sf::Vector2f(500,500),pickupList[name]));
+		itemList.push_back(new item(spawnPosition,pickupList[name]));
 	}
 }
 

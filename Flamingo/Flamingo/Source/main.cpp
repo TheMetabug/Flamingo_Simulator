@@ -12,6 +12,7 @@
 
 int main()
 {
+	srand(time(NULL));
 
 	// Set window parametres
 	

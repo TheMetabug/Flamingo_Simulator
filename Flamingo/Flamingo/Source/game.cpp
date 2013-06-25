@@ -24,7 +24,7 @@ game::game(sf::RenderWindow* Window)
 	enemyBird = new enemy(window);
 
 	// pickups
-	m_pickups = new pickups(window);
+	m_pickups = new pickups(window,collide);
 
 	// backGround
 	backGround = new background(window);
