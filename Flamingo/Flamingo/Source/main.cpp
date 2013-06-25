@@ -14,6 +14,8 @@
 int main()
 {
 	srand(time(NULL));
+	bool Debugging = false;
+	bool F1Released = false;
 
 	// Set window parametres
 	
@@ -32,6 +34,15 @@ int main()
 	// Run the program as long as the window is open
     while (window->isOpen())
     {
+		
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
+			F1Released = true;
+		else if (F1Released)
+		{
+			F1Released = false;
+			Debugging = !Debugging;
+		}
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
 			window->close();
@@ -59,7 +70,12 @@ int main()
 
 		MainGame.draw();
 
-		m_renderStatistics.draw();
+		if (Debugging)
+		{
+			m_renderStatistics.draw();
+			MainGame.drawDebugInfo();
+		}
+
 
 		//end the current frame
         window->display();

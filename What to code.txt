@@ -1,10 +1,8 @@
 gui
 	kuvien piirt‰minen
 
-enemy 
-	hitbox (see flamingo)
-
-nest 
+nest
+	hatchlings
 	hitboxes (see flamingo)
 		sama koko, positio(origo) nestin positiosta
 
@@ -12,5 +10,6 @@ game
 	game states
 
 everywhere
-	member muuttujat uudelleennimet‰‰n tyyliin m_muuttuja
+
+	member muuttujat uudelleennimet‰‰n tyyliin m_muuttuja (kaikki h tiedoston muuttujat)
 

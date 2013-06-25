@@ -157,8 +157,6 @@ void game::draw()
 		m_gui->draw();
 
 		// hitbox
-		collide->DrawHitboxes(window);
-		m_pickups->drawHitBoxes();
 
 
 		break;
@@ -175,4 +173,10 @@ void game::draw()
 	// particles
 
 	
+}
+
+void game::drawDebugInfo()
+{
+	collide->DrawHitboxes(window);
+	m_pickups->drawHitBoxes();
 }

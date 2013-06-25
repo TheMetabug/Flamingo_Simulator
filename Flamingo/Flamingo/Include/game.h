@@ -22,6 +22,7 @@ public:
 	void update(sf::Time DeltaTime);
 
 	void draw();
+	void drawDebugInfo();
 
 private:
 	sf::RenderWindow *window;
