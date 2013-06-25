@@ -25,7 +25,9 @@ public:
 
 private:
 	sf::RenderWindow *window;
-
+	bool unPAUSE;
+	bool P_release;
+	
 	// gameStates
 	enum GameState
 	{
@@ -45,7 +47,8 @@ private:
 
 
 	// gui
-	gui *text;
+	gui *m_gui;
+	
 
 	//flamingo
 	flamingo* flamingoBase;

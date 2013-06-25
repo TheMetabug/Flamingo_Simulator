@@ -4,6 +4,7 @@
 
 gui::gui(sf::RenderWindow* Window)
 {
+	m_pause = false;
 	// HP-mittarin tiedot
 	HPmax = 100; //max HP
 	HPtaken = 0; 
@@ -15,35 +16,15 @@ gui::gui(sf::RenderWindow* Window)
 
 	font->loadFromFile("Assets/arial.ttf");
 	HPtext = new sf::Text("", *font, 50);
+	PAUSEtext = new sf::Text(".::pAuSE::.",*font, 50);
 
-
+	PAUSEtext->setPosition(640, 360);
+	PAUSEtext->setOrigin(sf::Vector2f(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
+	PAUSEtext->setColor(sf::Color::Magenta);
 
 	
-
-
-
-	
-	//if (!font.loadFromFile("Assets/arial.ttf"))
-	//{
-	//	// error...
-	//}
-	//	// select the font
-	//text.setFont(font); // font is a sf::Font
-
-	//// set the string to display
-	//text.setString("Hello world");
-
-
-	//// set the character size
-	//text.setCharacterSize(24); // in pixels, not points!
-
-	//set the color
 	HPtext->setColor(sf::Color::Red);
 
-	//// set the text style
-	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-
-	//text.setPosition(50,50);
 	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 }
 
@@ -62,9 +43,15 @@ void gui::update(float DeltaTime)
 	{
 		HPnow = 0;
 	}
+	
+	if (m_pause)
+		PAUSEtext->setString(".::pAuSE::.");
+	else 
+		PAUSEtext->setString("");
 }
 
 void gui::draw()
 {
 	window->draw(*HPtext);
+	window->draw(*PAUSEtext);
 }

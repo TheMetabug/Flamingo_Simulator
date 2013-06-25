@@ -15,13 +15,14 @@ public:
 	int HPnow;
 	int HPmax;
 	int HPtaken;
+	bool m_pause;
 	
 private:
 	sf::RenderWindow *window;
 	sf::Font* font;
 	
 	sf::Text* HPtext;
-	//sf::Text* text;
+	sf::Text* PAUSEtext;
 };
 
 #endif

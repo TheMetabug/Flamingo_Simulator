@@ -34,7 +34,7 @@ game::game(sf::RenderWindow* Window)
 
 
 	// gui
-	text = new gui(window);
+	m_gui = new gui(window);
 	
 }
 
@@ -47,7 +47,7 @@ game::~game()
 	delete backGround;
 	delete m_pickups;
 	delete collide;
-	delete text;
+	delete m_gui;
 }
 
 void game::update(sf::Time DeltaTime)
@@ -61,6 +61,15 @@ void game::update(sf::Time DeltaTime)
 	case TitleScreen:
 		break;
 	case Play:
+
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			P_release = true;
+		else if (P_release)
+		{
+			P_release = false;
+			state = Pause;
+		}
+		
 
 		// hitbox
 
@@ -81,12 +90,27 @@ void game::update(sf::Time DeltaTime)
 		backGround->update(deltaTime);
 
 		// gui
-		text->update(deltaTime);
+		m_gui->update(deltaTime);
 
 		break;
 	case Menu:
 		break;
 	case Pause:
+		m_gui->update(deltaTime);
+		m_gui->m_pause = true;
+
+		
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			P_release = true;
+		else if (P_release)
+		{
+			P_release = false;
+			state = Play;
+			m_gui->m_pause = false;
+		}
+
+
+
 		break;
 	case Credits:
 		break;
@@ -109,6 +133,7 @@ void game::draw()
 	case TitleScreen:
 		break;
 	case Play:
+	case Pause:
 
 		// backGround
 		backGround->draw();
@@ -129,7 +154,7 @@ void game::draw()
 
 
 		// gui
-		text->draw();
+		m_gui->draw();
 
 		// hitbox
 		collide->DrawHitboxes(window);
@@ -138,8 +163,6 @@ void game::draw()
 
 		break;
 	case Menu:
-		break;
-	case Pause:
 		break;
 	case Credits:
 		break;
