@@ -12,7 +12,7 @@ namespace pups
 	enum ItemName
 	{
 		Shoe = 0,
-		Fish,
+		Shrimp,
 		Plancton
 	};
 
@@ -20,11 +20,12 @@ namespace pups
 	class pickup
 	{
 	public:
-		pickup(sf::Texture* Texture, ItemName itemName, float FoodValue);
+		pickup(sf::Texture* Texture, ItemName itemName, float FoodValue, float Speed);
 		~pickup();
 		sf::Texture* m_texture;
 		ItemName m_itemName;
 		float m_foodValue;
+		float m_speed;
 	};
 
 

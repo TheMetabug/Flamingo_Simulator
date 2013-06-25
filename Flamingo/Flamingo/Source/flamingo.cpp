@@ -6,12 +6,24 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	window = Window;
 
 	////////HEAD/////////
-
 	drag = 0;
 	headOrigin.x = 721;
 	headOrigin.y = 385;
-
 	h_rotate = 0;
+
+	
+	/////////NECK///////
+	neckOrigin.x = 740;
+	neckOrigin.y = 550;
+	
+
+	/////////BODY//////////
+	bodyOrigin.x = 740;
+	bodyOrigin.y = 550;
+
+	
+	// Textures and sprites
+#if 1
 
 	headTexture = new sf::Texture();
 	headTexture->loadFromFile("Assets/FlamingoEmo_Head.png");
@@ -28,14 +40,6 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	crosshairSprite.setPosition(headOrigin);
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
-	headHitbox = Collide->createHitBox(headPosition, flamingoHead.getTexture()->getSize(), sf::Vector2f(311, 128), 2);
-
-	/////////NECK///////
-
-	
-	neckOrigin.x = 740;
-	neckOrigin.y = 550;
-
 	neckTexture = new sf::Texture();
 	neckTexture->loadFromFile("Assets/FlamingoEmo_Neck.png");
 	neckTexture->setSmooth(true);
@@ -44,10 +48,6 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoNeck.setOrigin(sf::Vector2f(302, 774));
 	flamingoNeck.setScale(0.3f, 0.3f);
 
-	/////////BODY//////////
-
-	bodyOrigin.x = 740;
-	bodyOrigin.y = 550;
 
 	bodyTexture = new sf::Texture();
 	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
@@ -56,6 +56,12 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoBody.setPosition(bodyOrigin);
 	flamingoBody.setOrigin(sf::Vector2f(266, 368));
 	flamingoBody.setScale(0.3f, 0.3f);
+#endif
+
+
+	headHitbox = Collide->createHitBox(headPosition, 
+		sf::Vector2f(flamingoHead.getGlobalBounds().width,flamingoHead.getGlobalBounds().height), 
+		sf::Vector2f(180 * flamingoHead.getScale().x, 320 * flamingoHead.getScale().y),1);
 }
 
 flamingo::~flamingo()
@@ -160,6 +166,7 @@ void flamingo::update(float DeltaTime)
 		// set sprites to their Positions
 		flamingoHead.setPosition(headPosition);
 		crosshairSprite.setPosition(crossHair);
+		headHitbox->Position = headPosition;
 }
 
 void flamingo::draw()

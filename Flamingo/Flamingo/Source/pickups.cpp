@@ -5,10 +5,11 @@ using namespace pups;
 
 //Pickup
 
-pickup::pickup(sf::Texture* Texture, ItemName itemName, float FoodValue)
+pickup::pickup(sf::Texture* Texture, ItemName itemName, float FoodValue, float Speed)
 	: m_texture(Texture),
 	  m_itemName(itemName),
-	  m_foodValue(FoodValue)
+	  m_foodValue(FoodValue),
+	  m_speed(Speed)
 {
 }
 
@@ -44,8 +45,9 @@ item::~item()
 
 void item::update(float DeltaTime)
 {
-	m_position += m_direction;
+	m_position += m_direction * DeltaTime * m_pickup->m_speed;
 	m_sprite->setPosition(m_position);
+	m_hitbox->Position = m_position;
 
 
 }
@@ -70,9 +72,9 @@ pickups::pickups(sf::RenderWindow *Window, collision *Collision)
 	texture->loadFromFile("Assets/itemsplaceholder.png"); // Texture containing all item animations
 	texture->setSmooth(true);
 	
-	pickupList.push_back(new pickup(texture, Shoe, true));
-	pickupList.push_back(new pickup(texture, Fish, true));
-	pickupList.push_back(new pickup(texture, Plancton, true));
+	pickupList.push_back(new pickup(texture, Shoe, 0.0f, 20.0f));
+	pickupList.push_back(new pickup(texture, Shrimp, 1.0f, 200.0f));
+	pickupList.push_back(new pickup(texture, Plancton, 1.0f, 60.0f));
 }
 
 pickups::~pickups()
@@ -93,15 +95,23 @@ pickups::~pickups()
 
 void pickups::update(float DeltaTime)
 {
-	for (int i = 0; i < itemList.size(); ++i)
+	timer += DeltaTime;
+
+	for (int i = itemList.size() - 1; i >= 0; --i)
 	{
 		itemList[i]->update(DeltaTime);
+
+		if (m_collision->HitHead(itemList[i]->m_hitbox))
+		{
+			std::cout<<"collide "<<i<<std::endl;
+			delete itemList[i];
+			itemList.erase(itemList.begin() + i);
+		}
 	}
 
-	timer += DeltaTime;
-	if (timer > 0.01)
+	if (timer > 2.0f)
 	{
-		timer -= 0.01;
+		timer -= 0.1f;
 
 		int rarity = rand()%100;
 		ItemName name;
@@ -111,7 +121,7 @@ void pickups::update(float DeltaTime)
 		}
 		else if (rarity < 50)
 		{
-			name = Fish;
+			name = Shrimp;
 		}
 		else if (rarity < 100)
 		{
