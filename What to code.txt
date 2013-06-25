@@ -1,0 +1,9 @@
+gui
+	kuvien piirtäminen
+enemy 
+	hitbox (see flamingo)
+nest 
+	hitboxes (see flamingo)
+		sama koko, positio(origo) nestin positiosta
+game
+	game states
