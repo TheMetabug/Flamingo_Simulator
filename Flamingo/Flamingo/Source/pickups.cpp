@@ -29,14 +29,19 @@ item::item(sf::Vector2f Position, pickup* Pickup)
 	  m_floating(true)
 {
 	m_sprite = new sf::Sprite(*(Pickup->m_texture));
-	m_sprite->setPosition(m_position);
-	m_sprite->setScale(0.5f,0.5f);
-	m_sprite->setOrigin(
-		sf::Vector2f(	m_sprite->getGlobalBounds().height / 2, 
-						m_sprite->getGlobalBounds().width / 2));
-
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
-	m_hitbox = new hitbox(m_position, sf::Vector2f(128,128), sf::Vector2f(64,64), true);
+	m_sprite->setPosition(m_position);
+	m_sprite->setOrigin(
+		sf::Vector2f(	m_sprite->getLocalBounds().width / 2, 
+						m_sprite->getLocalBounds().height / 2));
+	m_sprite->setScale(0.5f,0.5f);
+
+	m_hitbox = new hitbox(m_position,
+		sf::Vector2f(m_sprite->getGlobalBounds().width,m_sprite->getGlobalBounds().height),
+		sf::Vector2f(	m_sprite->getGlobalBounds().width / 2, 
+						m_sprite->getGlobalBounds().height / 2),
+		true);
+
 	m_direction = sf::Vector2f((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
 }
 
