@@ -64,8 +64,7 @@ private:
 
 	// particles
 
-
-	//renderStatistics
+	//renderstatistics
 	renderStatistics* m_renderStatistics;
 
 

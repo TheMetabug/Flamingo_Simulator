@@ -14,8 +14,8 @@ renderStatistics::renderStatistics(sf::RenderWindow* Window)
 
 	font = new sf::Font();
 	font->loadFromFile("Assets/arial.ttf");
-	text = new sf::Text("", *font, 25);
 
+	text = new sf::Text("", *font, 25);
 	text->setColor(sf::Color::Blue);
 	text->setPosition(0, 50);
 }
@@ -27,8 +27,9 @@ renderStatistics::~renderStatistics()
 	delete font;
 }
 
-void renderStatistics::update(float DeltaTime)
+void renderStatistics::update(sf::Time dt)
 {
+	double DeltaTime = dt.asMicroseconds() / 1000000.0;
 	fpsFrames++;
 	fpsCount += DeltaTime;
 	second += DeltaTime;
@@ -46,6 +47,5 @@ void renderStatistics::update(float DeltaTime)
 
 void renderStatistics::draw()
 {
-
 	window->draw(*text);
 }

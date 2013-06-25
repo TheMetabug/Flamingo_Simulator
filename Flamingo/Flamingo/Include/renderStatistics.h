@@ -10,13 +10,13 @@ public:
 	renderStatistics(){}
 	renderStatistics(sf::RenderWindow *Window);
 	~renderStatistics();
-	void update(float DeltaTime);
+	void update(sf::Time dt);
 	void draw();
 
 private:
 	sf::RenderWindow *window;
 
-	float fpsCount, fpsFrames, second, prevFrame;
+	double fpsCount, fpsFrames, second, prevFrame;
 	int	fps;
 
 	sf::Text *text;
