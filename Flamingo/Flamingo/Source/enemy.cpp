@@ -5,7 +5,7 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 	window = Window;
 
 	enemyRotate = 5;
-	enemyOrigin.x = 150;
+	enemyOrigin.x = 350;
 	enemyOrigin.y = 100;
 
 	enemyTexture = new sf::Texture();
@@ -20,11 +20,8 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 	Animator = new animation(enemyBird, 4, 256, 256);
 
 	enemyHitbox = Collide->createHitBox(enemyBirdPosition,
-		sf::Vector2f(enemyBird->getGlobalBounds().width,
-					 enemyBird->getGlobalBounds().height), 
-		sf::Vector2f(enemyBird->getGlobalBounds().width/2,
-					 enemyBird->getGlobalBounds().height/2),
-		2);
+		sf::Vector2f(enemyBird->getGlobalBounds().width,enemyBird->getGlobalBounds().height), 
+		sf::Vector2f(-256 * enemyBird->getScale().x, 128 * enemyBird->getScale().y),2);
 
 }
 
@@ -36,7 +33,6 @@ enemy::~enemy()
 
 void enemy::update(float DeltaTime)
 {
-	enemyBirdPosition = enemyOrigin;
 	Animator->update(DeltaTime);
 	enemyRotate += DeltaTime*100;
 	//enemyBird.setPosition(enemyBirdPosition);
