@@ -133,6 +133,13 @@ void pickups::update(float DeltaTime)
 			delete itemList[i];
 			itemList.erase(itemList.begin() + i);
 		}
+
+		else if (m_collision->HitEnemy(itemList[i]->m_hitbox))
+		{
+			std::cout<<"collide enemy "<<i<<std::endl;
+			delete itemList[i];
+			itemList.erase(itemList.begin() + i);
+		}
 	}
 
 	if (timer > 2.0f)

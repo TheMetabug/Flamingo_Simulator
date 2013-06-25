@@ -1,6 +1,6 @@
 #include "enemy.h"
 
-enemy::enemy(sf::RenderWindow *Window)
+enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
 
@@ -19,6 +19,10 @@ enemy::enemy(sf::RenderWindow *Window)
 
 	Animator = new animation(enemyBird, 4, 256, 256);
 
+	enemyHitbox = Collide->createHitBox(enemyBirdPosition,
+		sf::Vector2f(enemyBird->getGlobalBounds().width,enemyBird->getGlobalBounds().height), 
+		sf::Vector2f(-256 * enemyBird->getScale().x, 128 * enemyBird->getScale().y),2);
+
 }
 
 enemy::~enemy()
@@ -33,6 +37,7 @@ void enemy::update(float DeltaTime)
 	enemyRotate += DeltaTime*100;
 	//enemyBird.setPosition(enemyBirdPosition);
 	enemyBird->setRotation(enemyRotate);
+	enemyHitbox->Position = enemyBirdPosition;
 
 }
 

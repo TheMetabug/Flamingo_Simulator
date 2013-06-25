@@ -21,7 +21,7 @@ game::game(sf::RenderWindow* Window)
 	flamingonest = new nest(window);
 
 	// enemy
-	enemyBird = new enemy(window);
+	enemyBird = new enemy(window,collide);
 
 	// pickups
 	m_pickups = new pickups(window,collide);
