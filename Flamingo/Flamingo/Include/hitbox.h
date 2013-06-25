@@ -30,7 +30,9 @@ public:
 	collision();
 	~collision();
 
+	/*id list: hatchling = 0, head = 1, enemy = 2*/
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
+	/*id list: hatchling = 0, head = 1, enemy = 2*/
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled = true);
 
 	bool HitHead(hitbox* ItemHitbox);

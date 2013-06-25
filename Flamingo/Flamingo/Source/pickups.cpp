@@ -80,10 +80,12 @@ pickups::~pickups()
 	for (int i = 0; i < pickupList.size(); ++i)
 	{
 		delete pickupList[i];
+		std::cout<<"deleted pickup "<<i+1<<std::endl;
 	}
 
 	for (int i = 0; i < itemList.size(); ++i)
 	{
+		std::cout<<"deleting item "<<i+1<<" ";
 		delete itemList[i];
 	}
 }

@@ -7,6 +7,7 @@ hitbox::hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, 
 	isEnabled = _isEnabled;
 	Origo = _Origo;
 
+
 }
 
 hitbox::~hitbox()
@@ -21,17 +22,34 @@ sf::Rect<float> hitbox::hitRect()
 
 collision::collision()
 {
-
+	head = NULL;
+	enemy = NULL;
 }
 
 collision::~collision()
 {
-
+	std::cout<<"deleted collision"<<std::endl;
 	for (int i = 0; i < hatchlings.size(); ++i)
+	{
 		delete hatchlings[i];
+		std::cout<<"hatchling "<<i<<" deleted"<<std::endl;
+	}
 
-	delete head;
-	//delete enemy;
+	if (!head == NULL) 
+	{
+		delete head;
+		std::cout<<"head hitbox was deleted"<<std::endl;
+	}
+	else
+		std::cout<<"head hitbox was null"<<std::endl;
+
+	if (!enemy == NULL)
+	{
+		delete enemy;
+		std::cout<<"enemy hitbox was deleted"<<std::endl;
+	}
+	else
+		std::cout<<"enemy hitbox was null"<<std::endl;
 }
 
 // Public
