@@ -10,6 +10,7 @@
 #include "nest.h"
 #include "flamingo.h"
 #include "pickups.h"
+#include "renderStatistics.h"
 
 class game 
 {
@@ -63,6 +64,9 @@ private:
 
 	// particles
 
+
+	//renderStatistics
+	renderStatistics* m_renderStatistics;
 
 
 };

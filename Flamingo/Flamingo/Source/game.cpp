@@ -29,6 +29,9 @@ game::game(sf::RenderWindow* Window)
 	// backGround
 	backGround = new background(window);
 
+	//renderStatistics
+	m_renderStatistics = new renderStatistics(window);
+
 	// particles
 
 
@@ -82,6 +85,9 @@ void game::update(sf::Time DeltaTime)
 		// gui
 		text->update(deltaTime);
 
+		// renderStatistics
+		m_renderStatistics->update(deltaTime);
+
 		break;
 	case Menu:
 		break;
@@ -131,6 +137,9 @@ void game::draw()
 
 		// gui
 		text->draw();
+
+		// renderStatistic
+		m_renderStatistics->draw();
 
 
 		break;
