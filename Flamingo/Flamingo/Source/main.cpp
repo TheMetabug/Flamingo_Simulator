@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+//#include "renderStatistics.h"
 
 int main()
 {
@@ -25,6 +26,7 @@ int main()
 	sf::Time dt;
 
 	game MainGame(window);
+	renderStatistics m_renderStatistics;
 
 
 	// Run the program as long as the window is open
@@ -49,11 +51,15 @@ int main()
 
 		MainGame.update(dt);
 
+		//m_renderStatistics.update(dt);
+
 		// Draw
 
 		window->clear(sf::Color::Transparent);
 
 		MainGame.draw();
+
+		//m_renderStatistics.draw();
 
 		//end the current frame
         window->display();

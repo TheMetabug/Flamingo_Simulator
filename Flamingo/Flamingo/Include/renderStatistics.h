@@ -16,7 +16,7 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	float fpsCount, fpsFrames, second;
+	float fpsCount, fpsFrames, second, prevFrame;
 	int	fps;
 
 	sf::Text *text;
