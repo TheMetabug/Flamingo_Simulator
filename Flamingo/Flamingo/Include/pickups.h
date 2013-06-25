@@ -45,6 +45,7 @@ namespace pups
 		sf::Sprite* m_sprite;
 		animation* m_animation;
 		hitbox* m_hitbox;
+		bool m_floating;
 
 	private:
 		sf::Vector2f m_direction;
@@ -61,6 +62,7 @@ public:
 	~pickups();
 	void update(float DeltaTime);
 	void draw();
+	void drawHitBoxes();
 	
 
 private:

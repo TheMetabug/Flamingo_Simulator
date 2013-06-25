@@ -3,6 +3,7 @@
 
 using namespace pups;
 
+
 //Pickup
 
 pickup::pickup(sf::Texture* Texture, ItemName itemName, float FoodValue, float Speed)
@@ -24,7 +25,8 @@ pickup::~pickup()
 
 item::item(sf::Vector2f Position, pickup* Pickup)
 	: m_position(Position),
-	  m_pickup(Pickup)
+	  m_pickup(Pickup),
+	  m_floating(true)
 {
 	m_sprite = new sf::Sprite(*(Pickup->m_texture));
 	m_sprite->setPosition(m_position);
@@ -46,10 +48,34 @@ item::~item()
 void item::update(float DeltaTime)
 {
 	m_position += m_direction * DeltaTime * m_pickup->m_speed;
+
+	if (m_floating)
+	{
+		float left = 450, right = 1280, top = 450, bottom = 720;
+		if (m_position.x < left)
+		{
+			m_direction.x = -m_direction.x;
+			m_position.x = left;
+		}
+		else if (m_position.x > right)
+		{
+			m_direction.x = -m_direction.x;
+			m_position.x = right;
+		}
+		if (m_position.y < top)
+		{
+			m_direction.y = -m_direction.y;
+			m_position.y = top;
+		}
+		else if (m_position.y > bottom)
+		{
+			m_direction.y = -m_direction.y;
+			m_position.y = bottom;
+		}
+	}
+
 	m_sprite->setPosition(m_position);
 	m_hitbox->Position = m_position;
-
-
 }
 
 void item::draw(sf::RenderWindow *window)
@@ -137,5 +163,13 @@ void pickups::draw()
 	for (int i = 0; i < itemList.size(); ++i)
 	{
 		itemList[i]->draw(window);
+	}
+}
+
+void pickups::drawHitBoxes()
+{
+	for (int i = 0; i < itemList.size(); ++i)
+	{
+		itemList[i]->m_hitbox->draw(window);
 	}
 }

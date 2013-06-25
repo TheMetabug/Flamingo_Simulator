@@ -58,7 +58,6 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoBody.setScale(0.3f, 0.3f);
 #endif
 
-
 	headHitbox = Collide->createHitBox(headPosition, 
 		sf::Vector2f(flamingoHead.getGlobalBounds().width,flamingoHead.getGlobalBounds().height), 
 		sf::Vector2f(180 * flamingoHead.getScale().x, 320 * flamingoHead.getScale().y),1);

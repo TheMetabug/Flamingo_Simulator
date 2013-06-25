@@ -12,6 +12,8 @@ public:
 	hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, bool _isEnabled);
 	~hitbox();
 
+	void draw(sf::RenderWindow* window);
+
 	sf::Rect<float> hitRect();
 
 	sf::Vector2f Position;
@@ -33,6 +35,8 @@ public:
 	/**id list: hatchling = 0, head = 1, enemy = 2*/
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled = true);
+
+	void DrawHitboxes(sf::RenderWindow* window);
 
 	bool HitHead(hitbox* ItemHitbox);
 	int HitHatchling(hitbox* ItemHitbox);

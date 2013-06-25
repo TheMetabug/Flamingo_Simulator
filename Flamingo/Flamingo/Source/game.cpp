@@ -116,8 +116,6 @@ void game::draw()
 		// nest
 		flamingonest->draw();
 
-		// hitbox
-
 
 		// enemy
 		enemyBird->draw();
@@ -132,6 +130,10 @@ void game::draw()
 
 		// gui
 		text->draw();
+
+		// hitbox
+		collide->DrawHitboxes(window);
+		m_pickups->drawHitBoxes();
 
 
 		break;

@@ -19,7 +19,7 @@ int main()
 	
 
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
-	window->setFramerateLimit(120);
+	//window->setFramerateLimit(120);
 
 	// Deltatime stuff
 	sf::Clock clock;

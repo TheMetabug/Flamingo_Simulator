@@ -15,6 +15,17 @@ hitbox::~hitbox()
 	std::cout<<"deleted hitbox"<<std::endl;
 }
 
+void hitbox::draw(sf::RenderWindow* window)
+{
+	sf::RectangleShape box;
+	box.setSize(sf::Vector2f(hitRect().width,hitRect().height));
+	box.setOutlineColor(sf::Color::Red);
+	box.setOutlineThickness(3);
+	box.setFillColor(sf::Color::Transparent);
+	box.setPosition(hitRect().left, hitRect().top);
+	window->draw(box);
+}
+
 sf::Rect<float> hitbox::hitRect()
 {
 	return sf::Rect<float>(Position - Origo, Size);
@@ -81,6 +92,22 @@ hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Ve
 	}
 
 	return retHitbox;
+}
+
+void collision::DrawHitboxes(sf::RenderWindow* window)
+{
+	for (int i = 0; i < hatchlings.size(); ++i)
+	{
+		hatchlings[i]->draw(window);
+	}
+	if (!head == NULL) 
+	{
+		head->draw(window);
+	}
+	if (!enemy == NULL) 
+	{
+		enemy->draw(window);
+	}
 }
 
 
