@@ -4,19 +4,21 @@
 
 gui::gui(sf::RenderWindow* Window)
 {
+	// HP-mittarin tiedot
+	HPmax = 100; //max HP
+	HPtaken = 0; 
+	HPnow = HPmax-HPtaken;
+
 	window = Window;
 
 	font = new sf::Font();
 
 	font->loadFromFile("Assets/arial.ttf");
-
-	text = new sf::Text("FLAMINGOES", *font, 50);
-
+	HPtext = new sf::Text("", *font, 50);
 
 
 
-
-
+	
 
 
 
@@ -36,7 +38,7 @@ gui::gui(sf::RenderWindow* Window)
 	//text.setCharacterSize(24); // in pixels, not points!
 
 	//set the color
-	text->setColor(sf::Color::Magenta);
+	HPtext->setColor(sf::Color::Red);
 
 	//// set the text style
 	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
@@ -48,15 +50,21 @@ gui::gui(sf::RenderWindow* Window)
 gui::~gui()
 {
 	std::cout<<"deleted gui"<<std::endl;
-	delete text;
+	delete HPtext;
 	delete font;
 }
 
 void gui::update(float DeltaTime)
 {
+	HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
+
+		if( HPnow < 0) 
+	{
+		HPnow = 0;
+	}
 }
 
 void gui::draw()
 {
-	window->draw(*text);
+	window->draw(*HPtext);
 }

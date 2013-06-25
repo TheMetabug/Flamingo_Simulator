@@ -12,12 +12,16 @@ public:
 	~gui();
 	void update(float DeltaTime);
 	void draw();
-
+	int HPnow;
+	int HPmax;
+	int HPtaken;
+	
 private:
 	sf::RenderWindow *window;
-
-	sf::Text *text;
-	sf::Font *font;
+	sf::Font* font;
+	
+	sf::Text* HPtext;
+	//sf::Text* text;
 };
 
 #endif
