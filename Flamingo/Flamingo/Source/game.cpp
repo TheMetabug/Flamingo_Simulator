@@ -18,7 +18,7 @@ game::game(sf::RenderWindow* Window)
 	flamingoBase = new flamingo(window, collide);
 
 	// nest
-	flamingonest = new nest(window);
+	flamingonest = new nest(window, collide);
 
 	// enemy
 	enemyBird = new enemy(window,collide);
@@ -69,7 +69,7 @@ void game::update(sf::Time DeltaTime)
 
 
 		// nest
-
+		flamingonest->update(deltaTime);
 
 		// enemy
 		enemyBird->update(deltaTime);

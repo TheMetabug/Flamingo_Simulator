@@ -3,18 +3,22 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "hitbox.h"
 
 
 class nest
 {
 public:
 	nest(){}
-nest(sf::RenderWindow *Window);
-~nest();
-void update(sf::Time DeltaTime);
-void draw();
+	nest(sf::RenderWindow *Window, collision* Collide);
+	~nest();
+	void update(float DeltaTime);
+	void draw();
+
 private:
 	sf::RenderWindow *window;
+
+	hitbox *nestHitbox;
 
 	sf::Vector2f nestPosition, nestOrigin;
 
