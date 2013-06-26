@@ -4,26 +4,26 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
 
-	enemyRotate = 5;
-	enemyOrigin.x = 150;
-	enemyOrigin.y = 100;
+	m_enemyRotate = 5;
+	m_enemyOrigin.x = 150;
+	m_enemyOrigin.y = 100;
+	
+	m_enemyTexture = new sf::Texture();
+	m_enemyTexture->loadFromFile("Assets/enemyAnimation.png");
+	m_enemyTexture->setSmooth(true);
+	m_enemyBird = new sf::Sprite();
+	m_enemyBird->setTexture(*m_enemyTexture);
+	m_enemyBird->setPosition(m_enemyOrigin);
+	m_enemyBird->setOrigin(sf::Vector2f(128,128));
+	m_enemyBird->setScale(0.5f, 0.5f);
 
-	enemyTexture = new sf::Texture();
-	enemyTexture->loadFromFile("Assets/enemyAnimation.png");
-	enemyTexture->setSmooth(true);
-	enemyBird = new sf::Sprite();
-	enemyBird->setTexture(*enemyTexture);
-	enemyBird->setPosition(enemyOrigin);
-	enemyBird->setOrigin(sf::Vector2f(128,128));
-	enemyBird->setScale(0.5f, 0.5f);
+	Animator = new animation(m_enemyBird, 4, 256, 256);
 
-	Animator = new animation(enemyBird, 4, 256, 256);
-
-	enemyHitbox = Collide->createHitBox(enemyBirdPosition,
-		sf::Vector2f(enemyBird->getGlobalBounds().width,
-					 enemyBird->getGlobalBounds().height), 
-		sf::Vector2f(enemyBird->getGlobalBounds().width/2,
-					 enemyBird->getGlobalBounds().height/2),
+	enemyHitbox = Collide->createHitBox(m_enemyBirdPosition,
+		sf::Vector2f(m_enemyBird->getGlobalBounds().width,
+					 m_enemyBird->getGlobalBounds().height), 
+		sf::Vector2f(m_enemyBird->getGlobalBounds().width/2,
+					 m_enemyBird->getGlobalBounds().height/2),
 		2);
 
 }
@@ -36,16 +36,16 @@ enemy::~enemy()
 
 void enemy::update(float DeltaTime)
 {
-	enemyBirdPosition = enemyOrigin;
+	m_enemyBirdPosition = m_enemyOrigin;
 	Animator->update(DeltaTime);
-	enemyRotate += DeltaTime*100;
+	m_enemyRotate += DeltaTime*100;
 	//enemyBird.setPosition(enemyBirdPosition);
-	enemyBird->setRotation(enemyRotate);
-	enemyHitbox->Position = enemyBirdPosition;
+	m_enemyBird->setRotation(m_enemyRotate);
+	enemyHitbox->Position = m_enemyBirdPosition;
 
 }
 
 void enemy::draw()
 {
-	window->draw(*enemyBird);
+	window->draw(*m_enemyBird);
 }

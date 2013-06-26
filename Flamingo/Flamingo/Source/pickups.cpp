@@ -95,9 +95,9 @@ void item::draw(sf::RenderWindow *window)
 pickups::pickups(sf::RenderWindow *Window, collision *Collision)
 	: window(Window),
 	  m_collision(Collision),
-	  timer(0)
+	  m_timer(0)
 {
-	spawnPosition = sf::Vector2f(500,500);
+	m_spawnPosition = sf::Vector2f(500,500);
 
 	texture = new sf::Texture();
 	texture->loadFromFile("Assets/itemsplaceholder.png"); // Texture containing all item animations
@@ -126,7 +126,7 @@ pickups::~pickups()
 
 void pickups::update(float DeltaTime)
 {
-	timer += DeltaTime;
+	m_timer += DeltaTime;
 
 	for (int i = itemList.size() - 1; i >= 0; --i)
 	{
@@ -147,9 +147,9 @@ void pickups::update(float DeltaTime)
 		}
 	}
 
-	if (timer > 2.0f)
+	if (m_timer > 2.0f)
 	{
-		timer -= 0.1f;
+		m_timer -= 0.1f;
 
 		int rarity = rand()%100;
 		ItemName name;
@@ -166,7 +166,7 @@ void pickups::update(float DeltaTime)
 			name = Plancton;
 		}
 
-		itemList.push_back(new item(spawnPosition,pickupList[name]));
+		itemList.push_back(new item(m_spawnPosition,pickupList[name]));
 	}
 }
 

@@ -17,12 +17,12 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	sf::Vector2f waterPosition;
+	sf::Vector2f m_waterPosition;
 
-	sf::Texture *skyTexture;
-	sf::Sprite sky;
-	sf::Texture *waterTexture;
-	sf::Sprite water;
+	sf::Texture *m_skyTexture;
+	sf::Sprite m_sky;
+	sf::Texture *m_waterTexture;
+	sf::Sprite m_water;
 
 };
 

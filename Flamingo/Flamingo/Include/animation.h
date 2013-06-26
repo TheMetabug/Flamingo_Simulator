@@ -18,15 +18,15 @@ private:
 	
 	sf::Sprite *sprite;
 
-	float timer;
-	int currentFrame;
-	float fps;
-	int firstFrame;
-	int frames;
-	int framesizeX;
-	int framesizeY;
-	bool flip;
-	bool transition;
+	float m_timer;
+	int m_currentFrame;
+	float m_fps;
+	int m_firstFrame;
+	int m_frames;
+	int m_framesizeX;
+	int m_framesizeY;
+	bool m_flip;
+	bool m_transition;
 	//int counter;
 };
 

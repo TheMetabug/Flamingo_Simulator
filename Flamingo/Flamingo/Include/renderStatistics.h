@@ -16,8 +16,8 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	double fpsCount, fpsFrames, second, prevFrame;
-	int	fps;
+	double m_fpsCount, m_fpsFrames, m_second, m_prevFrame;
+	int	m_fps;
 
 	sf::Text *text;
 	sf::Font *font;

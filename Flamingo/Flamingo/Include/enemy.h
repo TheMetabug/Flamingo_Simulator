@@ -18,16 +18,13 @@ public:
 private:
 	animation *Animator;
 	sf::RenderWindow *window;
-
 	hitbox *enemyHitbox;
-	
-	sf::Vector2f enemyOrigin, enemyBirdPosition;
+	sf::Vector2f m_enemyOrigin, m_enemyBirdPosition;
 
-	float enemyRotate;
+	float m_enemyRotate;
 
-
-	sf::Texture *enemyTexture;
-	sf::Sprite *enemyBird;
+	sf::Texture *m_enemyTexture;
+	sf::Sprite *m_enemyBird;
 
 };
 

@@ -66,12 +66,12 @@ public:
 	
 
 private:
-	float timer;
+	float m_timer;
 
 	sf::RenderWindow *window;
 	collision *m_collision;
 
-	sf::Vector2f spawnPosition;
+	sf::Vector2f m_spawnPosition;
 
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;

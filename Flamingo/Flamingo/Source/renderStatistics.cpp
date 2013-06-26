@@ -4,11 +4,11 @@
 
 renderStatistics::renderStatistics(sf::RenderWindow* Window)
 {
-	fpsCount = 0;
-	fpsFrames = 0;
-	prevFrame = 0;
-	fps = 0;
-	second = 0;
+	m_fpsCount = 0;
+	m_fpsFrames = 0;
+	m_prevFrame = 0;
+	m_fps = 0;
+	m_second = 0;
 
 	window = Window;
 
@@ -30,18 +30,18 @@ renderStatistics::~renderStatistics()
 void renderStatistics::update(sf::Time dt)
 {
 	double DeltaTime = dt.asMicroseconds() / 1000000.0;
-	fpsFrames++;
-	fpsCount += DeltaTime;
-	second += DeltaTime;
+	m_fpsFrames++;
+	m_fpsCount += DeltaTime;
+	m_second += DeltaTime;
 	
 	//std::cout<<fps<<std::endl;
 	
-	if(second > 1.0f)
+	if(m_second > 1.0f)
 	{
-	fps = (fpsFrames - prevFrame) / second;
-	prevFrame = fpsFrames;
-	text->setString("FPS " + std::to_string((long double)fps));
-	second -= 1.0f;
+	m_fps = (m_fpsFrames - m_prevFrame) / m_second;
+	m_prevFrame = m_fpsFrames;
+	text->setString("FPS " + std::to_string((long double)m_fps));
+	m_second -= 1.0f;
 	}
 }
 

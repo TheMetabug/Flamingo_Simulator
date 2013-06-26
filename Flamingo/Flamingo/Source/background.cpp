@@ -4,19 +4,19 @@ background::background(sf::RenderWindow *Window)
 {
 	window = Window;
 
-	waterTexture = new sf::Texture();
-	waterTexture->loadFromFile("Assets/waterpuddle.png");
-	waterTexture->setSmooth(true);
-	water.setTexture(*waterTexture);
-	water.setPosition(768, 465);
-	water.setOrigin(sf::Vector2f(512, 256));
+	m_waterTexture = new sf::Texture();
+	m_waterTexture->loadFromFile("Assets/waterpuddle.png");
+	m_waterTexture->setSmooth(true);
+	m_water.setTexture(*m_waterTexture);
+	m_water.setPosition(768, 465);
+	m_water.setOrigin(sf::Vector2f(512, 256));
 
-	skyTexture = new sf::Texture();
-	skyTexture->loadFromFile("Assets/skyplaceholder.png");
-	skyTexture->setSmooth(true);
-	sky.setTexture(*skyTexture);
-	sky.setPosition(0, 0);
-	sky.setOrigin(sf::Vector2f(0, 0));
+	m_skyTexture = new sf::Texture();
+	m_skyTexture->loadFromFile("Assets/skyplaceholder.png");
+	m_skyTexture->setSmooth(true);
+	m_sky.setTexture(*m_skyTexture);
+	m_sky.setPosition(0, 0);
+	m_sky.setOrigin(sf::Vector2f(0, 0));
 }
 
 background::~background()
@@ -31,7 +31,7 @@ void background::update(float DeltaTime)
 
 void background::draw()	
 {
-	window->draw(sky);
-	window->draw(water);
+	window->draw(m_sky);
+	window->draw(m_water);
 	
 }
