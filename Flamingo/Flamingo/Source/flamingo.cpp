@@ -18,8 +18,8 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	
 
 	/////////BODY//////////
-	bodyOrigin.x = 740;
-	bodyOrigin.y = 550;
+	bodyPosition.x = 740;
+	bodyPosition.y = 550;
 
 	
 	// Textures and sprites
@@ -53,9 +53,15 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	bodyTexture->loadFromFile("Assets/Flamingo_player_body.png");
 	bodyTexture->setSmooth(true);
 	flamingoBody.setTexture(*bodyTexture);
+<<<<<<< HEAD
 	flamingoBody.setPosition(bodyOrigin);
 	flamingoBody.setOrigin(sf::Vector2f(10, 100));
 	flamingoBody.setScale(0.5f, 0.5f);
+=======
+	flamingoBody.setPosition(bodyPosition);
+	flamingoBody.setOrigin(sf::Vector2f(266, 368));
+	flamingoBody.setScale(0.3f, 0.3f);
+>>>>>>> started adding neck pieces
 #endif
 	
 	float HBW = flamingoHead.getGlobalBounds().width / 2;
@@ -175,8 +181,8 @@ void flamingo::update(float DeltaTime)
 
 void flamingo::draw()
 {
+	window->draw(flamingoBody);
 	window->draw(flamingoNeck);
 	window->draw(flamingoHead);
 	window->draw(crosshairSprite);
-	window->draw(flamingoBody);
 }

@@ -113,9 +113,12 @@ void collision::DrawHitboxes(sf::RenderWindow* window)
 
 bool collision::HitHead(hitbox* ItemHitbox)
 {
-	if (isCollided(ItemHitbox,head))
+	if (ItemHitbox->isEnabled && head->isEnabled)
 	{
-		return true;
+		if (isCollided(ItemHitbox,head))
+		{
+			return true;
+		}
 	}
 
 	return false;
