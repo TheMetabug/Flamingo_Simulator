@@ -3,20 +3,19 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <math.h>
 #include "hitbox.h"
 
 class neckPiece
 {
 public:
-	neckPiece();
-	~neckPiece();
-	void update();
-	void draw(sf::RenderWindow *window);
+	neckPiece(){}
+	~neckPiece(){}
 	
-	sf::Texture *neckTexture;
-	sf::Sprite flamingoNeck;
+	sf::Sprite m_sprite;
 
-	sf::Vector2f m_position;
+	sf::Vector2f m_positionMultiplier, m_positionRelative;
+	
 };
 
 class flamingo
@@ -31,31 +30,34 @@ class flamingo
 	private:
 
 	sf::RenderWindow *window;
+	///////////BODY////////////
+
+	sf::Vector2f m_flamingoPosition;
 
 	////////////HEAD///////////
 
-	hitbox *headHitbox;
-
 	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
+
+	hitbox *headHitbox;
 
 	int drag, h_rotate;
 
 	/////////////NECK//////////
 
-	sf::Vector2f neckPosition, neckOrigin, neckHead;
+	sf::Vector2f m_bodyToHead;
 
-	///////////BODY////////////
+	std::vector<neckPiece> m_neckPieces;
 
-	sf::Vector2f bodyPosition;
+
 
 	// Textures and sprites
-	sf::Texture *headTexture;
-	sf::Sprite flamingoHead;
-	sf::Texture *crossTexture;
-	sf::Sprite crosshairSprite;
-	sf::Texture *neckTexture;
+	sf::Texture* headTexture;
+	sf::Texture* crossTexture;
+	sf::Texture* neckTexture;
+	sf::Texture* bodyTexture;
 	sf::Sprite flamingoNeck;
-	sf::Texture *bodyTexture;
+	sf::Sprite flamingoHead;
+	sf::Sprite crosshairSprite;
 	sf::Sprite flamingoBody;
 	
 };
