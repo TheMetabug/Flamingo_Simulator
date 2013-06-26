@@ -16,6 +16,9 @@ public:
 	int HPmax;
 	int HPtaken;
 	bool m_pause;
+	bool m_title;
+	bool m_game;
+	bool m_HP;
 	
 private:
 	sf::RenderWindow *window;
@@ -23,6 +26,7 @@ private:
 	
 	sf::Text* HPtext;
 	sf::Text* PAUSEtext;
+	sf::Text* TITLEtext;
 };
 
 #endif

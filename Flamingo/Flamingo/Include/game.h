@@ -26,7 +26,7 @@ public:
 
 private:
 	sf::RenderWindow *window;
-	bool unPAUSE;
+	
 	bool P_release;
 	
 	// gameStates

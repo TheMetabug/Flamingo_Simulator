@@ -6,7 +6,7 @@ game::game(sf::RenderWindow* Window)
 
 	// gameStates
 
-	state = Play;
+	state = TitleScreen;
 
 	// hitbox
 	collide = new collision();
@@ -58,10 +58,31 @@ void game::update(sf::Time DeltaTime)
 
 	switch(state)
 	{
+	
 	case TitleScreen:
-		break;
-	case Play:
+		// gui
+		m_gui->update(deltaTime);
 
+		m_gui->m_title = true;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		{
+			state = Play;
+			m_gui->m_title =false;
+			
+
+		}
+		break;
+	
+	
+	
+	
+	
+	case Play:
+		
+		// show text
+		m_gui->m_HP = true;
+		
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 			P_release = true;
 		else if (P_release)
@@ -94,6 +115,12 @@ void game::update(sf::Time DeltaTime)
 
 		break;
 	case Menu:
+		//Close all the game texts!
+		m_gui->m_HP = false;
+		m_gui->m_pause = false;
+		
+
+
 		break;
 	case Pause:
 		m_gui->update(deltaTime);
@@ -131,6 +158,9 @@ void game::draw()
 		switch(state)
 	{
 	case TitleScreen:
+		// gui
+		m_gui->draw();
+
 		break;
 	case Play:
 	case Pause:
