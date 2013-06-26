@@ -6,9 +6,10 @@ gui::gui(sf::RenderWindow* Window)
 {
 	m_pause = false;
 	m_title = true;
-	m_game = false;
 	m_HP = false;
-	// HP-mittarin tiedot
+	
+	
+	// HP-basics
 	HPmax = 100; //max HP
 	HPtaken = 0; 
 	HPnow = HPmax-HPtaken;
@@ -20,9 +21,11 @@ gui::gui(sf::RenderWindow* Window)
 	font->loadFromFile("Assets/arial.ttf");
 	
 	
-	HPtext = new sf::Text("", *font, 50);
-	PAUSEtext = new sf::Text(".::pAuSE::.",*font, 50);
-	TITLEtext = new sf::Text("Press SPACE",* font, 50);
+	HPtext = new sf::Text("HP-mittari", *font, 50);
+	PAUSEtext = new sf::Text("Pause-teksti",*font, 50);
+	TITLEtext = new sf::Text("paina välilyöntiä)",* font, 50);
+	
+
 	
 	HPtext->setColor(sf::Color::Red);
 	
