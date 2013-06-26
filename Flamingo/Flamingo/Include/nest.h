@@ -18,16 +18,16 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	hitbox *nestHitbox;
-	hitbox *hatchlingHitbox;
+	hitbox *m_nestHitbox;
+	hitbox *m_hatchlingHitbox;
 
-	sf::Vector2f nestPosition, nestOrigin, hatchlingPosition;
+	sf::Vector2f m_nestPosition, m_nestOrigin, m_hatchlingPosition_1;
 
-	sf::Texture *nestTexture;
-	sf::Sprite flamingonest;
+	sf::Texture *m_nestTexture;
+	sf::Sprite m_flamingonest;
 
-	sf::Texture *m_hatchlingTexture;
-	sf::Sprite *m_hatchling;
+	sf::Texture *m_hatchlingTexture_1;
+	sf::Sprite *m_hatchling_1;
 
 };
 
