@@ -11,6 +11,7 @@
 #include "flamingo.h"
 #include "pickups.h"
 #include "renderStatistics.h"
+#include "sound.h"
 
 class game 
 {
@@ -70,6 +71,9 @@ private:
 
 	//renderstatistics
 	renderStatistics* m_renderStatistics;
+
+	////sound
+	//sound* m_sound;
 
 
 };

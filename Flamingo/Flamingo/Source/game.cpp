@@ -35,6 +35,9 @@ game::game(sf::RenderWindow* Window)
 
 	// gui
 	m_gui = new gui(window);
+
+	////sound
+	//m_sound = new sound();
 	
 }
 

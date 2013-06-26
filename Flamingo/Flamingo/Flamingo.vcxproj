@@ -94,6 +94,7 @@
     <ClCompile Include="Source\nest.cpp" />
     <ClCompile Include="Source\pickups.cpp" />
     <ClCompile Include="Source\renderStatistics.cpp" />
+    <ClCompile Include="Source\sound.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\animation.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Include\particleEngine.h" />
     <ClInclude Include="Include\pickups.h" />
     <ClInclude Include="Include\renderStatistics.h" />
+    <ClInclude Include="Include\sound.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

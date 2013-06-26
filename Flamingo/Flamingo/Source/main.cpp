@@ -9,6 +9,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+
+//music
+#include <SFML/Audio.hpp>
+
 //#include "renderStatistics.h"
 
 int main()
@@ -19,9 +23,18 @@ int main()
 
 	// Set window parametres
 	
-
     sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
 	//window->setFramerateLimit(120);
+
+	////sound
+
+	//sf::SoundBuffer m_buffer;
+	//sf::Sound m_sound;
+	//m_buffer.loadFromFile("Assets/jungle.wav");
+
+	//m_sound.setBuffer(m_buffer);
+	//m_sound.play();
+	//m_sound.setLoop(true);
 
 	// Deltatime stuff
 	sf::Clock clock;
@@ -81,6 +94,7 @@ int main()
         window->display();
 
 		dt = clock.restart();
+
     }
 
 	delete window;

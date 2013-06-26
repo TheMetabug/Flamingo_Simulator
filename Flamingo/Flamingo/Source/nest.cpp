@@ -33,28 +33,27 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 
 	for (int i = 0; i < 3; ++i)
 	{
+		// create texture,sprite, positions etc
+		m_hatchlingTextures.push_back( new sf::Texture());
+		m_hatchlingTextures[i]->loadFromFile("Assets/Hatchling_sheet.png");
+		m_hatchlingTextures[i]->setSmooth(true);
+		m_hatchlings.push_back( new sf::Sprite());
+		m_hatchlings[i]->setTexture(*m_hatchlingTextures[i]);
+		m_hatchlings[i]->setPosition(m_hatchlingPositions[i]);
+		m_hatchlings[i]->setOrigin(sf::Vector2f(m_hatchlings[i]->getLocalBounds().width/6,
+							   m_hatchlings[i]->getLocalBounds().height/2));
+		m_hatchlings[i]->setScale(0.5f,0.5f);
 
-	// create texture,sprite, positions etc
-	m_hatchlingTextures.push_back( new sf::Texture());
-	m_hatchlingTextures[i]->loadFromFile("Assets/Hatchling_sheet.png");
-	m_hatchlingTextures[i]->setSmooth(true);
-	m_hatchlings.push_back( new sf::Sprite());
-	m_hatchlings[i]->setTexture(*m_hatchlingTextures[i]);
-	m_hatchlings[i]->setPosition(m_hatchlingPositions[i]);
-	m_hatchlings[i]->setOrigin(sf::Vector2f(m_hatchlings[i]->getLocalBounds().width/6,
-						   m_hatchlings[i]->getLocalBounds().height/2));
-	m_hatchlings[i]->setScale(0.5f,0.5f);
+		//animation
+		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 10));
 
-	//animation
-	m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 10));
-
-	//hitbox
-	m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],
-		sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width,
-						m_hatchlings[i]->getGlobalBounds().height), 
-		sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width/2,
-						m_hatchlings[i]->getGlobalBounds().height/2),
-		0));
+		//hitbox
+		m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],
+			sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width,
+							m_hatchlings[i]->getGlobalBounds().height), 
+			sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width/2,
+							m_hatchlings[i]->getGlobalBounds().height/2),
+			0));
 	}
 
 }
