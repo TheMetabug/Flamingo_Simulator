@@ -182,14 +182,14 @@ void flamingo::update(float DeltaTime)
 #if 1
 	{
 		float lenght = sqrt(pow(m_bodyToHead.x,2) + pow(m_bodyToHead.y,2));
-		float angle = ((atan(m_bodyToHead.y/m_bodyToHead.x))/(PI*2))*360.0f;
+		float angle = atan(m_bodyToHead.y/m_bodyToHead.x)*(180.0f/PI);
 		sf::Transform transform;
 		if (m_bodyToHead.x < 0)
 			transform.rotate(angle);
 		else
 			transform.rotate(angle+180);
 
-		std::cout<<"x "<<m_bodyToHead.x<<" y "<<m_bodyToHead.y<<"lenght "<<lenght<<" angle "<<angle<<std::endl;
+		//std::cout<<"x "<<m_bodyToHead.x<<" y "<<m_bodyToHead.y<<"lenght "<<lenght<<" angle "<<angle<<std::endl;
 
 		for (int i = 0; i < m_neckPieces.size(); ++i)
 		{

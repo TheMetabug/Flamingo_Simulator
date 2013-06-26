@@ -2,9 +2,7 @@ gui
 	kuvien piirtäminen
 
 nest
-	hatchlings
-	hitboxes (see flamingo)
-		sama koko, positio(origo) nestin positiosta
+	hitboxit käyttöön, poikasille logiikkaa
 
 game
 	game states
