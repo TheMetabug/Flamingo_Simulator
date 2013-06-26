@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "hitbox.h"
+#include "animation.h"
 
 
 class nest
@@ -18,6 +19,8 @@ public:
 private:
 	sf::RenderWindow *window;
 
+	animation *Animator;
+
 	hitbox *m_nestHitbox;
 	hitbox *m_hatchlingHitbox;
 
@@ -27,18 +30,10 @@ private:
 	sf::Texture *m_nestTexture;
 	sf::Sprite m_flamingonest;
 
-	//sf::Texture *m_hatchlingTexture_1;
-	//sf::Sprite *m_hatchling_1;
-	//
-	//sf::Texture *m_hatchlingTexture_2;
-	//sf::Sprite *m_hatchling_2;
-	//
-	//sf::Texture *m_hatchlingTexture_3;
-	//sf::Sprite *m_hatchling_3;
-
 	std::vector<sf::Texture*> m_hatchlingTextures;
 	std::vector<sf::Sprite*> m_hatchlings;
 	std::vector<hitbox*> m_hatchlingHitboxes;
+	std::vector<animation*> m_animations;
 
 };
 
