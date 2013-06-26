@@ -26,12 +26,12 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 #if 1
 
 	headTexture = new sf::Texture();
-	headTexture->loadFromFile("Assets/FlamingoEmo_Head.png");
+	headTexture->loadFromFile("Assets/Flamingo_player_head.png");
 	headTexture->setSmooth(true);
 	flamingoHead.setTexture(*headTexture);
 	flamingoHead.setPosition(headOrigin);
-	flamingoHead.setOrigin(sf::Vector2f(311, 128));
-	flamingoHead.setScale(0.3f, 0.3f);
+	flamingoHead.setOrigin(sf::Vector2f(120, 70));
+	flamingoHead.setScale(0.5f, 0.5f);
 
 	crossTexture = new sf::Texture();	
 	crossTexture->loadFromFile("Assets/crosshair.png");
@@ -41,27 +41,27 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
 	neckTexture = new sf::Texture();
-	neckTexture->loadFromFile("Assets/FlamingoEmo_Neck.png");
+	neckTexture->loadFromFile("Assets/Flamingo_player_neck.png");
 	neckTexture->setSmooth(true);
 	flamingoNeck.setTexture(*neckTexture);
 	flamingoNeck.setPosition(neckOrigin);
-	flamingoNeck.setOrigin(sf::Vector2f(302, 774));
-	flamingoNeck.setScale(0.3f, 0.3f);
+	flamingoNeck.setOrigin(sf::Vector2f(18, 20));
+	flamingoNeck.setScale(0.5f, 0.5f);
 
 
 	bodyTexture = new sf::Texture();
-	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
+	bodyTexture->loadFromFile("Assets/Flamingo_player_body.png");
 	bodyTexture->setSmooth(true);
 	flamingoBody.setTexture(*bodyTexture);
 	flamingoBody.setPosition(bodyOrigin);
-	flamingoBody.setOrigin(sf::Vector2f(266, 368));
-	flamingoBody.setScale(0.3f, 0.3f);
+	flamingoBody.setOrigin(sf::Vector2f(10, 100));
+	flamingoBody.setScale(0.5f, 0.5f);
 #endif
 	
 	float HBW = flamingoHead.getGlobalBounds().width / 2;
 	float HBH = flamingoHead.getGlobalBounds().width / 2;
-	float HBOX = ((flamingoHead.getOrigin().x - 180) * flamingoHead.getScale().x) + HBW/2;
-	float HBOY = ((flamingoHead.getOrigin().y - 320) * flamingoHead.getScale().y) + HBH/2;
+	float HBOX = ((flamingoHead.getOrigin().x - 60) * flamingoHead.getScale().x) + HBW/2;
+	float HBOY = ((flamingoHead.getOrigin().y - 80) * flamingoHead.getScale().y) + HBH/2;
 
 	headHitbox = Collide->createHitBox(headPosition, 
 		sf::Vector2f(HBW,HBH), 
