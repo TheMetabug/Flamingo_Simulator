@@ -5,6 +5,20 @@
 #include <iostream>
 #include "hitbox.h"
 
+class neckPiece
+{
+public:
+	neckPiece();
+	~neckPiece();
+	void update();
+	void draw(sf::RenderWindow *window);
+	
+	sf::Texture *neckTexture;
+	sf::Sprite flamingoNeck;
+
+	sf::Vector2f m_position;
+};
+
 class flamingo
 {
 	public:
@@ -18,13 +32,6 @@ class flamingo
 
 	sf::RenderWindow *window;
 
-	///////////BODY////////////
-
-	sf::Vector2f bodyPosition, bodyOrigin;
-
-	sf::Texture *bodyTexture;
-	sf::Sprite flamingoBody;
-
 	////////////HEAD///////////
 
 	hitbox *headHitbox;
@@ -33,17 +40,23 @@ class flamingo
 
 	int drag, h_rotate;
 
-	sf::Texture *headTexture;
-	sf::Sprite flamingoHead;
-	sf::Texture *crossTexture;
-	sf::Sprite crosshairSprite;
-
 	/////////////NECK//////////
 
 	sf::Vector2f neckPosition, neckOrigin, neckHead;
 
+	///////////BODY////////////
+
+	sf::Vector2f bodyPosition;
+
+	// Textures and sprites
+	sf::Texture *headTexture;
+	sf::Sprite flamingoHead;
+	sf::Texture *crossTexture;
+	sf::Sprite crosshairSprite;
 	sf::Texture *neckTexture;
 	sf::Sprite flamingoNeck;
+	sf::Texture *bodyTexture;
+	sf::Sprite flamingoBody;
 	
 };
 

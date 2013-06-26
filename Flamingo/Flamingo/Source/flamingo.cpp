@@ -18,8 +18,8 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	
 
 	/////////BODY//////////
-	bodyOrigin.x = 740;
-	bodyOrigin.y = 550;
+	bodyPosition.x = 740;
+	bodyPosition.y = 550;
 
 	
 	// Textures and sprites
@@ -53,7 +53,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	bodyTexture->loadFromFile("Assets/FlamingoEmo_Body.png");
 	bodyTexture->setSmooth(true);
 	flamingoBody.setTexture(*bodyTexture);
-	flamingoBody.setPosition(bodyOrigin);
+	flamingoBody.setPosition(bodyPosition);
 	flamingoBody.setOrigin(sf::Vector2f(266, 368));
 	flamingoBody.setScale(0.3f, 0.3f);
 #endif
@@ -175,8 +175,8 @@ void flamingo::update(float DeltaTime)
 
 void flamingo::draw()
 {
+	window->draw(flamingoBody);
 	window->draw(flamingoNeck);
 	window->draw(flamingoHead);
 	window->draw(crosshairSprite);
-	window->draw(flamingoBody);
 }
