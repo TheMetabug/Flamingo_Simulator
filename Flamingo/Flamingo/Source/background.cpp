@@ -17,6 +17,13 @@ background::background(sf::RenderWindow *Window)
 	m_sky.setTexture(*m_skyTexture);
 	m_sky.setPosition(0, 0);
 	m_sky.setOrigin(sf::Vector2f(0, 0));
+
+	m_groundTexture = new sf::Texture();
+	m_groundTexture->loadFromFile("Assets/groundPlaceholder.png");
+	m_groundTexture->setSmooth(true);
+	m_ground.setTexture(*m_groundTexture);
+	m_ground.setPosition(0, 0);
+	m_ground.setOrigin(sf::Vector2f(0, 0));
 }
 
 background::~background()
@@ -33,5 +40,6 @@ void background::draw()
 {
 	window->draw(m_sky);
 	window->draw(m_water);
+	window->draw(m_ground);
 	
 }

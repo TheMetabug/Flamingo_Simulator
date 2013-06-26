@@ -23,7 +23,8 @@ private:
 	sf::Sprite m_sky;
 	sf::Texture *m_waterTexture;
 	sf::Sprite m_water;
-
+	sf::Texture*m_groundTexture;
+	sf::Sprite m_ground;
 };
 
 #endif
