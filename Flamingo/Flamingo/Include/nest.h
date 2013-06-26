@@ -21,13 +21,24 @@ private:
 	hitbox *m_nestHitbox;
 	hitbox *m_hatchlingHitbox;
 
-	sf::Vector2f m_nestPosition, m_nestOrigin, m_hatchlingPosition_1;
+	sf::Vector2f m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
+	std::vector<sf::Vector2f> m_hatchlingPositions;
 
 	sf::Texture *m_nestTexture;
 	sf::Sprite m_flamingonest;
 
-	sf::Texture *m_hatchlingTexture_1;
-	sf::Sprite *m_hatchling_1;
+	//sf::Texture *m_hatchlingTexture_1;
+	//sf::Sprite *m_hatchling_1;
+	//
+	//sf::Texture *m_hatchlingTexture_2;
+	//sf::Sprite *m_hatchling_2;
+	//
+	//sf::Texture *m_hatchlingTexture_3;
+	//sf::Sprite *m_hatchling_3;
+
+	std::vector<sf::Texture*> m_hatchlingTextures;
+	std::vector<sf::Sprite*> m_hatchlings;
+	std::vector<hitbox*> m_hatchlingHitboxes;
 
 };
 
