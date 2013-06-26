@@ -56,10 +56,6 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	flamingoBody.setPosition(bodyPosition);
 	flamingoBody.setOrigin(sf::Vector2f(10, 100));
 	flamingoBody.setScale(0.5f, 0.5f);
-	
-	flamingoBody.setPosition(bodyPosition);
-	flamingoBody.setOrigin(sf::Vector2f(266, 368));
-	flamingoBody.setScale(0.3f, 0.3f);
 #endif
 	
 	float HBW = flamingoHead.getGlobalBounds().width / 2;
