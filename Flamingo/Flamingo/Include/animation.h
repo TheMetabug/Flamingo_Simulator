@@ -16,7 +16,7 @@ public:
 private:
 	void setVisibleFrame();
 	
-	sf::Sprite *sprite;
+	sf::Sprite* m_sprite;
 
 	float m_timer;
 	int m_currentFrame;

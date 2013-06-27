@@ -10,43 +10,43 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	m_flamingoPosition = sf::Vector2f(740,550);
 
 	////////HEAD/////////
-	drag = 0;
-	headOrigin = m_flamingoPosition + sf::Vector2f(-19,-165);
-	h_rotate = 0;
+	m_drag = 0;
+	m_headOrigin = m_flamingoPosition + sf::Vector2f(-19,-165);
+	m_headRotate = 0;
 
 	
 	// Textures and sprites
 #if 1
 
 	///////////BODY////////////
-	bodyTexture = new sf::Texture();
-	bodyTexture->loadFromFile("Assets/Flamingo_player_body.png");
-	bodyTexture->setSmooth(true);
-	flamingoBody.setTexture(*bodyTexture);
-	flamingoBody.setPosition(m_flamingoPosition);
-	flamingoBody.setOrigin(sf::Vector2f(10, 100));
-	flamingoBody.setScale(0.5f, 0.5f);
+	m_bodyTexture = new sf::Texture();
+	m_bodyTexture->loadFromFile("Assets/Flamingo_player_body.png");
+	m_bodyTexture->setSmooth(true);
+	m_flamingoBody.setTexture(*m_bodyTexture);
+	m_flamingoBody.setPosition(m_flamingoPosition);
+	m_flamingoBody.setOrigin(sf::Vector2f(10, 100));
+	m_flamingoBody.setScale(0.5f, 0.5f);
 
 	////////////HEAD///////////
-	headTexture = new sf::Texture();
-	headTexture->loadFromFile("Assets/Flamingo_player_head.png");
-	headTexture->setSmooth(true);
-	flamingoHead.setTexture(*headTexture);
-	flamingoHead.setPosition(headOrigin);
-	flamingoHead.setOrigin(sf::Vector2f(120, 70));
-	flamingoHead.setScale(0.5f, 0.5f);
+	m_headTexture = new sf::Texture();
+	m_headTexture->loadFromFile("Assets/Flamingo_player_head.png");
+	m_headTexture->setSmooth(true);
+	m_flamingoHead.setTexture(*m_headTexture);
+	m_flamingoHead.setPosition(m_headOrigin);
+	m_flamingoHead.setOrigin(sf::Vector2f(120, 70));
+	m_flamingoHead.setScale(0.5f, 0.5f);
 
-	crossTexture = new sf::Texture();	
-	crossTexture->loadFromFile("Assets/crosshair.png");
-	crossTexture->setSmooth(true);
-	crosshairSprite.setTexture(*crossTexture);
-	crosshairSprite.setPosition(headOrigin);
-	crosshairSprite.setOrigin(sf::Vector2f(25, 25));
+	m_crossTexture = new sf::Texture();	
+	m_crossTexture->loadFromFile("Assets/crosshair.png");
+	m_crossTexture->setSmooth(true);
+	m_crosshairSprite.setTexture(*m_crossTexture);
+	m_crosshairSprite.setPosition(m_headOrigin);
+	m_crosshairSprite.setOrigin(sf::Vector2f(25, 25));
 
 	/////////////NECK//////////
-	neckTexture = new sf::Texture();
-	neckTexture->loadFromFile("Assets/Flamingo_player_neck.png");
-	neckTexture->setSmooth(true);
+	m_neckTexture = new sf::Texture();
+	m_neckTexture->loadFromFile("Assets/Flamingo_player_neck.png");
+	m_neckTexture->setSmooth(true);
 
 	
 #endif
@@ -57,7 +57,7 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	for (int i = 0; i < neckPieceCount; ++i)
 	{
 		m_neckPieces.push_back(neckPiece());
-		m_neckPieces[i].m_sprite.setTexture(*neckTexture);
+		m_neckPieces[i].m_sprite.setTexture(*m_neckTexture);
 		m_neckPieces[i].m_sprite.setPosition(m_flamingoPosition + sf::Vector2f(-1*i,-17*i));
 		m_neckPieces[i].m_sprite.setOrigin(sf::Vector2f(18, 20));
 		m_neckPieces[i].m_sprite.setScale(0.5f, 0.5f);
@@ -67,12 +67,12 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	}
 
 
-	float HBW = flamingoHead.getGlobalBounds().width / 2;
-	float HBH = flamingoHead.getGlobalBounds().width / 2;
-	float HBOX = ((flamingoHead.getOrigin().x - 60) * flamingoHead.getScale().x) + HBW/2;
-	float HBOY = ((flamingoHead.getOrigin().y - 80) * flamingoHead.getScale().y) + HBH/2;
+	float HBW = m_flamingoHead.getGlobalBounds().width / 2;
+	float HBH = m_flamingoHead.getGlobalBounds().width / 2;
+	float HBOX = ((m_flamingoHead.getOrigin().x - 60) * m_flamingoHead.getScale().x) + HBW/2;
+	float HBOY = ((m_flamingoHead.getOrigin().y - 80) * m_flamingoHead.getScale().y) + HBH/2;
 
-	headHitbox = Collide->createHitBox(headPosition, 
+	m_headHitbox = Collide->createHitBox(m_headPosition, 
 		sf::Vector2f(HBW,HBH), 
 		sf::Vector2f(HBOX,HBOY),1);
 }
@@ -80,27 +80,27 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 flamingo::~flamingo()
 {
 	std::cout<<"deleted flamingo"<<std::endl;
-	delete bodyTexture;
+	delete m_bodyTexture;
 }
 
 void flamingo::update(float DeltaTime)
 {
-	m_bodyToHead = m_flamingoPosition - headPosition;
+	m_bodyToHead = m_flamingoPosition - m_headPosition;
 
-		switch(drag)
+		switch(m_drag)
 	{
 		case 0: // head in origin
-			headPosition = headOrigin;
+			m_headPosition = m_headOrigin;
 			break;
 
 		case 1: // head being dragged
-			mousePosition.x = sf::Mouse::getPosition(*window).x;
-			mousePosition.y = sf::Mouse::getPosition(*window).y;
+			m_mousePosition.x = sf::Mouse::getPosition(*window).x;
+			m_mousePosition.y = sf::Mouse::getPosition(*window).y;
 
-			headPosition = mousePosition;
+			m_headPosition = m_mousePosition;
 
 			{
-				sf::Vector2f Direction(headOrigin - headPosition);
+				sf::Vector2f Direction(m_headOrigin - m_headPosition);
 				float multiplier = 3.0f;
 
 				//cant drag head too far away.
@@ -116,45 +116,45 @@ void flamingo::update(float DeltaTime)
 
 				//std::cout<<distance<<std::endl;
 					
-				headPosition = headOrigin - Direction;
+				m_headPosition = m_headOrigin - Direction;
 
 				// crosshair goes opposite direction of the head from the origin
-				crossHair = headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
-				crosshairSprite.setPosition(crossHair);
+				m_crossHair = m_headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
+				m_crosshairSprite.setPosition(m_crossHair);
 
 				// count angle from headposition and headposition.x
-				h_rotate = 0 ;
+				m_headRotate = 0 ;
 			}
 			break;
 
 		case 2: // head released, goes to crosshair
 			{
-			sf::Vector2f Direction(crossHair - headPosition);
+			sf::Vector2f Direction(m_crossHair - m_headPosition);
 			sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
-			headPosition += Movement;
+			m_headPosition += Movement;
 			}
 
 			//std::cout << "X: " << headPosition.x << std::endl << "Y: " << headPosition.y << std::endl;
 
 			//check if head gets back to start position
-			if(headPosition.x < crossHair.x+4 && headPosition.x > crossHair.x-4 &&
-				headPosition.y < crossHair.y+4 && headPosition.y > crossHair.y-4)
+			if(m_headPosition.x < m_crossHair.x+4 && m_headPosition.x > m_crossHair.x-4 &&
+				m_headPosition.y < m_crossHair.y+4 && m_headPosition.y > m_crossHair.y-4)
 			{
-				drag = 3;
+				m_drag = 3;
 			}
 			break;
 		case 3: //head goes back to starting point/origin
 			{
-				sf::Vector2f Direction(headOrigin - headPosition);
+				sf::Vector2f Direction(m_headOrigin - m_headPosition);
 				sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
-				headPosition += Movement;
+				m_headPosition += Movement;
 			}
 
-			if(headPosition.x < headOrigin.x+1 && headPosition.x > headOrigin.x-1 &&
-				headPosition.y < headOrigin.y+1 && headPosition.y > headOrigin.y-1)
+			if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
+				m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
 			{
-				drag = 0;
-				crossHair = headOrigin;
+				m_drag = 0;
+				m_crossHair = m_headOrigin;
 			}
 			break;
 	}
@@ -163,19 +163,19 @@ void flamingo::update(float DeltaTime)
 
 	// check if 
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-		sf::Mouse::getPosition(*window).x > flamingoHead.getPosition().x - 50 &&
-		sf::Mouse::getPosition(*window).x < flamingoHead.getPosition().x + 50 &&
-		sf::Mouse::getPosition(*window).y > flamingoHead.getPosition().y - 50 &&
-		sf::Mouse::getPosition(*window).y < flamingoHead.getPosition().y + 50 )
+		sf::Mouse::getPosition(*window).x > m_flamingoHead.getPosition().x - 50 &&
+		sf::Mouse::getPosition(*window).x < m_flamingoHead.getPosition().x + 50 &&
+		sf::Mouse::getPosition(*window).y > m_flamingoHead.getPosition().y - 50 &&
+		sf::Mouse::getPosition(*window).y < m_flamingoHead.getPosition().y + 50 )
 	{
-		if(drag == 0)
-		drag = 1;
+		if(m_drag == 0)
+		m_drag = 1;
 	}
-	else if (drag == 1)
+	else if (m_drag == 1)
 	{	
 		// if(flamingoHead.getPosition().x != 640 && flamingoHead.getPosition().y != 360)
 		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			drag = 2;
+			m_drag = 2;
 	}
 
 	//////////NECK///////////////
@@ -205,16 +205,16 @@ void flamingo::update(float DeltaTime)
 
 
 	// set sprites to their Positions
-	flamingoHead.setPosition(headPosition);
-	crosshairSprite.setPosition(crossHair);
-	headHitbox->Position = headPosition;
+	m_flamingoHead.setPosition(m_headPosition);
+	m_crosshairSprite.setPosition(m_crossHair);
+	m_headHitbox->Position = m_headPosition;
 }
 
 void flamingo::draw()
 {
-	window->draw(flamingoBody);
+	window->draw(m_flamingoBody);
 	for (int i = 0; i < m_neckPieces.size(); ++i)
 		window->draw(m_neckPieces[i].m_sprite);
-	window->draw(flamingoHead);
-	window->draw(crosshairSprite);
+	window->draw(m_flamingoHead);
+	window->draw(m_crosshairSprite);
 }

@@ -17,9 +17,9 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 	m_enemyBird->setOrigin(sf::Vector2f(128,128));
 	m_enemyBird->setScale(0.5f, 0.5f);
 
-	Animator = new animation(m_enemyBird, 4, 256, 256);
+	m_animation = new animation(m_enemyBird, 4, 256, 256);
 
-	enemyHitbox = Collide->createHitBox(m_enemyBirdPosition,
+	m_hitbox = Collide->createHitBox(m_enemyBirdPosition,
 		sf::Vector2f(m_enemyBird->getGlobalBounds().width,
 					 m_enemyBird->getGlobalBounds().height), 
 		sf::Vector2f(m_enemyBird->getGlobalBounds().width/2,
@@ -31,17 +31,17 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 enemy::~enemy()
 {
 	std::cout<<"deleted enemy"<<std::endl;
-	delete Animator;
+	delete m_animation;
 }
 
 void enemy::update(float DeltaTime)
 {
 	m_enemyBirdPosition = m_enemyOrigin;
-	Animator->update(DeltaTime);
+	m_animation->update(DeltaTime);
 	m_enemyRotate += DeltaTime*100;
 	//enemyBird.setPosition(enemyBirdPosition);
 	m_enemyBird->setRotation(m_enemyRotate);
-	enemyHitbox->Position = m_enemyBirdPosition;
+	m_hitbox->Position = m_enemyBirdPosition;
 
 }
 

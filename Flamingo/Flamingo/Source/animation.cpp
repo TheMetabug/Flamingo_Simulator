@@ -4,7 +4,7 @@
 
 animation::animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip, float Fps, int FirstFrame)
 {
-	sprite = Sprite;
+	m_sprite = Sprite;
 	m_frames = Frames;
 	m_framesizeX = FramesizeX;
 	m_framesizeY = FramesizeY;
@@ -51,7 +51,7 @@ void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int Anim
 
 void animation::setVisibleFrame()
 {
-	int currentFrameX = m_currentFrame % (sprite->getTexture()->getSize().x / m_framesizeX) * m_framesizeX;
-	int currentFrameY = (int)(floor((double)m_currentFrame / ((double)sprite->getTexture()->getSize().x / (double)m_framesizeX))) * m_framesizeY;
-	sprite->setTextureRect(sf::Rect<int>(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY));
+	int currentFrameX = m_currentFrame % (m_sprite->getTexture()->getSize().x / m_framesizeX) * m_framesizeX;
+	int currentFrameY = (int)(floor((double)m_currentFrame / ((double)m_sprite->getTexture()->getSize().x / (double)m_framesizeX))) * m_framesizeY;
+	m_sprite->setTextureRect(sf::Rect<int>(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY));
 }

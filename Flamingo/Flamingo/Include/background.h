@@ -19,11 +19,11 @@ private:
 
 	sf::Vector2f m_waterPosition;
 
-	sf::Texture *m_skyTexture;
+	sf::Texture* m_skyTexture;
 	sf::Sprite m_sky;
-	sf::Texture *m_waterTexture;
+	sf::Texture* m_waterTexture;
 	sf::Sprite m_water;
-	sf::Texture*m_groundTexture;
+	sf::Texture* m_groundTexture;
 	sf::Sprite m_ground;
 };
 

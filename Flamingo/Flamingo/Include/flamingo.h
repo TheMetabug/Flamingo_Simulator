@@ -36,11 +36,11 @@ class flamingo
 
 	////////////HEAD///////////
 
-	sf::Vector2f mousePosition, headPosition, headOrigin, crossHair;
+	sf::Vector2f m_mousePosition, m_headPosition, m_headOrigin, m_crossHair;
 
-	hitbox *headHitbox;
+	hitbox* m_headHitbox;
 
-	int drag, h_rotate;
+	int m_drag, m_headRotate;
 
 	/////////////NECK//////////
 
@@ -51,14 +51,14 @@ class flamingo
 
 
 	// Textures and sprites
-	sf::Texture* headTexture;
-	sf::Texture* crossTexture;
-	sf::Texture* neckTexture;
-	sf::Texture* bodyTexture;
-	sf::Sprite flamingoNeck;
-	sf::Sprite flamingoHead;
-	sf::Sprite crosshairSprite;
-	sf::Sprite flamingoBody;
+	sf::Texture* m_headTexture;
+	sf::Texture* m_crossTexture;
+	sf::Texture* m_neckTexture;
+	sf::Texture* m_bodyTexture;
+	sf::Sprite m_flamingoNeck;
+	sf::Sprite m_flamingoHead;
+	sf::Sprite m_crosshairSprite;
+	sf::Sprite m_flamingoBody;
 	
 };
 

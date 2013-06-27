@@ -16,9 +16,9 @@ public:
 	void draw();
 
 private:
-	animation *Animator;
-	sf::RenderWindow *window;
-	hitbox *enemyHitbox;
+	sf::RenderWindow* window;
+	animation* m_animation;
+	hitbox* m_hitbox;
 	sf::Vector2f m_enemyOrigin, m_enemyBirdPosition;
 
 	float m_enemyRotate;
