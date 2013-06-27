@@ -75,6 +75,12 @@ void game::update(sf::Time DeltaTime)
 			
 
 		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		{
+			state = Menu;
+			m_gui->m_title =false;
+		}
 		break;
 	
 	
@@ -117,11 +123,16 @@ void game::update(sf::Time DeltaTime)
 		m_gui->update(deltaTime);
 
 		break;
+	
 	case Menu:
+		m_gui->update(deltaTime);
+		m_gui->m_menu = true;
+		
 		//Close all the game texts!
 		m_gui->m_HP = false;
 		m_gui->m_pause = false;
 		
+
 
 
 		break;
@@ -194,6 +205,10 @@ void game::draw()
 
 		break;
 	case Menu:
+
+		// gui
+		m_gui->draw();
+
 		break;
 	case Credits:
 		break;

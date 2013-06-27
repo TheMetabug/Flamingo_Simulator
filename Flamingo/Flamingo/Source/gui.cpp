@@ -5,13 +5,14 @@
 gui::gui(sf::RenderWindow* Window)
 {
 	m_pause = false;
-	m_title = true;
+	m_title = false;
 	m_HP = false;
+	m_menu = false;
 	
 	
 	// HP-basics
 	HPmax = 100; //max HP
-	HPtaken = 0; 
+	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
 
 	window = Window;
@@ -20,10 +21,11 @@ gui::gui(sf::RenderWindow* Window)
 
 	font->loadFromFile("Assets/arial.ttf");
 	
-	
+	// add information what each text does
 	HPtext = new sf::Text("HP-mittari", *font, 50);
 	PAUSEtext = new sf::Text("Pause-teksti",*font, 50);
-	TITLEtext = new sf::Text("paina välilyöntiä)",* font, 50);
+	TITLEtext = new sf::Text("paina välilyöntiä",* font, 50);
+	MENUtext = new sf::Text("Menu-otsikko",*font, 50); 
 	
 
 	
@@ -33,9 +35,11 @@ gui::gui(sf::RenderWindow* Window)
 	PAUSEtext->setOrigin(sf::Vector2f(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
 	PAUSEtext->setColor(sf::Color::Magenta);
 
-	TITLEtext->setPosition(640,100);
+	TITLEtext->setPosition(550,100);
 	TITLEtext->setColor(sf::Color::Cyan);
 
+	MENUtext->setPosition (550,100);
+	MENUtext->setColor(sf::Color::Yellow);
 	
 	
 
@@ -48,6 +52,7 @@ gui::~gui()
 	delete HPtext;
 	delete PAUSEtext;
 	delete TITLEtext;
+	delete MENUtext;
 	delete font;
 }
 
@@ -83,6 +88,11 @@ void gui::update(float DeltaTime)
 		TITLEtext->setString("Press SPACE");
 	else 
 		TITLEtext->setString("");
+	
+	if (m_menu)
+		MENUtext->setString("MENU");
+	else 
+		MENUtext->setString("");
 }
 
 void gui::draw()
@@ -90,4 +100,5 @@ void gui::draw()
 	window->draw(*HPtext);
 	window->draw(*PAUSEtext);
 	window->draw(*TITLEtext);
+	window->draw(*MENUtext);
 }
