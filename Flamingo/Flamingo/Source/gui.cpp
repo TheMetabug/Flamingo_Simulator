@@ -6,8 +6,11 @@ gui::gui(sf::RenderWindow* Window)
 {
 	m_pause = false;
 	m_title = false;
-	m_HP = false;
+	m_Play = false;
 	m_menu = false;
+
+	m_testbuttonPos.x = 300;
+	m_testbuttonPos.y = 300;
 	
 	
 	// HP-basics
@@ -20,6 +23,20 @@ gui::gui(sf::RenderWindow* Window)
 	font = new sf::Font();
 
 	font->loadFromFile("Assets/arial.ttf");
+
+	// lets make texture and sprite for the buttons
+
+	m_testbuttonT = new sf::Texture();
+	m_testbuttonT->loadFromFile("Assets/testbutton.png");
+	m_testbuttonT->setSmooth(true);
+	m_testbuttonS = new sf::Sprite();
+	m_testbuttonS->setTexture(*m_testbuttonT); 
+	m_animation = new animation(m_testbuttonS, 3, 96, 96, false, 0);
+	m_testbuttonS->setPosition(m_testbuttonPos);
+	m_testbuttonS->setOrigin(sf::Vector2f(m_testbuttonS->getLocalBounds().width/2,
+						     m_testbuttonS->getLocalBounds().height/2));
+	m_testbuttonS->setScale(1,1);
+
 	
 	// add information what each text does
 	HPtext = new sf::Text("HP-mittari", *font, 50);
@@ -27,7 +44,6 @@ gui::gui(sf::RenderWindow* Window)
 	TITLEtext = new sf::Text("paina välilyöntiä",* font, 50);
 	MENUtext = new sf::Text("Menu-otsikko",*font, 50); 
 	
-
 	
 	HPtext->setColor(sf::Color::Red);
 	
@@ -58,6 +74,8 @@ gui::~gui()
 
 void gui::update(float DeltaTime)
 {
+
+	m_animation->update(DeltaTime);
 	
 	//edit  HP settings
 		if( HPnow < 0) 
@@ -65,32 +83,23 @@ void gui::update(float DeltaTime)
 		HPnow = 0;
 	}
 
-	
-
-	
-
-
-	
-		if (m_HP)
+		if (m_Play)
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
 	else
 		HPtext->setString("");	
 		
-		
-		if (m_pause)
+	if (m_pause)
 		PAUSEtext->setString(".::pAuSE::.");
 	else 
 		PAUSEtext->setString("");
 
-	
-	
 	if (m_title)
 		TITLEtext->setString("Press SPACE");
 	else 
 		TITLEtext->setString("");
 	
 	if (m_menu)
-		MENUtext->setString("MENU");
+		MENUtext->setString("MENU, press button to flamingo");
 	else 
 		MENUtext->setString("");
 }
@@ -101,4 +110,6 @@ void gui::draw()
 	window->draw(*PAUSEtext);
 	window->draw(*TITLEtext);
 	window->draw(*MENUtext);
+	if (m_menu)
+		window->draw(*m_testbuttonS);
 }

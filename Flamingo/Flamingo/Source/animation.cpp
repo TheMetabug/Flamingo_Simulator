@@ -46,7 +46,7 @@ void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int Anim
 	m_frames = FramesinLoop;
 	m_currentFrame = AnimationStartPoint;
 	m_fps = Fps;
-	m_timer = 0;
+	//m_timer = 0;
 }
 
 void animation::setVisibleFrame()

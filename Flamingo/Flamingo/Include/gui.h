@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "animation.h"
 
 class gui
 {
@@ -17,9 +18,11 @@ public:
 	int HPtaken;
 	bool m_pause;
 	bool m_title;
-	bool m_HP;
+	bool m_Play;
 	bool m_menu;
-	
+	animation *m_animation;
+	sf::Vector2f m_testbuttonPos;
+
 private:
 	sf::RenderWindow *window;
 	sf::Font* font;
@@ -28,6 +31,17 @@ private:
 	sf::Text* PAUSEtext;
 	sf::Text* TITLEtext;
 	sf::Text* MENUtext;
+
+	// Button
+
+	
+
+	sf::Texture *m_testbuttonT;
+	sf::Sprite *m_testbuttonS;
+
+	
+
+
 };
 
 #endif

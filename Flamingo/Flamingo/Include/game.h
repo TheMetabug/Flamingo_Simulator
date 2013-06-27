@@ -29,6 +29,7 @@ private:
 	sf::RenderWindow *window;
 	
 	bool P_release;
+	bool M_release;
 	
 	// gameStates
 	enum GameState

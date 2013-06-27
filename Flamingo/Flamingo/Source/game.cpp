@@ -62,6 +62,7 @@ void game::update(sf::Time DeltaTime)
 	switch(state)
 	{
 	
+
 	case TitleScreen:
 		// gui
 		m_gui->update(deltaTime);
@@ -70,17 +71,13 @@ void game::update(sf::Time DeltaTime)
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			state = Play;
+			state = Menu;
 			m_gui->m_title =false;
 			
 
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
-		{
-			state = Menu;
-			m_gui->m_title =false;
-		}
+	
 		break;
 	
 	
@@ -90,7 +87,8 @@ void game::update(sf::Time DeltaTime)
 	case Play:
 		
 		// show text
-		m_gui->m_HP = true;
+		m_gui->m_Play = true;
+		
 		
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 			P_release = true;
@@ -100,7 +98,14 @@ void game::update(sf::Time DeltaTime)
 			state = Pause;
 		}
 		
-
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+			M_release = true;
+		else if (M_release)
+		{
+			M_release = false;
+			state = Menu;
+			m_gui->m_Play = false;
+		}
 		// hitbox
 
 		//flamingo
@@ -125,13 +130,44 @@ void game::update(sf::Time DeltaTime)
 		break;
 	
 	case Menu:
+
+		
+		
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
 		
 		//Close all the game texts!
-		m_gui->m_HP = false;
+		m_gui->m_Play = false;
 		m_gui->m_pause = false;
 		
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+			M_release = true;
+		else if (M_release)
+		{
+			M_release = false;
+			state = Play;
+			m_gui->m_menu = false;
+		}
+
+		if(sf::Mouse::getPosition(*window).x > m_gui->m_testbuttonPos.x  - 48 &&
+			sf::Mouse::getPosition(*window).x < m_gui->m_testbuttonPos.x + 48 &&
+			sf::Mouse::getPosition(*window).y > m_gui->m_testbuttonPos.y - 48 &&
+			sf::Mouse::getPosition(*window).y < m_gui->m_testbuttonPos.y + 48)
+		{
+			m_gui->m_animation->ChangeAnimation(1,0,1,100);
+
+			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				m_gui->m_animation->ChangeAnimation(2,0,2,100);
+				state = Play;
+				m_gui->m_menu = false;
+			}
+		}
+		else
+			m_gui->m_animation->ChangeAnimation(0,0,0,100);
+		
+
+
 
 
 
