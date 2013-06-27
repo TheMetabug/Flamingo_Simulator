@@ -18,8 +18,12 @@
 int main()
 {
 	srand(time(NULL));
-	bool Debugging = false;
+
 	bool F1Released = false;
+	bool F2Released = false;
+
+	bool FPS = false;
+	bool Hitbox = false;
 
 	// Set window parametres
 	
@@ -53,7 +57,15 @@ int main()
 		else if (F1Released)
 		{
 			F1Released = false;
-			Debugging = !Debugging;
+			FPS = !FPS;
+		}
+		
+		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::F2))
+			F2Released = true;
+		else if (F2Released)
+		{
+			F2Released = false;
+			Hitbox = !Hitbox;
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -83,9 +95,13 @@ int main()
 
 		MainGame.draw();
 
-		if (Debugging)
+		if (FPS)
 		{
 			m_renderStatistics.draw();
+		}
+
+		if (Hitbox)
+		{
 			MainGame.drawDebugInfo();
 		}
 

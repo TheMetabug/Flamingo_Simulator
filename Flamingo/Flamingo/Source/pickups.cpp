@@ -149,7 +149,10 @@ void pickups::update(float DeltaTime)
 
 	if (m_timer > 2.0f)
 	{
-		m_timer -= 0.1f;
+		m_timer -= 1.0f;
+
+		for (int i = 0; i < 1; ++i)
+		{
 
 		int rarity = rand()%100;
 		ItemName name;
@@ -167,6 +170,7 @@ void pickups::update(float DeltaTime)
 		}
 
 		itemList.push_back(new item(m_spawnPosition,pickupList[name]));
+		}
 	}
 }
 
