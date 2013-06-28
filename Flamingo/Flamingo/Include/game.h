@@ -38,7 +38,9 @@ private:
 		Play,
 		Menu,
 		Pause,
-		Credits
+		Credits,
+		Options,
+		Gamemenu
 	};
 
 	GameState state;

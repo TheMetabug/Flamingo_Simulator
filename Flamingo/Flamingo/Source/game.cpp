@@ -101,7 +101,7 @@ void game::update(float deltaTime)
 		else if (M_release)
 		{
 			M_release = false;
-			state = Menu;
+			state = Gamemenu;
 			m_gui->m_Play = false;
 		}
 		// hitbox
@@ -147,22 +147,22 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		if(sf::Mouse::getPosition(*window).x > m_gui->m_testbuttonPos.x  - 48 &&
-			sf::Mouse::getPosition(*window).x < m_gui->m_testbuttonPos.x + 48 &&
-			sf::Mouse::getPosition(*window).y > m_gui->m_testbuttonPos.y - 48 &&
-			sf::Mouse::getPosition(*window).y < m_gui->m_testbuttonPos.y + 48)
+		if(sf::Mouse::getPosition(*window).x > m_gui->m_button->m_testbuttonPos.x  - 48 &&
+			sf::Mouse::getPosition(*window).x < m_gui->m_button->m_testbuttonPos.x + 48 &&
+			sf::Mouse::getPosition(*window).y > m_gui->m_button->m_testbuttonPos.y - 48 &&
+			sf::Mouse::getPosition(*window).y < m_gui->m_button->m_testbuttonPos.y + 48)
 		{
-			m_gui->m_animation->ChangeAnimation(1,0,1,100);
+			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				m_gui->m_animation->ChangeAnimation(2,0,2,100);
+				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
 				state = Play;
 				m_gui->m_menu = false;
 			}
 		}
 		else
-			m_gui->m_animation->ChangeAnimation(0,0,0,100);
+			m_gui->m_button->m_animation->ChangeAnimation(0,0,0,100);
 		
 
 
@@ -183,11 +183,19 @@ void game::update(float deltaTime)
 			state = Play;
 			m_gui->m_pause = false;
 		}
-
-
+		
 
 		break;
 	case Credits:
+		break;
+	case Options:
+		break;
+	case Gamemenu:
+		m_gui->m_Gmenu = true;
+		m_gui->update(deltaTime);
+
+
+		
 		break;
 	}
 
@@ -245,6 +253,10 @@ void game::draw()
 
 		break;
 	case Credits:
+		break;
+
+	case Gamemenu:
+		m_gui->draw();
 		break;
 	}
 
