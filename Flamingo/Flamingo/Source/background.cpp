@@ -5,11 +5,11 @@ background::background(sf::RenderWindow *Window)
 	window = Window;
 
 	m_waterTexture = new sf::Texture();
-	m_waterTexture->loadFromFile("Assets/waterpuddle.png");
+	m_waterTexture->loadFromFile("Assets/ground_water_Background.png");
 	m_waterTexture->setSmooth(true);
 	m_water.setTexture(*m_waterTexture);
-	m_water.setPosition(768, 465);
-	m_water.setOrigin(sf::Vector2f(512, 256));
+	m_water.setPosition(1280, 720);
+	m_water.setOrigin(sf::Vector2f(1280, 462));
 
 	m_skyTexture = new sf::Texture();
 	m_skyTexture->loadFromFile("Assets/skyplaceholder.png");
@@ -19,11 +19,11 @@ background::background(sf::RenderWindow *Window)
 	m_sky.setOrigin(sf::Vector2f(0, 0));
 
 	m_groundTexture = new sf::Texture();
-	m_groundTexture->loadFromFile("Assets/groundPlaceholder.png");
+	m_groundTexture->loadFromFile("Assets/water_Opacity.png");
 	m_groundTexture->setSmooth(true);
 	m_ground.setTexture(*m_groundTexture);
-	m_ground.setPosition(0, 0);
-	m_ground.setOrigin(sf::Vector2f(0, 0));
+	m_ground.setPosition(1280, 720);
+	m_ground.setOrigin(sf::Vector2f(1036, 58));
 }
 
 background::~background()
