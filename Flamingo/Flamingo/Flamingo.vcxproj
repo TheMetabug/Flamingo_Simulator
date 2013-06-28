@@ -92,6 +92,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\nest.cpp" />
     <ClCompile Include="Source\pickups.cpp" />
+    <ClCompile Include="Source\program.cpp" />
     <ClCompile Include="Source\renderStatistics.cpp" />
     <ClCompile Include="Source\sound.cpp" />
   </ItemGroup>
@@ -107,6 +108,7 @@
     <ClInclude Include="Include\particle.h" />
     <ClInclude Include="Include\particleEngine.h" />
     <ClInclude Include="Include\pickups.h" />
+    <ClInclude Include="Include\program.h" />
     <ClInclude Include="Include\renderStatistics.h" />
     <ClInclude Include="Include\sound.h" />
   </ItemGroup>

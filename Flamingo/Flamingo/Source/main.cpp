@@ -9,6 +9,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "game.h"
+#include "program.h"
 
 //music
 #include <SFML/Audio.hpp>
@@ -27,7 +28,8 @@ int main()
 
 	// Set window parametres
 	
-    sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
+	al::viewport* viewport = new al::viewport(window);
 	//window->setFramerateLimit(120);
 
 	////sound
@@ -43,6 +45,7 @@ int main()
 	// Deltatime stuff
 	sf::Clock clock;
 	sf::Time dt;
+	float deltaTime;
 
 	game MainGame(window);
 	renderStatistics m_renderStatistics(window);
@@ -85,8 +88,8 @@ int main()
 
 		// Update
 
-		MainGame.update(dt);
-
+		deltaTime = dt.asMicroseconds()/1000000.0f;
+		MainGame.update(deltaTime);
 		m_renderStatistics.update(dt);
 
 		// Draw

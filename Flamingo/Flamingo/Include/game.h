@@ -20,7 +20,7 @@ public:
 
 	~game();
 
-	void update(sf::Time DeltaTime);
+	void update(float deltaTime);
 
 	void draw();
 	void drawDebugInfo();

@@ -53,10 +53,8 @@ game::~game()
 	delete m_gui;
 }
 
-void game::update(sf::Time DeltaTime)
+void game::update(float deltaTime)
 {
-	float deltaTime = DeltaTime.asMicroseconds()/1000000.0f;
-
 	// gameStates
 
 	switch(state)
