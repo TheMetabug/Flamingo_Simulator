@@ -14,13 +14,20 @@ public:
    ~button();
    	void update(float DeltaTime);
 	void draw();
+
 	sf::Vector2f m_testbuttonPos;
+	sf::Vector2f m_menuWingPos;
+
 	animation *m_animation;
 
 private:
 	sf::RenderWindow *window;
+
 	sf::Texture *m_testbuttonT;
 	sf::Sprite *m_testbuttonS;
+
+	sf::Texture *m_menuWingT;
+	sf::Sprite *m_menuWingS;
 };
 
 class gui
@@ -39,8 +46,9 @@ public:
 	bool m_Play;
 	bool m_menu;
 	bool m_Gmenu;
-
+	
 	button* m_button;
+	button* m_button2;
 
 private:
 	sf::RenderWindow *window;

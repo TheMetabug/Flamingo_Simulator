@@ -16,8 +16,9 @@ gui::gui(sf::RenderWindow* Window)
 	HPnow = HPmax-HPtaken;
 
 	window = Window;
-
+	
 	m_button = new button(window);
+	//m_button2 = new button(window);
 
 	font = new sf::Font();
 
@@ -58,6 +59,8 @@ gui::~gui()
 	delete MENUtext;
 	delete Gmenutext;
 	delete font;
+	delete m_button;
+	//delete m_button2;
 }
 
 void gui::update(float DeltaTime)
@@ -96,6 +99,10 @@ void gui::update(float DeltaTime)
 	
 	if (m_menu)
 		m_button->update(DeltaTime);
+
+	/*if (1)
+		m_button2->update(DeltaTime);
+*/
 	
 }
 
@@ -109,6 +116,9 @@ void gui::draw()
 
 	if (m_menu)
 		m_button->draw();
+	
+	/*if (1)
+		m_button2->draw();*/
 }
 
 
@@ -118,6 +128,9 @@ button::button(sf::RenderWindow* Window)
 
 	m_testbuttonPos.x = 300;
 	m_testbuttonPos.y = 300;
+
+	m_menuWingPos.x = 50;
+	m_menuWingPos.y = 50;
 
 	
 	m_testbuttonT = new sf::Texture();
@@ -130,6 +143,17 @@ button::button(sf::RenderWindow* Window)
 	m_testbuttonS->setOrigin(sf::Vector2f(m_testbuttonS->getLocalBounds().width/2,
 						     m_testbuttonS->getLocalBounds().height/2));
 	m_testbuttonS->setScale(1,1);
+
+	//m_menuWingT = new sf::Texture();
+	//m_menuWingT->loadFromFile("Assets/menu_Wing.png");
+	//m_menuWingT->setSmooth(true);
+	//m_menuWingS = new sf::Sprite();
+	//m_menuWingS->setTexture(*m_menuWingT); 
+	////m_animation = new animation(m_menuWingS, 3, 96, 96, false, 0);
+	//m_menuWingS->setPosition(m_menuWingPos);
+	//m_menuWingS->setOrigin(sf::Vector2f(m_menuWingS->getLocalBounds().width/2,
+	//					     m_menuWingS->getLocalBounds().height/2));
+	//m_menuWingS->setScale(1,1);
 
 }
 
@@ -146,4 +170,5 @@ void button::update(float DeltaTime)
 void button::draw()
 {
 	window->draw(*m_testbuttonS);
+	//window->draw(*m_menuWingS);
 }
