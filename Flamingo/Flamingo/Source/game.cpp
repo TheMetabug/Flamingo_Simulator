@@ -32,12 +32,11 @@ game::game(sf::RenderWindow* Window)
 
 	// particles
 
-
 	// gui
 	m_gui = new gui(window);
 
 	////sound
-	//m_sound = new sound();
+	m_sound = new sound();
 	
 }
 

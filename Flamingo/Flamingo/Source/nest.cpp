@@ -45,7 +45,7 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 		m_hatchlings[i]->setScale(0.5f,0.5f);
 
 		//animation
-		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 10));
+		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 7));
 
 		//hitbox
 		m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],

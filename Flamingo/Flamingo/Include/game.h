@@ -76,7 +76,7 @@ private:
 	renderStatistics* m_renderStatistics;
 
 	////sound
-	//sound* m_sound;
+	sound* m_sound;
 
 
 };
