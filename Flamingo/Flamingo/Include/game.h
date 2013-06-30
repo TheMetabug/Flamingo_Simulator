@@ -12,11 +12,12 @@
 #include "pickups.h"
 #include "renderStatistics.h"
 #include "sound.h"
+#include "program.h"
 
 class game 
 {
 public:
-	game(sf::RenderWindow *Window);
+	game(sf::RenderWindow *Window, al::viewport* Viewport);
 
 	~game();
 
@@ -27,6 +28,7 @@ public:
 
 private:
 	sf::RenderWindow *window;
+	al::viewport* m_viewport;
 	
 	bool P_release;
 	bool M_release;

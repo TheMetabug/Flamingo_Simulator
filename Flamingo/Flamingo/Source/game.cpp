@@ -1,8 +1,9 @@
 #include "game.h"
 
-game::game(sf::RenderWindow* Window)
+game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 {
 	window = Window;
+	m_viewport = Viewport;
 
 	// gameStates
 

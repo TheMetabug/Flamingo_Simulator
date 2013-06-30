@@ -3,15 +3,20 @@
 
 using namespace al;
 
+#pragma region Vector
+
 vector::vector()
 	: x(0), y(0)
 {}
+
 vector::vector(float X, float Y)
 	: x(X), y(Y)
 {}
 
-//Operators
-#pragma region Vector Operators
+vector::~vector(){}
+
+#pragma region operators
+
 vector operator-(const vector& RightVal)
 {
 	return vector(-RightVal.x,-RightVal.y);
@@ -79,30 +84,107 @@ bool operator !=(const vector& LeftVal, const vector& RightVal)
 	return true;
 }
 
-#pragma endregion yippee
+#pragma endregion
 
+#pragma endregion
 
-//float vector::X()
-//{
-//	return m_vector.x;
-//}
-//float vector::Y()
-//{
-//	return m_vector.y;
-//}
-//
-//void vector::X(float X)
-//{
-//	m_vector.x = X;
-//}
-//void vector::Y(float Y)
-//{
-//	m_vector.y = Y;
-//}
+#pragma region Rectangle
 
+rectangle::rectangle()
+{
+	m_rectangle.width = 0;
+	m_rectangle.height = 0;
+	m_rectangle.left = 0;
+	m_rectangle.top = 0;
+}
+rectangle::rectangle(float Width, float Height, float Left, float Top)
+{
+	m_rectangle.width = Width;
+	m_rectangle.height = Height;
+	m_rectangle.left = Left;
+	m_rectangle.top = Top;
+}
+rectangle::rectangle(float Width, float Height, vector Position)
+{
+	m_rectangle.width = Width;
+	m_rectangle.height = Height;
+	m_rectangle.left = Position.x;
+	m_rectangle.top = Position.y;
+}
+rectangle::rectangle(vector Size, vector Position)
+{
+	m_rectangle.width = Size.x;
+	m_rectangle.height = Size.y;
+	m_rectangle.left = Position.x;
+	m_rectangle.top = Position.y;
+}
+rectangle::~rectangle()
+{}
 
-vector::~vector(){}
+void rectangle::setWidth(float Width)
+{
+	m_rectangle.width = Width;
+}
+void rectangle::setHeight(float Height)
+{
+	m_rectangle.height = Height;
+}
+void rectangle::setLeft(float Left)
+{
+	m_rectangle.left = Left;
+}
+void rectangle::setTop(float Top)
+{
+	m_rectangle.top = Top;
+}
+void rectangle::setSize(vector Size)
+{
+	m_rectangle.width = Size.x;
+	m_rectangle.height = Size.y;
+}
+void rectangle::setPosition(vector Position)
+{
+	m_rectangle.left = Position.x;
+	m_rectangle.top = Position.y;
+}
+float rectangle::getWidth()
+{
+	return m_rectangle.width;
+}
+float rectangle::getHeight()
+{
+	return m_rectangle.height;
+}
+float rectangle::getLeft()
+{
+	return m_rectangle.left;
+}
+float rectangle::getTop()
+{
+	return m_rectangle.top;
+}
+vector rectangle::getSize()
+{
+	return vector(m_rectangle.width, m_rectangle.height);
+}
+vector rectangle::getPosition()
+{
+	return vector(m_rectangle.left, m_rectangle.top);
+}
+bool rectangle::intersects(rectangle Rectangle)
+{
+	return m_rectangle.intersects(Rectangle.m_rectangle);
+}
+bool rectangle::contains(vector Position)
+{
+	return m_rectangle.contains(Position.x, Position.y);
+}
 
+#pragma endregion
+
+#pragma region Drawing Methods
+
+#pragma region Texture
 
 texture::texture()
 	: m_texture(NULL)
@@ -125,7 +207,9 @@ void texture::loadTexture(std::string TextureName)
 	m_texture->setSmooth(true);
 }
 
+#pragma endregion
 
+#pragma region Sprite
 
 sprite::sprite()
 	: m_sprite(NULL),
@@ -147,11 +231,6 @@ void sprite::setTexture(al::texture Texture)
 {
 	m_sprite = new sf::Sprite();
 	m_sprite->setTexture(*Texture.m_texture); 
-	//m_animation = new animation(m_testbuttonS, 3, 96, 96, false, 0);
-	//m_sprite->setPosition(m_testbuttonPos);
-	//m_sprite->setOrigin(sf::Vector2f(m_testbuttonS->getLocalBounds().width/2,
-	//					     m_testbuttonS->getLocalBounds().height/2));
-	//m_testbuttonS->setScale(1,1);
 }
 
 void sprite::setPosition(al::vector Position)
@@ -166,7 +245,39 @@ void sprite::setOrigin(al::vector Origin)
 	m_sprite->setOrigin(pos);
 }
 
+void sprite::setScale(float ScaleX, float ScaleY)
+{
+	m_sprite->setScale(ScaleX,ScaleY);
+}
+void sprite::setScale(float Scale)
+{
+	setScale(Scale,Scale);
+}
+void sprite::setScale(vector Scale)
+{
+	setScale(Scale.x,Scale.y);
+}
+void sprite::setLayer(int Layer)
+{
+	if (Layer >= 0 && Layer <= 1000)
+		m_layer = Layer;
+	else if (Layer < 0)
+		m_layer = 0;
+	else if (Layer > 1000)
+		m_layer = 1000;
+}
+vector sprite::getSize()
+{
+	return vector(m_sprite->getLocalBounds().width, m_sprite->getLocalBounds().height);
+}
+vector sprite::getTransformedSize()
+{
+	return vector(m_sprite->getGlobalBounds().width, m_sprite->getGlobalBounds().height);
+}
 
+#pragma endregion
+
+#pragma region Viewport
 
 viewport::viewport(sf::RenderWindow* window)
 	: m_window(window)
@@ -192,3 +303,7 @@ void viewport::draw()
 		}
 	}
 }
+
+#pragma endregion
+
+#pragma endregion

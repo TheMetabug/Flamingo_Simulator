@@ -28,8 +28,8 @@ int main()
 
 	// Set window parametres
 	
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
-	al::viewport* viewport = new al::viewport(window);
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "Flamingo Simulator 2013");
+	al::viewport viewport(&window);
 	//window->setFramerateLimit(120);
 
 	////sound
@@ -47,12 +47,12 @@ int main()
 	sf::Time dt;
 	float deltaTime;
 
-	game MainGame(window);
-	renderStatistics m_renderStatistics(window);
+	game MainGame(&window, &viewport);
+	renderStatistics m_renderStatistics(&window);
 
 
 	// Run the program as long as the window is open
-    while (window->isOpen())
+    while (window.isOpen())
     {
 		
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
@@ -73,16 +73,16 @@ int main()
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 		{
-			window->close();
+			window.close();
 		}
 
         sf::Event event;
-        while (window->pollEvent(event))
+        while (window.pollEvent(event))
         {
 			// This is called when window is closed
             if (event.type == sf::Event::Closed)
 			{
-                window->close();
+                window.close();
 			}
         }
 
@@ -94,7 +94,7 @@ int main()
 
 		// Draw
 
-		window->clear(sf::Color::Transparent);
+		window.clear(sf::Color::Transparent);
 
 		MainGame.draw();
 
@@ -110,13 +110,12 @@ int main()
 
 
 		//end the current frame
-        window->display();
+        window.display();
 
 		dt = clock.restart();
 
     }
 
-	delete window;
 
     return 0;
 }
