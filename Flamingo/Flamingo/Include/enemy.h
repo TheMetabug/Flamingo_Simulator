@@ -5,6 +5,7 @@
 #include <iostream>
 #include "animation.h"
 #include "hitbox.h"
+#include "program.h"
 
 class enemy
 {
@@ -13,7 +14,7 @@ public:
 	enemy(sf::RenderWindow *Window, collision* Collide);
 	~enemy();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 
 private:
 	sf::RenderWindow* window;
@@ -25,6 +26,9 @@ private:
 
 	sf::Texture *m_enemyTexture;
 	sf::Sprite *m_enemyBird;
+
+	al::texture *m_texture;
+	al::sprite *m_sprite;
 
 };
 

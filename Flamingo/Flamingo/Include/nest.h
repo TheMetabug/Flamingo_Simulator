@@ -5,6 +5,7 @@
 #include <iostream>
 #include "hitbox.h"
 #include "animation.h"
+#include "program.h"
 
 
 class nest
@@ -14,7 +15,7 @@ public:
 	nest(sf::RenderWindow *Window, collision* Collide);
 	~nest();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 
 private:
 	sf::RenderWindow *window;
@@ -30,8 +31,8 @@ private:
 	sf::Texture *m_nestTexture;
 	sf::Sprite m_flamingonest;
 
-	std::vector<sf::Texture*> m_hatchlingTextures;
-	std::vector<sf::Sprite*> m_hatchlings;
+	al::texture* m_hatchlingTexture;
+	std::vector<al::sprite*> m_hatchlings;
 	std::vector<hitbox*> m_hatchlingHitboxes;
 	std::vector<animation*> m_animations;
 

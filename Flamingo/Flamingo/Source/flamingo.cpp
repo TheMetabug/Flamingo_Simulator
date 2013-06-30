@@ -36,6 +36,8 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 	m_flamingoHead.setOrigin(sf::Vector2f(120, 70));
 	m_flamingoHead.setScale(0.5f, 0.5f);
 
+	sf::Rect<float> asdf = m_flamingoHead.getGlobalBounds();
+
 	m_crossTexture = new sf::Texture();	
 	m_crossTexture->loadFromFile("Assets/crosshair.png");
 	m_crossTexture->setSmooth(true);

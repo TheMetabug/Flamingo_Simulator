@@ -215,7 +215,7 @@ void game::draw()
 	{
 	case TitleScreen:
 		// gui
-		m_gui->draw();
+		m_gui->draw(m_viewport);
 
 		break;
 	case Play:
@@ -225,14 +225,14 @@ void game::draw()
 		backGround->draw();
 
 		// nest
-		flamingonest->draw();
+		flamingonest->draw(m_viewport);
 
 
 		// enemy
-		enemyBird->draw();
+		enemyBird->draw(m_viewport);
 
 		// pickups
-		m_pickups->draw();
+		m_pickups->draw(m_viewport);
 
 		// flamingo
 
@@ -240,7 +240,7 @@ void game::draw()
 
 
 		// gui
-		m_gui->draw();
+		m_gui->draw(m_viewport);
 
 		// hitbox
 
@@ -249,14 +249,14 @@ void game::draw()
 	case Menu:
 
 		// gui
-		m_gui->draw();
+		m_gui->draw(m_viewport);
 
 		break;
 	case Credits:
 		break;
 
 	case Gamemenu:
-		m_gui->draw();
+		m_gui->draw(m_viewport);
 		break;
 	}
 

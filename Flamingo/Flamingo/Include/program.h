@@ -14,6 +14,7 @@ class vector
 public:
 
 	vector();
+	vector(sf::Vector2f sfVector);
 	vector(float X, float Y);
 	~vector();
 
@@ -50,28 +51,16 @@ class rectangle
 {
 public:
 	rectangle();
-	rectangle(float Width, float Height, float Left, float Top);
-	rectangle(float Width, float Height, vector Position);
-	rectangle(vector Size, vector Position);
-	void setWidth(float Width);
-	void setHeight(float Height);
-	void setLeft(float Left);
-	void setTop(float Top);
-	void setSize(vector Size);
-	void setPosition(vector Position);
-	float getWidth();
-	float getHeight();
-	float getLeft();
-	float getTop();
-	vector getSize();
-	vector getPosition();
+	rectangle(float Left, float Top, float Width, float Height);
+	rectangle(vector Position, float Width, float Height);
+	rectangle(vector Position, vector Size);
+
 	bool intersects(rectangle Rectangle);
 	bool contains(vector Position);
 
 	~rectangle();
-	
+	float width, height, left, top;
 private:
-	sf::Rect<float> m_rectangle;
 };
 
 #pragma endregion
@@ -102,22 +91,27 @@ class sprite
 {
 public:
 	sprite();
-	sprite(al::texture Texture);
+	sprite(al::texture* Texture);
 	~sprite();
 
-	void setTexture(al::texture Texture);
+	void setTexture(al::texture* Texture);
 	void setPosition(al::vector Position);
 	void setOrigin(al::vector Origin);
+	/*Set Origin Point according to location on numpad*/
+	void setOriginPoint(int Point);
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);
+	/*Layer 0-1000*/
 	void setLayer(int Layer);
 	vector getSize();
 	vector getTransformedSize();
-	
+	void setTextureRectangle(rectangle Rectangle);
+	vector getTextureSize();
 
 private:
 	sf::Sprite* m_sprite;
+	int m_originPoint;
 	int m_layer;
 	friend class viewport;
 };

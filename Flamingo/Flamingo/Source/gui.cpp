@@ -1,6 +1,6 @@
 #include "gui.h"
 
-
+using namespace al;
 
 gui::gui(sf::RenderWindow* Window)
 {
@@ -106,7 +106,7 @@ void gui::update(float DeltaTime)
 	
 }
 
-void gui::draw()
+void gui::draw(al::viewport* Viewport)
 {
 	window->draw(*HPtext);
 	window->draw(*PAUSEtext);
@@ -115,7 +115,7 @@ void gui::draw()
 	window->draw(*Gmenutext);
 
 	if (m_menu)
-		m_button->draw();
+		m_button->draw(Viewport);
 	
 	/*if (1)
 		m_button2->draw();*/
@@ -133,15 +133,12 @@ button::button(sf::RenderWindow* Window)
 	m_menuWingPos.y = 50;
 
 	
-	m_testbuttonT = new sf::Texture();
-	m_testbuttonT->loadFromFile("Assets/testbutton.png");
-	m_testbuttonT->setSmooth(true);
-	m_testbuttonS = new sf::Sprite();
-	m_testbuttonS->setTexture(*m_testbuttonT); 
+	m_testbuttonT = new texture("testbutton.png");
+	m_testbuttonS = new sprite(m_testbuttonT);
 	m_animation = new animation(m_testbuttonS, 3, 96, 96, false, 0);
 	m_testbuttonS->setPosition(m_testbuttonPos);
-	m_testbuttonS->setOrigin(sf::Vector2f(m_testbuttonS->getLocalBounds().width/2,
-						     m_testbuttonS->getLocalBounds().height/2));
+	m_testbuttonS->setOrigin(sf::Vector2f(m_testbuttonS->getSize().x/2,
+						     m_testbuttonS->getSize().y/2));
 	m_testbuttonS->setScale(1,1);
 
 	//m_menuWingT = new sf::Texture();
@@ -167,8 +164,9 @@ void button::update(float DeltaTime)
 	m_animation->update(DeltaTime);
 }
 
-void button::draw()
+void button::draw(al::viewport* Viewport)
 {
-	window->draw(*m_testbuttonS);
+	Viewport->addSprite(m_testbuttonS);
+	//window->draw(*m_testbuttonS);
 	//window->draw(*m_menuWingS);
 }

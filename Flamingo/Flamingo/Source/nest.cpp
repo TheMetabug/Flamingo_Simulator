@@ -1,5 +1,7 @@
 #include "nest.h"
 
+using namespace al;
+
 nest::nest(sf::RenderWindow *Window, collision* Collide)
 {
 	window = Window;
@@ -31,28 +33,26 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 	m_hatchlingPositions.push_back( sf::Vector2f(m_nestPosition.x - 60, m_nestPosition.y - 30));
 	m_hatchlingPositions.push_back( sf::Vector2f(m_nestPosition.x + 60, m_nestPosition.y - 30));
 
+	m_hatchlingTexture = new texture("Hatchling_sheet.png");
+
 	for (int i = 0; i < 3; ++i)
 	{
 		// create texture,sprite, positions etc
-		m_hatchlingTextures.push_back( new sf::Texture());
-		m_hatchlingTextures[i]->loadFromFile("Assets/Hatchling_sheet.png");
-		m_hatchlingTextures[i]->setSmooth(true);
-		m_hatchlings.push_back( new sf::Sprite());
-		m_hatchlings[i]->setTexture(*m_hatchlingTextures[i]);
+		m_hatchlings.push_back( new sprite(m_hatchlingTexture));
+		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 7));
 		m_hatchlings[i]->setPosition(m_hatchlingPositions[i]);
-		m_hatchlings[i]->setOrigin(sf::Vector2f(m_hatchlings[i]->getLocalBounds().width/6,
-							   m_hatchlings[i]->getLocalBounds().height/2));
+		m_hatchlings[i]->setOrigin(sf::Vector2f(m_hatchlings[i]->getSize().x/2,
+							   m_hatchlings[i]->getSize().y/2));
 		m_hatchlings[i]->setScale(0.5f,0.5f);
 
 		//animation
-		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 7));
 
 		//hitbox
 		m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],
-			sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width,
-							m_hatchlings[i]->getGlobalBounds().height), 
-			sf::Vector2f(m_hatchlings[i]->getGlobalBounds().width/2,
-							m_hatchlings[i]->getGlobalBounds().height/2),
+			sf::Vector2f(m_hatchlings[i]->getTransformedSize().x,
+							m_hatchlings[i]->getTransformedSize().y), 
+			sf::Vector2f(m_hatchlings[i]->getTransformedSize().x/2,
+							m_hatchlings[i]->getTransformedSize().y/2),
 			0));
 	}
 
@@ -71,9 +71,10 @@ void nest::update(float DeltaTime)
 	//Animator->update(DeltaTime);
 	//m_nestHitbox->Position = m_nestPosition;
 }
-void nest::draw()
+void nest::draw(al::viewport* Viewport)
 {
 	window->draw(m_flamingonest);
+
 	for (int i = 0; i < m_hatchlings.size(); ++i)
-		window->draw(*m_hatchlings[i]);
+		Viewport->addSprite(m_hatchlings[i]);
 }

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "animation.h"
 #include "hitbox.h"
+#include "program.h"
 
 namespace pups
 {
@@ -20,9 +21,9 @@ namespace pups
 	class pickup
 	{
 	public:
-		pickup(sf::Texture* Texture, ItemName itemName, float FoodValue, float Speed);
+		pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed);
 		~pickup();
-		sf::Texture* m_texture;
+		al::texture* m_texture;
 		ItemName m_itemName;
 		float m_foodValue;
 		float m_speed;
@@ -38,11 +39,11 @@ namespace pups
 		~item();
 
 		void update(float DeltaTime);
-		void draw(sf::RenderWindow *window);
+		void draw(al::viewport* Viewport);
 
 		sf::Vector2f m_position;
 		pickup* m_pickup;
-		sf::Sprite* m_sprite;
+		al::sprite* m_sprite;
 		animation* m_animation;
 		hitbox* m_hitbox;
 		bool m_floating;
@@ -61,7 +62,7 @@ public:
 	pickups(sf::RenderWindow *Window, collision *Collision);
 	~pickups();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 	void drawHitBoxes();
 	
 
@@ -69,6 +70,7 @@ private:
 	float m_timer;
 
 	sf::RenderWindow *window;
+
 	collision *m_collision;
 
 	sf::Vector2f m_spawnPosition;
@@ -76,7 +78,7 @@ private:
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;
 
-	sf::Texture* texture;
+	al::texture* m_texture;
 };
 
 #endif

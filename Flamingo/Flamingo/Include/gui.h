@@ -13,7 +13,7 @@ public:
 	button(sf::RenderWindow *Window);
    ~button();
    	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 
 	sf::Vector2f m_testbuttonPos;
 	sf::Vector2f m_menuWingPos;
@@ -23,8 +23,8 @@ public:
 private:
 	sf::RenderWindow *window;
 
-	sf::Texture *m_testbuttonT;
-	sf::Sprite *m_testbuttonS;
+	al::texture *m_testbuttonT;
+	al::sprite *m_testbuttonS;
 
 	sf::Texture *m_menuWingT;
 	sf::Sprite *m_menuWingS;
@@ -37,7 +37,7 @@ public:
 	gui(sf::RenderWindow *Window);
 	~gui();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 	int HPnow;
 	int HPmax;
 	int HPtaken;

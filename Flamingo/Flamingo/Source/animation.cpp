@@ -2,7 +2,7 @@
 
 
 
-animation::animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip, float Fps, int FirstFrame)
+animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip, float Fps, int FirstFrame)
 {
 	m_sprite = Sprite;
 	m_frames = Frames;
@@ -51,7 +51,9 @@ void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int Anim
 
 void animation::setVisibleFrame()
 {
-	int currentFrameX = m_currentFrame % (m_sprite->getTexture()->getSize().x / m_framesizeX) * m_framesizeX;
-	int currentFrameY = (int)(floor((double)m_currentFrame / ((double)m_sprite->getTexture()->getSize().x / (double)m_framesizeX))) * m_framesizeY;
-	m_sprite->setTextureRect(sf::Rect<int>(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY));
+	
+	int currentFrameX = m_currentFrame % (int(m_sprite->getTextureSize().x / m_framesizeX)) * m_framesizeX;
+	int currentFrameY = (int)(floor((double)m_currentFrame / ((double)m_sprite->getTextureSize().x / (double)m_framesizeX))) * m_framesizeY;
+	al::rectangle frame = al::rectangle(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY);
+	m_sprite->setTextureRectangle(frame);
 }

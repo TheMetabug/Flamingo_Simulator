@@ -4,19 +4,20 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <math.h>
+#include "program.h"
 
 
 class animation
 {
 public:
-	animation(sf::Sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
+	animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
 	~animation();
 	void update(float deltaTime);
 	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);
 private:
 	void setVisibleFrame();
 	
-	sf::Sprite* m_sprite;
+	al::sprite* m_sprite;
 
 	float m_timer;
 	int m_currentFrame;

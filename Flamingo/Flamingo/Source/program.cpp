@@ -9,6 +9,12 @@ vector::vector()
 	: x(0), y(0)
 {}
 
+vector::vector(sf::Vector2f sfVector)
+{
+	x = sfVector.x;
+	y = sfVector.y;
+}
+
 vector::vector(float X, float Y)
 	: x(X), y(Y)
 {}
@@ -92,92 +98,43 @@ bool operator !=(const vector& LeftVal, const vector& RightVal)
 
 rectangle::rectangle()
 {
-	m_rectangle.width = 0;
-	m_rectangle.height = 0;
-	m_rectangle.left = 0;
-	m_rectangle.top = 0;
+	left = 0;
+	top = 0;
+	width = 0;
+	height = 0;
 }
-rectangle::rectangle(float Width, float Height, float Left, float Top)
+rectangle::rectangle(float Left, float Top, float Width, float Height)
 {
-	m_rectangle.width = Width;
-	m_rectangle.height = Height;
-	m_rectangle.left = Left;
-	m_rectangle.top = Top;
+	//sf::Rect<float> asdf(,);
+	left = Left;
+	top = Top;
+	width = Width;
+	height = Height;
 }
-rectangle::rectangle(float Width, float Height, vector Position)
+rectangle::rectangle(vector Position, float Width, float Height)
 {
-	m_rectangle.width = Width;
-	m_rectangle.height = Height;
-	m_rectangle.left = Position.x;
-	m_rectangle.top = Position.y;
+	left = Position.x;
+	top = Position.y;
+	width = Width;
+	height = Height;
 }
-rectangle::rectangle(vector Size, vector Position)
+rectangle::rectangle(vector Position, vector Size)
 {
-	m_rectangle.width = Size.x;
-	m_rectangle.height = Size.y;
-	m_rectangle.left = Position.x;
-	m_rectangle.top = Position.y;
+	left = Position.x;
+	top = Position.y;
+	width = Size.x;
+	height = Size.y;
 }
 rectangle::~rectangle()
 {}
 
-void rectangle::setWidth(float Width)
-{
-	m_rectangle.width = Width;
-}
-void rectangle::setHeight(float Height)
-{
-	m_rectangle.height = Height;
-}
-void rectangle::setLeft(float Left)
-{
-	m_rectangle.left = Left;
-}
-void rectangle::setTop(float Top)
-{
-	m_rectangle.top = Top;
-}
-void rectangle::setSize(vector Size)
-{
-	m_rectangle.width = Size.x;
-	m_rectangle.height = Size.y;
-}
-void rectangle::setPosition(vector Position)
-{
-	m_rectangle.left = Position.x;
-	m_rectangle.top = Position.y;
-}
-float rectangle::getWidth()
-{
-	return m_rectangle.width;
-}
-float rectangle::getHeight()
-{
-	return m_rectangle.height;
-}
-float rectangle::getLeft()
-{
-	return m_rectangle.left;
-}
-float rectangle::getTop()
-{
-	return m_rectangle.top;
-}
-vector rectangle::getSize()
-{
-	return vector(m_rectangle.width, m_rectangle.height);
-}
-vector rectangle::getPosition()
-{
-	return vector(m_rectangle.left, m_rectangle.top);
-}
 bool rectangle::intersects(rectangle Rectangle)
 {
-	return m_rectangle.intersects(Rectangle.m_rectangle);
+	return sf::Rect<float>(width, height, left, top).intersects(sf::Rect<float>(Rectangle.width, Rectangle.height, Rectangle.left, Rectangle.top));
 }
 bool rectangle::contains(vector Position)
 {
-	return m_rectangle.contains(Position.x, Position.y);
+	return sf::Rect<float>(width, height, left, top).contains(sf::Vector2<float>(Position.x, Position.y));
 }
 
 #pragma endregion
@@ -213,24 +170,29 @@ void texture::loadTexture(std::string TextureName)
 
 sprite::sprite()
 	: m_sprite(NULL),
-	  m_layer(0)
-{}
-
-sprite::sprite(al::texture Texture)
-	: m_layer(0)
+	  m_layer(0),
+	  m_originPoint(0)
 {
+	m_sprite = new sf::Sprite();
+}
+
+sprite::sprite(al::texture *Texture)
+	: m_layer(0),
+	  m_originPoint(0)
+{
+	m_sprite = new sf::Sprite();
 	setTexture(Texture);
 }
 
 sprite::~sprite()
 {
+	std::cout<<"deleting sprite"<<std::endl;
 	delete m_sprite;
 }
 
-void sprite::setTexture(al::texture Texture)
+void sprite::setTexture(al::texture *Texture)
 {
-	m_sprite = new sf::Sprite();
-	m_sprite->setTexture(*Texture.m_texture); 
+	m_sprite->setTexture(*Texture->m_texture); 
 }
 
 void sprite::setPosition(al::vector Position)
@@ -243,6 +205,48 @@ void sprite::setOrigin(al::vector Origin)
 {
 	sf::Vector2f pos(Origin.x,Origin.y);
 	m_sprite->setOrigin(pos);
+}
+void sprite::setOriginPoint(int Point)
+{
+	if (0 < Point && Point < 10)
+		m_originPoint = Point;
+	else 
+		m_originPoint = 0;
+
+	switch (Point)
+	{
+	case 1:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.0f, m_sprite->getLocalBounds().height * 1.0f);
+		break;
+	case 2:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.5f, m_sprite->getLocalBounds().height * 1.0f);
+		break;
+	case 3:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 1.0f, m_sprite->getLocalBounds().height * 1.0f);
+		break;
+	case 4:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.0f, m_sprite->getLocalBounds().height * 0.5f);
+		break;
+	case 5:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.5f, m_sprite->getLocalBounds().height * 0.5f);
+		break;
+	case 6:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 1.0f, m_sprite->getLocalBounds().height * 0.5f);
+		break;
+	case 7:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.0f, m_sprite->getLocalBounds().height * 0.0f);
+		break;
+	case 8:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.5f, m_sprite->getLocalBounds().height * 0.0f);
+		break;
+	case 9:
+		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 1.0f, m_sprite->getLocalBounds().height * 0.0f);
+		break;
+	default:
+		m_sprite->setOrigin(0,0);
+		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
+		break;
+	}
 }
 
 void sprite::setScale(float ScaleX, float ScaleY)
@@ -268,11 +272,28 @@ void sprite::setLayer(int Layer)
 }
 vector sprite::getSize()
 {
+	vector qwerty(m_sprite->getLocalBounds().width, m_sprite->getLocalBounds().height);
 	return vector(m_sprite->getLocalBounds().width, m_sprite->getLocalBounds().height);
 }
 vector sprite::getTransformedSize()
 {
+	sf::Rect<float> asdofi = m_sprite->getGlobalBounds();
+	vector qwerty(m_sprite->getGlobalBounds().width, m_sprite->getGlobalBounds().height);
 	return vector(m_sprite->getGlobalBounds().width, m_sprite->getGlobalBounds().height);
+}
+void sprite::setTextureRectangle(rectangle Rectangle)
+{
+	int left = Rectangle.left;
+	int top = Rectangle.top;
+	int width = Rectangle.width;
+	int height = Rectangle.height;
+	m_sprite->setTextureRect(sf::IntRect(left,top,width,height));
+}
+
+vector sprite::getTextureSize()
+{
+	vector qwerty(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
+	return vector(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
 }
 
 #pragma endregion
@@ -293,7 +314,7 @@ void viewport::addSprite(al::sprite* Sprite)
 
 void viewport::draw()
 {
-	for (int i = 0; i < 1000; ++i)
+ 	for (int i = 0; i < 1001; ++i)
 	{
 		for(int j = m_layer[i].size()-1; j >= 0; --j)
 		{
