@@ -316,12 +316,11 @@ void viewport::renderSprites()
 {
  	for (int i = 0; i < 1001; ++i)
 	{
-		for(int j = m_layer[i].size()-1; j >= 0; --j)
+		for(int j = 0; j < m_layer[i].size(); ++j)
 		{
 			m_window->draw(*m_layer[i][j]->m_sprite);
-
-			m_layer[i].erase(m_layer[i].begin() + j);
 		}
+		m_layer[i].clear();
 	}
 }
 
