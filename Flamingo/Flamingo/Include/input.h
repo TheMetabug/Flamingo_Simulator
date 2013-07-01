@@ -13,7 +13,8 @@ public:
 
   ~input();
 
-  sf::Mouse::Button;
+  sf::Mouse::Button asd;
+  sf::Keyboard::Key afsd;
   //enum Button
  //   {
  //       Left,       ///< The left mouse button

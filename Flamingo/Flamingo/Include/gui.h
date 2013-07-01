@@ -10,24 +10,20 @@ class button
 {
 public:
 	button(){}
-	button(sf::RenderWindow *Window);
+	button(std::string TextureName, al::vector Position);
    ~button();
+	void setTexture(std::string TextureName);
    	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
-	sf::Vector2f m_testbuttonPos;
-	sf::Vector2f m_menuWingPos;
-
+	al::vector m_position;
 	animation *m_animation;
 
 private:
-	sf::RenderWindow *window;
 
-	al::texture *m_testbuttonT;
-	al::sprite *m_testbuttonS;
+	al::texture m_texture;
+	al::sprite m_sprite;
 
-	sf::Texture *m_menuWingT;
-	sf::Sprite *m_menuWingS;
 };
 
 class gui

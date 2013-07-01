@@ -17,7 +17,7 @@ gui::gui(sf::RenderWindow* Window)
 
 	window = Window;
 	
-	m_button = new button(window);
+	m_button = new button("testbutton.png",vector(300,300));
 	//m_button2 = new button(window);
 
 	font = new sf::Font();
@@ -122,41 +122,25 @@ void gui::draw(al::viewport* Viewport)
 }
 
 
-button::button(sf::RenderWindow* Window)
+button::button(std::string TextureName, al::vector Position)
 {
-	window = Window;
-
-	m_testbuttonPos.x = 300;
-	m_testbuttonPos.y = 300;
-
-	m_menuWingPos.x = 50;
-	m_menuWingPos.y = 50;
-
-	
-	m_testbuttonT = new texture("testbutton.png");
-	m_testbuttonS = new sprite(m_testbuttonT);
-	m_animation = new animation(m_testbuttonS, 3, 96, 96, false, 0);
-	m_testbuttonS->setPosition(m_testbuttonPos);
-	m_testbuttonS->setOrigin(sf::Vector2f(m_testbuttonS->getSize().x/2,
-						     m_testbuttonS->getSize().y/2));
-	m_testbuttonS->setScale(1,1);
-
-	//m_menuWingT = new sf::Texture();
-	//m_menuWingT->loadFromFile("Assets/menu_Wing.png");
-	//m_menuWingT->setSmooth(true);
-	//m_menuWingS = new sf::Sprite();
-	//m_menuWingS->setTexture(*m_menuWingT); 
-	////m_animation = new animation(m_menuWingS, 3, 96, 96, false, 0);
-	//m_menuWingS->setPosition(m_menuWingPos);
-	//m_menuWingS->setOrigin(sf::Vector2f(m_menuWingS->getLocalBounds().width/2,
-	//					     m_menuWingS->getLocalBounds().height/2));
-	//m_menuWingS->setScale(1,1);
-
+	m_position = Position;
+	setTexture(TextureName);
 }
 
 button::~button()
 {
+	delete m_animation;
+}
 
+void button::setTexture(std::string TextureName)
+{
+	m_texture.loadTexture(TextureName);
+	m_sprite.setTexture(&m_texture);
+	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
+	m_sprite.setPosition(m_position);
+	m_sprite.setOrigin(sf::Vector2f(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
+	m_sprite.setScale(1,1);
 }
 
 void button::update(float DeltaTime)
@@ -166,7 +150,7 @@ void button::update(float DeltaTime)
 
 void button::draw(al::viewport* Viewport)
 {
-	Viewport->draw(m_testbuttonS);
+	Viewport->draw(&m_sprite);
 	//window->draw(*m_testbuttonS);
 	//window->draw(*m_menuWingS);
 }
