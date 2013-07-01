@@ -78,8 +78,7 @@ private:
 
 
 	////sound
-	sound* m_sound;
-	music* m_music;
+	soundLibrary* m_soundLibrary;
 
 
 };

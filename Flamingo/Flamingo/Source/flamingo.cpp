@@ -1,6 +1,7 @@
 #include "flamingo.h"
 #define PI 3.14159265358979323846264
 
+using namespace al;
 
 flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 {
@@ -16,56 +17,46 @@ flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
 
 	
 	// Textures and sprites
-#if 1
+#pragma region Textures and sprites
 
 	///////////BODY////////////
-	m_bodyTexture = new sf::Texture();
-	m_bodyTexture->loadFromFile("Assets/Flamingo_player_body.png");
-	m_bodyTexture->setSmooth(true);
-	m_flamingoBody.setTexture(*m_bodyTexture);
+	m_bodyTexture = new texture("Flamingo_player_body.png");
+	m_flamingoBody.setTexture(m_bodyTexture);
 	m_flamingoBody.setPosition(m_flamingoPosition);
-	m_flamingoBody.setOrigin(sf::Vector2f(10, 100));
+	m_flamingoBody.setOrigin(vector(10, 100));
 	m_flamingoBody.setScale(0.5f, 0.5f);
 
 	////////////HEAD///////////
-	m_headTexture = new sf::Texture();
-	m_headTexture->loadFromFile("Assets/Flamingo_player_head.png");
-	m_headTexture->setSmooth(true);
-	m_flamingoHead.setTexture(*m_headTexture);
+	m_headTexture = new texture("Flamingo_player_head.png");
+	m_flamingoHead.setTexture(m_headTexture);
 	m_flamingoHead.setPosition(m_headOrigin);
-	m_flamingoHead.setOrigin(sf::Vector2f(120, 70));
+	m_flamingoHead.setOrigin(vector(120, 70));
 	m_flamingoHead.setScale(0.5f, 0.5f);
 
-	sf::Rect<float> asdf = m_flamingoHead.getGlobalBounds();
-
-	m_crossTexture = new sf::Texture();	
-	m_crossTexture->loadFromFile("Assets/crosshair.png");
-	m_crossTexture->setSmooth(true);
-	m_crosshairSprite.setTexture(*m_crossTexture);
+	m_crossTexture = new texture("crosshair.png");	
+	m_crosshairSprite.setTexture(m_crossTexture);
 	m_crosshairSprite.setPosition(m_headOrigin);
-	m_crosshairSprite.setOrigin(sf::Vector2f(25, 25));
+	m_crosshairSprite.setOrigin(vector(25, 25));
 
 	/////////////NECK//////////
-	m_neckTexture = new sf::Texture();
-	m_neckTexture->loadFromFile("Assets/Flamingo_player_neck.png");
-	m_neckTexture->setSmooth(true);
+	m_neckTexture = new texture("Flamingo_player_neck.png");
 
 	
-#endif
+#pragma endregion
 
 	/////////NECK///////
 
 	int neckPieceCount = 10;
 	for (int i = 0; i < neckPieceCount; ++i)
 	{
-		m_neckPieces.push_back(neckPiece());
-		m_neckPieces[i].m_sprite.setTexture(*m_neckTexture);
-		m_neckPieces[i].m_sprite.setPosition(m_flamingoPosition + sf::Vector2f(-1*i,-17*i));
-		m_neckPieces[i].m_sprite.setOrigin(sf::Vector2f(18, 20));
-		m_neckPieces[i].m_sprite.setScale(0.5f, 0.5f);
+		m_neckPieces.push_back(new neckPiece());
+		m_neckPieces[i]->m_sprite.setTexture(m_neckTexture);
+		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition + sf::Vector2f(-1*i,-17*i));
+		m_neckPieces[i]->m_sprite.setOrigin(sf::Vector2f(18, 20));
+		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
-		m_neckPieces[i].m_positionMultiplier = sf::Vector2f(place,(sin(float(place * -2 * PI))));
+		m_neckPieces[i]->m_positionMultiplier = sf::Vector2f(place,(sin(float(place * -2 * PI))));
 	}
 
 
@@ -195,12 +186,14 @@ void flamingo::update(float DeltaTime)
 
 		for (int i = 0; i < m_neckPieces.size(); ++i)
 		{
-			m_neckPieces[i].m_positionRelative = sf::Vector2f(
-				m_neckPieces[i].m_positionMultiplier.x * lenght,
-				m_neckPieces[i].m_positionMultiplier.y * lenght/8);
+			m_neckPieces[i]->m_positionRelative = sf::Vector2f(
+				m_neckPieces[i]->m_positionMultiplier.x * lenght,
+				m_neckPieces[i]->m_positionMultiplier.y * lenght/8);
 
-			m_neckPieces[i].m_positionRelative = transform.transformPoint(m_neckPieces[i].m_positionRelative);
-			m_neckPieces[i].m_sprite.setPosition(m_neckPieces[i].m_positionRelative + m_flamingoPosition);
+			m_neckPieces[i]->m_positionRelative = transform.transformPoint(
+				sf::Vector2f(	m_neckPieces[i]->m_positionRelative.x,
+								m_neckPieces[i]->m_positionRelative.y));
+			m_neckPieces[i]->m_sprite.setPosition(m_neckPieces[i]->m_positionRelative + m_flamingoPosition);
 		}
 	}
 #endif
@@ -212,11 +205,11 @@ void flamingo::update(float DeltaTime)
 	m_headHitbox->Position = m_headPosition;
 }
 
-void flamingo::draw()
+void flamingo::draw(al::viewport* Viewport)
 {
-	window->draw(m_flamingoBody);
+	Viewport->draw(&m_flamingoBody);
 	for (int i = 0; i < m_neckPieces.size(); ++i)
-		window->draw(m_neckPieces[i].m_sprite);
-	window->draw(m_flamingoHead);
-	window->draw(m_crosshairSprite);
+		Viewport->draw(&m_neckPieces[i]->m_sprite);
+	Viewport->draw(&m_flamingoHead);
+	Viewport->draw(&m_crosshairSprite);
 }

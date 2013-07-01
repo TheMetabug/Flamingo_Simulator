@@ -105,6 +105,9 @@ public:
 	void setScale(vector Scale);
 	/*Layer 0-1000*/
 	void setLayer(int Layer);
+	vector getPosition();
+	vector getOrigin();
+	vector getScale();
 	vector getSize();
 	vector getTransformedSize();
 	rectangle getGlobalBounds();

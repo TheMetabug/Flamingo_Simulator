@@ -5,6 +5,7 @@
 #include <iostream>
 #include <math.h>
 #include "hitbox.h"
+#include "program.h"
 
 class neckPiece
 {
@@ -12,7 +13,7 @@ public:
 	neckPiece(){}
 	~neckPiece(){}
 	
-	sf::Sprite m_sprite;
+	al::sprite m_sprite;
 
 	sf::Vector2f m_positionMultiplier, m_positionRelative;
 	
@@ -25,7 +26,7 @@ class flamingo
 	 flamingo(sf::RenderWindow *Window, collision* Collide);
 	~flamingo();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 
 	private:
 
@@ -46,19 +47,19 @@ class flamingo
 
 	sf::Vector2f m_bodyToHead;
 
-	std::vector<neckPiece> m_neckPieces;
+	std::vector<neckPiece*> m_neckPieces;
 
 
 
 	// Textures and sprites
-	sf::Texture* m_headTexture;
-	sf::Texture* m_crossTexture;
-	sf::Texture* m_neckTexture;
-	sf::Texture* m_bodyTexture;
-	sf::Sprite m_flamingoNeck;
-	sf::Sprite m_flamingoHead;
-	sf::Sprite m_crosshairSprite;
-	sf::Sprite m_flamingoBody;
+	al::texture* m_headTexture;
+	al::texture* m_crossTexture;
+	al::texture* m_neckTexture;
+	al::texture* m_bodyTexture;
+	al::sprite m_flamingoNeck;
+	al::sprite m_flamingoHead;
+	al::sprite m_crosshairSprite;
+	al::sprite m_flamingoBody;
 	
 };
 

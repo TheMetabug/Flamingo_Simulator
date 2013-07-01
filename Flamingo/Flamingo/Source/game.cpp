@@ -37,8 +37,7 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	m_gui = new gui(window);
 
 	////sound
-	m_sound = new sound();
-	m_music = new music();
+	m_soundLibrary = new soundLibrary();
 	
 }
 
@@ -52,8 +51,7 @@ game::~game()
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
-	delete m_sound;
-	delete m_music;
+	delete m_soundLibrary;
 }
 
 void game::update(float deltaTime)
@@ -81,10 +79,6 @@ void game::update(float deltaTime)
 	
 		break;
 	
-	
-	
-	
-	
 	case Play:
 		
 		// show text
@@ -95,7 +89,7 @@ void game::update(float deltaTime)
 			P_release = true;
 		else if (P_release)
 		{
-			m_music->pause();
+			m_soundLibrary->m_musics[0]->pause();
 			P_release = false;
 			state = Pause;
 		}
@@ -104,7 +98,7 @@ void game::update(float deltaTime)
 			M_release = true;
 		else if (M_release)
 		{
-			m_music->pause();
+			m_soundLibrary->m_musics[0]->pause();
 			M_release = false;
 			state = Gamemenu;
 			m_gui->m_Play = false;
@@ -161,8 +155,8 @@ void game::update(float deltaTime)
 
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				m_music->play();
-				m_sound->play(0);
+				m_soundLibrary->m_musics[0]->play();
+				m_soundLibrary->m_sounds[0]->play();
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
 				state = Play;
 				m_gui->m_menu = false;
@@ -186,8 +180,8 @@ void game::update(float deltaTime)
 			P_release = true;
 		else if (P_release)
 		{
-			m_music->play();
-			m_sound->play(0);
+			m_soundLibrary->m_musics[0]->play();
+			m_soundLibrary->m_sounds[0]->play();
 			P_release = false;
 			state = Play;
 			m_gui->m_pause = false;
@@ -245,7 +239,7 @@ void game::draw()
 
 		// flamingo
 
-		flamingoBase->draw();		
+		flamingoBase->draw(m_viewport);		
 
 
 		// gui
