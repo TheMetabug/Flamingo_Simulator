@@ -75,10 +75,11 @@ private:
 	// particles
 
 	//renderstatistics
-	renderStatistics* m_renderStatistics;
+
 
 	////sound
 	sound* m_sound;
+	music* m_music;
 
 
 };
