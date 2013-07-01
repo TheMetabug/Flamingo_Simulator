@@ -54,6 +54,7 @@ public:
 	rectangle(float Left, float Top, float Width, float Height);
 	rectangle(vector Position, float Width, float Height);
 	rectangle(vector Position, vector Size);
+	rectangle(sf::FloatRect Rect);
 
 	bool intersects(rectangle Rectangle);
 	bool contains(vector Position);
@@ -106,6 +107,7 @@ public:
 	void setLayer(int Layer);
 	vector getSize();
 	vector getTransformedSize();
+	rectangle getGlobalBounds();
 	void setTextureRectangle(rectangle Rectangle);
 	vector getTextureSize();
 

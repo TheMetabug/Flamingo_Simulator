@@ -125,6 +125,13 @@ rectangle::rectangle(vector Position, vector Size)
 	width = Size.x;
 	height = Size.y;
 }
+rectangle::rectangle(sf::FloatRect Rect)
+{
+	left = Rect.left;
+	top = Rect.top;
+	width = Rect.width;
+	height = Rect.height;
+}
 rectangle::~rectangle()
 {}
 
@@ -278,8 +285,11 @@ vector sprite::getSize()
 vector sprite::getTransformedSize()
 {
 	sf::Rect<float> asdofi = m_sprite->getGlobalBounds();
-	vector qwerty(m_sprite->getGlobalBounds().width, m_sprite->getGlobalBounds().height);
 	return vector(m_sprite->getGlobalBounds().width, m_sprite->getGlobalBounds().height);
+}
+rectangle sprite::getGlobalBounds()
+{
+	return rectangle(m_sprite->getGlobalBounds());
 }
 void sprite::setTextureRectangle(rectangle Rectangle)
 {
