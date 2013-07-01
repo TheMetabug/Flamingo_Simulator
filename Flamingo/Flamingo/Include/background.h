@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include "program.h"
 
 class background
 {
@@ -12,19 +12,21 @@ public:
 	background(sf::RenderWindow *Window);
 	~background();
 	void update(float DeltaTime);
-	void draw();
+	void draw(al::viewport* Viewport);
 
 private:
 	sf::RenderWindow *window;
 
 	sf::Vector2f m_waterPosition;
 
-	sf::Texture* m_skyTexture;
-	sf::Sprite m_sky;
-	sf::Texture* m_waterTexture;
-	sf::Sprite m_water;
-	sf::Texture* m_groundTexture;
-	sf::Sprite m_ground;
+	al::texture* m_skyTexture;
+	al::sprite m_sky;
+
+	al::texture* m_waterTexture;
+	al::sprite m_water;
+
+	al::texture* m_groundTexture;
+	al::sprite m_ground;
 };
 
 #endif

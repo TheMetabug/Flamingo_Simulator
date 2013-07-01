@@ -222,7 +222,7 @@ void game::draw()
 	case Pause:
 
 		// backGround
-		backGround->draw();
+		backGround->draw(m_viewport);
 
 		// nest
 		flamingonest->draw(m_viewport);
