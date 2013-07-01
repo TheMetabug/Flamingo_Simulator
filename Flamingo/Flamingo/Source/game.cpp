@@ -146,10 +146,10 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		if(sf::Mouse::getPosition(*window).x > m_gui->m_button->m_testbuttonPos.x  - 48 &&
-			sf::Mouse::getPosition(*window).x < m_gui->m_button->m_testbuttonPos.x + 48 &&
-			sf::Mouse::getPosition(*window).y > m_gui->m_button->m_testbuttonPos.y - 48 &&
-			sf::Mouse::getPosition(*window).y < m_gui->m_button->m_testbuttonPos.y + 48)
+		if(sf::Mouse::getPosition(*window).x > m_gui->m_button->m_position.x  - 48 &&
+			sf::Mouse::getPosition(*window).x < m_gui->m_button->m_position.x + 48 &&
+			sf::Mouse::getPosition(*window).y > m_gui->m_button->m_position.y - 48 &&
+			sf::Mouse::getPosition(*window).y < m_gui->m_button->m_position.y + 48)
 		{
 			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
