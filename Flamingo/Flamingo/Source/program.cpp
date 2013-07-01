@@ -307,12 +307,12 @@ viewport::viewport(sf::RenderWindow* window)
 viewport::~viewport()
 {}
 
-void viewport::addSprite(al::sprite* Sprite)
+void viewport::draw(al::sprite* Sprite)
 {
 	m_layer[Sprite->m_layer].push_back(Sprite);
 }
 
-void viewport::draw()
+void viewport::renderSprites()
 {
  	for (int i = 0; i < 1001; ++i)
 	{

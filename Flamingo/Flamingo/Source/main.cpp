@@ -98,7 +98,7 @@ int main()
 
 		MainGame.draw();
 
-		viewport->draw();
+		viewport->renderSprites();
 
 		if (FPS)
 		{

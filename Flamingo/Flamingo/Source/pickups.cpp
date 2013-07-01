@@ -86,7 +86,7 @@ void item::update(float DeltaTime)
 
 void item::draw(al::viewport* Viewport)
 {
-	Viewport->addSprite(m_sprite);
+	Viewport->draw(m_sprite);
 	//window->draw(*m_sprite);
 }
 

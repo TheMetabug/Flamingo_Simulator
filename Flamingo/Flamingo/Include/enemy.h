@@ -24,8 +24,8 @@ private:
 
 	float m_enemyRotate;
 
-	sf::Texture *m_enemyTexture;
-	sf::Sprite *m_enemyBird;
+	//sf::Texture *m_enemyTexture;
+	//sf::Sprite *m_enemyBird;
 
 	al::texture *m_texture;
 	al::sprite *m_sprite;

@@ -166,7 +166,7 @@ void button::update(float DeltaTime)
 
 void button::draw(al::viewport* Viewport)
 {
-	Viewport->addSprite(m_testbuttonS);
+	Viewport->draw(m_testbuttonS);
 	//window->draw(*m_testbuttonS);
 	//window->draw(*m_menuWingS);
 }

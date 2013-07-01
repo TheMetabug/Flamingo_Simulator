@@ -76,5 +76,5 @@ void nest::draw(al::viewport* Viewport)
 	window->draw(m_flamingonest);
 
 	for (int i = 0; i < m_hatchlings.size(); ++i)
-		Viewport->addSprite(m_hatchlings[i]);
+		Viewport->draw(m_hatchlings[i]);
 }

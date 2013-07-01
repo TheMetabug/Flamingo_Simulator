@@ -126,8 +126,8 @@ public:
 	viewport(sf::RenderWindow *window);
 	~viewport();
 
-	void addSprite(al::sprite* Sprite);
-	void draw();
+	void draw(al::sprite* Sprite);
+	void renderSprites();
 
 private:
 	sf::RenderWindow* m_window;

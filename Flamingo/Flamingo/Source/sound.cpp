@@ -14,4 +14,8 @@ sound::sound()
 
 }
 
-sound::~sound(){}
+sound::~sound()
+{
+	delete m_buffer;
+	delete m_sound;
+}

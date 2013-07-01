@@ -5,6 +5,23 @@
 #include <iostream>
 #include <SFML\Audio.hpp>
 
+class music
+{
+public:
+	music();
+	~music();
+
+	void load(std::string filename);
+	void play();
+	void stop();
+	void pause();
+
+
+private:
+	sf::SoundBuffer* m_buffer;
+	sf::Music* m_music;
+};
+
 class sound
 {
 public:
