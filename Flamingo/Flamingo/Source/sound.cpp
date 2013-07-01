@@ -4,7 +4,12 @@
 music::music()
 {
 	m_music = new sf::Music();
-	load("Assets/whatislove.wav");	
+}
+music::music(std::string Filename)
+{
+	m_music = new sf::Music();
+
+	load(Filename);	
 }
 
 music::~music()
@@ -14,7 +19,7 @@ music::~music()
 
 void music::load(std::string filename)
 {
-	m_music->openFromFile(filename);
+	m_music->openFromFile("Assets/" + filename + ".wav");
 }
 
 void music::play() 
@@ -37,12 +42,15 @@ void music::pause()
 sound::sound()
 {
 	m_buffer = new sf::SoundBuffer();
-	load("Assets/boing.wav");
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
-	
-	//m_sound->setLoop(true);
-
+}
+sound::sound(std::string Filename)
+{
+	m_buffer = new sf::SoundBuffer();
+	load(Filename);
+	m_sound = new sf::Sound();
+	m_sound->setBuffer(*m_buffer);
 }
 sound::~sound()
 {
@@ -52,47 +60,56 @@ sound::~sound()
 
 void sound::load(std::string filename)
 {
-	m_buffer->loadFromFile(filename);
+	m_buffer->loadFromFile("Assets/" + filename + ".wav");
+	m_soundName = filename;
 }
-void sound::play(int soundID)
+void sound::play()
 {
-	switch(soundID)
-	{
-	case 0:
-		m_sound->play();
-		break;
-	case 1:
-
-		break;
-	}
-	
+	m_sound->play();
 }
-void sound::stop(int soundID)
+void sound::stop()
 {
-	switch(soundID)
-	{
-	case 0:
-		m_sound->stop();
-		break;
-	case 1:
-
-		break;
-	}
-
+	m_sound->stop();
 }
-void sound::pause(int soundID)
+void sound::pause()
 {
-	switch(soundID)
-	{
-	case 0:
-		m_sound->play();
-		break;
-	case 1:
-
-		break;
-	}
+	m_sound->play();
 }
 
 
 
+soundLibrary::soundLibrary()
+{
+#pragma region Musics
 
+	m_musics.push_back(new music("whatislove"));
+
+#pragma endregion here we keep the musics, dont mix us plz
+//////////////////////////////////////////////////////////DONT MIX THESE//////////////////
+#pragma region Sounds
+
+	m_sounds.push_back(new sound("boing"));
+
+#pragma endregion here we keep the sounds, dont mix us plz
+}
+soundLibrary::~soundLibrary()
+{}
+
+sound* soundLibrary::findSound(std::string soundName)
+{
+	for (int i = 0; i < m_sounds.size(); ++i)
+	{
+		if (m_sounds[i]->m_soundName == soundName)
+			return m_sounds[i];
+	}
+	return NULL;
+}
+music* soundLibrary::findMusic(std::string musicName)
+{
+	for (int i = 0; i < m_musics.size(); ++i)
+	{
+		if (m_musics[i]->m_musicName == musicName)
+			return m_musics[i];
+	}
+	return NULL;
+}
