@@ -13,7 +13,7 @@ public:
 	neckPiece(){}
 	~neckPiece(){}
 	
-	sf::Sprite m_sprite;
+	al::sprite m_sprite;
 
 	sf::Vector2f m_positionMultiplier, m_positionRelative;
 	
@@ -47,7 +47,7 @@ class flamingo
 
 	sf::Vector2f m_bodyToHead;
 
-	std::vector<neckPiece> m_neckPieces;
+	std::vector<neckPiece*> m_neckPieces;
 
 
 

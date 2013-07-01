@@ -176,8 +176,7 @@ void texture::loadTexture(std::string TextureName)
 #pragma region Sprite
 
 sprite::sprite()
-	: m_sprite(NULL),
-	  m_layer(0),
+	: m_layer(0),
 	  m_originPoint(0)
 {
 	m_sprite = new sf::Sprite();
@@ -193,8 +192,9 @@ sprite::sprite(al::texture *Texture)
 
 sprite::~sprite()
 {
-	std::cout<<"deleting sprite"<<std::endl;
+	std::cout<<"deleting...  ";
 	delete m_sprite;
+	std::cout<<"deleted sprite"<<std::endl;
 }
 
 void sprite::setTexture(al::texture *Texture)
@@ -276,6 +276,18 @@ void sprite::setLayer(int Layer)
 		m_layer = 0;
 	else if (Layer > 1000)
 		m_layer = 1000;
+}
+vector sprite::getPosition()
+{
+	return m_sprite->getPosition();
+}
+vector sprite::getOrigin()
+{
+	return m_sprite->getOrigin();
+}
+vector sprite::getScale()
+{
+	return m_sprite->getScale();
 }
 vector sprite::getSize()
 {

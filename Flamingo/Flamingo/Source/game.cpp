@@ -245,7 +245,7 @@ void game::draw()
 
 		// flamingo
 
-		flamingoBase->draw();		
+		flamingoBase->draw(m_viewport);		
 
 
 		// gui
