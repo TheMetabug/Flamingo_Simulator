@@ -38,6 +38,7 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 
 	////sound
 	m_sound = new sound();
+	m_music = new music();
 	
 }
 
@@ -51,6 +52,8 @@ game::~game()
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
+	delete m_sound;
+	delete m_music;
 }
 
 void game::update(float deltaTime)
@@ -92,6 +95,7 @@ void game::update(float deltaTime)
 			P_release = true;
 		else if (P_release)
 		{
+			m_music->pause();
 			P_release = false;
 			state = Pause;
 		}
@@ -100,6 +104,7 @@ void game::update(float deltaTime)
 			M_release = true;
 		else if (M_release)
 		{
+			m_music->pause();
 			M_release = false;
 			state = Gamemenu;
 			m_gui->m_Play = false;
@@ -156,6 +161,8 @@ void game::update(float deltaTime)
 
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
+				m_music->play();
+				m_sound->play(0);
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
 				state = Play;
 				m_gui->m_menu = false;
@@ -179,6 +186,8 @@ void game::update(float deltaTime)
 			P_release = true;
 		else if (P_release)
 		{
+			m_music->play();
+			m_sound->play(0);
 			P_release = false;
 			state = Play;
 			m_gui->m_pause = false;

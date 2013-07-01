@@ -15,24 +15,28 @@ public:
 	void play();
 	void stop();
 	void pause();
+	
 
 
 private:
-	sf::SoundBuffer* m_buffer;
 	sf::Music* m_music;
 };
 
 class sound
 {
 public:
-	//sound(){}
 	sound();
 	~sound();
 
-private:
-	sf::RenderWindow *window;
-	sf::SoundBuffer *m_buffer;
+	void load(std::string filename);
+	void play(int soundID);
+	void stop(int soundID);
+	void pause(int soundID);
 	sf::Sound *m_sound;
+
+private:
+	sf::SoundBuffer *m_buffer;
+	
 
 };
 
