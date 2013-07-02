@@ -10,13 +10,11 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 	m_nestPosition = sf::Vector2f(200, 600);
 
 	// create texture,sprite, positions etc
-	m_nestTexture = new sf::Texture();
-	m_nestTexture->loadFromFile("Assets/NEST.png");
-	m_nestTexture->setSmooth(true);
-	m_flamingonest.setTexture(*m_nestTexture);
+	m_nestTexture = new texture("NEST.png");
+	m_flamingonest.setTexture(m_nestTexture);
 	m_flamingonest.setPosition(m_nestPosition);
-	m_flamingonest.setOrigin(sf::Vector2f(m_flamingonest.getLocalBounds().width/2,
-						     m_flamingonest.getLocalBounds().height/2));
+	m_flamingonest.setOrigin(vector(m_flamingonest.getSize().x/2,
+		m_flamingonest.getSize().y/2));
 	m_flamingonest.setScale(1,1);
 
 	// hitbox
@@ -73,7 +71,7 @@ void nest::update(float DeltaTime)
 }
 void nest::draw(al::viewport* Viewport)
 {
-	window->draw(m_flamingonest);
+	Viewport->draw(&m_flamingonest);
 
 	for (int i = 0; i < m_hatchlings.size(); ++i)
 		Viewport->draw(m_hatchlings[i]);
