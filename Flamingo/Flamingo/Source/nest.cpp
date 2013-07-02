@@ -31,7 +31,7 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 	m_hatchlingPositions.push_back( sf::Vector2f(m_nestPosition.x - 60, m_nestPosition.y - 30));
 	m_hatchlingPositions.push_back( sf::Vector2f(m_nestPosition.x + 60, m_nestPosition.y - 30));
 
-	m_hatchlingTexture = new texture("Hatchling_sheet.png");
+	m_hatchlingTexture = new texture("Hatchling_sheet_v2.png");
 
 	for (int i = 0; i < 3; ++i)
 	{

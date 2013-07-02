@@ -35,6 +35,9 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	// backGround
 	backGround = new background(window);
 
+	//cloud
+	m_cloud = new cloud(window);
+
 
 	// particles
 
@@ -147,11 +150,12 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - 48 &&
-			m_input->getMousePosition().x < m_gui->m_button->m_position.x + 48 &&
-			m_input->getMousePosition().y > m_gui->m_button->m_position.y - 48 &&
-			m_input->getMousePosition().y < m_gui->m_button->m_position.y + 48)
-		{
+
+		if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
+			m_input->getMousePosition().x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
+			m_input->getMousePosition().y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
+			m_input->getMousePosition().y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
+			
 			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
 			if(m_input->isButtonPressed(al::Button::MouseLeft))
@@ -186,7 +190,6 @@ void game::update(float deltaTime)
 			m_gui->m_pause = false;
 		}
 		
-
 		break;
 	case Credits:
 		break;
@@ -195,9 +198,6 @@ void game::update(float deltaTime)
 	case Gamemenu:
 		m_gui->m_Gmenu = true;
 		m_gui->update(deltaTime);
-
-
-		
 		break;
 	}
 
@@ -223,8 +223,13 @@ void game::draw()
 	case Play:
 	case Pause:
 
+		
+
 		// backGround
 		backGround->draw(m_viewport);
+		
+		//cloud
+		m_cloud->draw(m_viewport);
 
 		// nest
 		flamingonest->draw(m_viewport);

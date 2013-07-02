@@ -19,11 +19,11 @@ public:
 
 	al::vector m_position;
 	animation *m_animation;
-
+	al::sprite m_sprite;
 private:
 
 	al::texture m_texture;
-	al::sprite m_sprite;
+	/*al::sprite m_sprite;*/
 
 };
 

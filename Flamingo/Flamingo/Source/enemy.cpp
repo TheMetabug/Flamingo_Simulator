@@ -50,6 +50,5 @@ void enemy::update(float DeltaTime)
 
 void enemy::draw(al::viewport* Viewport)
 {
-	//window->draw(*m_enemyBird);
 	Viewport->draw(m_sprite);
 }
