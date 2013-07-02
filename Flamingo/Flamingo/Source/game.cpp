@@ -155,6 +155,7 @@ void game::update(float deltaTime)
 			m_input->getMousePosition().x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
 			m_input->getMousePosition().y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
 			m_input->getMousePosition().y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
+		{
 			
 			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
