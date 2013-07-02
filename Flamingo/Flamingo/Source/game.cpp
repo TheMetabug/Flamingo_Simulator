@@ -37,7 +37,7 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	// particles
 
 	// gui
-	m_gui = new gui(window);
+	m_gui = new gui();
 
 	
 }

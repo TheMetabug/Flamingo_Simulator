@@ -30,8 +30,7 @@ private:
 class gui
 {
 public:
-	gui(){}
-	gui(sf::RenderWindow *Window);
+	gui();
 	~gui();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -48,7 +47,6 @@ public:
 	button* m_button2;
 
 private:
-	sf::RenderWindow *window;
 	al::font* m_font;
 	
 	al::text* HPtext;

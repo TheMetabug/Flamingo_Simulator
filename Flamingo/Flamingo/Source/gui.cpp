@@ -20,7 +20,7 @@ void button::setTexture(std::string TextureName)
 	m_sprite.setTexture(&m_texture);
 	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
 	m_sprite.setPosition(m_position);
-	m_sprite.setOrigin(sf::Vector2f(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
+	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
 	m_sprite.setScale(1,1);
 }
 
@@ -35,7 +35,7 @@ void button::draw(al::viewport* Viewport)
 }
 
 
-gui::gui(sf::RenderWindow* Window)
+gui::gui()
 {
 	m_pause = false;
 	m_title = false;
@@ -48,7 +48,6 @@ gui::gui(sf::RenderWindow* Window)
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
 
-	window = Window;
 	
 	m_button = new button("testbutton.png",vector(300,300));
 	//m_button2 = new button(window);
@@ -68,7 +67,7 @@ gui::gui(sf::RenderWindow* Window)
 	HPtext->setColor();
 	
 	PAUSEtext->setPosition(vector(640, 360));
-	PAUSEtext->setOrigin(sf::Vector2f(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
+	PAUSEtext->setOrigin(vector(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
 	PAUSEtext->setColor();
 
 	TITLEtext->setPosition(vector(550,100));
