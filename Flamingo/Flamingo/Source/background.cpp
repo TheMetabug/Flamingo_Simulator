@@ -20,6 +20,7 @@ background::background(sf::RenderWindow *Window)
 	m_ground.setTexture(m_groundTexture);
 	m_ground.setPosition(vector(1280, 720));
 	m_ground.setOrigin(vector(1036, 58));
+
 }
 
 background::~background()
@@ -29,7 +30,7 @@ background::~background()
 
 void background::update(float DeltaTime)
 {
-	//water.setPosition(100,100);
+	
 }
 
 void background::draw(al::viewport* Viewport)	
@@ -37,5 +38,50 @@ void background::draw(al::viewport* Viewport)
 	Viewport->draw(&m_sky);
 	Viewport->draw(&m_water);
 	Viewport->draw(&m_ground);
+	
+}
+
+//////////////////CLOUDS////////////////////////////
+
+cloud::cloud(sf::RenderWindow *Window)				
+{
+	window = Window;
+
+	m_cloudTexture_1 = new texture("cloud_one.png");
+	m_cloud_1.setTexture(m_cloudTexture_1);
+	m_cloud_1.setPosition(vector(1350, 100));
+	m_cloud_1.setOrigin(vector(156, 69));
+
+	m_cloudTexture_2 = new texture("cloud_two.png");
+	m_cloud_2.setTexture(m_cloudTexture_2);
+	m_cloud_2.setPosition(vector(500, 150));
+	m_cloud_2.setOrigin(vector(156, 69));
+
+	m_cloudTexture_3 = new texture("cloud_three.png");
+	m_cloud_3.setTexture(m_cloudTexture_3);
+	m_cloud_3.setPosition(vector(900, 200));
+	m_cloud_3.setOrigin(vector(156, 69));
+
+
+
+}
+
+cloud::~cloud()
+{
+	std::cout<<"deleted cloud"<<std::endl;
+}
+
+void cloud::update(float DeltaTime)
+{
+	
+
+}
+
+void cloud::draw(al::viewport* Viewport)	
+{
+
+	Viewport->draw(&m_cloud_1);
+	Viewport->draw(&m_cloud_2);
+	Viewport->draw(&m_cloud_3);
 	
 }

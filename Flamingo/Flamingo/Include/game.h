@@ -72,6 +72,9 @@ private:
 	// water
 	background* backGround;
 
+	//cloud
+	cloud* m_cloud;
+
 	// particles
 
 	//renderstatistics

@@ -33,6 +33,9 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	// backGround
 	backGround = new background(window);
 
+	//cloud
+	m_cloud = new cloud(window);
+
 
 	// particles
 
@@ -217,8 +220,13 @@ void game::draw()
 	case Play:
 	case Pause:
 
+		
+
 		// backGround
 		backGround->draw(m_viewport);
+		
+		//cloud
+		m_cloud->draw(m_viewport);
 
 		// nest
 		flamingonest->draw(m_viewport);
