@@ -20,32 +20,32 @@ gui::gui(sf::RenderWindow* Window)
 	m_button = new button("testbutton.png",vector(300,300));
 	//m_button2 = new button(window);
 
-	font = new sf::Font();
+	m_font = new font();
 
-	font->loadFromFile("Assets/arial.ttf");
+	m_font->loadFromFile("arial.ttf");
 	
 	// add information what each text does
-	HPtext = new sf::Text("HP-mittari", *font, 50);
-	PAUSEtext = new sf::Text("Pause-teksti",*font, 50);
-	TITLEtext = new sf::Text("paina välilyöntiä",* font, 50);
-	MENUtext = new sf::Text("Menu-otsikko",*font, 50); 
-	Gmenutext = new sf::Text("pelivalikkon otsikko",*font, 50);
+	HPtext = new text("HP-mittari", m_font, 50);
+	PAUSEtext = new text("Pause-teksti", m_font, 50);
+	TITLEtext = new text("paina välilyöntiä",m_font, 50);
+	MENUtext = new text("Menu-otsikko", m_font, 50); 
+	Gmenutext = new text("pelivalikkon otsikko", m_font, 50);
 	
 	
-	HPtext->setColor(sf::Color::Red);
+	HPtext->setColor();
 	
-	PAUSEtext->setPosition(640, 360);
+	PAUSEtext->setPosition(vector(640, 360));
 	PAUSEtext->setOrigin(sf::Vector2f(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
-	PAUSEtext->setColor(sf::Color::Magenta);
+	PAUSEtext->setColor();
 
-	TITLEtext->setPosition(550,100);
-	TITLEtext->setColor(sf::Color::Cyan);
+	TITLEtext->setPosition(vector(550,100));
+	TITLEtext->setColor();
 
-	MENUtext->setPosition (550,100);
-	MENUtext->setColor(sf::Color::Yellow);
+	MENUtext->setPosition (vector(550,100));
+	MENUtext->setColor();
 
-	Gmenutext->setPosition (550,100);
-	Gmenutext->setColor(sf::Color::White);
+	Gmenutext->setPosition (vector(550,100));
+	Gmenutext->setColor();
 	
 	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 }
@@ -58,7 +58,7 @@ gui::~gui()
 	delete TITLEtext;
 	delete MENUtext;
 	delete Gmenutext;
-	delete font;
+	delete m_font;
 	delete m_button;
 	//delete m_button2;
 }
@@ -108,11 +108,11 @@ void gui::update(float DeltaTime)
 
 void gui::draw(al::viewport* Viewport)
 {
-	window->draw(*HPtext);
-	window->draw(*PAUSEtext);
-	window->draw(*TITLEtext);
-	window->draw(*MENUtext);
-	window->draw(*Gmenutext);
+	Viewport->draw(HPtext);
+	Viewport->draw(PAUSEtext);
+	Viewport->draw(TITLEtext);
+	Viewport->draw(MENUtext);
+	Viewport->draw(Gmenutext);
 
 	if (m_menu)
 		m_button->draw(Viewport);

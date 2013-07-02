@@ -15,6 +15,12 @@ vector::vector(sf::Vector2f sfVector)
 	y = sfVector.y;
 }
 
+vector::vector(sf::Vector2i sfVector)
+{
+	x = sfVector.x;
+	y = sfVector.y;
+}
+
 vector::vector(float X, float Y)
 	: x(X), y(Y)
 {}
@@ -320,6 +326,176 @@ vector sprite::getTextureSize()
 
 #pragma endregion
 
+#pragma region Font
+
+font::font()
+{
+	m_font = new sf::Font();
+}
+font::font(std::string Filename)
+{
+	m_font = new sf::Font();
+	loadFromFile(Filename);
+}
+font::~font()
+{
+	delete m_font;
+}
+void font::loadFromFile(std::string Filename)
+{
+	m_font->loadFromFile("Assets/" + Filename);
+}
+
+#pragma endregion
+
+#pragma region Text
+
+text::text()
+	: m_layer(0),
+	  m_originPoint(0)
+{
+	m_text = new sf::Text();
+}
+text::text(const std::string string, al::font* Font, unsigned int CharacterSize)
+	: m_layer(0),
+	  m_originPoint(0)
+{
+	m_text = new sf::Text(string, *(Font->m_font), CharacterSize);
+}
+text::~text()
+{
+	delete m_text;
+}
+
+void text::setFont(al::font* Font)
+{
+	m_text->setFont(*(Font->m_font));
+}
+
+void text::setString(std::string string)
+{
+	m_text->setString(string);
+}
+
+void text::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
+{
+	sf::Color color(Red, Green, Blue, Alpha);
+	m_text->setColor(color);
+}
+
+void text::setPosition(al::vector Position)
+{
+	sf::Vector2f pos(Position.x,Position.y);
+	m_text->setPosition(pos);
+}
+
+void text::setOrigin(al::vector Origin)
+{
+	sf::Vector2f pos(Origin.x,Origin.y);
+	m_text->setOrigin(pos);
+}
+
+void text::setOriginPoint(int Point)
+{
+	if (0 < Point && Point < 10)
+		m_originPoint = Point;
+	else 
+		m_originPoint = 0;
+
+	switch (Point)
+	{
+	case 1:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 1.0f);
+		break;
+	case 2:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 1.0f);
+		break;
+	case 3:
+		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 1.0f);
+		break;
+	case 4:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.5f);
+		break;
+	case 5:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.5f);
+		break;
+	case 6:
+		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.5f);
+		break;
+	case 7:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.0f);
+		break;
+	case 8:
+		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.0f);
+		break;
+	case 9:
+		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.0f);
+		break;
+	default:
+		m_text->setOrigin(0,0);
+		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
+		break;
+	}
+}
+
+void text::setScale(float ScaleX, float ScaleY)
+{
+	m_text->setScale(ScaleX,ScaleY);
+}
+
+void text::setScale(float Scale)
+{
+	setScale(Scale,Scale);
+}
+
+void text::setScale(vector Scale)
+{
+	setScale(Scale.x,Scale.y);
+}
+
+void text::setLayer(int Layer)
+{
+	if (Layer >= 0 && Layer <= 1000)
+		m_layer = Layer;
+	else if (Layer < 0)
+		m_layer = 0;
+	else if (Layer > 1000)
+		m_layer = 1000;
+}
+
+
+vector text::getPosition()
+{
+	return m_text->getPosition();
+}
+
+vector text::getOrigin()
+{
+	return m_text->getOrigin();
+}
+
+vector text::getScale()
+{
+	return m_text->getScale();
+}
+
+vector text::getSize()
+{
+	return vector(m_text->getLocalBounds().width, m_text->getLocalBounds().height);
+}
+
+vector text::getTransformedSize()
+{
+	return vector(m_text->getGlobalBounds().width, m_text->getGlobalBounds().height);
+}
+
+rectangle text::getGlobalBounds()
+{
+	return rectangle(m_text->getGlobalBounds());
+}
+
+#pragma endregion
+
 #pragma region Viewport
 
 viewport::viewport(sf::RenderWindow* window)
@@ -331,18 +507,28 @@ viewport::~viewport()
 
 void viewport::draw(al::sprite* Sprite)
 {
-	m_layer[Sprite->m_layer].push_back(Sprite);
+	m_spriteLayer[Sprite->m_layer].push_back(Sprite);
+}
+
+void viewport::draw(al::text* Text)
+{
+	m_textLayer[Text->m_layer].push_back(Text);
 }
 
 void viewport::renderSprites()
 {
  	for (int i = 0; i < 1001; ++i)
 	{
-		for(int j = 0; j < m_layer[i].size(); ++j)
+		for(int j = 0; j < m_spriteLayer[i].size(); ++j)
 		{
-			m_window->draw(*m_layer[i][j]->m_sprite);
+			m_window->draw(*m_spriteLayer[i][j]->m_sprite);
 		}
-		m_layer[i].clear();
+		m_spriteLayer[i].clear();
+		for(int j = 0; j < m_textLayer[i].size(); ++j)
+		{
+			m_window->draw(*m_textLayer[i][j]->m_text);
+		}
+		m_textLayer[i].clear();
 	}
 }
 

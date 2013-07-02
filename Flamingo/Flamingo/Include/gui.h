@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "animation.h"
+#include "program.h"
 
 
 class button
@@ -48,13 +49,13 @@ public:
 
 private:
 	sf::RenderWindow *window;
-	sf::Font* font;
+	al::font* m_font;
 	
-	sf::Text* HPtext;
-	sf::Text* PAUSEtext;
-	sf::Text* TITLEtext;
-	sf::Text* MENUtext;
-	sf::Text* Gmenutext;
+	al::text* HPtext;
+	al::text* PAUSEtext;
+	al::text* TITLEtext;
+	al::text* MENUtext;
+	al::text* Gmenutext;
 
 };
 

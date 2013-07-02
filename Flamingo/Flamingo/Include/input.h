@@ -2,47 +2,49 @@
 #define INPUT_H
 
 #include <SFML\Graphics.hpp>
+#include <iostream>
+#include "program.h"
+
+namespace al
+{
 
 class input
 {
 public:
-  input(sf::RenderWindow *Window)
-  {
-    window = Window;
-  }
+	input(sf::RenderWindow *Window);
+	~input();
 
-  ~input();
+	enum Button
+	{
+		MouseLeft,
+		MouseRight,
+		MouseMiddle
+	};
 
-  sf::Mouse::Button asd;
-  sf::Keyboard::Key afsd;
-  //enum Button
- //   {
- //       Left,       ///< The left mouse button
- //       Right,      ///< The right mouse button
- //       Middle,     ///< The middle (wheel) mouse button
- //       XButton1,   ///< The first extra mouse button
- //       XButton2,   ///< The second extra mouse button
+	enum Key
+	{
+		Pause,
+		Menu,
+		Space,
+		Esc
+	};
+	
+	bool isButtonPressed(Button button);
 
- //       ButtonCount ///< Keep last -- the total number of mouse buttons
- //   };
-
-  static bool isButtonPressed(Button button)
-  {return sf::Mouse::isButtonPressed(button);}
-
-  static Vector2i getAbsolutePosition()
-  {return sf::Mouse::getPosition();}
-
-  static Vector2i getPosition()
-  {sf::Mouse::getPosition(*window);}
-  
-    static void setAbsolutePosition(const Vector2i& position)
-  {sf::Mouse::setPosition(position);}
-  
-    static void setPosition(const Vector2i& position)
-  {sf::Mouse::setPosition(position,*window);}
+	bool isKeyPressed(Key key);
+	
+	//vector getAbsoluteMousePosition();
+	
+	vector getMousePosition();
+	
+	//void setAbsoluteMousePosition(const vector& position);
+	
+	//void setMousePosition(const vector& position);
 
 private:
-  sf::RenderWindow *window;
+	sf::RenderWindow *window;
 };
+
+}
 
 #endif
