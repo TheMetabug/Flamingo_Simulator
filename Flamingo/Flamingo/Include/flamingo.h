@@ -16,7 +16,7 @@ public:
 	
 	al::sprite m_sprite;
 
-	sf::Vector2f m_positionMultiplier, m_positionRelative;
+	al::vector m_positionMultiplier, m_positionRelative;
 	
 };
 
@@ -34,11 +34,11 @@ class flamingo
 	sf::RenderWindow *window;
 	///////////BODY////////////
 
-	sf::Vector2f m_flamingoPosition;
+	al::vector m_flamingoPosition;
 
 	////////////HEAD///////////
 
-	sf::Vector2f m_mousePosition, m_headPosition, m_headOrigin, m_crossHair;
+	al::vector m_mousePosition, m_headPosition, m_headOrigin, m_crossHair;
 
 	hitbox* m_headHitbox;
 
@@ -46,7 +46,7 @@ class flamingo
 
 	/////////////NECK//////////
 
-	sf::Vector2f m_bodyToHead;
+	al::vector m_bodyToHead;
 
 	std::vector<neckPiece*> m_neckPieces;
 

@@ -1,6 +1,8 @@
 #include "hitbox.h"
 
-hitbox::hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, bool _isEnabled)
+using namespace al;
+
+hitbox::hitbox(al::vector _Position, al::vector _Size, al::vector _Origo, bool _isEnabled)
 {
 	Position = _Position;
 	Size = _Size;
@@ -26,9 +28,9 @@ void hitbox::draw(sf::RenderWindow* window)
 	window->draw(box);
 }
 
-sf::Rect<float> hitbox::hitRect()
+rectangle hitbox::hitRect()
 {
-	return sf::Rect<float>(Position - Origo, Size);
+	return rectangle(Position - Origo, Size);
 }
 
 collision::collision()
@@ -68,10 +70,10 @@ collision::~collision()
 
 hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled)
 {
-	return createHitBox(position, sf::Vector2f(size.x, size.y), origo, id, isEnabled);
+	return createHitBox(position, vector(size.x, size.y), origo, id, isEnabled);
 }
 
-hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled)
+hitbox* collision::createHitBox(al::vector position, al::vector size, al::vector origo, int id, bool isEnabled)
 {
 	hitbox* retHitbox = new hitbox(position, size, origo, isEnabled);
 

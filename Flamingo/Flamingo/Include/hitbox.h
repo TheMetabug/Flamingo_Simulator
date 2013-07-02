@@ -4,21 +4,22 @@
 #include <SFML\Graphics.hpp>
 #include <iostream>
 #include <SFML\Graphics\Rect.hpp>
+#include "program.h"
 
 class hitbox
 {
 public:
 	hitbox(){}
-	hitbox(sf::Vector2f _Position, sf::Vector2f _Size, sf::Vector2f _Origo, bool _isEnabled);
+	hitbox(al::vector _Position, al::vector _Size, al::vector _Origo, bool _isEnabled);
 	~hitbox();
 
 	void draw(sf::RenderWindow* window);
 
-	sf::Rect<float> hitRect();
+	al::rectangle hitRect();
 
-	sf::Vector2f Position;
-	sf::Vector2f Size;
-	sf::Vector2f Origo;
+	al::vector Position;
+	al::vector Size;
+	al::vector Origo;
 
 	bool isEnabled;
 
@@ -34,7 +35,7 @@ public:
 
 	/**id list: hatchling = 0, head = 1, enemy = 2*/
 	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
-	hitbox* createHitBox(sf::Vector2f position, sf::Vector2f size, sf::Vector2f origo, int id, bool isEnabled = true);
+	hitbox* createHitBox(al::vector position, al::vector size, al::vector origo, int id, bool isEnabled = true);
 
 	void DrawHitboxes(sf::RenderWindow* window);
 

@@ -1,9 +1,11 @@
 #include "game.h"
+using namespace al;
 
-game::game(sf::RenderWindow* Window, al::viewport* Viewport)
+game::game(sf::RenderWindow* Window, viewport* Viewport)
 {
 	window = Window;
 	m_viewport = Viewport;
+	m_input = new input(window);
 
 	////sound
 	m_soundLibrary = new soundLibrary();
@@ -69,7 +71,7 @@ void game::update(float deltaTime)
 
 		m_gui->m_title = true;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (m_input->isKeyPressed(al::Key::Space))
 		{
 			state = Menu;
 			m_gui->m_title =false;
@@ -84,7 +86,7 @@ void game::update(float deltaTime)
 		m_gui->m_Play = true;
 		
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
 		else if (P_release)
 		{
@@ -94,7 +96,7 @@ void game::update(float deltaTime)
 			state = Pause;
 		}
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		if(!m_input->isKeyPressed(al::Key::Menu))
 			M_release = true;
 		else if (M_release)
 		{
@@ -136,7 +138,7 @@ void game::update(float deltaTime)
 		m_gui->m_Play = false;
 		m_gui->m_pause = false;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		if(!m_input->isKeyPressed(al::Key::Menu))
 			M_release = true;
 		else if (M_release)
 		{
@@ -145,14 +147,14 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		if(sf::Mouse::getPosition(*window).x > m_gui->m_button->m_position.x  - 48 &&
-			sf::Mouse::getPosition(*window).x < m_gui->m_button->m_position.x + 48 &&
-			sf::Mouse::getPosition(*window).y > m_gui->m_button->m_position.y - 48 &&
-			sf::Mouse::getPosition(*window).y < m_gui->m_button->m_position.y + 48)
+		if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - 48 &&
+			m_input->getMousePosition().x < m_gui->m_button->m_position.x + 48 &&
+			m_input->getMousePosition().y > m_gui->m_button->m_position.y - 48 &&
+			m_input->getMousePosition().y < m_gui->m_button->m_position.y + 48)
 		{
 			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
-			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
 				m_soundLibrary->m_musics[0]->play();
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
@@ -174,7 +176,7 @@ void game::update(float deltaTime)
 		m_gui->m_pause = true;
 
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
 		else if (P_release)
 		{

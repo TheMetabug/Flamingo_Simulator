@@ -9,11 +9,11 @@ flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collisi
 	m_soundLibrary = SoundLibrary;
 
 	/////////BODY//////////
-	m_flamingoPosition = sf::Vector2f(740,550);
+	m_flamingoPosition = vector(740,550);
 
 	////////HEAD/////////
 	m_drag = 0;
-	m_headOrigin = m_flamingoPosition + sf::Vector2f(-19,-165);
+	m_headOrigin = m_flamingoPosition + vector(-19,-165);
 	m_headRotate = 0;
 
 	
@@ -52,12 +52,12 @@ flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collisi
 	{
 		m_neckPieces.push_back(new neckPiece());
 		m_neckPieces[i]->m_sprite.setTexture(m_neckTexture);
-		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition + sf::Vector2f(-1*i,-17*i));
-		m_neckPieces[i]->m_sprite.setOrigin(sf::Vector2f(18, 20));
+		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition + vector(-1*i,-17*i));
+		m_neckPieces[i]->m_sprite.setOrigin(vector(18, 20));
 		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
-		m_neckPieces[i]->m_positionMultiplier = sf::Vector2f(place,(sin(float(place * -2 * PI))));
+		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI))));
 	}
 
 
@@ -67,8 +67,8 @@ flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collisi
 	float HBOY = ((m_flamingoHead.getOrigin().y - 80) * m_flamingoHead.getScale().y) + HBH/2;
 
 	m_headHitbox = Collide->createHitBox(m_headPosition, 
-		sf::Vector2f(HBW,HBH), 
-		sf::Vector2f(HBOX,HBOY),1);
+		vector(HBW,HBH), 
+		vector(HBOX,HBOY),1);
 }
 
 flamingo::~flamingo()
@@ -108,7 +108,7 @@ void flamingo::update(float DeltaTime)
 			
 
 			{
-				sf::Vector2f Direction(m_headOrigin - m_headPosition);
+				vector Direction(m_headOrigin - m_headPosition);
 				float multiplier = 3.0f;
 
 				//cant drag head too far away.
@@ -127,7 +127,7 @@ void flamingo::update(float DeltaTime)
 				m_headPosition = m_headOrigin - Direction;
 
 				// crosshair goes opposite direction of the head from the origin
-				m_crossHair = m_headOrigin + sf::Vector2f(Direction.x * multiplier, Direction.y * multiplier);
+				m_crossHair = m_headOrigin + vector(Direction.x * multiplier, Direction.y * multiplier);
 				m_crosshairSprite.setPosition(m_crossHair);
 
 				// count angle from headposition and headposition.x
@@ -144,8 +144,8 @@ void flamingo::update(float DeltaTime)
 
 		case 2: // head released, goes to crosshair
 			{
-			sf::Vector2f Direction(m_crossHair - m_headPosition);
-			sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
+			vector Direction(m_crossHair - m_headPosition);
+			vector Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
 			m_headPosition += Movement;
 			}
 
@@ -160,8 +160,8 @@ void flamingo::update(float DeltaTime)
 			break;
 		case 3: //head goes back to starting point/origin
 			{
-				sf::Vector2f Direction(m_headOrigin - m_headPosition);
-				sf::Vector2f Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
+				vector Direction(m_headOrigin - m_headPosition);
+				vector Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
 				m_headPosition += Movement;
 			}
 
