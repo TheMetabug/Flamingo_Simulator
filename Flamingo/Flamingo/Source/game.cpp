@@ -5,6 +5,9 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	window = Window;
 	m_viewport = Viewport;
 
+	////sound
+	m_soundLibrary = new soundLibrary();
+	
 	// gameStates
 
 	state = TitleScreen;
@@ -16,7 +19,7 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 
 
 	// head
-	flamingoBase = new flamingo(window, collide);
+	flamingoBase = new flamingo(window, m_soundLibrary, collide);
 
 	// nest
 	flamingonest = new nest(window, collide);
@@ -34,10 +37,8 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	// particles
 
 	// gui
-	m_gui = new gui(window);
+	m_gui = new gui();
 
-	////sound
-	m_soundLibrary = new soundLibrary();
 	
 }
 
@@ -72,8 +73,6 @@ void game::update(float deltaTime)
 		{
 			state = Menu;
 			m_gui->m_title =false;
-			
-
 		}
 
 	
@@ -90,6 +89,7 @@ void game::update(float deltaTime)
 		else if (P_release)
 		{
 			m_soundLibrary->m_musics[0]->pause();
+			m_soundLibrary->m_sounds[0]->play();
 			P_release = false;
 			state = Pause;
 		}
@@ -107,7 +107,6 @@ void game::update(float deltaTime)
 
 		//flamingo
 		flamingoBase->update(deltaTime);
-
 
 		// nest
 		flamingonest->update(deltaTime);
@@ -156,7 +155,6 @@ void game::update(float deltaTime)
 			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				m_soundLibrary->m_musics[0]->play();
-				m_soundLibrary->m_sounds[0]->play();
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
 				state = Play;
 				m_gui->m_menu = false;
@@ -181,7 +179,6 @@ void game::update(float deltaTime)
 		else if (P_release)
 		{
 			m_soundLibrary->m_musics[0]->play();
-			m_soundLibrary->m_sounds[0]->play();
 			P_release = false;
 			state = Play;
 			m_gui->m_pause = false;

@@ -6,6 +6,7 @@
 #include <math.h>
 #include "hitbox.h"
 #include "program.h"
+#include "sound.h"
 
 class neckPiece
 {
@@ -23,7 +24,7 @@ class flamingo
 {
 	public:
 	 flamingo(){}
-	 flamingo(sf::RenderWindow *Window, collision* Collide);
+	 flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collision* Collide);
 	~flamingo();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -60,6 +61,9 @@ class flamingo
 	al::sprite m_flamingoHead;
 	al::sprite m_crosshairSprite;
 	al::sprite m_flamingoBody;
+
+	// sound
+	soundLibrary* m_soundLibrary;
 	
 };
 

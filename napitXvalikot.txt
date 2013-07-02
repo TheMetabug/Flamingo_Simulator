@@ -1,0 +1,40 @@
+MENU-nappi(.=)   
+-pyöreä
+-lista (list)
+-painoanimaatio
+
+
+MUTE-NAPPI
+- pyöreä
+- sirreni/nuotti / muu vastaava
+- ääni päällä/pois + paino-animaatiot 
+
+QUIT-nappi (X)
+-painoanimaatio
+
+
+--------- MENU--------------
+|	* RESUME GAME      |
+|	* RESTART          |
+|	* OPTIONS          |
+|       * RETURN MENU      |
+|                          |
+----------------------------
+
+
+--------------
+| R U sure?  | 
+| *YES / *NO |
+--------------
+
+---------OPTIONS-----------
+|   *MUSIC  --||--        |
+|   *SOUNDS --||--        |
+|                         |
+|                         |
+|                         |
+|*BACK  *APPLY            |
+---------------------------
+
+
+ 
