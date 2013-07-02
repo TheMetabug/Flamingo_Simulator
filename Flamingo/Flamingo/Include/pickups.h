@@ -41,7 +41,7 @@ namespace pups
 		void update(float DeltaTime);
 		void draw(al::viewport* Viewport);
 
-		sf::Vector2f m_position;
+		al::vector m_position;
 		pickup* m_pickup;
 		al::sprite* m_sprite;
 		animation* m_animation;
@@ -49,7 +49,7 @@ namespace pups
 		bool m_floating;
 
 	private:
-		sf::Vector2f m_direction;
+		al::vector m_direction;
 
 	};
 }

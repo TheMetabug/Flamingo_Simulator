@@ -32,18 +32,14 @@ item::item(sf::Vector2f Position, pickup* Pickup)
 	m_sprite = new al::sprite((Pickup->m_texture));
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
 	m_sprite->setPosition(vector(m_position));
-	m_sprite->setOrigin(
-		sf::Vector2f(	m_sprite->getSize().x / 2, 
-						m_sprite->getSize().y / 2));
+	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
 	m_sprite->setScale(0.5f,0.5f);
 	float asdf = m_sprite->getTransformedSize().x;
-	m_hitbox = new hitbox(m_position,
-		sf::Vector2f(m_sprite->getTransformedSize().x,m_sprite->getTransformedSize().y),
-		sf::Vector2f(	m_sprite->getTransformedSize().x / 2, 
-						m_sprite->getTransformedSize().y / 2),
+	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize(),
+		m_sprite->getTransformedSize()/2,
 		true);
 
-	m_direction = sf::Vector2f((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
+	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
 }
 
 item::~item()

@@ -80,6 +80,9 @@ bool vector::operator !=(const vector& RightVal)
 	return true;
 }
 
+namespace al
+{
+
 vector operator *(const vector& LeftVal, const float RightVal)
 {
 	return vector(LeftVal.x * RightVal,LeftVal.y * RightVal);
@@ -89,11 +92,13 @@ vector operator *(const float LeftVal, const vector& RightVal)
 	return vector(LeftVal * RightVal.x,LeftVal * RightVal.y);
 }
 
-vector &operator *=(vector& LeftVal, float RightVal)
+const vector &operator *=(vector& LeftVal, float RightVal)
 {
 	LeftVal.x *= RightVal;
 	LeftVal.y *= RightVal;
 	return LeftVal;
+}
+
 }
 
 #pragma endregion
@@ -143,11 +148,11 @@ rectangle::~rectangle()
 
 bool rectangle::intersects(rectangle Rectangle)
 {
-	return sf::Rect<float>(width, height, left, top).intersects(sf::Rect<float>(Rectangle.width, Rectangle.height, Rectangle.left, Rectangle.top));
+	return sf::Rect<float>(left, top, width, height).intersects(sf::Rect<float>(Rectangle.left, Rectangle.top, Rectangle.width, Rectangle.height));
 }
 bool rectangle::contains(vector Position)
 {
-	return sf::Rect<float>(width, height, left, top).contains(sf::Vector2<float>(Position.x, Position.y));
+	return sf::Rect<float>(left, top, width, height).contains(sf::Vector2f(Position.x, Position.y));
 }
 
 #pragma endregion
