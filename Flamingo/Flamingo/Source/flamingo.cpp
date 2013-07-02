@@ -28,11 +28,14 @@ flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collisi
 	m_flamingoBody.setScale(0.5f, 0.5f);
 
 	////////////HEAD///////////
-	m_headTexture = new texture("Flamingo_player_head.png");
+	m_headTexture = new texture("Flamingo_player_head_Animation.png");
 	m_flamingoHead.setTexture(m_headTexture);
 	m_flamingoHead.setPosition(m_headOrigin);
 	m_flamingoHead.setOrigin(vector(120, 70));
 	m_flamingoHead.setScale(0.5f, 0.5f);
+
+	m_headAnimation = new animation(&m_flamingoHead, 6, 200, 143, false);
+	m_headAnimation->ChangeAnimation(0, 1, 0, 20);
 
 	m_crossTexture = new texture("crosshair.png");	
 	m_crosshairSprite.setTexture(m_crossTexture);
@@ -95,6 +98,7 @@ void flamingo::update(float DeltaTime)
 			{
 				m_drag = 1;
 				m_soundLibrary->m_sounds[1]->play();
+				m_headAnimation->ChangeAnimation(1,1,1,15);
 			}
 
 			break;
@@ -104,8 +108,6 @@ void flamingo::update(float DeltaTime)
 			m_mousePosition.y = sf::Mouse::getPosition(*window).y;
 
 			m_headPosition = m_mousePosition;
-
-			
 
 			{
 				sf::Vector2f Direction(m_headOrigin - m_headPosition);
@@ -138,6 +140,7 @@ void flamingo::update(float DeltaTime)
 			{
 				m_drag = 2;
 				m_soundLibrary->m_sounds[0]->play();
+				m_headAnimation->ChangeAnimation(2,1,2,15);
 			}
 
 			break;
@@ -157,6 +160,9 @@ void flamingo::update(float DeltaTime)
 			{
 				m_drag = 3;
 			}
+
+
+
 			break;
 		case 3: //head goes back to starting point/origin
 			{
@@ -170,6 +176,7 @@ void flamingo::update(float DeltaTime)
 			{
 				m_drag = 0;
 				m_crossHair = m_headOrigin;
+				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
 			}
 			break;
 	}
@@ -207,6 +214,8 @@ void flamingo::update(float DeltaTime)
 	m_flamingoHead.setPosition(m_headPosition);
 	m_crosshairSprite.setPosition(m_crossHair);
 	m_headHitbox->Position = m_headPosition;
+
+	m_headAnimation->update(DeltaTime);
 }
 
 void flamingo::draw(al::viewport* Viewport)

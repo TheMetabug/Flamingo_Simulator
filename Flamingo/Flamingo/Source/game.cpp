@@ -184,7 +184,6 @@ void game::update(float deltaTime)
 			m_gui->m_pause = false;
 		}
 		
-
 		break;
 	case Credits:
 		break;
@@ -193,9 +192,6 @@ void game::update(float deltaTime)
 	case Gamemenu:
 		m_gui->m_Gmenu = true;
 		m_gui->update(deltaTime);
-
-
-		
 		break;
 	}
 

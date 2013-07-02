@@ -7,6 +7,7 @@
 #include "hitbox.h"
 #include "program.h"
 #include "sound.h"
+#include "animation.h"
 
 class neckPiece
 {
@@ -17,6 +18,8 @@ public:
 	al::sprite m_sprite;
 
 	sf::Vector2f m_positionMultiplier, m_positionRelative;
+
+	
 	
 };
 
@@ -28,6 +31,8 @@ class flamingo
 	~flamingo();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
+	
+	animation *m_headAnimation;
 
 	private:
 
