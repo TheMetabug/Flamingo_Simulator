@@ -2,6 +2,39 @@
 
 using namespace al;
 
+
+button::button(std::string TextureName, al::vector Position)
+{
+	m_position = Position;
+	setTexture(TextureName);
+}
+
+button::~button()
+{
+	delete m_animation;
+}
+
+void button::setTexture(std::string TextureName)
+{
+	m_texture.loadTexture(TextureName);
+	m_sprite.setTexture(&m_texture);
+	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
+	m_sprite.setPosition(m_position);
+	m_sprite.setOrigin(sf::Vector2f(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
+	m_sprite.setScale(1,1);
+}
+
+void button::update(float DeltaTime)
+{
+	m_animation->update(DeltaTime);
+}
+
+void button::draw(al::viewport* Viewport)
+{
+	Viewport->draw(&m_sprite);
+}
+
+
 gui::gui(sf::RenderWindow* Window)
 {
 	m_pause = false;
@@ -119,38 +152,4 @@ void gui::draw(al::viewport* Viewport)
 	
 	/*if (1)
 		m_button2->draw();*/
-}
-
-
-button::button(std::string TextureName, al::vector Position)
-{
-	m_position = Position;
-	setTexture(TextureName);
-}
-
-button::~button()
-{
-	delete m_animation;
-}
-
-void button::setTexture(std::string TextureName)
-{
-	m_texture.loadTexture(TextureName);
-	m_sprite.setTexture(&m_texture);
-	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
-	m_sprite.setPosition(m_position);
-	m_sprite.setOrigin(sf::Vector2f(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
-	m_sprite.setScale(1,1);
-}
-
-void button::update(float DeltaTime)
-{
-	m_animation->update(DeltaTime);
-}
-
-void button::draw(al::viewport* Viewport)
-{
-	Viewport->draw(&m_sprite);
-	//window->draw(*m_testbuttonS);
-	//window->draw(*m_menuWingS);
 }
