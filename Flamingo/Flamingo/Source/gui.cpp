@@ -48,8 +48,8 @@ gui::gui()
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
 	vector a(2,2),b(3,3),c,d;
-	//c = a * 2;
-	//d = 2 * b;
+	c = a * 2;
+	d = 2 * b;
 
 	
 	m_button = new button("testbutton.png",vector(300,300));
