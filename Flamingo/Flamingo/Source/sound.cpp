@@ -8,6 +8,7 @@ music::music()
 music::music(std::string Filename)
 {
 	m_music = new sf::Music();
+	m_music->setLoop(true);
 
 	load(Filename);	
 }
@@ -19,7 +20,7 @@ music::~music()
 
 void music::load(std::string filename)
 {
-	m_music->openFromFile("Assets/" + filename + ".wav");
+	m_music->openFromFile("Assets/Music/" + filename + ".wav");
 }
 
 void music::play() 
@@ -60,7 +61,7 @@ sound::~sound()
 
 void sound::load(std::string filename)
 {
-	m_buffer->loadFromFile("Assets/" + filename + ".wav");
+	m_buffer->loadFromFile("Assets/Sounds/" + filename + ".wav");
 	m_soundName = filename;
 }
 void sound::play()
@@ -89,6 +90,7 @@ soundLibrary::soundLibrary()
 #pragma region Sounds
 
 	m_sounds.push_back(new sound("boing"));
+	m_sounds.push_back(new sound("sound1"));
 
 #pragma endregion here we keep the sounds, dont mix us plz
 }

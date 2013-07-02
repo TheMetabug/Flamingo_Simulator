@@ -3,9 +3,10 @@
 
 using namespace al;
 
-flamingo::flamingo(sf::RenderWindow *Window, collision* Collide)
+flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collision* Collide)
 {
 	window = Window;
+	m_soundLibrary = SoundLibrary;
 
 	/////////BODY//////////
 	m_flamingoPosition = sf::Vector2f(740,550);
@@ -84,6 +85,18 @@ void flamingo::update(float DeltaTime)
 	{
 		case 0: // head in origin
 			m_headPosition = m_headOrigin;
+
+			
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
+				sf::Mouse::getPosition(*window).x > m_flamingoHead.getPosition().x - 50 &&
+				sf::Mouse::getPosition(*window).x < m_flamingoHead.getPosition().x + 50 &&
+				sf::Mouse::getPosition(*window).y > m_flamingoHead.getPosition().y - 50 &&
+				sf::Mouse::getPosition(*window).y < m_flamingoHead.getPosition().y + 50 )
+			{
+				m_drag = 1;
+				m_soundLibrary->m_sounds[1]->play();
+			}
+
 			break;
 
 		case 1: // head being dragged
@@ -91,6 +104,8 @@ void flamingo::update(float DeltaTime)
 			m_mousePosition.y = sf::Mouse::getPosition(*window).y;
 
 			m_headPosition = m_mousePosition;
+
+			
 
 			{
 				sf::Vector2f Direction(m_headOrigin - m_headPosition);
@@ -118,6 +133,13 @@ void flamingo::update(float DeltaTime)
 				// count angle from headposition and headposition.x
 				m_headRotate = 0 ;
 			}
+
+			if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				m_drag = 2;
+				m_soundLibrary->m_sounds[0]->play();
+			}
+
 			break;
 
 		case 2: // head released, goes to crosshair
@@ -152,24 +174,6 @@ void flamingo::update(float DeltaTime)
 			break;
 	}
 
-	// MOUSE INPUT
-
-	// check if 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-		sf::Mouse::getPosition(*window).x > m_flamingoHead.getPosition().x - 50 &&
-		sf::Mouse::getPosition(*window).x < m_flamingoHead.getPosition().x + 50 &&
-		sf::Mouse::getPosition(*window).y > m_flamingoHead.getPosition().y - 50 &&
-		sf::Mouse::getPosition(*window).y < m_flamingoHead.getPosition().y + 50 )
-	{
-		if(m_drag == 0)
-		m_drag = 1;
-	}
-	else if (m_drag == 1)
-	{	
-		// if(flamingoHead.getPosition().x != 640 && flamingoHead.getPosition().y != 360)
-		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			m_drag = 2;
-	}
 
 	//////////NECK///////////////
 #if 1

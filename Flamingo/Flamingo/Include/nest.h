@@ -28,8 +28,8 @@ private:
 	sf::Vector2f m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
 	std::vector<sf::Vector2f> m_hatchlingPositions;
 
-	sf::Texture *m_nestTexture;
-	sf::Sprite m_flamingonest;
+	al::texture *m_nestTexture;
+	al::sprite m_flamingonest;
 
 	al::texture* m_hatchlingTexture;
 	std::vector<al::sprite*> m_hatchlings;
