@@ -41,7 +41,7 @@ class flamingo
 
 	////////////HEAD///////////
 
-	al::vector m_mousePosition, m_headPosition, m_headOrigin, m_crossHair;
+	al::vector m_mousePosition, m_headPosition, m_headOrigin, m_crossHair, m_direction;
 
 	hitbox* m_headHitbox;
 
@@ -68,6 +68,7 @@ class flamingo
 	// sound
 	soundLibrary* m_soundLibrary;
 	
+	friend class pickups;
 };
 
 #endif

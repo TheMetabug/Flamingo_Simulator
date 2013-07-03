@@ -55,12 +55,17 @@ void item::update(float DeltaTime)
 		stayInWater();
 		break;
 	case 1:
+		m_direction = vector(0,0);
 		break;
-	case 2:
-		m_position += m_direction * DeltaTime * 100;
+	case 4:
+		m_direction.y += 3;
+		m_position += m_direction * DeltaTime;
+		break;
+	default:
 		break;
 	}
 
+	m_animation->update(DeltaTime);
 	m_sprite->setPosition(m_position);
 	m_hitbox->Position = m_position;
 }
@@ -139,54 +144,83 @@ void pickups::update(float DeltaTime)
 	{
 		itemList[i]->update(DeltaTime);
 
-		if (m_collision->HitHead(itemList[i]->m_hitbox))
+		switch (itemList[i]->m_state)
 		{
-			std::cout<<"collide "<<i<<std::endl;
-			itemList[i]->m_state = 1;
-			outOfWater.push_back(itemList[i]);
-			itemList.erase(itemList.begin() + i);
-		}
-	}
-
-	for (int i = outOfWater.size() - 1; i >= 0; --i)
-	{
-		outOfWater[i]->update(DeltaTime);
-
-		
-
-		switch (m_collision->HitHatchling(outOfWater[i]->m_hitbox))
-		{
-		case -1:
-			if (m_collision->HitEnemy(outOfWater[i]->m_hitbox))
+		case 0: // floating around
+			if (m_collision->HitHead(itemList[i]->m_hitbox))
 			{
-				std::cout<<"collide enemy "<<i<<std::endl;
-				delete outOfWater[i];
-				outOfWater.erase(outOfWater.begin() + i);
+				std::cout<<"collide "<<i<<std::endl;
+				itemList[i]->m_state = 1;
+				//itemList.erase(itemList.begin() + i);
 			}
 			break;
-		case 0:
-			std::cout<<"pickup hitting nest"<<std::endl;
+
+		case 1: // in mouth
+			itemList[i]->m_position = m_flamingo->m_headPosition;
+			if (m_flamingo->m_drag == 0)
+			{
+				itemList[i]->m_state = 2;
+			}
 			break;
-		case 1:
-			std::cout<<"pickup hitting hatchling 1"<<std::endl;
+
+		case 2: // waiting for release
+			itemList[i]->m_position = m_flamingo->m_headPosition;
+			if (m_flamingo->m_drag == 2) // just released
+			{
+				itemList[i]->m_direction = m_flamingo->m_direction * 3; // take direction
+				itemList[i]->m_state = 3;
+			}
 			break;
-		case 2:
-			std::cout<<"pickup hitting hatchling 2"<<std::endl;
-			break;
+
 		case 3:
-			std::cout<<"pickup hitting hatchling 3"<<std::endl;
+			if (m_flamingo->m_drag == 3)
+			{
+				itemList[i]->m_state = 4;
+			}
+			else
+			{
+				itemList[i]->m_position = m_flamingo->m_headPosition;
+			}
 			break;
-		default:
-			std::cout<<"undefined collision to hatchling"<<std::endl;
+
+		case 4: 
+			switch (m_collision->HitHatchling(itemList[i]->m_hitbox))
+			{
+			case -1:
+				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
+				{
+					std::cout<<"collide enemy "<<i<<std::endl;
+					delete itemList[i];
+					itemList.erase(itemList.begin() + i);
+				}
+				break;
+			case 0:
+				std::cout<<"pickup hitting nest"<<std::endl;
+				break;
+			case 1:
+				std::cout<<"pickup hitting hatchling 1"<<std::endl;
+				break;
+			case 2:
+				std::cout<<"pickup hitting hatchling 2"<<std::endl;
+				break;
+			case 3:
+				std::cout<<"pickup hitting hatchling 3"<<std::endl;
+				break;
+			default:
+				std::cout<<"undefined collision to hatchling"<<std::endl;
+				break;
+			}
 			break;
 		}
+
+		
 	}
 
 	if (m_timer > 2.0f)
 	{
 		m_timer -= 1.0f;
 
-		if (itemList.size() + outOfWater.size() < 20)
+		if (itemList.size() < 20)
 		{
 			for (int i = 0; i < 1; ++i)
 			{
@@ -217,11 +251,6 @@ void pickups::draw(al::viewport* Viewport)
 	{
 		itemList[i]->draw(Viewport);
 	}
-
-	for (int i = 0; i < outOfWater.size(); ++i)
-	{
-		outOfWater[i]->draw(Viewport);
-	}
 }
 
 void pickups::drawHitBoxes(sf::RenderWindow* window)
@@ -229,11 +258,6 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 	for (int i = 0; i < itemList.size(); ++i)
 	{
 		itemList[i]->m_hitbox->draw(window);
-	}
-
-	for (int i = 0; i < outOfWater.size(); ++i)
-	{
-		outOfWater[i]->m_hitbox->draw(window);
 	}
 }
 

@@ -83,6 +83,7 @@ flamingo::~flamingo()
 void flamingo::update(float DeltaTime)
 {
 	m_bodyToHead = m_flamingoPosition - m_headPosition;
+	
 
 		switch(m_drag)
 	{
@@ -108,28 +109,16 @@ void flamingo::update(float DeltaTime)
 			m_mousePosition.y = m_input->getMousePosition().y;
 
 			m_headPosition = m_mousePosition;
+			m_direction = m_headOrigin - m_headPosition;
 
 			{
-				vector Direction(m_headOrigin - m_headPosition);
 				float multiplier = 3.0f;
 
 				//cant drag head too far away.
-				float distance = sqrt(pow(Direction.x,2) + pow(Direction.y,2));
-
-				// count where head will be when we add multiplier to it
-				if (distance > 1000)
-				{
-					float multiplier = distance/100;
-					Direction.x /= multiplier;
-					Direction.y /= multiplier;
-				}
-
-				//std::cout<<distance<<std::endl;
-					
-				m_headPosition = m_headOrigin - Direction;
+				float distance = sqrt(pow(m_direction.x,2) + pow(m_direction.y,2));
 
 				// crosshair goes opposite direction of the head from the origin
-				m_crossHair = m_headOrigin + vector(Direction.x * multiplier, Direction.y * multiplier);
+				m_crossHair = m_headOrigin + vector(m_direction.x * multiplier, m_direction.y * multiplier);
 				m_crosshairSprite.setPosition(m_crossHair);
 
 				// count angle from headposition and headposition.x
@@ -147,12 +136,10 @@ void flamingo::update(float DeltaTime)
 
 		case 2: // head released, goes to crosshair
 			{
-			vector Direction(m_crossHair - m_headPosition);
-			vector Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
-			m_headPosition += Movement;
+				m_direction = m_crossHair - m_headPosition;
+				vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
+				m_headPosition += Movement;
 			}
-
-			//std::cout << "X: " << headPosition.x << std::endl << "Y: " << headPosition.y << std::endl;
 
 			//check if head gets back to start position
 			if(m_headPosition.x < m_crossHair.x+4 && m_headPosition.x > m_crossHair.x-4 &&
@@ -161,13 +148,11 @@ void flamingo::update(float DeltaTime)
 				m_drag = 3;
 			}
 
-
-
 			break;
 		case 3: //head goes back to starting point/origin
 			{
-				vector Direction(m_headOrigin - m_headPosition);
-				vector Movement((Direction.x*10)*DeltaTime,(Direction.y*10)*DeltaTime);
+				m_direction = m_headOrigin - m_headPosition;
+				vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
 				m_headPosition += Movement;
 			}
 
@@ -176,6 +161,7 @@ void flamingo::update(float DeltaTime)
 			{
 				m_drag = 0;
 				m_crossHair = m_headOrigin;
+				m_direction = vector(0,0);
 				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
 			}
 			break;
