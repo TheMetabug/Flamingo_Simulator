@@ -3,8 +3,9 @@
 using namespace al;
 
 
-button::button(std::string TextureName, al::vector Position)
+button::button(std::string TextureName, al::vector Position, al::input* Input)
 {
+	m_input = Input;
 	m_position = Position;
 	setTexture(TextureName);
 }
@@ -27,6 +28,13 @@ void button::setTexture(std::string TextureName)
 void button::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
+	
+		if(mouseOver())
+		{
+			m_animation->ChangeAnimation(1,0,1,100);
+		}
+		else
+			m_animation->ChangeAnimation(0,0,0,100);
 }
 
 void button::draw(al::viewport* Viewport)
@@ -34,9 +42,30 @@ void button::draw(al::viewport* Viewport)
 	Viewport->draw(&m_sprite);
 }
 
-
-gui::gui()
+bool button::isPressed()
 {
+	if(m_input->isButtonPressed(al::Button::MouseLeft) && mouseOver())
+	{			
+		m_animation->ChangeAnimation(2,0,2,100);
+		return true;
+	}
+	return false;
+}
+
+bool button::mouseOver()
+{
+	if (m_input->getMousePosition().x > m_position.x - m_sprite.getSize().x/2 &&
+		m_input->getMousePosition().x < m_position.x + m_sprite.getSize().x/2 &&
+		m_input->getMousePosition().y > m_position.y - m_sprite.getSize().y/2 &&
+		m_input->getMousePosition().y < m_position.y + m_sprite.getSize().y/2)
+		return true;
+	return false;
+}
+
+
+gui::gui(al::input* Input)
+{
+	m_input = Input;
 	m_pause = false;
 	m_title = false;
 	m_Play = false;
@@ -51,9 +80,9 @@ gui::gui()
 	/*button = "test" button
 	button2 = Listbutton
 	button3 = mute-button*/
-	m_button = new button("GameButtons.png",vector(300,300));
-	m_button2 = new button("GameButtons.png",vector(300,300));
-	m_button3 = new button("GameButtons.png",vector(300,300));
+	m_button = new button("GameButtons.png",vector(300,300),m_input);
+	m_button2 = new button("GameButtons.png",vector(1054,75),m_input);
+	m_button3 = new button("GameButtons.png",vector(908,75),m_input);
 
 	m_font = new font();
 
@@ -112,6 +141,8 @@ void gui::update(float DeltaTime)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
 		m_button2->update(DeltaTime);
+		m_button3->update(DeltaTime);
+
 	}
 	else
 		HPtext->setString("");	
@@ -139,9 +170,10 @@ void gui::update(float DeltaTime)
 	if (m_menu)
 		m_button->update(DeltaTime);
 
-	/*if (1)
+	if (m_Play)
 		m_button2->update(DeltaTime);
-*/
+		
+
 	
 }
 

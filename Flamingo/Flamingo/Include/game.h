@@ -34,6 +34,7 @@ private:
 	
 	bool P_release;
 	bool M_release;
+	bool ML_release;
 	
 	// gameStates
 	enum GameState

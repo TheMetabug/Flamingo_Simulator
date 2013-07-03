@@ -42,7 +42,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	// particles
 
 	// gui
-	m_gui = new gui();
+	m_gui = new gui(m_input);
 
 	
 }
@@ -87,8 +87,23 @@ void game::update(float deltaTime)
 		
 		// show text
 		m_gui->m_Play = true;
+
+		//if (m_gui->m_button2->isPressed())
+		//{
+			if(!m_gui->m_button2->isPressed())
+			{
+				ML_release = true;
+			}
+			else if (ML_release)
+			{
+				ML_release = false;
+				state = Gamemenu;
 		
-		
+			}
+		//}
+
+
+
 		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
 		else if (P_release)
@@ -135,8 +150,6 @@ void game::update(float deltaTime)
 	
 	case Menu:
 
-		
-		
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
 		
@@ -154,7 +167,7 @@ void game::update(float deltaTime)
 		}
 
 
-		if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
+		/*if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
 			m_input->getMousePosition().x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
 			m_input->getMousePosition().y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
 			m_input->getMousePosition().y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
@@ -171,11 +184,18 @@ void game::update(float deltaTime)
 			}
 		}
 		else
-			m_gui->m_button->m_animation->ChangeAnimation(0,0,0,100);
+			m_gui->m_button->m_animation->ChangeAnimation(0,0,0,100);*/
 		
 
+		//uusi
+		if (m_gui->m_button->isPressed())
+		{
+			m_soundLibrary->m_musics[0]->play();
+			state = Play;
+			m_gui->m_menu = false;
+		}
 
-
+		
 
 
 		break;
@@ -200,10 +220,32 @@ void game::update(float deltaTime)
 	case Options:
 		break;
 	case Gamemenu:
+		
 		m_gui->m_Gmenu = true;
 		m_gui->update(deltaTime);
+
+		//if (m_gui->m_button2->isPressed())
+		//{
+			
+			if(!m_gui->m_button2->isPressed())
+			{
+				ML_release = true;
+			}
+			else if (ML_release)
+			{
+				ML_release = false;
+				state = Play;
+				m_gui->m_Gmenu = false;
+			}
+		//}
+
+
+
 		break;
 	}
+		
+	
+
 
 	// animation
 
