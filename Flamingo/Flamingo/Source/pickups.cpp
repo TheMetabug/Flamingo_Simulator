@@ -90,9 +90,11 @@ void item::draw(al::viewport* Viewport)
 
 // Pickups
 
-pickups::pickups(collision *Collision)
-	: //window(),
-	  m_collision(Collision),
+pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo)
+	: m_collision(Collision),
+	  m_nest(Nest),
+	  m_enemy(Enemy),
+	  m_flamingo(Flamingo),
 	  m_timer(0)
 {
 	m_spawnPosition = al::vector(500,500);
@@ -141,31 +143,53 @@ void pickups::update(float DeltaTime)
 			delete itemList[i];
 			itemList.erase(itemList.begin() + i);
 		}
+
+		switch (m_collision->HitHatchling(itemList[i]->m_hitbox))
+		{
+		case 0:
+			std::cout<<"pickup hitting nest"<<std::endl;
+			break;
+		case 1:
+			std::cout<<"pickup hitting hatchling 1"<<std::endl;
+			break;
+		case 2:
+			std::cout<<"pickup hitting hatchling 2"<<std::endl;
+			break;
+		case 3:
+			std::cout<<"pickup hitting hatchling 3"<<std::endl;
+			break;
+		default:
+			std::cout<<"undefined collision to hatchling"<<std::endl;
+			break;
+		}
 	}
+
 
 	if (m_timer > 2.0f)
 	{
 		m_timer -= 1.0f;
 
-		for (int i = 0; i < 1; ++i)
+		if (itemList.size() < 20)
 		{
+			for (int i = 0; i < 1; ++i)
+			{
+				int rarity = rand()%100;
+				ItemName name;
+				if (rarity <25)
+				{
+					name = Shoe;
+				}
+				else if (rarity < 50)
+				{
+					name = Shrimp;
+				}
+				else if (rarity < 100)
+				{
+					name = Plancton;
+				}
 
-		int rarity = rand()%100;
-		ItemName name;
-		if (rarity <25)
-		{
-			name = Shoe;
-		}
-		else if (rarity < 50)
-		{
-			name = Shrimp;
-		}
-		else if (rarity < 100)
-		{
-			name = Plancton;
-		}
-
-		itemList.push_back(new item(m_spawnPosition,pickupList[name]));
+				itemList.push_back(new item(m_spawnPosition,pickupList[name]));
+			}
 		}
 	}
 }

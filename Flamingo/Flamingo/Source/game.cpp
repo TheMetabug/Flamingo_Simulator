@@ -30,7 +30,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	enemyBird = new enemy(collide);
 
 	// pickups
-	m_pickups = new pickups(collide);
+	m_pickups = new pickups(collide, flamingonest, enemyBird, flamingoBase);
 
 	// backGround
 	backGround = new background();
