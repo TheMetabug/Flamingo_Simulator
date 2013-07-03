@@ -63,6 +63,7 @@ cloud::cloud()
 		m_clouds[i]->setPosition(m_cloudPositions[i]);
 		m_clouds[i]->setOrigin(al::vector(m_clouds[i]->getSize().x/2,
 							m_clouds[i]->getSize().y/2));
+		m_clouds[i]->setColor(255,255,255,100);
 	}
 }
 

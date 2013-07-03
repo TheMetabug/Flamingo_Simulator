@@ -325,5 +325,5 @@ void game::draw()
 void game::drawDebugInfo()
 {
 	collide->DrawHitboxes(window);
-	m_pickups->drawHitBoxes();
+	m_pickups->drawHitBoxes(window);
 }

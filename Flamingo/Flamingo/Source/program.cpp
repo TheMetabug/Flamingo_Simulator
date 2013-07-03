@@ -208,6 +208,11 @@ sprite::~sprite()
 	std::cout<<"deleted sprite"<<std::endl;
 }
 
+void sprite::setColor(sf::Uint8 R, sf::Uint8 G, sf::Uint8 B, sf::Uint8 A)
+{
+	m_sprite->setColor(sf::Color(R,G,B,A));
+}
+
 void sprite::setTexture(al::texture *Texture)
 {
 	m_sprite->setTexture(*Texture->m_texture); 
@@ -293,6 +298,10 @@ void sprite::setLayer(int Layer)
 	else if (Layer > 1000)
 		m_layer = 1000;
 }
+//vector sprite::getColor()
+//{
+//	return m_sprite->getColor(); fix this if u can
+//}
 vector sprite::getPosition()
 {
 	return m_sprite->getPosition();
