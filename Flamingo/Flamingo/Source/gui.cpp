@@ -156,6 +156,9 @@ void gui::draw(al::viewport* Viewport)
 	if (m_menu)
 		m_button->draw(Viewport);
 	
+	if(m_Play)
+		m_button2->draw(Viewport);
+	
 	/*if (1)
 		m_button2->draw();*/
 }
