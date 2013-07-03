@@ -45,6 +45,7 @@ namespace pups
 		void draw(al::viewport* Viewport);
 
 		al::vector m_position;
+		al::vector m_direction;
 		pickup* m_pickup;
 		al::sprite* m_sprite;
 		animation* m_animation;
@@ -52,7 +53,7 @@ namespace pups
 		bool m_floating;
 
 	private:
-		al::vector m_direction;
+		void stayInWater();
 
 	};
 }
@@ -85,6 +86,7 @@ private:
 
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;
+	std::vector<pups::item*> outOfWater;
 
 	al::texture* m_texture;
 

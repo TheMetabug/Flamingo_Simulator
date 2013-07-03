@@ -5,8 +5,7 @@ using namespace pups;
 using namespace al;
 
 
-//Pickup
-
+#pragma region Pickup
 pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed):
 	m_texture(Texture),
 	m_itemName(itemName),
@@ -19,10 +18,9 @@ pickup::~pickup()
 {
 	std::cout<<"deleted pickup type"<<std::endl;
 }
+#pragma endregion
 
-
-
-// Item
+#pragma region Item
 
 item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
@@ -49,31 +47,16 @@ item::~item()
 
 void item::update(float DeltaTime)
 {
-	m_position += m_direction * DeltaTime * m_pickup->m_speed;
 
 	if (m_floating)
 	{
-		float left = 450, right = 1280, top = 450, bottom = 720;
-		if (m_position.x < left)
-		{
-			m_direction.x = -m_direction.x;
-			m_position.x = left;
-		}
-		else if (m_position.x > right)
-		{
-			m_direction.x = -m_direction.x;
-			m_position.x = right;
-		}
-		if (m_position.y < top)
-		{
-			m_direction.y = -m_direction.y;
-			m_position.y = top;
-		}
-		else if (m_position.y > bottom)
-		{
-			m_direction.y = -m_direction.y;
-			m_position.y = bottom;
-		}
+		m_position += m_direction * DeltaTime * m_pickup->m_speed;
+
+		stayInWater();
+	}
+	else
+	{
+		m_position += m_direction * DeltaTime * 100;
 	}
 
 	m_sprite->setPosition(m_position);
@@ -83,12 +66,36 @@ void item::update(float DeltaTime)
 void item::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
-	//window->draw(*m_sprite);
 }
 
+void item::stayInWater()
+{
+	float left = 450, right = 1280, top = 500, bottom = 720;
+	if (m_position.x < left)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = left;
+	}
+	else if (m_position.x > right)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = right;
+	}
+	if (m_position.y < top)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = top;
+	}
+	else if (m_position.y > bottom)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = bottom;
+	}
+}
 
+#pragma endregion
 
-// Pickups
+#pragma region Pickups
 
 pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo)
 	: m_collision(Collision),
@@ -133,18 +140,24 @@ void pickups::update(float DeltaTime)
 		if (m_collision->HitHead(itemList[i]->m_hitbox))
 		{
 			std::cout<<"collide "<<i<<std::endl;
-			delete itemList[i];
+			itemList[i]->m_floating = false;
+			outOfWater.push_back(itemList[i]);
 			itemList.erase(itemList.begin() + i);
 		}
+	}
 
-		else if (m_collision->HitEnemy(itemList[i]->m_hitbox))
+	for (int i = outOfWater.size() - 1; i >= 0; --i)
+	{
+		outOfWater[i]->update(DeltaTime);
+
+		if (m_collision->HitEnemy(outOfWater[i]->m_hitbox))
 		{
 			std::cout<<"collide enemy "<<i<<std::endl;
-			delete itemList[i];
-			itemList.erase(itemList.begin() + i);
+			delete outOfWater[i];
+			outOfWater.erase(outOfWater.begin() + i);
 		}
 
-		switch (m_collision->HitHatchling(itemList[i]->m_hitbox))
+		switch (m_collision->HitHatchling(outOfWater[i]->m_hitbox))
 		{
 		case 0:
 			std::cout<<"pickup hitting nest"<<std::endl;
@@ -163,7 +176,6 @@ void pickups::update(float DeltaTime)
 			break;
 		}
 	}
-
 
 	if (m_timer > 2.0f)
 	{
@@ -200,6 +212,11 @@ void pickups::draw(al::viewport* Viewport)
 	{
 		itemList[i]->draw(Viewport);
 	}
+
+	for (int i = 0; i < outOfWater.size(); ++i)
+	{
+		outOfWater[i]->draw(Viewport);
+	}
 }
 
 void pickups::drawHitBoxes()
@@ -209,3 +226,5 @@ void pickups::drawHitBoxes()
 		itemList[i]->m_hitbox->draw(window);
 	}
 }
+
+#pragma endregion
