@@ -100,6 +100,9 @@ void game::update(float deltaTime)
 				state = Gamemenu;
 		
 			}
+
+			
+		//}
 		//}
 
 
