@@ -90,10 +90,10 @@ gui::gui(al::input* Input)
 	
 	// add information what each text does
 	HPtext = new text("HP-mittari", m_font, 50);
-	PAUSEtext = new text("Pause-teksti", m_font, 50);
-	TITLEtext = new text("paina välilyöntiä",m_font, 50);
-	MENUtext = new text("Menu-otsikko", m_font, 50); 
-	Gmenutext = new text("pelivalikkon otsikko", m_font, 50);
+	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
+	TITLEtext = new text("Press SPACE",m_font, 50);
+	MENUtext = new text("MENU, press button to flamingo", m_font, 50); 
+	Gmenutext = new text("GAME MENU", m_font, 50);
 	
 	
 	HPtext->setColor();
@@ -147,31 +147,16 @@ void gui::update(float DeltaTime)
 	else
 		HPtext->setString("");	
 		
-	if (m_pause)
-		PAUSEtext->setString(".::pAuSE::.");
-	else 
-		PAUSEtext->setString("");
-
-	if (m_title)
-		TITLEtext->setString("Press SPACE");
-	else 
-		TITLEtext->setString("");
 	
-	if (m_menu)
-		MENUtext->setString("MENU, press button to flamingo");
-	else 
-		MENUtext->setString("");
-
-	if (m_Gmenu)
-		Gmenutext->setString("GAME MENU");
-	else 
-		Gmenutext->setString("");
 	
 	if (m_menu)
 		m_button->update(DeltaTime);
 
 	if (m_Play)
+	{
 		m_button2->update(DeltaTime);
+		m_button3->update(DeltaTime);
+	}
 		
 
 	
@@ -179,17 +164,33 @@ void gui::update(float DeltaTime)
 
 void gui::draw(al::viewport* Viewport)
 {
-	Viewport->draw(HPtext);
+	
+	
+	if (m_pause)
 	Viewport->draw(PAUSEtext);
+
+	if (m_title)
 	Viewport->draw(TITLEtext);
+
+	if(m_menu)
+	{
 	Viewport->draw(MENUtext);
+	m_button->draw(Viewport); //button
+	}
+	
+	
+	if(m_Gmenu)
 	Viewport->draw(Gmenutext);
 
-	if (m_menu)
-		m_button->draw(Viewport);
+	
+		
 	
 	if(m_Play)
-		m_button2->draw(Viewport);
+	{
+		m_button2->draw(Viewport); //button2
+		m_button3->draw(Viewport); //button3
+		Viewport->draw(HPtext);
+	}
 	
 	/*if (1)
 		m_button2->draw();*/
