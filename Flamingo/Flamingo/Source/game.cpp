@@ -101,7 +101,7 @@ void game::update(float deltaTime)
 			m_soundLibrary->m_musics[0]->pause();
 			M_release = false;
 			state = Gamemenu;
-			m_gui->m_Play = false;
+			
 		}
 		// hitbox
 

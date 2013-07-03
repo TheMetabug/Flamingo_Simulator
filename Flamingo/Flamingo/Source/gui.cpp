@@ -48,9 +48,12 @@ gui::gui()
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
 
-	
-	m_button = new button("testbutton.png",vector(300,300));
-	//m_button2 = new button(window);
+	/*button = "test" button
+	button2 = Listbutton
+	button3 = mute-button*/
+	m_button = new button("GameButtons.png",vector(300,300));
+	m_button2 = new button("GameButtons.png",vector(300,300));
+	m_button3 = new button("GameButtons.png",vector(300,300));
 
 	m_font = new font();
 
@@ -92,7 +95,8 @@ gui::~gui()
 	delete Gmenutext;
 	delete m_font;
 	delete m_button;
-	//delete m_button2;
+	delete m_button2;
+	delete m_button3;
 }
 
 void gui::update(float DeltaTime)
@@ -104,8 +108,11 @@ void gui::update(float DeltaTime)
 		HPnow = 0;
 	}
 
-		if (m_Play)
+	if (m_Play)
+	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
+		m_button2->update(DeltaTime);
+	}
 	else
 		HPtext->setString("");	
 		

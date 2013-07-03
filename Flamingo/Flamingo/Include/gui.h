@@ -45,6 +45,7 @@ public:
 	
 	button* m_button;
 	button* m_button2;
+	button* m_button3;
 
 private:
 	al::font* m_font;
