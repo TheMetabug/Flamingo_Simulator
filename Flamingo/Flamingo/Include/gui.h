@@ -5,22 +5,26 @@
 #include <iostream>
 #include "animation.h"
 #include "program.h"
+#include "input.h"
 
 
 class button
 {
 public:
 	button(){}
-	button(std::string TextureName, al::vector Position);
+	button(std::string TextureName, al::vector Position, al::input* Input);
    ~button();
 	void setTexture(std::string TextureName);
    	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
+	bool isPressed();
 
 	al::vector m_position;
 	animation *m_animation;
 	al::sprite m_sprite;
 private:
+	bool mouseOver();
+	al::input* m_input;
 
 	al::texture m_texture;
 	/*al::sprite m_sprite;*/
@@ -30,7 +34,7 @@ private:
 class gui
 {
 public:
-	gui();
+	gui(al::input* Input);
 	~gui();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -45,8 +49,10 @@ public:
 	
 	button* m_button;
 	button* m_button2;
+	button* m_button3;
 
 private:
+	al::input* m_input;
 	al::font* m_font;
 	
 	al::text* HPtext;
