@@ -13,6 +13,7 @@
 #include "renderStatistics.h"
 #include "sound.h"
 #include "program.h"
+#include "input.h"
 
 class game 
 {
@@ -29,6 +30,7 @@ public:
 private:
 	sf::RenderWindow *window;
 	al::viewport* m_viewport;
+	al::input* m_input;
 	
 	bool P_release;
 	bool M_release;
@@ -71,6 +73,9 @@ private:
 
 	// water
 	background* backGround;
+
+	//cloud
+	cloud* m_cloud;
 
 	// particles
 

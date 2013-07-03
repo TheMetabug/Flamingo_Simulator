@@ -1,9 +1,11 @@
 #include "game.h"
+using namespace al;
 
-game::game(sf::RenderWindow* Window, al::viewport* Viewport)
+game::game(sf::RenderWindow* Window, viewport* Viewport)
 {
 	window = Window;
 	m_viewport = Viewport;
+	m_input = new input(window);
 
 	////sound
 	m_soundLibrary = new soundLibrary();
@@ -31,7 +33,10 @@ game::game(sf::RenderWindow* Window, al::viewport* Viewport)
 	m_pickups = new pickups(window,collide);
 
 	// backGround
-	backGround = new background(window);
+	backGround = new background();
+
+	//cloud
+	m_cloud = new cloud();
 
 
 	// particles
@@ -69,7 +74,7 @@ void game::update(float deltaTime)
 
 		m_gui->m_title = true;
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		if (m_input->isKeyPressed(al::Key::Space))
 		{
 			state = Menu;
 			m_gui->m_title =false;
@@ -84,7 +89,7 @@ void game::update(float deltaTime)
 		m_gui->m_Play = true;
 		
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
 		else if (P_release)
 		{
@@ -94,7 +99,7 @@ void game::update(float deltaTime)
 			state = Pause;
 		}
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		if(!m_input->isKeyPressed(al::Key::Menu))
 			M_release = true;
 		else if (M_release)
 		{
@@ -120,6 +125,9 @@ void game::update(float deltaTime)
 		// backGround
 		backGround->update(deltaTime);
 
+		// cloud
+		m_cloud->update(deltaTime);
+
 		// gui
 		m_gui->update(deltaTime);
 
@@ -136,7 +144,7 @@ void game::update(float deltaTime)
 		m_gui->m_Play = false;
 		m_gui->m_pause = false;
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		if(!m_input->isKeyPressed(al::Key::Menu))
 			M_release = true;
 		else if (M_release)
 		{
@@ -145,14 +153,16 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		if(sf::Mouse::getPosition(*window).x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
-			sf::Mouse::getPosition(*window).x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
-			sf::Mouse::getPosition(*window).y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
-			sf::Mouse::getPosition(*window).y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
+
+		if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
+			m_input->getMousePosition().x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
+			m_input->getMousePosition().y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
+			m_input->getMousePosition().y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
 		{
+			
 			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
 
-			if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
 				m_soundLibrary->m_musics[0]->play();
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
@@ -174,7 +184,7 @@ void game::update(float deltaTime)
 		m_gui->m_pause = true;
 
 		
-		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
 		else if (P_release)
 		{
@@ -217,8 +227,13 @@ void game::draw()
 	case Play:
 	case Pause:
 
+		
+
 		// backGround
 		backGround->draw(m_viewport);
+		
+		//cloud
+		m_cloud->draw(m_viewport);
 
 		// nest
 		flamingonest->draw(m_viewport);

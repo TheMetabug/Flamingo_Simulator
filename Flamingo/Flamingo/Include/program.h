@@ -21,28 +21,29 @@ public:
 
 	float x,y;
 
+	vector operator -();
+
+	vector operator +(const vector& RightVal);
+	vector operator -(const vector& RightVal);
+
+	vector &operator +=(const vector& RightVal);
+	vector &operator -=(const vector& RightVal);
+
+	vector operator /(float RightVal);
+	vector &operator /=(float RightVal);
+
+	bool operator ==(const vector& RightVal);
+	bool operator !=(const vector& RightVal);
+
+	friend vector operator *(const vector& LeftVal, const float RightVal);
+	friend vector operator *(const float LeftVal, const vector& RightVal);
+
+	friend const vector &operator *=(vector& LeftVal, const float RightVal);
+
 private:
 
 };
 
-vector operator -(const vector& RightVal);
-
-vector operator +(const vector& LeftVal, const vector& RightVal);
-vector operator -(const vector& LeftVal, const vector& RightVal);
-
-vector& operator +=(vector& LeftVal, const vector& RightVal);
-vector& operator -=(vector& LeftVal, const vector& RightVal);
-
-vector operator *(const vector& LeftVal, float RightVal);
-vector operator *(float LeftVal, const vector& RightVal);
-
-vector& operator *=(vector& LeftVal, float RightVal);
-
-vector operator /(const vector& LeftVal, float RightVal);
-vector& operator /=(vector& LeftVal, float RightVal);
-
-bool operator ==(const vector& LeftVal, const vector& RightVal);
-bool operator !=(const vector& LeftVal, const vector& RightVal);
 
 #pragma endregion
 

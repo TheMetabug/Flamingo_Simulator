@@ -8,26 +8,27 @@
 namespace al
 {
 
+enum Button
+{
+	MouseLeft,
+	MouseRight,
+	MouseMiddle
+};
+
+enum Key
+{
+	Pause,
+	Menu,
+	Space,
+	Esc
+};
+
 class input
 {
 public:
 	input(sf::RenderWindow *Window);
 	~input();
 
-	enum Button
-	{
-		MouseLeft,
-		MouseRight,
-		MouseMiddle
-	};
-
-	enum Key
-	{
-		Pause,
-		Menu,
-		Space,
-		Esc
-	};
 	
 	bool isButtonPressed(Button button);
 

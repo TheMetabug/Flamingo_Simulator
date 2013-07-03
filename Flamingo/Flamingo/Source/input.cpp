@@ -41,7 +41,7 @@ bool input::isKeyPressed(Key key)
 		return sf::Keyboard::isKeyPressed(sf::Keyboard::M);
 		break;
 	case Space:
-		return sf::Keyboard::isKeyPressed(sf::Keyboard::Space);
+		return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)57);
 		break;
 	case Esc:
 		return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);

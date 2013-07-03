@@ -29,71 +29,76 @@ vector::~vector(){}
 
 #pragma region operators
 
-vector operator-(const vector& RightVal)
+vector vector::operator-()
 {
-	return vector(-RightVal.x,-RightVal.y);
+	return vector(-this->x, -this->y);
 }
 
-vector operator +(const vector& LeftVal, const vector& RightVal)
+vector vector::operator +(const vector& RightVal)
 {
-	return vector(LeftVal.x+RightVal.x,LeftVal.y+RightVal.y);
+	return vector(this->x+RightVal.x,this->y+RightVal.y);
 }
-vector operator -(const vector& LeftVal, const vector& RightVal)
+vector vector::operator -(const vector& RightVal)
 {
-	return vector(LeftVal.x-RightVal.x,LeftVal.y-RightVal.y);
-}
-
-vector& operator +=(vector& LeftVal, const vector& RightVal)
-{
-	LeftVal.x += RightVal.x;
-	LeftVal.y += RightVal.y;
-	return LeftVal;
-}
-vector& operator -=(vector& LeftVal, const vector& RightVal)
-{
-	LeftVal.x -= RightVal.x;
-	LeftVal.y -= RightVal.y;
-	return LeftVal;
+	return vector(this->x-RightVal.x,this->y-RightVal.y);
 }
 
-vector operator *(const vector& LeftVal, float RightVal)
+vector &vector::operator +=(const vector& RightVal)
+{
+	this->x += RightVal.x;
+	this->y += RightVal.y;
+	return *this;
+}
+vector &vector::operator -=(const vector& RightVal)
+{
+	this->x -= RightVal.x;
+	this->y -= RightVal.y;
+	return *this;
+}
+
+vector vector::operator /(float RightVal)
+{
+	return vector(this->x / RightVal,this->y / RightVal);
+}
+vector &vector::operator /=(float RightVal)
+{
+	this->x /= RightVal;
+	this->y /= RightVal;
+	return *this;
+}
+
+bool vector::operator ==(const vector& RightVal)
+{
+	if (this->x == RightVal.x && this->y == RightVal.y)
+		return true;
+	return false;
+}
+bool vector::operator !=(const vector& RightVal)
+{
+	if (this->x == RightVal.x && this->y == RightVal.y)
+		return false;
+	return true;
+}
+
+namespace al
+{
+
+vector operator *(const vector& LeftVal, const float RightVal)
 {
 	return vector(LeftVal.x * RightVal,LeftVal.y * RightVal);
 }
-vector operator *(float LeftVal, const vector& RightVal)
+vector operator *(const float LeftVal, const vector& RightVal)
 {
 	return vector(LeftVal * RightVal.x,LeftVal * RightVal.y);
 }
 
-vector& operator *=(vector& LeftVal, float RightVal)
+const vector &operator *=(vector& LeftVal, float RightVal)
 {
 	LeftVal.x *= RightVal;
 	LeftVal.y *= RightVal;
 	return LeftVal;
 }
 
-vector operator /(const vector& LeftVal, float RightVal)
-{
-	return vector(LeftVal.x / RightVal,LeftVal.y / RightVal);
-}
-vector& operator /=(vector& LeftVal, float RightVal)
-{
-	LeftVal.x /= RightVal;
-	LeftVal.y /= RightVal;
-	return LeftVal;
-}
-
-bool operator ==(const vector& LeftVal, const vector& RightVal)
-{
-	if (LeftVal.x == RightVal.x && LeftVal.y == RightVal.y)
-		return true;
-	return false;
-}
-bool operator !=(const vector& LeftVal, const vector& RightVal)
-{
-	if (LeftVal.x == RightVal.x && LeftVal.y == RightVal.y)
-		return false;
-	return true;
 }
 
 #pragma endregion
@@ -143,11 +148,11 @@ rectangle::~rectangle()
 
 bool rectangle::intersects(rectangle Rectangle)
 {
-	return sf::Rect<float>(width, height, left, top).intersects(sf::Rect<float>(Rectangle.width, Rectangle.height, Rectangle.left, Rectangle.top));
+	return sf::Rect<float>(left, top, width, height).intersects(sf::Rect<float>(Rectangle.left, Rectangle.top, Rectangle.width, Rectangle.height));
 }
 bool rectangle::contains(vector Position)
 {
-	return sf::Rect<float>(width, height, left, top).contains(sf::Vector2<float>(Position.x, Position.y));
+	return sf::Rect<float>(left, top, width, height).contains(sf::Vector2f(Position.x, Position.y));
 }
 
 #pragma endregion
