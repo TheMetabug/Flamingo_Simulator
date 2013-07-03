@@ -131,10 +131,10 @@ int collision::HitHatchling(hitbox* ItemHitbox)
 	for (int i = 0; i < hatchlings.size(); ++i)
 	{
 		if (isCollided(ItemHitbox,hatchlings[i]))
-			return i+1;
+			return i;
 	}
 
-	return 0;
+	return -1;
 }
 
 bool collision::HitEnemy(hitbox* ItemHitbox)

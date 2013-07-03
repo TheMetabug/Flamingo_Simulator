@@ -25,7 +25,7 @@ pickup::~pickup()
 item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
 	  m_pickup(Pickup),
-	  m_floating(true)
+	  m_state(0)
 {
 	m_sprite = new al::sprite((Pickup->m_texture));
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
@@ -47,16 +47,18 @@ item::~item()
 
 void item::update(float DeltaTime)
 {
-
-	if (m_floating)
+	switch (m_state)
 	{
+	case 0:
 		m_position += m_direction * DeltaTime * m_pickup->m_speed;
 
 		stayInWater();
-	}
-	else
-	{
+		break;
+	case 1:
+		break;
+	case 2:
 		m_position += m_direction * DeltaTime * 100;
+		break;
 	}
 
 	m_sprite->setPosition(m_position);
@@ -140,7 +142,7 @@ void pickups::update(float DeltaTime)
 		if (m_collision->HitHead(itemList[i]->m_hitbox))
 		{
 			std::cout<<"collide "<<i<<std::endl;
-			itemList[i]->m_floating = false;
+			itemList[i]->m_state = 1;
 			outOfWater.push_back(itemList[i]);
 			itemList.erase(itemList.begin() + i);
 		}
@@ -150,15 +152,18 @@ void pickups::update(float DeltaTime)
 	{
 		outOfWater[i]->update(DeltaTime);
 
-		if (m_collision->HitEnemy(outOfWater[i]->m_hitbox))
-		{
-			std::cout<<"collide enemy "<<i<<std::endl;
-			delete outOfWater[i];
-			outOfWater.erase(outOfWater.begin() + i);
-		}
+		
 
 		switch (m_collision->HitHatchling(outOfWater[i]->m_hitbox))
 		{
+		case -1:
+			if (m_collision->HitEnemy(outOfWater[i]->m_hitbox))
+			{
+				std::cout<<"collide enemy "<<i<<std::endl;
+				delete outOfWater[i];
+				outOfWater.erase(outOfWater.begin() + i);
+			}
+			break;
 		case 0:
 			std::cout<<"pickup hitting nest"<<std::endl;
 			break;
@@ -181,7 +186,7 @@ void pickups::update(float DeltaTime)
 	{
 		m_timer -= 1.0f;
 
-		if (itemList.size() < 20)
+		if (itemList.size() + outOfWater.size() < 20)
 		{
 			for (int i = 0; i < 1; ++i)
 			{
@@ -224,6 +229,11 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 	for (int i = 0; i < itemList.size(); ++i)
 	{
 		itemList[i]->m_hitbox->draw(window);
+	}
+
+	for (int i = 0; i < outOfWater.size(); ++i)
+	{
+		outOfWater[i]->m_hitbox->draw(window);
 	}
 }
 

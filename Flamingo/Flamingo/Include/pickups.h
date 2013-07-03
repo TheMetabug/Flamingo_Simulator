@@ -50,7 +50,7 @@ namespace pups
 		al::sprite* m_sprite;
 		animation* m_animation;
 		hitbox* m_hitbox;
-		bool m_floating;
+		int m_state;
 
 	private:
 		void stayInWater();
