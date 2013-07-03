@@ -98,6 +98,7 @@ public:
 	sprite(al::texture* Texture);
 	~sprite();
 
+	void setColor(sf::Uint8 R = 255, sf::Uint8 G = 255, sf::Uint8 B = 255, sf::Uint8 A = 255);
 	void setTexture(al::texture* Texture);
 	void setPosition(al::vector Position);
 	void setRotation(float Angle);
@@ -109,6 +110,7 @@ public:
 	void setScale(vector Scale);
 	/*Layer 0-1000*/
 	void setLayer(int Layer);
+	//vector getColor(); lets make this later...
 	vector getPosition();
 	vector getOrigin();
 	vector getScale();
