@@ -8,14 +8,14 @@
 class background
 {
 public:
-	background(){}
-	background(sf::RenderWindow *Window);
+	//background(){}
+	background();
 	~background();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
 private:
-	sf::RenderWindow *window;
+	//sf::RenderWindow *window;
 
 	sf::Vector2f m_waterPosition;
 
@@ -33,14 +33,14 @@ private:
 class cloud
 {
 public:
-	cloud(){}
-	cloud(sf::RenderWindow *Window);
+	//cloud(){}
+	cloud();
 	~cloud();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
 private:
-	sf::RenderWindow *window;
+	//sf::RenderWindow *window;
 
 	al::texture* m_cloudTexture_1;
 	al::sprite m_cloud_1;

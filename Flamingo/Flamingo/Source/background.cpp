@@ -2,9 +2,9 @@
 
 using namespace al;
 
-background::background(sf::RenderWindow *Window)				
+background::background()				
 {
-	window = Window;
+	//window = Window;
 
 	m_waterTexture = new texture("ground_water_Background.png");
 	m_water.setTexture(m_waterTexture);
@@ -43,9 +43,9 @@ void background::draw(al::viewport* Viewport)
 
 //////////////////CLOUDS////////////////////////////
 
-cloud::cloud(sf::RenderWindow *Window)				
+cloud::cloud()				
 {
-	window = Window;
+	//window = Window;
 
 	m_cloudTexture_1 = new texture("cloud_one.png");
 	m_cloud_1.setTexture(m_cloudTexture_1);
@@ -73,7 +73,17 @@ cloud::~cloud()
 
 void cloud::update(float DeltaTime)
 {
-	
+	m_cloud_1.setPosition(m_cloud_1.getPosition() - vector(DeltaTime*8,0));
+	if (m_cloud_1.getPosition().x <= -500)
+		m_cloud_1.setPosition(vector(1500,100));
+
+	m_cloud_2.setPosition(m_cloud_2.getPosition() - vector(DeltaTime*15,0));
+	if (m_cloud_2.getPosition().x <= -500)
+		m_cloud_2.setPosition(vector(1500,150));
+
+	m_cloud_3.setPosition(m_cloud_3.getPosition() - vector(DeltaTime*4,0));
+	if (m_cloud_3.getPosition().x <= -500)
+		m_cloud_3.setPosition(vector(1500,200));
 
 }
 

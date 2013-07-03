@@ -33,10 +33,10 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	m_pickups = new pickups(window,collide);
 
 	// backGround
-	backGround = new background(window);
+	backGround = new background();
 
 	//cloud
-	m_cloud = new cloud(window);
+	m_cloud = new cloud();
 
 
 	// particles
@@ -124,6 +124,9 @@ void game::update(float deltaTime)
 
 		// backGround
 		backGround->update(deltaTime);
+
+		// cloud
+		m_cloud->update(deltaTime);
 
 		// gui
 		m_gui->update(deltaTime);
