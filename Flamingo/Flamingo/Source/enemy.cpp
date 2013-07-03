@@ -2,10 +2,8 @@
 
 using namespace al;
 
-enemy::enemy(sf::RenderWindow *Window, collision* Collide)
+enemy::enemy(collision* Collide)
 {
-	window = Window;
-
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 150;
 	m_enemyOrigin.y = 100;
@@ -21,9 +19,9 @@ enemy::enemy(sf::RenderWindow *Window, collision* Collide)
 	m_animation = new animation(m_sprite, 4, 256, 256);
 
 	m_hitbox = Collide->createHitBox(m_enemyBirdPosition,
-		sf::Vector2f(m_sprite->getTransformedSize().x,
-					 m_sprite->getTransformedSize().y), 
-		sf::Vector2f(m_sprite->getTransformedSize().x/2,
+		al::vector(m_sprite->getTransformedSize().x,
+				m_sprite->getTransformedSize().y), 
+		al::vector(m_sprite->getTransformedSize().x/2,
 					 m_sprite->getTransformedSize().y/2),
 		2);
 

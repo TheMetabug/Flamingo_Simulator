@@ -2,12 +2,10 @@
 
 using namespace al;
 
-nest::nest(sf::RenderWindow *Window, collision* Collide)
+nest::nest(collision* Collide)
 {
-	window = Window;
-
 	///// nest //////
-	m_nestPosition = sf::Vector2f(200, 600);
+	m_nestPosition = al::vector(200, 600);
 
 	// create texture,sprite, positions etc
 	m_nestTexture = new texture("NEST.png");
@@ -19,9 +17,9 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
-		sf::Vector2f(m_flamingonest.getGlobalBounds().width,
+		al::vector(m_flamingonest.getGlobalBounds().width,
 					 m_flamingonest.getGlobalBounds().height), 
-		sf::Vector2f(m_flamingonest.getGlobalBounds().width/2,
+		al::vector(m_flamingonest.getGlobalBounds().width/2,
 					 m_flamingonest.getGlobalBounds().height/2),
 		0);
 
@@ -39,7 +37,7 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 		m_hatchlings.push_back( new sprite(m_hatchlingTexture));
 		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 7));
 		m_hatchlings[i]->setPosition(m_hatchlingPositions[i]);
-		m_hatchlings[i]->setOrigin(sf::Vector2f(m_hatchlings[i]->getSize().x/2,
+		m_hatchlings[i]->setOrigin(al::vector(m_hatchlings[i]->getSize().x/2,
 							   m_hatchlings[i]->getSize().y/2));
 		m_hatchlings[i]->setScale(0.5f,0.5f);
 
@@ -47,9 +45,9 @@ nest::nest(sf::RenderWindow *Window, collision* Collide)
 
 		//hitbox
 		m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],
-			sf::Vector2f(m_hatchlings[i]->getTransformedSize().x,
+			al::vector(m_hatchlings[i]->getTransformedSize().x,
 							m_hatchlings[i]->getTransformedSize().y), 
-			sf::Vector2f(m_hatchlings[i]->getTransformedSize().x/2,
+			al::vector(m_hatchlings[i]->getTransformedSize().x/2,
 							m_hatchlings[i]->getTransformedSize().y/2),
 			0));
 	}

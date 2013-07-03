@@ -35,7 +35,7 @@ namespace pups
 	{
 
 	public:
-		item(sf::Vector2f Position, pickup* Pickup);
+		item(al::vector Position, pickup* Pickup);
 		~item();
 
 		void update(float DeltaTime);
@@ -58,8 +58,8 @@ class pickups
 {
 
 public:
-	pickups(){}
-	pickups(sf::RenderWindow *Window, collision *Collision);
+	//pickups(){}
+	pickups(collision *Collision);
 	~pickups();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -73,7 +73,7 @@ private:
 
 	collision *m_collision;
 
-	sf::Vector2f m_spawnPosition;
+	al::vector m_spawnPosition;
 
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;

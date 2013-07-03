@@ -7,11 +7,11 @@ using namespace al;
 
 //Pickup
 
-pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed)
-	: m_texture(Texture),
-	  m_itemName(itemName),
-	  m_foodValue(FoodValue),
-	  m_speed(Speed)
+pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed):
+	m_texture(Texture),
+	m_itemName(itemName),
+	m_foodValue(FoodValue),
+	m_speed(Speed)
 {
 }
 
@@ -24,7 +24,7 @@ pickup::~pickup()
 
 // Item
 
-item::item(sf::Vector2f Position, pickup* Pickup)
+item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
 	  m_pickup(Pickup),
 	  m_floating(true)
@@ -90,12 +90,12 @@ void item::draw(al::viewport* Viewport)
 
 // Pickups
 
-pickups::pickups(sf::RenderWindow *Window, collision *Collision)
-	: window(Window),
+pickups::pickups(collision *Collision)
+	: //window(),
 	  m_collision(Collision),
 	  m_timer(0)
 {
-	m_spawnPosition = sf::Vector2f(500,500);
+	m_spawnPosition = al::vector(500,500);
 
 	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
 	

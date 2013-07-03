@@ -3,10 +3,10 @@
 
 using namespace al;
 
-flamingo::flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collision* Collide)
+flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 {
-	window = Window;
 	m_soundLibrary = SoundLibrary;
+	m_input = Input;
 
 	/////////BODY//////////
 	m_flamingoPosition = vector(740,550);
@@ -90,11 +90,11 @@ void flamingo::update(float DeltaTime)
 			m_headPosition = m_headOrigin;
 
 			
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left) &&
-				sf::Mouse::getPosition(*window).x > m_flamingoHead.getPosition().x - 50 &&
-				sf::Mouse::getPosition(*window).x < m_flamingoHead.getPosition().x + 50 &&
-				sf::Mouse::getPosition(*window).y > m_flamingoHead.getPosition().y - 50 &&
-				sf::Mouse::getPosition(*window).y < m_flamingoHead.getPosition().y + 50 )
+			if (m_input->isButtonPressed(al::Button::MouseLeft) &&
+				m_input->getMousePosition().x > m_flamingoHead.getPosition().x - 50 &&
+				m_input->getMousePosition().x < m_flamingoHead.getPosition().x + 50 &&
+				m_input->getMousePosition().y > m_flamingoHead.getPosition().y - 50 &&
+				m_input->getMousePosition().y < m_flamingoHead.getPosition().y + 50 )
 			{
 				m_drag = 1;
 				m_soundLibrary->m_sounds[1]->play();
@@ -104,8 +104,8 @@ void flamingo::update(float DeltaTime)
 			break;
 
 		case 1: // head being dragged
-			m_mousePosition.x = sf::Mouse::getPosition(*window).x;
-			m_mousePosition.y = sf::Mouse::getPosition(*window).y;
+			m_mousePosition.x = m_input->getMousePosition().x;
+			m_mousePosition.y = m_input->getMousePosition().y;
 
 			m_headPosition = m_mousePosition;
 
@@ -222,7 +222,7 @@ void flamingo::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_flamingoBody);
 	for (int i = 0; i < m_neckPieces.size(); ++i)
-		Viewport->draw(&m_neckPieces[i]->m_sprite);
+	Viewport->draw(&m_neckPieces[i]->m_sprite);
 	Viewport->draw(&m_flamingoHead);
 	Viewport->draw(&m_crosshairSprite);
 }

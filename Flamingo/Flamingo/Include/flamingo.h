@@ -8,26 +8,24 @@
 #include "program.h"
 #include "sound.h"
 #include "animation.h"
+#include "input.h"
 
 class neckPiece
 {
 public:
 	neckPiece(){}
-	~neckPiece(){}
+	~neckPiece();
 	
 	al::sprite m_sprite;
-
 	al::vector m_positionMultiplier, m_positionRelative;
-
-	
 	
 };
 
 class flamingo
 {
 	public:
-	 flamingo(){}
-	 flamingo(sf::RenderWindow *Window, soundLibrary* SoundLibrary, collision* Collide);
+	 //flamingo(){}
+	 flamingo(soundLibrary* SoundLibrary, collision* Collide, al::input* Input);
 	~flamingo();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -35,8 +33,8 @@ class flamingo
 	animation *m_headAnimation;
 
 	private:
+	al::input* m_input;
 
-	sf::RenderWindow *window;
 	///////////BODY////////////
 
 	al::vector m_flamingoPosition;

@@ -17,7 +17,7 @@ public:
 private:
 	//sf::RenderWindow *window;
 
-	sf::Vector2f m_waterPosition;
+	al::vector m_waterPosition;
 
 	al::texture* m_skyTexture;
 	al::sprite m_sky;
