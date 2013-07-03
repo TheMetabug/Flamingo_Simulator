@@ -7,6 +7,9 @@
 #include "animation.h"
 #include "hitbox.h"
 #include "program.h"
+#include "nest.h"
+#include "enemy.h"
+#include "flamingo.h"
 
 namespace pups
 {
@@ -35,7 +38,7 @@ namespace pups
 	{
 
 	public:
-		item(sf::Vector2f Position, pickup* Pickup);
+		item(al::vector Position, pickup* Pickup);
 		~item();
 
 		void update(float DeltaTime);
@@ -58,8 +61,8 @@ class pickups
 {
 
 public:
-	pickups(){}
-	pickups(sf::RenderWindow *Window, collision *Collision);
+	//pickups(){}
+	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo);
 	~pickups();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -68,17 +71,23 @@ public:
 
 private:
 	float m_timer;
+	nest* m_nest;
+	enemy* m_enemy;
+	flamingo* m_flamingo;
+
+
 
 	sf::RenderWindow *window;
 
 	collision *m_collision;
 
-	sf::Vector2f m_spawnPosition;
+	al::vector m_spawnPosition;
 
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;
 
 	al::texture* m_texture;
+
 };
 
 #endif

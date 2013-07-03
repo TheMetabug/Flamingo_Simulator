@@ -17,7 +17,7 @@ public:
 private:
 	//sf::RenderWindow *window;
 
-	sf::Vector2f m_waterPosition;
+	al::vector m_waterPosition;
 
 	al::texture* m_skyTexture;
 	al::sprite m_sky;
@@ -41,6 +41,12 @@ public:
 
 private:
 	//sf::RenderWindow *window;
+
+	std::vector<al::texture*> m_cloudsTexture;
+	std::vector<al::sprite*> m_clouds;
+	std::vector<al::vector> m_cloudPositions;
+
+	float m_startPosition_x, m_respawnPosition_x, m_startPosition_y, m_respawnPosition_y;
 
 	al::texture* m_cloudTexture_1;
 	al::sprite m_cloud_1;

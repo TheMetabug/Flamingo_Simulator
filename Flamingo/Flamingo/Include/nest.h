@@ -11,22 +11,20 @@
 class nest
 {
 public:
-	nest(){}
-	nest(sf::RenderWindow *Window, collision* Collide);
+	//nest(){}
+	nest(collision* Collide);
 	~nest();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
 private:
-	sf::RenderWindow *window;
-
 	animation *Animator;
 
 	hitbox *m_nestHitbox;
 	hitbox *m_hatchlingHitbox;
 
-	sf::Vector2f m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
-	std::vector<sf::Vector2f> m_hatchlingPositions;
+	al::vector m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
+	std::vector<al::vector> m_hatchlingPositions;
 
 	al::texture *m_nestTexture;
 	al::sprite m_flamingonest;

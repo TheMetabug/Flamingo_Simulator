@@ -6,12 +6,13 @@
 #include "animation.h"
 #include "hitbox.h"
 #include "program.h"
+#include <math.h>
 
 class enemy
 {
 public:
-	enemy(){}
-	enemy(sf::RenderWindow *Window, collision* Collide);
+	//enemy(){}
+	enemy(collision* Collide);
 	~enemy();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -20,7 +21,7 @@ private:
 	sf::RenderWindow* window;
 	animation* m_animation;
 	hitbox* m_hitbox;
-	sf::Vector2f m_enemyOrigin, m_enemyBirdPosition;
+	al::vector m_enemyOrigin, m_enemyBirdPosition;
 
 	float m_enemyRotate;
 

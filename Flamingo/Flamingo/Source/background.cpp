@@ -38,32 +38,32 @@ void background::draw(al::viewport* Viewport)
 	Viewport->draw(&m_sky);
 	Viewport->draw(&m_water);
 	Viewport->draw(&m_ground);
-	
 }
 
 //////////////////CLOUDS////////////////////////////
 
 cloud::cloud()				
 {
-	//window = Window;
+	m_startPosition_x = 1400;
+	m_startPosition_y = 100;
+	m_respawnPosition_x = 1400;
+	m_respawnPosition_y = m_startPosition_y;
 
-	m_cloudTexture_1 = new texture("cloud_one.png");
-	m_cloud_1.setTexture(m_cloudTexture_1);
-	m_cloud_1.setPosition(vector(1350, 100));
-	m_cloud_1.setOrigin(vector(156, 69));
+	m_cloudPositions.push_back(vector(m_startPosition_x , m_startPosition_y)); 
+	m_cloudPositions.push_back(vector(m_startPosition_x - 600 , m_startPosition_y + 50));
+	m_cloudPositions.push_back(vector(m_startPosition_x  - 1400, m_startPosition_y + 100));
 
-	m_cloudTexture_2 = new texture("cloud_two.png");
-	m_cloud_2.setTexture(m_cloudTexture_2);
-	m_cloud_2.setPosition(vector(500, 150));
-	m_cloud_2.setOrigin(vector(156, 69));
+	m_cloudsTexture.push_back(new texture("cloud_1.png"));
+	m_cloudsTexture.push_back(new texture("cloud_2.png"));
+	m_cloudsTexture.push_back(new texture("cloud_3.png"));
 
-	m_cloudTexture_3 = new texture("cloud_three.png");
-	m_cloud_3.setTexture(m_cloudTexture_3);
-	m_cloud_3.setPosition(vector(900, 200));
-	m_cloud_3.setOrigin(vector(156, 69));
-
-
-
+	for(int i = 0; i < 3; ++i)
+	{
+		m_clouds.push_back(new sprite(m_cloudsTexture[i]));
+		m_clouds[i]->setPosition(m_cloudPositions[i]);
+		m_clouds[i]->setOrigin(al::vector(m_clouds[i]->getSize().x/2,
+							m_clouds[i]->getSize().y/2));
+	}
 }
 
 cloud::~cloud()
@@ -73,25 +73,18 @@ cloud::~cloud()
 
 void cloud::update(float DeltaTime)
 {
-	m_cloud_1.setPosition(m_cloud_1.getPosition() - vector(DeltaTime*8,0));
-	if (m_cloud_1.getPosition().x <= -500)
-		m_cloud_1.setPosition(vector(1500,100));
-
-	m_cloud_2.setPosition(m_cloud_2.getPosition() - vector(DeltaTime*15,0));
-	if (m_cloud_2.getPosition().x <= -500)
-		m_cloud_2.setPosition(vector(1500,150));
-
-	m_cloud_3.setPosition(m_cloud_3.getPosition() - vector(DeltaTime*4,0));
-	if (m_cloud_3.getPosition().x <= -500)
-		m_cloud_3.setPosition(vector(1500,200));
-
+	for(int i = 0; i < 3; ++i)
+	{
+		m_clouds[i]->setPosition(m_clouds[i]->getPosition() - vector(DeltaTime*8*(i+0.5f),0));
+		if(m_clouds[i]->getPosition().x <= -150)
+			m_clouds[i]->setPosition(vector(m_respawnPosition_x, m_cloudPositions[i].y));
+	}
 }
 
 void cloud::draw(al::viewport* Viewport)	
 {
-
-	Viewport->draw(&m_cloud_1);
-	Viewport->draw(&m_cloud_2);
-	Viewport->draw(&m_cloud_3);
-	
+	for(int i = 0; i < 3; ++i)
+	{
+		Viewport->draw(m_clouds[i]);
+	}	
 }

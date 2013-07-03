@@ -21,16 +21,16 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 
 	// head
-	flamingoBase = new flamingo(window, m_soundLibrary, collide);
+	flamingoBase = new flamingo(m_soundLibrary, collide, m_input);
 
 	// nest
-	flamingonest = new nest(window, collide);
+	flamingonest = new nest(collide);
 
 	// enemy
-	enemyBird = new enemy(window,collide);
+	enemyBird = new enemy(collide);
 
 	// pickups
-	m_pickups = new pickups(window,collide);
+	m_pickups = new pickups(collide, flamingonest, enemyBird, flamingoBase);
 
 	// backGround
 	backGround = new background();
