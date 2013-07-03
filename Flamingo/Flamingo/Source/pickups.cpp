@@ -167,12 +167,12 @@ void pickups::update(float DeltaTime)
 			itemList[i]->m_position = m_flamingo->m_headPosition;
 			if (m_flamingo->m_drag == 2) // just released
 			{
-				itemList[i]->m_direction = m_flamingo->m_direction * 3; // take direction
+				itemList[i]->m_direction = m_flamingo->m_direction * 4.5f; // take direction
 				itemList[i]->m_state = 3;
 			}
 			break;
 
-		case 3:
+		case 3: // wait till head stops
 			if (m_flamingo->m_drag == 3)
 			{
 				itemList[i]->m_state = 4;
@@ -207,7 +207,7 @@ void pickups::update(float DeltaTime)
 				std::cout<<"pickup hitting hatchling 3"<<std::endl;
 				break;
 			default:
-				std::cout<<"undefined collision to hatchling"<<std::endl;
+				std::cout<<"undefined collision to hatchling or nest"<<std::endl;
 				break;
 			}
 			break;

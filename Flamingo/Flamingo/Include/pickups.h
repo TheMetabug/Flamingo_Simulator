@@ -86,7 +86,6 @@ private:
 
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;
-	//std::vector<pups::item*> outOfWater;
 
 	al::texture* m_texture;
 
