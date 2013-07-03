@@ -66,7 +66,7 @@ public:
 	~pickups();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
-	void drawHitBoxes();
+	void drawHitBoxes(sf::RenderWindow* window);
 	
 
 private:

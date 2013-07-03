@@ -202,7 +202,7 @@ void pickups::draw(al::viewport* Viewport)
 	}
 }
 
-void pickups::drawHitBoxes()
+void pickups::drawHitBoxes(sf::RenderWindow* window)
 {
 	for (int i = 0; i < itemList.size(); ++i)
 	{

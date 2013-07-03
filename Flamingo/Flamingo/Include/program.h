@@ -100,6 +100,7 @@ public:
 
 	void setTexture(al::texture* Texture);
 	void setPosition(al::vector Position);
+	void setRotation(float Angle);
 	void setOrigin(al::vector Origin);
 	/*Set Origin Point according to location on numpad*/
 	void setOriginPoint(int Point);

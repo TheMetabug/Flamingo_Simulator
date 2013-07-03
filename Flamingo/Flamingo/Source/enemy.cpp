@@ -5,8 +5,8 @@ using namespace al;
 enemy::enemy(collision* Collide)
 {
 	m_enemyRotate = 5;
-	m_enemyOrigin.x = 150;
-	m_enemyOrigin.y = 100;
+	m_enemyOrigin.x = 250;
+	m_enemyOrigin.y = 300;
 
 	m_texture = new texture("enemyAnimation.png");
 	m_sprite = new sprite(m_texture);
@@ -40,13 +40,13 @@ void enemy::update(float DeltaTime)
 {
 	m_enemyBirdPosition = m_enemyOrigin;
 	m_animation->update(DeltaTime);
-	m_enemyRotate += DeltaTime/2;
+	m_enemyRotate += DeltaTime*2;
 
 
-	m_sprite->setPosition(vector(m_enemyOrigin.x + 333 * sin(m_enemyRotate),m_enemyOrigin.y + 333 * sin(2*m_enemyRotate) ));
+	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
+	m_sprite->setPosition(m_enemyBirdPosition);
 
-
-	//m_enemyBird->setRotation(m_enemyRotate);
+	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
 	m_hitbox->Position = m_enemyBirdPosition;
 
 }

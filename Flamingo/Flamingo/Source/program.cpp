@@ -219,6 +219,11 @@ void sprite::setPosition(al::vector Position)
 	m_sprite->setPosition(pos);
 }
 
+void sprite::setRotation(float Angle)
+{
+	m_sprite->setRotation(Angle);
+}
+
 void sprite::setOrigin(al::vector Origin)
 {
 	sf::Vector2f pos(Origin.x,Origin.y);
