@@ -6,6 +6,7 @@
 #include "animation.h"
 #include "hitbox.h"
 #include "program.h"
+#include <math.h>
 
 class enemy
 {

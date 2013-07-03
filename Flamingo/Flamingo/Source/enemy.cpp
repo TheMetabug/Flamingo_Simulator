@@ -17,6 +17,7 @@ enemy::enemy(collision* Collide)
 	
 
 	m_animation = new animation(m_sprite, 4, 256, 256);
+	m_animation->ChangeAnimation(0,2,0,5);
 
 	m_hitbox = Collide->createHitBox(m_enemyBirdPosition,
 		al::vector(m_sprite->getTransformedSize().x,
@@ -39,8 +40,12 @@ void enemy::update(float DeltaTime)
 {
 	m_enemyBirdPosition = m_enemyOrigin;
 	m_animation->update(DeltaTime);
-	m_enemyRotate += DeltaTime*100;
-	//enemyBird.setPosition(enemyBirdPosition);
+	m_enemyRotate += DeltaTime/2;
+
+
+	m_sprite->setPosition(vector(m_enemyOrigin.x + 333 * sin(m_enemyRotate),m_enemyOrigin.y + 333 * sin(2*m_enemyRotate) ));
+
+
 	//m_enemyBird->setRotation(m_enemyRotate);
 	m_hitbox->Position = m_enemyBirdPosition;
 
