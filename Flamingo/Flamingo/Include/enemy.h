@@ -25,6 +25,7 @@ private:
 
 	int m_birdPhase;
 	float m_enemyRotate;
+	void eat(float foodValue);
 	void fly();
 	void die();
 

@@ -189,7 +189,7 @@ void pickups::update(float DeltaTime)
 				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
 				{
 					std::cout<<"collide enemy "<<i<<std::endl;
-					m_enemy->die();
+					m_enemy->eat(itemList[i]->m_pickup->m_foodValue);
 					delete itemList[i];
 					itemList.erase(itemList.begin() + i);
 				}
