@@ -87,93 +87,94 @@ void flamingo::update(float DeltaTime)
 	m_bodyToHead = m_flamingoPosition - m_headPosition;
 	
 
-		switch(m_drag)
+	switch(m_drag)
 	{
-		case 0: // head in origin
-			m_headPosition = m_headOrigin;
+	case 0: // head in origin
+		m_headPosition = m_headOrigin;
 
 			
-			if (m_input->isButtonPressed(al::Button::MouseLeft) &&
-				m_input->getMousePosition().x > m_flamingoHead.getPosition().x - 50 &&
-				m_input->getMousePosition().x < m_flamingoHead.getPosition().x + 50 &&
-				m_input->getMousePosition().y > m_flamingoHead.getPosition().y - 50 &&
-				m_input->getMousePosition().y < m_flamingoHead.getPosition().y + 50 )
-			{
-				m_drag = 1;
-				m_soundLibrary->m_sounds[1]->play();
-				m_headAnimation->ChangeAnimation(1,1,1,15);
-			}
+		if (m_input->isButtonPressed(al::Button::MouseLeft) &&
+			m_input->getMousePosition().x > m_flamingoHead.getPosition().x - 50 &&
+			m_input->getMousePosition().x < m_flamingoHead.getPosition().x + 50 &&
+			m_input->getMousePosition().y > m_flamingoHead.getPosition().y - 50 &&
+			m_input->getMousePosition().y < m_flamingoHead.getPosition().y + 50 )
+		{
+			m_drag = 1;
+			m_soundLibrary->m_sounds[1]->play();
+			m_headAnimation->ChangeAnimation(1,1,1,15);
+		}
 
-			break;
+		break;
 
-		case 1: // head being dragged
-			m_mousePosition.x = m_input->getMousePosition().x;
-			m_mousePosition.y = m_input->getMousePosition().y;
+	case 1: // head being dragged
+		m_mousePosition.x = m_input->getMousePosition().x;
+		m_mousePosition.y = m_input->getMousePosition().y;
 
-			m_headPosition = m_mousePosition;
+		m_headPosition = m_mousePosition;
+		m_direction = m_headOrigin - m_headPosition;
+
+		{
+			float multiplier = 3.0f;
+
+			//cant drag head too far away.
+			float distance = sqrt(pow(m_direction.x,2) + pow(m_direction.y,2));
+
+			// crosshair goes opposite direction of the head from the origin
+			m_crossHair = m_headOrigin + vector(m_direction.x * multiplier, m_direction.y * multiplier);
+			m_crosshairSprite.setPosition(m_crossHair);
+
+			// count angle from headposition and headposition.x
+			m_headRotate = 0 ;
+		}
+
+		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			m_drag = 2;
+			m_soundLibrary->m_sounds[0]->play();
+			m_headAnimation->ChangeAnimation(2,1,2,15);
+		}
+
+		break;
+
+	case 2: // head released, goes to crosshair
+		{
+			m_direction = m_crossHair - m_headPosition;
+			vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
+			m_headPosition += Movement;
+		}
+
+		//check if head gets back to start position
+		if(m_headPosition.x < m_crossHair.x+4 && m_headPosition.x > m_crossHair.x-4 &&
+			m_headPosition.y < m_crossHair.y+4 && m_headPosition.y > m_crossHair.y-4)
+		{
+			m_drag = 3;
+			m_headHitbox->isEnabled = true;
+		}
+
+		break;
+	case 3: //head goes back to starting point/origin
+		m_headHitbox->isEnabled = false;
+		{
 			m_direction = m_headOrigin - m_headPosition;
+			vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
+			m_headPosition += Movement;
+		}
 
-			{
-				float multiplier = 3.0f;
-
-				//cant drag head too far away.
-				float distance = sqrt(pow(m_direction.x,2) + pow(m_direction.y,2));
-
-				// crosshair goes opposite direction of the head from the origin
-				m_crossHair = m_headOrigin + vector(m_direction.x * multiplier, m_direction.y * multiplier);
-				m_crosshairSprite.setPosition(m_crossHair);
-
-				// count angle from headposition and headposition.x
-				m_headRotate = 0 ;
-			}
-
-			if(!sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				m_drag = 2;
-				m_soundLibrary->m_sounds[0]->play();
-				m_headAnimation->ChangeAnimation(2,1,2,15);
-			}
-
-			break;
-
-		case 2: // head released, goes to crosshair
-			{
-				m_direction = m_crossHair - m_headPosition;
-				vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
-				m_headPosition += Movement;
-			}
-
-			//check if head gets back to start position
-			if(m_headPosition.x < m_crossHair.x+4 && m_headPosition.x > m_crossHair.x-4 &&
-				m_headPosition.y < m_crossHair.y+4 && m_headPosition.y > m_crossHair.y-4)
-			{
-				m_drag = 3;
-				m_headHitbox->isEnabled = true;
-			}
-
-			break;
-		case 3: //head goes back to starting point/origin
-			m_headHitbox->isEnabled = false;
-			{
-				m_direction = m_headOrigin - m_headPosition;
-				vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
-				m_headPosition += Movement;
-			}
-
-			if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
-				m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
-			{
-				m_drag = 0;
-				m_crossHair = m_headOrigin;
-				m_direction = vector(0,0);
-				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
-			}
-			break;
+		if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
+			m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
+		{
+			m_drag = 0;
+			m_crossHair = m_headOrigin;
+			m_direction = vector(0,0);
+			m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+		}
+		break;
 	}
 
 
+
 	//////////NECK///////////////
-#if 1
+#pragma region Neck
 	{
 		float lenght = sqrt(pow(m_bodyToHead.x,2) + pow(m_bodyToHead.y,2));
 		float angle = atan(m_bodyToHead.y/m_bodyToHead.x)*(180.0f/PI);
@@ -197,7 +198,7 @@ void flamingo::update(float DeltaTime)
 			m_neckPieces[i]->m_sprite.setPosition(m_neckPieces[i]->m_positionRelative + m_flamingoPosition);
 		}
 	}
-#endif
+#pragma endregion
 
 
 	// set sprites to their Positions

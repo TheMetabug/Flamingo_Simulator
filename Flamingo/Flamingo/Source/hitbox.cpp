@@ -29,6 +29,16 @@ void hitbox::draw(sf::RenderWindow* window)
 		box.setPosition(hitRect().left, hitRect().top);
 		window->draw(box);
 	}
+	else
+	{
+		sf::RectangleShape box;
+		box.setSize(sf::Vector2f(hitRect().width,hitRect().height));
+		box.setOutlineColor(sf::Color::Yellow);
+		box.setOutlineThickness(3);
+		box.setFillColor(sf::Color::Transparent);
+		box.setPosition(hitRect().left, hitRect().top);
+		window->draw(box);
+	}
 }
 
 rectangle hitbox::hitRect()
