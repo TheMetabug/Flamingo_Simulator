@@ -151,7 +151,6 @@ void pickups::update(float DeltaTime)
 			{
 				std::cout<<"collide "<<i<<std::endl;
 				itemList[i]->m_state = 1;
-				//itemList.erase(itemList.begin() + i);
 			}
 			break;
 
@@ -195,16 +194,24 @@ void pickups::update(float DeltaTime)
 				}
 				break;
 			case 0:
-				std::cout<<"pickup hitting nest"<<std::endl;
+				std::cout<<"pickup "<<i<<" hitting nest"<<std::endl;
+				delete itemList[i];
+				itemList.erase(itemList.begin() + i);
 				break;
 			case 1:
-				std::cout<<"pickup hitting hatchling 1"<<std::endl;
+				std::cout<<"pickup "<<i<<" hitting hatchling 1"<<std::endl;
+				delete itemList[i];
+				itemList.erase(itemList.begin() + i);
 				break;
 			case 2:
-				std::cout<<"pickup hitting hatchling 2"<<std::endl;
+				std::cout<<"pickup "<<i<<" hitting hatchling 2"<<std::endl;
+				delete itemList[i];
+				itemList.erase(itemList.begin() + i);
 				break;
 			case 3:
-				std::cout<<"pickup hitting hatchling 3"<<std::endl;
+				std::cout<<"pickup "<<i<<" hitting hatchling 3"<<std::endl;
+				delete itemList[i];
+				itemList.erase(itemList.begin() + i);
 				break;
 			default:
 				std::cout<<"undefined collision to hatchling"<<std::endl;
