@@ -23,7 +23,7 @@ public:
 
 class flamingo
 {
-	public:
+public:
 	 //flamingo(){}
 	 flamingo(soundLibrary* SoundLibrary, collision* Collide, al::input* Input);
 	~flamingo();
@@ -32,8 +32,9 @@ class flamingo
 	
 	animation *m_headAnimation;
 
-	private:
+private:
 	al::input* m_input;
+	float m_timer, m_multiplier;
 
 	///////////BODY////////////
 
