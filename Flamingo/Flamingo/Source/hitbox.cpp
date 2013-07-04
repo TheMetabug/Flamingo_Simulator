@@ -19,13 +19,16 @@ hitbox::~hitbox()
 
 void hitbox::draw(sf::RenderWindow* window)
 {
-	sf::RectangleShape box;
-	box.setSize(sf::Vector2f(hitRect().width,hitRect().height));
-	box.setOutlineColor(sf::Color::Red);
-	box.setOutlineThickness(3);
-	box.setFillColor(sf::Color::Transparent);
-	box.setPosition(hitRect().left, hitRect().top);
-	window->draw(box);
+	if (isEnabled)
+	{
+		sf::RectangleShape box;
+		box.setSize(sf::Vector2f(hitRect().width,hitRect().height));
+		box.setOutlineColor(sf::Color::Red);
+		box.setOutlineThickness(3);
+		box.setFillColor(sf::Color::Transparent);
+		box.setPosition(hitRect().left, hitRect().top);
+		window->draw(box);
+	}
 }
 
 rectangle hitbox::hitRect()

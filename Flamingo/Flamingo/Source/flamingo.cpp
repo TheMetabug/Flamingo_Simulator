@@ -72,6 +72,8 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_headHitbox = Collide->createHitBox(m_headPosition, 
 		vector(HBW,HBH), 
 		vector(HBOX,HBOY),1);
+
+	m_headHitbox->isEnabled = false;
 }
 
 flamingo::~flamingo()
@@ -146,10 +148,12 @@ void flamingo::update(float DeltaTime)
 				m_headPosition.y < m_crossHair.y+4 && m_headPosition.y > m_crossHair.y-4)
 			{
 				m_drag = 3;
+				m_headHitbox->isEnabled = true;
 			}
 
 			break;
 		case 3: //head goes back to starting point/origin
+			m_headHitbox->isEnabled = false;
 			{
 				m_direction = m_headOrigin - m_headPosition;
 				vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
