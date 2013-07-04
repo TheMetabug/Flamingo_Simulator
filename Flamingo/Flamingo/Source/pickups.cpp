@@ -182,14 +182,14 @@ void pickups::update(float DeltaTime)
 			}
 			break;
 
-		case 4: 
+		case 4: // flying
 			switch (m_collision->HitHatchling(itemList[i]->m_hitbox))
 			{
 			case -1:
 				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
 				{
 					std::cout<<"collide enemy "<<i<<std::endl;
-					m_enemy->eat(itemList[i]->m_pickup->m_foodValue);
+					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
 					delete itemList[i];
 					itemList.erase(itemList.begin() + i);
 				}

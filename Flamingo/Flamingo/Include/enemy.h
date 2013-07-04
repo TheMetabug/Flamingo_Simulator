@@ -21,13 +21,17 @@ private:
 	sf::RenderWindow* window;
 	animation* m_animation;
 	hitbox* m_hitbox;
-	al::vector m_enemyOrigin, m_enemyBirdPosition;
+	collision *m_collision;
+	al::vector m_enemyOrigin, m_enemyBirdPosition, m_prevPosition, m_direction;
 
 	int m_birdPhase;
+	float m_timer;
 	float m_enemyRotate;
-	void eat(float foodValue);
-	void fly();
-	void die();
+	void eat(float foodValue, al::vector itemDirection);
+	void fly(float DeltaTime);
+	void die(float DeltaTime);
+	void fall(float DeltaTime);
+	void respawn();
 
 	//sf::Texture *m_enemyTexture;
 	//sf::Sprite *m_enemyBird;
