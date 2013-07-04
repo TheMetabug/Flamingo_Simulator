@@ -23,6 +23,7 @@ private:
 	hitbox* m_hitbox;
 	al::vector m_enemyOrigin, m_enemyBirdPosition;
 
+	int m_birdPhase;
 	float m_enemyRotate;
 	void fly();
 	void die();

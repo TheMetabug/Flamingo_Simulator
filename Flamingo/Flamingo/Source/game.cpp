@@ -278,8 +278,6 @@ void game::draw()
 	case Play:
 	case Pause:
 
-		
-
 		// backGround
 		backGround->draw(m_viewport);
 		
