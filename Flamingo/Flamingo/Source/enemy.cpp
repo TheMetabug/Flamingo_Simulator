@@ -58,6 +58,9 @@ void enemy::draw(al::viewport* Viewport)
 	Viewport->draw(m_sprite);
 }
 
+void enemy::eat(float foodValue)
+{}
+
 void enemy::fly()
 {
 	m_enemyBirdPosition = m_enemyOrigin;
