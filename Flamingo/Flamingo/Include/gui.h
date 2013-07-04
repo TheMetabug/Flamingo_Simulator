@@ -30,7 +30,25 @@ private:
 	/*al::sprite m_sprite;*/
 
 };
+/////////////////////////////////////////////////////////////
 
+class titleCard
+{
+public:
+	titleCard();
+	~titleCard();
+	void setTexture(std::string TextureName);
+   	void update(float DeltaTime);
+	void draw(al::viewport* Viewport);
+	al::vector m_titlePosition;
+	animation *m_titleAnimation;
+	al::sprite m_titleSprite;
+
+private:
+	al::texture m_texture;
+};
+
+////////////////////////////////////////////////////////////
 class gui
 {
 public:

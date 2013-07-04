@@ -42,7 +42,6 @@ void enemy::update(float DeltaTime)
 	m_animation->update(DeltaTime);
 	m_enemyRotate += DeltaTime*2;
 
-
 	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
 	m_sprite->setPosition(m_enemyBirdPosition);
 

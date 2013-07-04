@@ -44,6 +44,10 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	// gui
 	m_gui = new gui(m_input);
 
+	// titleCard
+
+	m_titleCard = new titleCard();
+
 	
 }
 
@@ -57,6 +61,7 @@ game::~game()
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
+	delete m_titleCard;
 	delete m_soundLibrary;
 }
 
@@ -102,10 +107,6 @@ void game::update(float deltaTime)
 			}
 
 			
-		//}
-		//}
-
-
 
 		if(!m_input->isKeyPressed(al::Key::Pause))
 			P_release = true;
@@ -148,6 +149,9 @@ void game::update(float deltaTime)
 
 		// gui
 		m_gui->update(deltaTime);
+
+		// titlecard
+		m_titleCard->update(deltaTime);
 
 		break;
 	
@@ -265,6 +269,8 @@ void game::draw()
 		switch(state)
 	{
 	case TitleScreen:
+		// titlecard
+		m_titleCard->draw(m_viewport);
 		// gui
 		m_gui->draw(m_viewport);
 
@@ -297,6 +303,7 @@ void game::draw()
 
 		// gui
 		m_gui->draw(m_viewport);
+
 
 		// hitbox
 

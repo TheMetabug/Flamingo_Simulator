@@ -61,7 +61,41 @@ bool button::mouseOver()
 		return true;
 	return false;
 }
+//////////////////////////////////////////////////////////////////////////
 
+titleCard::titleCard()
+{
+	m_titlePosition = vector(640, 360);
+	setTexture("titlescreen_Placeholder.png");
+} 
+
+titleCard::~titleCard()
+{
+
+}
+
+void titleCard::setTexture(std::string TextureName)
+{
+	m_texture.loadTexture(TextureName);
+	m_titleSprite.setTexture(&m_texture);
+	//m_titleAnimation = new animation(&m_titleSprite, 1, m_titleSprite.getTextureSize().x/2, m_titleSprite.getTextureSize().y/2, false, 0);
+	m_titleSprite.setPosition(m_titlePosition);
+	m_titleSprite.setOrigin(vector(m_titleSprite.getSize().x/2, m_titleSprite.getSize().y/2));
+	m_titleSprite.setScale(1,1);
+
+}
+void titleCard::update(float DeltaTime)
+{
+
+}
+void titleCard::draw(al::viewport* Viewport)
+{
+	Viewport->draw(&m_titleSprite);
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////
 
 gui::gui(al::input* Input)
 {

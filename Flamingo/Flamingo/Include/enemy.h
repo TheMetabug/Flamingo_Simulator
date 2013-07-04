@@ -24,6 +24,8 @@ private:
 	al::vector m_enemyOrigin, m_enemyBirdPosition;
 
 	float m_enemyRotate;
+	void fly();
+	void die();
 
 	//sf::Texture *m_enemyTexture;
 	//sf::Sprite *m_enemyBird;

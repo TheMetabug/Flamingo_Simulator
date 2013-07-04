@@ -58,6 +58,9 @@ private:
 
 	// gui
 	gui *m_gui;
+
+	// titleCard
+	titleCard *m_titleCard;
 	
 
 	//flamingo
