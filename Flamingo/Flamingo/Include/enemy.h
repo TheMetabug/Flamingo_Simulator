@@ -34,6 +34,8 @@ private:
 	al::texture *m_texture;
 	al::sprite *m_sprite;
 
+	friend class pickups;
+
 };
 
 #endif
