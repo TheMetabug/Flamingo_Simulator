@@ -162,9 +162,12 @@ bool collision::HitEnemy(hitbox* ItemHitbox)
 
 bool collision::isCollided(hitbox *hitbox1,hitbox *hitbox2)
 {
-	if(hitbox1->hitRect().intersects(hitbox2->hitRect()))
+	if (hitbox1->isEnabled && hitbox2->isEnabled)
 	{
-		return true;
+		if(hitbox1->hitRect().intersects(hitbox2->hitRect()))
+		{
+			return true;
+		}
 	}
 
 	return false;
