@@ -7,6 +7,7 @@ enemy::enemy(collision* Collide)
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 250;
 	m_enemyOrigin.y = 300;
+	m_birdPhase = 0;
 
 	m_texture = new texture("enemyAnimation.png");
 	m_sprite = new sprite(m_texture);
@@ -38,19 +39,44 @@ enemy::~enemy()
 
 void enemy::update(float DeltaTime)
 {
-	m_enemyBirdPosition = m_enemyOrigin;
-	m_animation->update(DeltaTime);
-	m_enemyRotate += DeltaTime*2;
-
-	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
-	m_sprite->setPosition(m_enemyBirdPosition);
-
-	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
-	m_hitbox->Position = m_enemyBirdPosition;
+	switch(m_birdPhase)
+	{
+	case 0:
+		m_animation->update(DeltaTime);
+		m_enemyRotate += DeltaTime*2;
+		fly();
+		break;
+	case 1:
+		break;
+	}
+	
 
 }
 
 void enemy::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
+}
+
+void enemy::fly()
+{
+	m_enemyBirdPosition = m_enemyOrigin;
+	
+	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
+	m_sprite->setPosition(m_enemyBirdPosition);
+
+	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
+	m_hitbox->Position = m_enemyBirdPosition;
+}
+
+void enemy::die()
+{
+	m_enemyBirdPosition = m_enemyOrigin;
+	
+	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
+	m_sprite->setPosition(m_enemyBirdPosition);
+
+	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
+	m_hitbox->Position = m_enemyBirdPosition;
+
 }
