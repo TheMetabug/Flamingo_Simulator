@@ -84,6 +84,18 @@ int main()
 			{
                 window->close();
 			}
+
+			if (event.type == sf::Event::LostFocus)
+			{
+				std::cout<<"lost focus ";
+				MainGame.m_input->active = false;
+			}
+
+			if (event.type == sf::Event::GainedFocus)
+			{
+				std::cout<<"gain focus ";
+				MainGame.m_input->active = true;
+			}
         }
 
 		// Update

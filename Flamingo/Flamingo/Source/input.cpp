@@ -3,6 +3,7 @@
 using namespace al;
 
 input::input(sf::RenderWindow *Window)
+	: active(true)
 {
 	window = Window;
 }
@@ -11,44 +12,49 @@ input::~input(){}
 
 bool input::isButtonPressed(Button button)
 {
-	switch (button)
+	if (active)
 	{
-	case MouseLeft:
-		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
-		break;
-	case MouseRight:
-		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
-		break;
-	case MouseMiddle:
-		return sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
-		break;
-	default:
-		std::cout<<"button not definied"<<std::endl;
-		break;
+		switch (button)
+		{
+		case MouseLeft:
+			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+			break;
+		case MouseRight:
+			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+			break;
+		case MouseMiddle:
+			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
+			break;
+		default:
+			std::cout<<"button not definied"<<std::endl;
+			break;
+		}
 	}
-
 	return false;
 }
 
 bool input::isKeyPressed(Key key)
 {
-	switch (key)
+	if (active)
 	{
-	case Pause:
-		return sf::Keyboard::isKeyPressed(sf::Keyboard::P);
-		break;
-	case Menu:
-		return sf::Keyboard::isKeyPressed(sf::Keyboard::M);
-		break;
-	case Space:
-		return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)57);
-		break;
-	case Esc:
-		return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
-		break;
-	default:
-		std::cout<<"key not definied"<<std::endl;
-		break;
+		switch (key)
+		{
+		case Pause:
+			return sf::Keyboard::isKeyPressed(sf::Keyboard::P);
+			break;
+		case Menu:
+			return sf::Keyboard::isKeyPressed(sf::Keyboard::M);
+			break;
+		case Space:
+			return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)57);
+			break;
+		case Esc:
+			return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
+			break;
+		default:
+			std::cout<<"key not definied"<<std::endl;
+			break;
+		}
 	}
 
 	return false;
@@ -61,11 +67,15 @@ bool input::isKeyPressed(Key key)
 	
 vector input::getMousePosition()
 {
-	vector retVal(sf::Mouse::getPosition(*window));
-	vector asdf = window->getSize();
-	retVal.x /= window->getSize().x/(float)WINDOW_WIDTH;
-	retVal.y /= window->getSize().y/(float)WINDOW_HEIGHT;
-	return retVal;
+	if (active)
+	{
+		vector retVal(sf::Mouse::getPosition(*window));
+		vector asdf = window->getSize();
+		retVal.x /= window->getSize().x/(float)WINDOW_WIDTH;
+		retVal.y /= window->getSize().y/(float)WINDOW_HEIGHT;
+		return retVal;
+	}
+	return vector(0,0);
 }
 	
 //void input::setAbsoluteMousePosition(const vector& position)

@@ -33,6 +33,7 @@ public:
 	animation *m_headAnimation;
 
 private:
+	float m_moveTime;
 	al::input* m_input;
 	float m_timer, m_multiplier;
 	bool m_hasFood;

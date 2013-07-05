@@ -42,6 +42,7 @@ public:
 	
 	//void setMousePosition(const vector& position);
 
+	bool active;
 private:
 	sf::RenderWindow *window;
 };

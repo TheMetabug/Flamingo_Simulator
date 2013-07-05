@@ -48,6 +48,8 @@ private:
 	std::vector<hitbox*> hatchlings;
 	hitbox* head;
 	hitbox* enemy;
+	
+	friend class pickups;
 };
 
 #endif

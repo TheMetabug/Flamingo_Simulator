@@ -148,19 +148,22 @@ void pickups::update(float DeltaTime)
 		switch (itemList[i]->m_state)
 		{
 		case 0: // floating around
-			if (m_collision->HitHead(itemList[i]->m_hitbox) && !m_flamingo->m_hasFood)
+			if (m_collision->head->isEnabled)
 			{
-				std::cout<<"collide "<<i<<std::endl;
-				if(m_index >= 0)
+				if (m_collision->HitHead(itemList[i]->m_hitbox) && !m_flamingo->m_hasFood)
 				{
-					if(((itemList[i]->m_position - m_flamingo->m_headPosition).getLenght()) < 
-						((itemList[m_index]->m_position - m_flamingo->m_headPosition).getLenght()))
+					std::cout<<"collide "<<i<<std::endl;
+					if(m_index >= 0)
+					{
+						if(((itemList[i]->m_position - m_flamingo->m_headPosition).getLenght()) < 
+							((itemList[m_index]->m_position - m_flamingo->m_headPosition).getLenght()))
 						
+							m_index = i;
+					}
+					else
+					{
 						m_index = i;
-				}
-				else
-				{
-					m_index = i;
+					}
 				}
 			}
 			break;
@@ -177,7 +180,7 @@ void pickups::update(float DeltaTime)
 			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
 			if (m_flamingo->m_drag == 2) // just released
 			{
-				itemList[i]->m_direction = m_flamingo->m_direction; // take direction
+				itemList[i]->m_direction = m_flamingo->m_direction * m_flamingo->m_multiplier; // take direction
 				itemList[i]->m_state = 3;
 			}
 			break;
