@@ -5,7 +5,7 @@ using namespace al;
 nest::nest(collision* Collide)
 {
 	///// nest //////
-	m_nestPosition = al::vector(200, 600);
+	m_nestPosition = al::vector(120, 550);
 
 
 	// create texture,sprite, positions etc
@@ -33,9 +33,9 @@ nest::nest(collision* Collide)
 
 	m_hatchlingRotation = 10;
 
-	m_hatchlings[0]->m_position = al::vector(m_nestPosition.x, m_nestPosition.y - 60);
-	m_hatchlings[1]->m_position = al::vector(m_nestPosition.x - 60, m_nestPosition.y - 30);
-	m_hatchlings[2]->m_position = al::vector(m_nestPosition.x + 60, m_nestPosition.y - 30);
+	m_hatchlings[0]->m_position = vector(m_nestPosition.x - 60, m_nestPosition.y - 40);
+	m_hatchlings[1]->m_position = vector(m_nestPosition.x + 10, m_nestPosition.y);
+	m_hatchlings[2]->m_position = vector(m_nestPosition.x + 80, m_nestPosition.y + 40);
 
 	m_hatchlingTexture = new texture("Hatchling_sheet_v2.png");
 
@@ -80,17 +80,13 @@ void nest::update(float DeltaTime)
 		m_hatchlings[i]->m_animation->update(DeltaTime);
 		m_hatchlings[i]->m_sprite->setRotation(15 * sin(m_hatchlingRotation*10));
 
-		if(m_hatchlings[i]->m_timer > 1.0f)
+		if(m_hatchlings[i]->m_timer > 1.5f)
 		{
 			m_hatchlings[i]->m_animation->ChangeAnimation(0,1,0,5);
 			m_hatchlings[i]->m_timer = 0;
 		}
 	}
 
-
-
-	//Animator->update(DeltaTime);
-	//m_nestHitbox->Position = m_nestPosition;
 }
 void nest::draw(al::viewport* Viewport)
 {
