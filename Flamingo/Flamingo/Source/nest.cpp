@@ -74,3 +74,39 @@ void nest::draw(al::viewport* Viewport)
 	for (int i = 0; i < m_hatchlings.size(); ++i)
 		Viewport->draw(m_hatchlings[i]);
 }
+
+void nest::egg(float DeltaTime)	
+{
+
+}
+
+void nest::sleep(float DeltaTime)
+{
+
+}
+
+void nest::eat(float DeltaTime, int Id, float foodValue)	
+{
+	switch(Id)
+	{
+	case 1:
+		m_animations[Id-1]->ChangeAnimation(9,3,9,7);
+		break;
+	case 2:
+		m_animations[Id-1]->ChangeAnimation(9,3,9,7);
+		break;
+	case 3:
+		m_animations[Id-1]->ChangeAnimation(9,3,9,7);
+		break;
+	}
+}
+
+void nest::die(float DeltaTime)	
+{
+
+}
+
+void nest::fly(float DeltaTime)	
+{
+
+}
