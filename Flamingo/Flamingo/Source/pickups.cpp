@@ -166,7 +166,7 @@ void pickups::update(float DeltaTime)
 			break;
 
 		case 1: // in mouth
-			itemList[i]->m_position = m_flamingo->m_headPosition;
+			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
 			if (m_flamingo->m_drag == 0)
 			{
 				itemList[i]->m_state = 2;
@@ -174,12 +174,11 @@ void pickups::update(float DeltaTime)
 			break;
 
 		case 2: // waiting for release
-			itemList[i]->m_position = m_flamingo->m_headPosition;
+			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
 			if (m_flamingo->m_drag == 2) // just released
 			{
 				itemList[i]->m_direction = m_flamingo->m_direction; // take direction
 				itemList[i]->m_state = 3;
-				m_flamingo->m_hasFood = false;
 			}
 			break;
 
@@ -187,6 +186,7 @@ void pickups::update(float DeltaTime)
 			if (m_flamingo->m_drag == 3)
 			{
 				itemList[i]->m_state = 4;
+				m_flamingo->m_hasFood = false;
 			}
 			else
 			{
@@ -201,14 +201,18 @@ void pickups::update(float DeltaTime)
 			case -1:
 				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
 				{
-					std::cout<<"collide enemy "<<i<<std::endl;
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
-					deleteItem(i);
+					
+					if(itemList[i]->m_pickup->m_foodValue == 0)
+						m_nest->happy(DeltaTime);
+					else
+						m_nest->mad(DeltaTime);
+					deleteItem(i); // delete in the end
 				}
 				break;
 			default:
 				m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue);
-				deleteItem(i);
+				deleteItem(i); // delete in the end
 				break;
 			}
 			break;

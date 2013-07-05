@@ -7,6 +7,27 @@
 #include "animation.h"
 #include "program.h"
 
+class hatchling
+{
+public:
+	hatchling()
+		: m_isThere(true),
+		  m_timer(0)
+		{}
+
+	~hatchling()
+	{
+		delete m_sprite;
+		delete m_animation;
+	}
+
+	al::vector m_position;
+	al::sprite* m_sprite;
+	hitbox* m_hitbox;
+	animation* m_animation;
+	float m_timer;
+	bool m_isThere;
+};
 
 class nest
 {
@@ -19,9 +40,11 @@ public:
 
 	void egg(float DeltaTime);
 	void sleep(float DeltaTime);
-	void eat(float DeltaTime, int Id, float foodValue);
+	bool eat(float DeltaTime, int Id, float foodValue);
 	void die(float DeltaTime);
 	void fly(float DeltaTime);
+	void mad(float DeltaTime);
+	void happy(float DeltaTime);
 
 private:
 	animation *Animator;
@@ -30,15 +53,18 @@ private:
 	hitbox *m_hatchlingHitbox;
 
 	al::vector m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
-	std::vector<al::vector> m_hatchlingPositions;
+	//std::vector<al::vector> m_hatchlingPositions;
 
 	al::texture *m_nestTexture;
 	al::sprite m_flamingonest;
 
 	al::texture* m_hatchlingTexture;
-	std::vector<al::sprite*> m_hatchlings;
-	std::vector<hitbox*> m_hatchlingHitboxes;
-	std::vector<animation*> m_animations;
+	//std::vector<al::sprite*> m_hatchlings;
+	//std::vector<hitbox*> m_hatchlingHitboxes;
+	//std::vector<animation*> m_animations;
+	std::vector<hatchling*> m_hatchlings;
+
+	float m_hatchlingRotation, m_timer;
 
 
 	friend class pickups;
