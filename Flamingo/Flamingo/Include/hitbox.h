@@ -34,7 +34,6 @@ public:
 	~collision();
 
 	/**id list: hatchling = 0, head = 1, enemy = 2*/
-	hitbox* createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled = true);
 	hitbox* createHitBox(al::vector position, al::vector size, al::vector origo, int id, bool isEnabled = true);
 
 	void DrawHitboxes(sf::RenderWindow* window);

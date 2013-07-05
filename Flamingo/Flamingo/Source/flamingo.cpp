@@ -62,7 +62,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
-		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI))));
+		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI)))/8);
 	}
 
 
@@ -193,20 +193,11 @@ void flamingo::update(float DeltaTime)
 	{
 		float lenght = m_bodyToHead.getLenght();
 		float angle = m_bodyToHead.getAngle();
-		sf::Transform transform;
-		transform.rotate(angle);
-
-		//std::cout<<"x "<<m_bodyToHead.x<<" y "<<m_bodyToHead.y<<"lenght "<<lenght<<" angle "<<angle<<std::endl;
-
+		
 		for (int i = 0; i < m_neckPieces.size(); ++i)
 		{
-			m_neckPieces[i]->m_positionRelative = sf::Vector2f(
-				m_neckPieces[i]->m_positionMultiplier.x * lenght,
-				m_neckPieces[i]->m_positionMultiplier.y * lenght/8);
-
-			m_neckPieces[i]->m_positionRelative = transform.transformPoint(
-				sf::Vector2f(	m_neckPieces[i]->m_positionRelative.x,
-								m_neckPieces[i]->m_positionRelative.y));
+			m_neckPieces[i]->m_positionRelative = m_neckPieces[i]->m_positionMultiplier * lenght;
+			m_neckPieces[i]->m_positionRelative.rotate(angle);
 			m_neckPieces[i]->m_sprite.setPosition(m_neckPieces[i]->m_positionRelative + m_flamingoPosition);
 		}
 	}

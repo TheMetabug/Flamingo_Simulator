@@ -25,7 +25,7 @@ public:
 	void update(float deltaTime);
 
 	void draw();
-	void drawDebugInfo();
+	void drawDebugInfo(sf::RenderWindow *window);
 
 private:
 	sf::RenderWindow *window;

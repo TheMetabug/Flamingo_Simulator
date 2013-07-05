@@ -43,7 +43,7 @@ float vector::getAngle()
 {
 	if (x == 0)
 	{
-		if (y > 0)
+		if (y < 0)
 			return 90;
 		return 270;
 	}
@@ -56,6 +56,15 @@ float vector::getAngle()
 		angle += 360;
 	return angle;
 	}
+}
+
+void vector::rotate(float Degrees)
+{
+	sf::Transform transform;
+	transform.rotate(Degrees);
+	vector rotated = transform.transformPoint(x,y);
+	x = rotated.x;
+	y = rotated.y;
 }
 
 #pragma region operators
