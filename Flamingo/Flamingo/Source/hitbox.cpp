@@ -80,12 +80,6 @@ collision::~collision()
 
 // Public
 
-
-hitbox* collision::createHitBox(sf::Vector2f position, sf::Vector2u size, sf::Vector2f origo, int id, bool isEnabled)
-{
-	return createHitBox(position, vector(size.x, size.y), origo, id, isEnabled);
-}
-
 hitbox* collision::createHitBox(al::vector position, al::vector size, al::vector origo, int id, bool isEnabled)
 {
 	hitbox* retHitbox = new hitbox(position, size, origo, isEnabled);

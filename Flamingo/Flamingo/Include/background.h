@@ -15,7 +15,6 @@ public:
 	void draw(al::viewport* Viewport);
 
 private:
-	//sf::RenderWindow *window;
 
 	al::vector m_waterPosition;
 
@@ -40,7 +39,6 @@ public:
 	void draw(al::viewport* Viewport);
 
 private:
-	//sf::RenderWindow *window;
 
 	std::vector<al::texture*> m_cloudsTexture;
 	std::vector<al::sprite*> m_clouds;

@@ -79,8 +79,6 @@ private:
 
 
 
-	sf::RenderWindow *window;
-
 	collision *m_collision;
 
 	al::vector m_spawnPosition;
