@@ -8,6 +8,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
+	m_moveTime = 0.3f;
 	m_hasFood = false;
 
 	/////////BODY//////////
@@ -145,13 +146,12 @@ void flamingo::update(float DeltaTime)
 	case 2: // head released goes to crosshair
 		{
 			//m_direction = m_crossHair - m_headPosition;
-			vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
-			m_headPosition += Movement;
+			//vector Movement((m_direction.x*10)*DeltaTime,(m_direction.y*10)*DeltaTime);
+			//m_headPosition += Movement;
 
 			// number is the time head uses to get to crosshair location
-			float time = 0.3f;
-			m_headPosition = m_crossHair - m_direction * (time - m_timer) * m_multiplier;
-			if (m_timer > time)
+			m_headPosition = m_crossHair - m_direction * (1 - m_timer / m_moveTime);
+			if (m_timer > m_moveTime)
 			{
 				m_drag = 3;
 				if (!m_hasFood)

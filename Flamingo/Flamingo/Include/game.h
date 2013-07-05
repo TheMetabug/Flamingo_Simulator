@@ -26,11 +26,11 @@ public:
 
 	void draw();
 	void drawDebugInfo(sf::RenderWindow *window);
+	al::input* m_input;
 
 private:
 	sf::RenderWindow *window;
 	al::viewport* m_viewport;
-	al::input* m_input;
 	
 	bool P_release;
 	bool M_release;
