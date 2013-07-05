@@ -35,6 +35,7 @@ public:
 private:
 	al::input* m_input;
 	float m_timer, m_multiplier;
+	bool m_hasFood;
 
 	///////////BODY////////////
 

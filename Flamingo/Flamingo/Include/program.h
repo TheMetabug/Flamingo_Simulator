@@ -19,6 +19,9 @@ public:
 	vector(float X, float Y);
 	~vector();
 
+	float getLenght();
+	float getAngle();
+
 	float x,y;
 
 	vector operator -();

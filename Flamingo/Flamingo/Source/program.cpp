@@ -1,4 +1,5 @@
 #include "program.h"
+#define PI 3.14159265358979323846264
 
 
 using namespace al;
@@ -26,6 +27,30 @@ vector::vector(float X, float Y)
 {}
 
 vector::~vector(){}
+
+float vector::getLenght()
+{
+	return sqrt(pow(x,2) + pow(y,2));
+}
+
+float vector::getAngle()
+{
+	if (x == 0)
+	{
+		if (y > 0)
+			return 90;
+		return 270;
+	}
+	else
+	{
+	float angle = atan(y/x)*(180.0f/PI);
+	if (x > 0)
+		angle += 180;
+	else if (angle < 0)
+		angle += 360;
+	return angle;
+	}
+}
 
 #pragma region operators
 

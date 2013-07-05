@@ -109,7 +109,8 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	  m_nest(Nest),
 	  m_enemy(Enemy),
 	  m_flamingo(Flamingo),
-	  m_timer(0)
+	  m_timer(0),
+	  m_index(-1)
 {
 	m_spawnPosition = al::vector(500,500);
 
@@ -147,10 +148,20 @@ void pickups::update(float DeltaTime)
 		switch (itemList[i]->m_state)
 		{
 		case 0: // floating around
-			if (m_collision->HitHead(itemList[i]->m_hitbox))
+			if (m_collision->HitHead(itemList[i]->m_hitbox) && !m_flamingo->m_hasFood)
 			{
 				std::cout<<"collide "<<i<<std::endl;
-				itemList[i]->m_state = 1;
+				if(m_index >= 0)
+				{
+					if(((itemList[i]->m_position - m_flamingo->m_headPosition).getLenght()) < 
+						((itemList[m_index]->m_position - m_flamingo->m_headPosition).getLenght()))
+						
+						m_index = i;
+				}
+				else
+				{
+					m_index = i;
+				}
 			}
 			break;
 
@@ -168,6 +179,7 @@ void pickups::update(float DeltaTime)
 			{
 				itemList[i]->m_direction = m_flamingo->m_direction; // take direction
 				itemList[i]->m_state = 3;
+				m_flamingo->m_hasFood = false;
 			}
 			break;
 
@@ -190,8 +202,7 @@ void pickups::update(float DeltaTime)
 				{
 					std::cout<<"collide enemy "<<i<<std::endl;
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
-					delete itemList[i];
-					itemList.erase(itemList.begin() + i);
+					deleteItem(i);
 				}
 				break;
 			case 0:
@@ -222,6 +233,13 @@ void pickups::update(float DeltaTime)
 		}
 
 		
+	}
+
+	if (m_index >= 0)
+	{
+		itemList[m_index]->m_state = 1;
+		m_flamingo->m_hasFood = true;
+		m_index = -1;
 	}
 
 	if (m_timer > 2.0f)
@@ -267,6 +285,13 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 	{
 		itemList[i]->m_hitbox->draw(window);
 	}
+}
+
+void pickups::deleteItem(int i)
+{
+	delete itemList[i];
+	itemList.erase(itemList.begin() + i);
+	m_index--;
 }
 
 #pragma endregion

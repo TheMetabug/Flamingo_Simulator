@@ -75,6 +75,7 @@ private:
 	nest* m_nest;
 	enemy* m_enemy;
 	flamingo* m_flamingo;
+	int m_index;
 
 
 
@@ -88,6 +89,8 @@ private:
 	std::vector<pups::item*> itemList;
 
 	al::texture* m_texture;
+
+	void deleteItem(int i);
 
 };
 

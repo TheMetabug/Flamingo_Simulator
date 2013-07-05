@@ -8,6 +8,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
+	m_hasFood = false;
 
 	/////////BODY//////////
 	m_flamingoPosition = vector(740,550);
@@ -153,7 +154,8 @@ void flamingo::update(float DeltaTime)
 			if (m_timer > time)
 			{
 				m_drag = 3;
-				m_headHitbox->isEnabled = true;
+				if (!m_hasFood)
+					m_headHitbox->isEnabled = true;
 			}
 		}
 
@@ -189,13 +191,10 @@ void flamingo::update(float DeltaTime)
 	//////////NECK///////////////
 #pragma region Neck
 	{
-		float lenght = sqrt(pow(m_bodyToHead.x,2) + pow(m_bodyToHead.y,2));
-		float angle = atan(m_bodyToHead.y/m_bodyToHead.x)*(180.0f/PI);
+		float lenght = m_bodyToHead.getLenght();
+		float angle = m_bodyToHead.getAngle();
 		sf::Transform transform;
-		if (m_bodyToHead.x < 0)
-			transform.rotate(angle);
-		else
-			transform.rotate(angle+180);
+		transform.rotate(angle);
 
 		//std::cout<<"x "<<m_bodyToHead.x<<" y "<<m_bodyToHead.y<<"lenght "<<lenght<<" angle "<<angle<<std::endl;
 
