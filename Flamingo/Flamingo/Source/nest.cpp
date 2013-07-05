@@ -18,9 +18,9 @@ nest::nest(collision* Collide)
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
 		al::vector(m_flamingonest.getGlobalBounds().width,
-					 m_flamingonest.getGlobalBounds().height), 
+					 m_flamingonest.getGlobalBounds().height/4), 
 		al::vector(m_flamingonest.getGlobalBounds().width/2,
-					 m_flamingonest.getGlobalBounds().height/2),
+					 m_flamingonest.getGlobalBounds().height/2 - 170),
 		0);
 
 	///// hatchlings /////
