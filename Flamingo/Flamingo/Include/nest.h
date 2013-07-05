@@ -20,7 +20,7 @@ public:
 		delete m_sprite;
 		delete m_animation;
 	}
-
+	
 	al::vector m_position;
 	al::sprite* m_sprite;
 	hitbox* m_hitbox;
