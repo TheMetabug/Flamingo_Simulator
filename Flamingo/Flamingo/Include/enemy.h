@@ -31,6 +31,7 @@ private:
 	void fly(float DeltaTime);
 	void die(float DeltaTime);
 	void fall(float DeltaTime);
+	void happy(float DeltaTime);
 	void respawn();
 
 	//sf::Texture *m_enemyTexture;
