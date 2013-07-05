@@ -17,6 +17,12 @@ public:
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
+	void egg(float DeltaTime);
+	void sleep(float DeltaTime);
+	void eat(float DeltaTime, int Id, float foodValue);
+	void die(float DeltaTime);
+	void fly(float DeltaTime);
+
 private:
 	animation *Animator;
 
@@ -34,7 +40,11 @@ private:
 	std::vector<hitbox*> m_hatchlingHitboxes;
 	std::vector<animation*> m_animations;
 
+
+	friend class pickups;
 };
+
+
 
 
 #endif

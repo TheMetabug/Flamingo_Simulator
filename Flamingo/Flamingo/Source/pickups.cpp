@@ -195,7 +195,8 @@ void pickups::update(float DeltaTime)
 			break;
 
 		case 4: // flying
-			switch (m_collision->HitHatchling(itemList[i]->m_hitbox))
+			int c_item = m_collision->HitHatchling(itemList[i]->m_hitbox);
+			switch (c_item)
 			{
 			case -1:
 				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
@@ -205,34 +206,14 @@ void pickups::update(float DeltaTime)
 					deleteItem(i);
 				}
 				break;
-			case 0:
-				std::cout<<"pickup "<<i<<" hitting nest"<<std::endl;
-				delete itemList[i];
-				itemList.erase(itemList.begin() + i);
-				break;
-			case 1:
-				std::cout<<"pickup "<<i<<" hitting hatchling 1"<<std::endl;
-				delete itemList[i];
-				itemList.erase(itemList.begin() + i);
-				break;
-			case 2:
-				std::cout<<"pickup "<<i<<" hitting hatchling 2"<<std::endl;
-				delete itemList[i];
-				itemList.erase(itemList.begin() + i);
-				break;
-			case 3:
-				std::cout<<"pickup "<<i<<" hitting hatchling 3"<<std::endl;
-				delete itemList[i];
-				itemList.erase(itemList.begin() + i);
-				break;
 			default:
-				std::cout<<"undefined collision to hatchling or nest"<<std::endl;
+				m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue);
+				deleteItem(i);
 				break;
 			}
 			break;
 		}
 
-		
 	}
 
 	if (m_index >= 0)
