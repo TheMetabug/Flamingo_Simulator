@@ -1,5 +1,7 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -16,6 +18,7 @@ public:
 	vector();
 	vector(sf::Vector2f sfVector);
 	vector(sf::Vector2i sfVector);
+	vector(sf::Vector2u sfVector);
 	vector(float X, float Y);
 	~vector();
 
