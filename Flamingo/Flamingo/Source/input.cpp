@@ -61,7 +61,11 @@ bool input::isKeyPressed(Key key)
 	
 vector input::getMousePosition()
 {
-	return sf::Mouse::getPosition(*window);
+	vector retVal(sf::Mouse::getPosition(*window));
+	vector asdf = window->getSize();
+	retVal.x /= window->getSize().x/(float)WINDOW_WIDTH;
+	retVal.y /= window->getSize().y/(float)WINDOW_HEIGHT;
+	return retVal;
 }
 	
 //void input::setAbsoluteMousePosition(const vector& position)

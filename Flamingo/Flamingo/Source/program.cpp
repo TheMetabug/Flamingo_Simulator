@@ -22,6 +22,12 @@ vector::vector(sf::Vector2i sfVector)
 	y = sfVector.y;
 }
 
+vector::vector(sf::Vector2u sfVector)
+{
+	x = sfVector.x;
+	y = sfVector.y;
+}
+
 vector::vector(float X, float Y)
 	: x(X), y(Y)
 {}
