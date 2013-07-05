@@ -202,12 +202,17 @@ void pickups::update(float DeltaTime)
 				if (m_collision->HitEnemy(itemList[i]->m_hitbox))
 				{
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
-					deleteItem(i);
+					
+					if(itemList[i]->m_pickup->m_foodValue == 0)
+						m_nest->happy(DeltaTime);
+					else
+						m_nest->mad(DeltaTime);
+					deleteItem(i); // delete in the end
 				}
 				break;
 			default:
 				m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue);
-				deleteItem(i);
+				deleteItem(i); // delete in the end
 				break;
 			}
 			break;

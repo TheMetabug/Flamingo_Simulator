@@ -330,7 +330,7 @@ void game::draw()
 	
 }
 
-void game::drawDebugInfo()
+void game::drawDebugInfo(sf::RenderWindow *window)
 {
 	collide->DrawHitboxes(window);
 	m_pickups->drawHitBoxes(window);

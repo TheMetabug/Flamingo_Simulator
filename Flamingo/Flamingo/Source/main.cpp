@@ -107,7 +107,7 @@ int main()
 
 		if (Hitbox)
 		{
-			MainGame.drawDebugInfo();
+			MainGame.drawDebugInfo(window);
 		}
 
 

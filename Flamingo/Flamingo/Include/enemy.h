@@ -18,7 +18,6 @@ public:
 	void draw(al::viewport* Viewport);
 
 private:
-	sf::RenderWindow* window;
 	animation* m_animation;
 	hitbox* m_hitbox;
 	collision *m_collision;
@@ -34,8 +33,6 @@ private:
 	void happy(float DeltaTime);
 	void respawn();
 
-	//sf::Texture *m_enemyTexture;
-	//sf::Sprite *m_enemyBird;
 
 	al::texture *m_texture;
 	al::sprite *m_sprite;
