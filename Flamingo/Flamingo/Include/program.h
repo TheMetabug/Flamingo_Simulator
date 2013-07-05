@@ -24,6 +24,7 @@ public:
 
 	float getLenght();
 	float getAngle();
+	void rotate(float Degrees);
 
 	float x,y;
 
