@@ -7,6 +7,23 @@
 #include "animation.h"
 #include "program.h"
 
+class hatchling
+{
+public:
+	hatchling()
+		: m_isThere(true){}
+	~hatchling()
+	{
+		delete m_sprite;
+		delete m_animation;
+	}
+
+	al::vector m_position;
+	al::sprite* m_sprite;
+	hitbox* m_hitbox;
+	animation* m_animation;
+	bool m_isThere;
+};
 
 class nest
 {
@@ -19,9 +36,10 @@ public:
 
 	void egg(float DeltaTime);
 	void sleep(float DeltaTime);
-	void eat(float DeltaTime, int Id, float foodValue);
+	bool eat(float DeltaTime, int Id, float foodValue);
 	void die(float DeltaTime);
 	void fly(float DeltaTime);
+	void mad(float DeltaTime);
 
 private:
 	animation *Animator;
@@ -39,6 +57,8 @@ private:
 	std::vector<al::sprite*> m_hatchlings;
 	std::vector<hitbox*> m_hatchlingHitboxes;
 	std::vector<animation*> m_animations;
+
+	float m_hatchlingRotation, m_timer;
 
 
 	friend class pickups;

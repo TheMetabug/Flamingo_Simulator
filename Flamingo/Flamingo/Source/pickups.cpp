@@ -204,6 +204,7 @@ void pickups::update(float DeltaTime)
 					std::cout<<"collide enemy "<<i<<std::endl;
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
 					deleteItem(i);
+					m_nest->mad(DeltaTime);
 				}
 				break;
 			default:
