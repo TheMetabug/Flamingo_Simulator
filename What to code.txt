@@ -1,13 +1,32 @@
+pickups
+	spawni
+	alue
 gui
-	kuvien piirtäminen
-
+	nappi vilkkuu
+gui + game	
+	menut
+flamingo
+	nuoli (osottaa suunnan ja voimakkuuden)
+	rajoitukset
+	animaatio
+	rotation
+flamingo + hitbox + pickups
+	head hitbox oikeaan paikkaan, oikea positio
+	heittämisessä mutltiplier pienemmäksi
 nest
-	hitboxit käyttöön, poikasille logiikkaa
+	munat
+	healthit
+	kasvaneet flamingot menevät scoreksi
+enemy
+	tulo ruudulle
+	spawnaus randomiksi
 
-game
-	game states
+animation
+	parantelua
 
-everywhere
 
-	member muuttujat uudelleennimetään tyyliin m_muuttuja (kaikki h tiedoston muuttujat)
 
+
+
+
+partikkelit
