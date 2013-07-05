@@ -7,6 +7,7 @@ nest::nest(collision* Collide)
 	///// nest //////
 	m_nestPosition = al::vector(200, 600);
 
+
 	// create texture,sprite, positions etc
 	m_nestTexture = new texture("NEST.png");
 	m_flamingonest.setTexture(m_nestTexture);
@@ -25,33 +26,40 @@ nest::nest(collision* Collide)
 
 	///// hatchlings /////
 
+	for (int i = 0; i < 3; ++i)
+	{
+		m_hatchlings.push_back(new hatchling());
+	}
+
 	m_hatchlingRotation = 10;
 
-	m_hatchlingPositions.push_back( al::vector(m_nestPosition.x, m_nestPosition.y - 60));
-	m_hatchlingPositions.push_back( al::vector(m_nestPosition.x - 60, m_nestPosition.y - 30));
-	m_hatchlingPositions.push_back( al::vector(m_nestPosition.x + 60, m_nestPosition.y - 30));
+	m_hatchlings[0]->m_position = al::vector(m_nestPosition.x, m_nestPosition.y - 60);
+	m_hatchlings[1]->m_position = al::vector(m_nestPosition.x - 60, m_nestPosition.y - 30);
+	m_hatchlings[2]->m_position = al::vector(m_nestPosition.x + 60, m_nestPosition.y - 30);
 
 	m_hatchlingTexture = new texture("Hatchling_sheet_v2.png");
 
 	for (int i = 0; i < 3; ++i)
 	{
 		// create texture,sprite, positions etc
-		m_hatchlings.push_back(new sprite(m_hatchlingTexture));
-		m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 0));
-		m_hatchlings[i]->setPosition(m_hatchlingPositions[i]);
-		m_hatchlings[i]->setOrigin(al::vector(m_hatchlings[i]->getSize().x/2,
-							   m_hatchlings[i]->getSize().y/2));
-		m_hatchlings[i]->setScale(0.5f,0.5f);
+		m_hatchlings[i]->m_sprite = new sprite(m_hatchlingTexture);
+		m_hatchlings[i]->m_animation = new animation(m_hatchlings[i]->m_sprite, 3, 256, 256, false, 0);
+		//m_hatchlings.push_back(new sprite(m_hatchlingTexture));
+		//m_animations.push_back(new animation(m_hatchlings[i], 3, 256, 256, false, 0));
+		m_hatchlings[i]->m_sprite->setPosition(m_hatchlings[i]->m_position);
+		m_hatchlings[i]->m_sprite->setOrigin(al::vector(	m_hatchlings[i]->m_sprite->getSize().x/2,
+														m_hatchlings[i]->m_sprite->getSize().y/2));
+		m_hatchlings[i]->m_sprite->setScale(0.5f,0.5f);
 
 		//animation
 
 		//hitbox
-		m_hatchlingHitboxes.push_back( Collide->createHitBox(m_hatchlingPositions[i],
-			al::vector(m_hatchlings[i]->getTransformedSize().x,
-							m_hatchlings[i]->getTransformedSize().y), 
-			al::vector(m_hatchlings[i]->getTransformedSize().x/2,
-							m_hatchlings[i]->getTransformedSize().y/2),
-			0));
+		m_hatchlings[i]->m_hitbox = Collide->createHitBox(m_hatchlings[i]->m_position,
+			al::vector(	m_hatchlings[i]->m_sprite->getTransformedSize().x,
+						m_hatchlings[i]->m_sprite->getTransformedSize().y), 
+						al::vector(	m_hatchlings[i]->m_sprite->getTransformedSize().x/2,
+									m_hatchlings[i]->m_sprite->getTransformedSize().y/2),
+						0);
 	}
 
 }
@@ -62,13 +70,23 @@ nest::~nest()
 }
 void nest::update(float DeltaTime)
 {
+	//m_timer += DeltaTime;
+
 	m_hatchlingRotation += DeltaTime/2;
 
 	for (int i = 0; i < 3; ++i)
 	{
-		m_animations[i]->update(DeltaTime);
-		m_hatchlings[i]->setRotation(15 * sin(m_hatchlingRotation*10));
+		m_hatchlings[i]->m_timer += DeltaTime;
+		m_hatchlings[i]->m_animation->update(DeltaTime);
+		m_hatchlings[i]->m_sprite->setRotation(15 * sin(m_hatchlingRotation*10));
+
+		if(m_hatchlings[i]->m_timer > 1.0f)
+		{
+			m_hatchlings[i]->m_animation->ChangeAnimation(0,1,0,5);
+			m_hatchlings[i]->m_timer = 0;
+		}
 	}
+
 
 
 	//Animator->update(DeltaTime);
@@ -79,7 +97,7 @@ void nest::draw(al::viewport* Viewport)
 	Viewport->draw(&m_flamingonest);
 
 	for (int i = 0; i < m_hatchlings.size(); ++i)
-		Viewport->draw(m_hatchlings[i]);
+		Viewport->draw(m_hatchlings[i]->m_sprite);
 }
 
 void nest::egg(float DeltaTime)	
@@ -98,12 +116,13 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 	{
 		if(foodValue > 0)
 		{
-			m_animations[Id-1]->ChangeAnimation(9,1,9,5);
+			m_hatchlings[Id-1]->m_animation->ChangeAnimation(9,1,9,5);
 		}
 		else
 		{
-			m_animations[Id-1]->ChangeAnimation(3,1,3,5);
+			m_hatchlings[Id-1]->m_animation->ChangeAnimation(3,1,3,5);
 		}
+		m_hatchlings[Id-1]->m_timer = 0;
 	}
 	return false;
 }
@@ -121,5 +140,17 @@ void nest::fly(float DeltaTime)
 void nest::mad(float DeltaTime)
 {
 	for(int i = 0; i < m_hatchlings.size(); ++i)
-	m_animations[i]->ChangeAnimation(12,1,12,5);
+	{
+		m_hatchlings[i]->m_animation->ChangeAnimation(12,1,12,5);
+		m_hatchlings[i]->m_timer = 0;
+	}
+}
+
+void nest::happy(float DeltaTime)
+{
+	for(int i = 0; i < m_hatchlings.size(); ++i)
+	{
+		m_hatchlings[i]->m_animation->ChangeAnimation(9,1,9,5);
+		m_hatchlings[i]->m_timer = 0;
+	}
 }
