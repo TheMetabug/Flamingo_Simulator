@@ -121,7 +121,7 @@ void enemy::die(float DeltaTime)
 	if(m_timer > 0.0f)
 	{
 		m_birdPhase = 2;
-		m_timer = 0;
+		m_timer = -(4.0f + rand()%10);
 	}
 
 	m_enemyBirdPosition.x -= 300*DeltaTime;
@@ -134,9 +134,9 @@ void enemy::fall(float DeltaTime)
 
 	m_enemyBirdPosition += m_direction * DeltaTime;
 	m_direction.y += 500*DeltaTime;
-	m_sprite->setRotation(-5 * m_enemyRotate*10);
+	m_sprite->setRotation(-5 * m_enemyRotate*15);
 
-	if(m_timer > 4.0f)
+	if(m_timer > 0)
 	{
 		respawn();
 		m_timer = 0;
@@ -178,7 +178,7 @@ void enemy::flyBack(float DeltaTime)
 	m_enemyBirdPosition.y = m_enemyOrigin.y + 100 * sin(2*m_enemyRotate);
 	//m_enemyBirdPosition.x += 1;
 	//m_enemyBirdPosition.y += 1;
-	std::cout << "X: " << m_enemyBirdPosition.x <<  "Y: " << m_enemyBirdPosition.y << std::endl;
+	//std::cout << "X: " << m_enemyBirdPosition.x <<  "Y: " << m_enemyBirdPosition.y << std::endl;
 //
 	if (m_enemyBirdPosition.x > m_enemyOrigin.x)
 	{
