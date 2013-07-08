@@ -7,12 +7,13 @@
 #include "hitbox.h"
 #include "program.h"
 #include <math.h>
+#include "gui.h"
 
 class enemy
 {
 public:
 	//enemy(){}
-	enemy(collision* Collide);
+	enemy(collision* Collide, gui* Gui);
 	~enemy();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -38,7 +39,11 @@ private:
 	al::texture *m_texture;
 	al::sprite *m_sprite;
 
+	// SCORE-stats
+	gui *m_gui;
+
 	friend class pickups;
+	friend class gui;
 
 };
 

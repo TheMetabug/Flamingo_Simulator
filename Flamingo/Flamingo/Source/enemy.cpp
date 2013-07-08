@@ -2,13 +2,16 @@
 
 using namespace al;
 
-enemy::enemy(collision* Collide)
+enemy::enemy(collision* Collide, gui* Gui)
 	: m_timer(0)
 {
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 250;
 	m_enemyOrigin.y = 300;
 	m_birdPhase = 0;
+
+	// score //
+	m_gui = Gui;
 
 	m_texture = new texture("enemyAnimation.png");
 	m_sprite = new sprite(m_texture);
@@ -90,11 +93,13 @@ void enemy::eat(float foodValue, vector itemDirection)
 		m_direction = itemDirection;
 		m_animation->ChangeAnimation(2,2,2,10);
 		m_hitbox->isEnabled = false;
+		m_gui->SCORE += 50;
 	}
 	else // when any food hits enemy
 	{
 		m_animation->ChangeAnimation(4,2,4,10);
 		m_birdPhase = 3;
+		m_gui->SCORE -= 9000;
 	}
 }
 
