@@ -31,10 +31,10 @@ item::item(al::vector Position, pickup* Pickup)
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
-	m_sprite->setScale(0.5f,0.5f);
+	m_sprite->setScale(0.35f,0.35f);
 	float asdf = m_sprite->getTransformedSize().x;
-	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize(),
-		m_sprite->getTransformedSize()/2,
+	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()/2,
+		m_sprite->getTransformedSize()/4,
 		true);
 
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
@@ -112,7 +112,7 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	  m_timer(0),
 	  m_index(-1)
 {
-	m_spawnPosition = al::vector(500,500);
+	m_spawnPosition = al::vector(1200,600);
 
 	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
 	
