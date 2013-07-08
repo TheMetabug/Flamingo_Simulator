@@ -310,6 +310,7 @@ void game::draw()
 	case Menu:
 
 		// gui
+		m_titleCard->draw(m_viewport);
 		m_gui->draw(m_viewport);
 
 		break;

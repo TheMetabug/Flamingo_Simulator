@@ -111,6 +111,18 @@ gui::gui(al::input* Input)
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
 
+
+
+	/*
+	//SCORE test
+	SCORE= 5;
+	badSCORE = 10;
+	*/
+
+		// SCORE-basics
+	SCOREnow = SCORE - badSCORE;
+
+
 	/*button = "test" button
 	button2 = Listbutton
 	button3 = mute-button*/
@@ -128,10 +140,14 @@ gui::gui(al::input* Input)
 	TITLEtext = new text("Press SPACE",m_font, 50);
 	MENUtext = new text("MENU, press button to flamingo", m_font, 50); 
 	Gmenutext = new text("GAME MENU", m_font, 50);
+	SCOREtext = new text("SCORE", m_font,50);
 	
 	
 	HPtext->setColor();
 	
+	SCOREtext->setPosition(vector(0, 50));
+	SCOREtext->setColor();
+
 	PAUSEtext->setPosition(vector(640, 360));
 	PAUSEtext->setOrigin(vector(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
 	PAUSEtext->setColor();
@@ -140,7 +156,7 @@ gui::gui(al::input* Input)
 	TITLEtext->setColor();
 
 	MENUtext->setPosition (vector(550,100));
-	MENUtext->setColor();
+	MENUtext->setColor(255,0,255, 255);
 
 	Gmenutext->setPosition (vector(550,100));
 	Gmenutext->setColor();
@@ -156,6 +172,7 @@ gui::~gui()
 	delete TITLEtext;
 	delete MENUtext;
 	delete Gmenutext;
+	delete SCOREtext;
 	delete m_font;
 	delete m_button;
 	delete m_button2;
@@ -165,6 +182,9 @@ gui::~gui()
 void gui::update(float DeltaTime)
 {
 	
+
+
+
 	//edit  HP settings
 		if( HPnow < 0) 
 	{
@@ -174,8 +194,10 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
+		SCOREtext->setString("SCORE:   " + std::to_string((long double)SCOREnow) );
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
+
 
 	}
 	else
@@ -224,6 +246,7 @@ void gui::draw(al::viewport* Viewport)
 		m_button2->draw(Viewport); //button2
 		m_button3->draw(Viewport); //button3
 		Viewport->draw(HPtext);
+		Viewport->draw(SCOREtext);
 	}
 	
 	/*if (1)

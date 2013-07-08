@@ -59,6 +59,9 @@ public:
 	int HPnow;
 	int HPmax;
 	int HPtaken;
+	int SCORE;
+	int SCOREnow;
+	int badSCORE;
 	bool m_pause;
 	bool m_title;
 	bool m_Play;
@@ -78,6 +81,7 @@ private:
 	al::text* TITLEtext;
 	al::text* MENUtext;
 	al::text* Gmenutext;
+	al::text* SCOREtext;
 
 };
 
