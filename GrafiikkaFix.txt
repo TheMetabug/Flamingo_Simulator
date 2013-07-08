@@ -1,0 +1,21 @@
+poikaset
+- ei keikunta animaatiota sheettiin
+- syömis animaatio (vaikka 2 framea joita voi loopata)
+- 
+
+Pesä
+- Pesä on liian pieni,  sen ei tarvitser mahtua kokonaisena ruudulle (osa peittyy )
++ lisä-taso, joka tulee poikasten "päälle", näyttäen siltä että poikaset ovat selkeästi pesän sisällä.
+
+Nappulat
+fix-> Nappulat menee toisiinsa kiinni (jos tila ei riitä, saa tehä isomman kuvan)
+-Jokainen nappi(animaatio) erikseen
+-> menu ja mute-nappulalle kolme framea  (vapaa,osoitettu & painettu)
+* mute nappulassa 4 framea (äänet päällä: vapaa(1)/osoitettu(2) äänetön (vapaa("painettu",3) osoitettu (4))
+
+
+TITTLE
+- pelin logo ei todennäköisesti tule mahtumaan keskelle hyvin
+	-> flamingojen päiden siirto sivuille
+
+

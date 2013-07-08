@@ -195,6 +195,7 @@ void gui::update(float DeltaTime)
 		SCOREtext->setString("SCORE:   " + std::to_string((long double)SCORE) );
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
+		//HPtext->
 
 
 	}

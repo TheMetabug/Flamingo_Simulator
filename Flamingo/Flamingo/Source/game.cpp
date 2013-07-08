@@ -229,6 +229,7 @@ void game::update(float deltaTime)
 	case Gamemenu:
 		
 		m_gui->m_Gmenu = true;
+		
 		m_gui->update(deltaTime);
 
 		//if (m_gui->m_button2->isPressed())
@@ -275,6 +276,8 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 		break;
+	case Gamemenu:
+
 	case Play:
 	case Pause:
 
@@ -317,9 +320,6 @@ void game::draw()
 	case Credits:
 		break;
 
-	case Gamemenu:
-		m_gui->draw(m_viewport);
-		break;
 	}
 
 
