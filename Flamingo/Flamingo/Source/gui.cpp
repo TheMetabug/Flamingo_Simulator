@@ -136,7 +136,7 @@ gui::gui(al::input* Input)
 	PAUSEtext->setOrigin(vector(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
 	PAUSEtext->setColor();
 
-	TITLEtext->setPosition(vector(550,100));
+	TITLEtext->setPosition(vector(500,550));
 	TITLEtext->setColor();
 
 	MENUtext->setPosition (vector(550,100));
