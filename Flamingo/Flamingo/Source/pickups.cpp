@@ -193,7 +193,7 @@ void pickups::update(float DeltaTime)
 			}
 			else
 			{
-				itemList[i]->m_position = m_flamingo->m_headPosition;
+				itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
 			}
 			break;
 

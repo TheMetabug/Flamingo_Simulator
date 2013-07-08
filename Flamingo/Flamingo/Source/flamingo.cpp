@@ -69,8 +69,8 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 
 	float HBW = m_flamingoHead.getGlobalBounds().width / 2;
 	float HBH = m_flamingoHead.getGlobalBounds().width / 2;
-	float HBOX = ((m_flamingoHead.getOrigin().x - 60) * m_flamingoHead.getScale().x) + HBW/2;
-	float HBOY = ((m_flamingoHead.getOrigin().y - 80) * m_flamingoHead.getScale().y) + HBH/2;
+	float HBOX = HBW/2 ;
+	float HBOY = HBH/2 ;
 
 	m_headHitbox = Collide->createHitBox(m_headPosition, 
 		vector(HBW,HBH), 
@@ -89,6 +89,7 @@ void flamingo::update(float DeltaTime)
 {
 	m_bodyToHead = m_flamingoPosition - m_headPosition;
 	m_timer += DeltaTime;
+	m_headRotate += DeltaTime * 90;
 	
 #pragma region Head
 
@@ -128,7 +129,7 @@ void flamingo::update(float DeltaTime)
 			m_crosshairSprite.setPosition(m_crossHair);
 
 			// count angle from headposition and headposition.x
-			m_headRotate = 0 ;
+			//m_headRotate = 0 ;
 		}
 
 		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left)) // head released
@@ -205,9 +206,13 @@ void flamingo::update(float DeltaTime)
 
 
 	// set sprites to their Positions
+	m_flamingoHead.setRotation(m_headRotate);
 	m_flamingoHead.setPosition(m_headPosition);
 	m_crosshairSprite.setPosition(m_crossHair);
-	m_headHitbox->Position = m_headPosition;
+
+	vector offset(-70 * m_flamingoHead.getScale().x,40 * m_flamingoHead.getScale().y);
+	offset.rotate(m_headRotate);
+	m_headHitbox->Position = m_headPosition + offset;
 
 	m_headAnimation->update(DeltaTime);
 }
@@ -216,7 +221,7 @@ void flamingo::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_flamingoBody);
 	for (int i = 0; i < m_neckPieces.size(); ++i)
-	Viewport->draw(&m_neckPieces[i]->m_sprite);
+		Viewport->draw(&m_neckPieces[i]->m_sprite);
 	Viewport->draw(&m_flamingoHead);
 	Viewport->draw(&m_crosshairSprite);
 }

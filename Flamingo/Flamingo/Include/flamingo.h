@@ -35,7 +35,7 @@ public:
 private:
 	float m_moveTime;
 	al::input* m_input;
-	float m_timer, m_multiplier;
+	float m_timer, m_multiplier, m_headRotate;
 	bool m_hasFood;
 
 	///////////BODY////////////
@@ -48,7 +48,7 @@ private:
 
 	hitbox* m_headHitbox;
 
-	int m_drag, m_headRotate;
+	int m_drag;
 
 	/////////////NECK//////////
 
