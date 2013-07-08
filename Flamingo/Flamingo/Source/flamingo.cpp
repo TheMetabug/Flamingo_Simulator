@@ -88,7 +88,7 @@ void flamingo::update(float DeltaTime)
 {
 	m_bodyToHead = m_flamingoPosition - m_headPosition;
 	m_timer += DeltaTime;
-	m_headRotate += DeltaTime * 90;
+	//m_headRotate += DeltaTime * 90;
 	
 #pragma region Head
 
@@ -99,10 +99,7 @@ void flamingo::update(float DeltaTime)
 
 			
 		if (m_input->isButtonPressed(al::Button::MouseLeft) &&
-			m_input->getMousePosition().x > m_flamingoHead.getPosition().x - 50 &&
-			m_input->getMousePosition().x < m_flamingoHead.getPosition().x + 50 &&
-			m_input->getMousePosition().y > m_flamingoHead.getPosition().y - 50 &&
-			m_input->getMousePosition().y < m_flamingoHead.getPosition().y + 50 )
+			(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 50 )
 		{
 			m_drag = 1;
 			m_soundLibrary->m_sounds[1]->play();
@@ -112,8 +109,7 @@ void flamingo::update(float DeltaTime)
 		break;
 
 	case 1: // head being dragged
-		m_mousePosition.x = m_input->getMousePosition().x;
-		m_mousePosition.y = m_input->getMousePosition().y;
+		m_mousePosition = m_input->getMousePosition();
 
 		m_headPosition = m_mousePosition;
 		m_direction = m_headOrigin - m_headPosition;
@@ -121,14 +117,38 @@ void flamingo::update(float DeltaTime)
 		{
 
 			//cant drag head too far away.
-			float distance = sqrt(pow(m_direction.x,2) + pow(m_direction.y,2));
+			float distance = m_direction.getLenght();
 
 			// crosshair goes opposite direction of the head from the origin
 			m_crossHair = m_headOrigin + vector(m_direction.x * m_multiplier, m_direction.y * m_multiplier);
 			m_crosshairSprite.setPosition(m_crossHair);
 
 			// count angle from headposition and headposition.x
-			//m_headRotate = 0 ;
+ 			float angle = m_direction.getAngle();
+			//if(distance > 100)
+			//else
+			//{
+			//	if (angle < 180)
+			//		m_headRotate = ((angle) * distance / 100);
+			//	else
+			//		m_headRotate = ((angle-360) * distance / 100);
+			//}
+				if(m_direction.x < 0)
+				{
+					float angle = m_direction.getAngle();
+					m_flamingoHead.setScale(0.5f,0.5f);
+					m_headRotate = angle;
+				}
+				else
+				{
+					
+					float angle = (-m_direction).getAngle();
+					m_flamingoHead.setScale(-0.5f,0.5f);
+					m_headRotate = angle;
+				}
+
+
+			std::cout<<m_headRotate<<std::endl;
 		}
 
 		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left)) // head released
@@ -167,7 +187,7 @@ void flamingo::update(float DeltaTime)
 		//}
 
 		break;
-	case 3: //head goes back to starting point/origin
+	case 3: //head going back to starting point/origin
 		m_headHitbox->isEnabled = false;
 		{
 			m_direction = m_headOrigin - m_headPosition;
@@ -178,11 +198,24 @@ void flamingo::update(float DeltaTime)
 		if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
 			m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
 		{
-			m_drag = 0;
-			m_crossHair = m_headOrigin;
-			m_direction = vector(0,0);
-			m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+			if (!m_hasFood)
+			{
+				m_drag = 0;
+				m_crossHair = m_headOrigin;
+				m_direction = vector(0,0);
+				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+			}
+			else
+			{
+				m_drag = 0;
+				m_crossHair = m_headOrigin;
+				m_direction = vector(0,0);
+				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+			}
 		}
+		break;
+	default:
+		std::cout<<"Oh maan! Something is really wrong with flaming drag state"<<std::endl;
 		break;
 	}
 
