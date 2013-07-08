@@ -28,13 +28,6 @@ void button::setTexture(std::string TextureName)
 void button::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
-	
-		if(mouseOver())
-		{
-			m_animation->ChangeAnimation(1,0,1,100);
-		}
-		else
-			m_animation->ChangeAnimation(0,0,0,100);
 }
 
 void button::draw(al::viewport* Viewport)
@@ -44,11 +37,21 @@ void button::draw(al::viewport* Viewport)
 
 bool button::isPressed()
 {
-	if(m_input->isButtonPressed(al::Button::MouseLeft) && mouseOver())
-	{			
-		m_animation->ChangeAnimation(2,0,2,100);
-		return true;
+	if(mouseOver())
+	{
+		if(m_input->isButtonPressed(al::Button::MouseLeft))
+		{			
+			m_animation->ChangeAnimation(2,0,2,100);
+			return true;
+		}
+		else
+		{
+			m_animation->ChangeAnimation(1,0,1,100);
+		}
 	}
+	else
+		m_animation->ChangeAnimation(0,0,0,100);
+
 	return false;
 }
 

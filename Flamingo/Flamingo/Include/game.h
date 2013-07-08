@@ -89,7 +89,6 @@ private:
 	////sound
 	soundLibrary* m_soundLibrary;
 
-
 };
 
 #endif

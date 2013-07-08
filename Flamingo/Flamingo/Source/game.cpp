@@ -68,6 +68,10 @@ game::~game()
 void game::update(float deltaTime)
 {
 	// gameStates
+	if (!m_input->isButtonPressed(al::Button::MouseLeft))
+	{
+		ML_release = true;
+	}
 
 	switch(state)
 	{
@@ -95,11 +99,7 @@ void game::update(float deltaTime)
 
 		//if (m_gui->m_button2->isPressed())
 		//{
-			if(!m_gui->m_button2->isPressed())
-			{
-				ML_release = true;
-			}
-			else if (ML_release)
+			if(m_gui->m_button2->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Gamemenu;
@@ -235,11 +235,7 @@ void game::update(float deltaTime)
 		//if (m_gui->m_button2->isPressed())
 		//{
 			
-			if(!m_gui->m_button2->isPressed())
-			{
-				ML_release = true;
-			}
-			else if (ML_release)
+			if(m_gui->m_button2->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Play;
