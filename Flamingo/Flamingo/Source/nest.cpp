@@ -2,11 +2,13 @@
 
 using namespace al;
 
-nest::nest(collision* Collide)
+nest::nest(collision* Collide, gui* Gui)
 {
 	///// nest //////
 	m_nestPosition = al::vector(120, 550);
 
+	// score //
+	m_gui = Gui;
 
 	// create texture,sprite, positions etc
 	m_nestTexture = new texture("NEST.png");
@@ -113,10 +115,13 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 		if(foodValue > 0)
 		{
 			m_hatchlings[Id-1]->m_animation->ChangeAnimation(9,1,9,5);
+ 			m_gui->SCORE += 100;
+
 		}
 		else
 		{
 			m_hatchlings[Id-1]->m_animation->ChangeAnimation(3,1,3,5);
+			m_gui->SCORE -= 50;
 		}
 		m_hatchlings[Id-1]->m_timer = 0;
 	}
@@ -148,5 +153,6 @@ void nest::happy(float DeltaTime)
 	{
 		m_hatchlings[i]->m_animation->ChangeAnimation(9,1,9,5);
 		m_hatchlings[i]->m_timer = 0;
+
 	}
 }

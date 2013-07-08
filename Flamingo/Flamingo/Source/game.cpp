@@ -14,6 +14,9 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	state = TitleScreen;
 
+	// gui
+	m_gui = new gui(m_input);
+
 	// hitbox
 	collide = new collision();
 
@@ -24,7 +27,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	flamingoBase = new flamingo(m_soundLibrary, collide, m_input);
 
 	// nest
-	flamingonest = new nest(collide);
+	flamingonest = new nest(collide, m_gui);
 
 	// enemy
 	enemyBird = new enemy(collide);
@@ -40,9 +43,6 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 
 	// particles
-
-	// gui
-	m_gui = new gui(m_input);
 
 	// titleCard
 

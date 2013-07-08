@@ -6,6 +6,8 @@
 #include "hitbox.h"
 #include "animation.h"
 #include "program.h"
+#include "gui.h"
+
 
 class hatchling
 {
@@ -33,7 +35,7 @@ class nest
 {
 public:
 	//nest(){}
-	nest(collision* Collide);
+	nest(collision* Collide, gui* Gui);
 	~nest();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -65,9 +67,12 @@ private:
 	std::vector<hatchling*> m_hatchlings;
 
 	float m_hatchlingRotation, m_timer;
-
+	
+	// SCORE-stats
+	gui *m_gui;
 
 	friend class pickups;
+	friend class gui;
 };
 
 

@@ -60,8 +60,7 @@ public:
 	int HPmax;
 	int HPtaken;
 	int SCORE;
-	int SCOREnow;
-	int badSCORE;
+	
 	bool m_pause;
 	bool m_title;
 	bool m_Play;

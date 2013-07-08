@@ -112,15 +112,13 @@ gui::gui(al::input* Input)
 	HPnow = HPmax-HPtaken;
 
 
+	SCORE= 0;
+	
+	
+	
 
-	/*
-	//SCORE test
-	SCORE= 5;
-	badSCORE = 10;
-	*/
+	
 
-		// SCORE-basics
-	SCOREnow = SCORE - badSCORE;
 
 
 	/*button = "test" button
@@ -194,7 +192,7 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
-		SCOREtext->setString("SCORE:   " + std::to_string((long double)SCOREnow) );
+		SCOREtext->setString("SCORE:   " + std::to_string((long double)SCORE) );
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
 
