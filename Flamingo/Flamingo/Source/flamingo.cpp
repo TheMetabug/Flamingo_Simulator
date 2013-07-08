@@ -11,7 +11,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_hasFood = false;
 
 	/////////BODY//////////
-	m_flamingoPosition = vector(740,550);
+	m_flamingoPosition = vector(980,515);
 
 	////////HEAD/////////
 	m_drag = 0;
