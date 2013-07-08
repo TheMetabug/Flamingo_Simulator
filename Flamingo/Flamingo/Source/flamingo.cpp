@@ -1,5 +1,4 @@
 #include "flamingo.h"
-#define PI 3.14159265358979323846264
 
 using namespace al;
 

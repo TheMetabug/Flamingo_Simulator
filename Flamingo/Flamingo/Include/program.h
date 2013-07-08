@@ -2,6 +2,7 @@
 #define PROGRAM_H
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+#define PI 3.14159265358979323846264
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
