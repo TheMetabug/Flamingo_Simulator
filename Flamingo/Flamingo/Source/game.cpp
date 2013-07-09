@@ -300,6 +300,7 @@ void game::draw()
 		m_viewport->draw(&m_ReturnCheck);
 	
 	case Gamemenu:
+		m_viewport->draw(&m_GMenu);
 	case Pause:
 	
 	case Play:
