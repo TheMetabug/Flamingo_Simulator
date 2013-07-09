@@ -48,25 +48,36 @@ public:
 	void mad(float DeltaTime);
 	void happy(float DeltaTime);
 
+	void addEgg();
+
 private:
-	animation *Animator;
+	animation	*Animator;
 
-	hitbox *m_nestHitbox;
-	hitbox *m_hatchlingHitbox;
+	hitbox		*m_nestHitbox;
+	hitbox		*m_hatchlingHitbox;
 
-	al::vector m_nestPosition, m_nestOrigin, m_hatchlingPosition_1, m_hatchlingPosition_2, m_hatchlingPosition_3;
-	//std::vector<al::vector> m_hatchlingPositions;
+	al::vector	m_nestPosition, 
+				m_nestOrigin,
+				m_hatchlingPosition_1,
+				m_hatchlingPosition_2,
+				m_hatchlingPosition_3,
+				m_eggPosition,
+				m_eggVector;
+
+	al::texture *m_eggTexture;
+	std::vector<al::sprite*> m_eggs;
+	al::sprite* m_theEgg;
+	animation* m_eggAnimation;
 
 	al::texture *m_nestTexture;
-	al::sprite m_flamingonest;
+	al::sprite	 m_flamingonest;
 
 	al::texture* m_hatchlingTexture;
-	//std::vector<al::sprite*> m_hatchlings;
-	//std::vector<hitbox*> m_hatchlingHitboxes;
-	//std::vector<animation*> m_animations;
 	std::vector<hatchling*> m_hatchlings;
 
-	float m_hatchlingRotation, m_timer;
+
+	float m_hatchlingRotation, m_timer, m_eggTimer;
+	bool m_isAlive;
 	
 	// SCORE-stats
 	gui *m_gui;
