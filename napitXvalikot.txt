@@ -1,19 +1,19 @@
-MENU-nappi(.=)   
+MENU-nappi(.=)   15:27 2.7.2013
 -pyöreä
 -lista (list)
 -painoanimaatio
 
 
-MUTE-NAPPI
+MUTE-NAPPI  	15:27 2.7.2013
 - pyöreä
 - sirreni/nuotti / muu vastaava
 - ääni päällä/pois + paino-animaatiot 
 
-QUIT-nappi (X)
+QUIT-nappi (X)	15:27 2.7.2013
 -painoanimaatio
 
 
---------- MENU--------------
+--------- MENU-------------- 9:44 5.7.2013
 |	* RESUME GAME      |
 |	* RESTART          |
 |	* OPTIONS          |
@@ -22,12 +22,12 @@ QUIT-nappi (X)
 ----------------------------
 
 
---------------
+--------------  9:44 5.7.2013
 | R U sure?  | 
 | *YES / *NO |
 --------------
 
----------OPTIONS-----------
+---------OPTIONS----------- 9:44 5.7.2013
 |   *MUSIC  --||--        |
 |   *SOUNDS --||--        |
 |                         |
