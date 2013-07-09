@@ -56,13 +56,23 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			m_ReturnCheck.getSize().y/2));
 			m_ReturnCheck.setScale(1,1);
 
-			m_ReturnCheck.setLayer(299);
+			m_ReturnCheck.setLayer(300);
+
+			m_GmenuPosition = (vector(640,360));
+			m_GmenuTexture = new texture("pausemenu.png");
+			m_GMenu.setTexture(m_GmenuTexture);
+			m_GMenu.setPosition(m_GmenuPosition);
+			m_GMenu.setOrigin(vector(m_GMenu.getSize().x/2,
+			m_GMenu.getSize().y/2));
+			m_GMenu.setScale(1,1);
+			  
+			m_GMenu.setLayer(299);
 
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
-	m_pauseOpacitySprite.setLayer(297);
+	m_pauseOpacitySprite.setLayer(298);
 			
 }
 

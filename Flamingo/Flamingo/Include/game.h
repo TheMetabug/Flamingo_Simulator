@@ -38,7 +38,7 @@ private:
 	
 	al::vector m_GmenuPosition, m_GmenuOrigin;
 	al::texture *m_GmenuTexture;
-	al::sprite m_GmenuCheck;
+	al::sprite m_GMenu;
 	
 	bool P_release;
 	bool M_release;

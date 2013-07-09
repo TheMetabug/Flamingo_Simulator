@@ -1,0 +1,13 @@
+layer	NIMI
+300 	ReturnTitle + YES/NO 
+299	Options+ menu
+298	"pause"-opacity
+297	HP/score-tekstit ym. tekstit ja play-napit
+296	Flamingo + vihollislintu
+295	Pes‰n p‰‰llimm‰inen taso
+294	pes‰
+291	Veden "l‰pin‰kyvyys-taso"
+1-290	pick-upit
+
+
+0 Tausta+pilvet
