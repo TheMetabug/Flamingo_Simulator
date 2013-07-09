@@ -32,6 +32,14 @@ private:
 	sf::RenderWindow *window;
 	al::viewport* m_viewport;
 	
+	al::vector m_ReturnPosition, m_ReturnOrigin;
+	al::texture *m_ReturnTexture;
+	al::sprite m_ReturnCheck;
+	
+	al::vector m_GmenuPosition, m_GmenuOrigin;
+	al::texture *m_GmenuTexture;
+	al::sprite m_GMenu;
+	
 	bool P_release;
 	bool M_release;
 	bool ML_release;
@@ -45,7 +53,8 @@ private:
 		Pause,
 		Credits,
 		Options,
-		Gamemenu
+		Gamemenu,
+		ReturnTitle
 	};
 
 	GameState state;

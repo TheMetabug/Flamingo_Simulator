@@ -48,12 +48,32 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	m_titleCard = new titleCard();
 
-	// opacity
+		m_ReturnPosition = (vector(640,360));
+			m_ReturnTexture = new texture("yesnoMenu.png");
+			m_ReturnCheck.setTexture(m_ReturnTexture);
+			m_ReturnCheck.setPosition(m_ReturnPosition);
+			m_ReturnCheck.setOrigin(vector(m_ReturnCheck.getSize().x/2,
+			m_ReturnCheck.getSize().y/2));
+			m_ReturnCheck.setScale(1,1);
+
+			m_ReturnCheck.setLayer(300);
+
+			m_GmenuPosition = (vector(640,360));
+			m_GmenuTexture = new texture("pausemenu.png");
+			m_GMenu.setTexture(m_GmenuTexture);
+			m_GMenu.setPosition(m_GmenuPosition);
+			m_GMenu.setOrigin(vector(m_GMenu.getSize().x/2,
+			m_GMenu.getSize().y/2));
+			m_GMenu.setScale(1,1);
+			  
+			m_GMenu.setLayer(299);
+
+		// opacity
 
 	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
-	m_pauseOpacitySprite.setLayer(297);
-	
+	m_pauseOpacitySprite.setLayer(298);
+			
 }
 
 game::~game()
@@ -68,6 +88,7 @@ game::~game()
 	delete m_gui;
 	delete m_titleCard;
 	delete m_soundLibrary;
+	
 }
 
 void game::update(float deltaTime)
@@ -91,6 +112,7 @@ void game::update(float deltaTime)
 		if (m_input->isKeyPressed(al::Key::Space))
 		{
 			state = Menu;
+			/*state = ReturnTitle;*/
 			m_gui->m_title =false;
 		}
 
@@ -244,6 +266,9 @@ void game::update(float deltaTime)
 
 
 		break;
+		case ReturnTitle:
+		
+		break;
 	}
 		
 	
@@ -270,7 +295,12 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 		break;
+	
+	case ReturnTitle:
+		m_viewport->draw(&m_ReturnCheck);
+	
 	case Gamemenu:
+		m_viewport->draw(&m_GMenu);
 	case Pause:
 	
 	case Play:
@@ -316,6 +346,7 @@ void game::draw()
 		break;
 	case Credits:
 		break;
+
 
 	}
 

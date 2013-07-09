@@ -48,6 +48,8 @@ public:
 
 	friend const vector &operator *=(vector& LeftVal, const float RightVal);
 
+	//friend void operator <<(std::ostream& Ostr, const vector RightVal);
+
 private:
 
 };

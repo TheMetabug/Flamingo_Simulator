@@ -1,21 +1,21 @@
 poikaset
-- ei keikunta animaatiota sheettiin
-- syömis animaatio (vaikka 2 framea joita voi loopata)
+- ei keikunta animaatiota sheettiin 10:42 9.7.2013
+- syömis animaatio (vaikka 2 framea joita voi loopata) 10:46 9.7.2013
 - 
 
 Pesä
-- Pesä on liian pieni,  sen ei tarvitser mahtua kokonaisena ruudulle (osa peittyy )
-+ lisä-taso, joka tulee poikasten "päälle", näyttäen siltä että poikaset ovat selkeästi pesän sisällä.
+- Pesä on liian pieni,  sen ei tarvitser mahtua kokonaisena ruudulle (osa peittyy ) 10:58 9.7.2013
++ lisä-taso, joka tulee poikasten "päälle", näyttäen siltä että poikaset ovat selkeästi pesän sisällä. 11:01 9.7.2013
 
 Nappulat
-fix-> Nappulat menee toisiinsa kiinni (jos tila ei riitä, saa tehä isomman kuvan)
--Jokainen nappi(animaatio) erikseen
--> menu ja mute-nappulalle kolme framea  (vapaa,osoitettu & painettu)
-* mute nappulassa 4 framea (äänet päällä: vapaa(1)/osoitettu(2) äänetön (vapaa("painettu",3) osoitettu (4))
+fix-> Nappulat menee toisiinsa kiinni (jos tila ei riitä, saa tehä isomman kuvan)13:24 9.7.2013
+-Jokainen nappi(animaatio) erikseen	13:24 9.7.2013
+-> menu ja mute-nappulalle kolme framea  (vapaa,osoitettu & painettu)	13:14 9.7.2013
+* mute nappulassa 4 framea (äänet päällä: vapaa(1)/osoitettu(2) äänetön: (vapaa("painettu",3) osoitettu (4))	13:05 9.7.2013
 
 
 TITTLE
-- pelin logo ei todennäköisesti tule mahtumaan keskelle hyvin
-	-> flamingojen päiden siirto sivuille
+- pelin logo ei todennäköisesti tule mahtumaan keskelle hyvin  11:02 9.7.2013
+	-> flamingojen päiden siirto sivuille 11:02 9.7.2013
 
 
