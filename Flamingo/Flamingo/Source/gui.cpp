@@ -58,10 +58,7 @@ bool button::isPressed()
 
 bool button::mouseOver()
 {
-	if (m_input->getMousePosition().x > m_position.x - m_sprite.getSize().x/2 &&
-		m_input->getMousePosition().x < m_position.x + m_sprite.getSize().x/2 &&
-		m_input->getMousePosition().y > m_position.y - m_sprite.getSize().y/2 &&
-		m_input->getMousePosition().y < m_position.y + m_sprite.getSize().y/2)
+	if (rectangle(m_position - m_sprite.getSize()/2,m_sprite.getSize()).contains(m_input->getMousePosition()))
 		return true;
 	return false;
 }
