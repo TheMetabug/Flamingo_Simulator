@@ -26,7 +26,7 @@ void animation::update(float deltaTime)
 	//std::cout<<"timer "<< deltaTime<<std::endl;
 
 
-	if (m_timer > 1.0 / m_fps) //frame changes
+	while (m_timer > 1.0 / m_fps) //frame changes
 	{
 		m_currentFrame++;
 		if (m_currentFrame >= m_firstFrame + m_frames)

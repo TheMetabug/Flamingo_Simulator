@@ -27,6 +27,7 @@ nest::nest(collision* Collide, gui* Gui)
 		al::vector(m_flamingonest.getGlobalBounds().width/2,
 					 m_flamingonest.getGlobalBounds().height/2 - 170),
 		0);
+	m_nestHitbox->isRound = false;
 
 	/// egg ///
 	m_eggTexture = new texture("hatchingAnimation.png");

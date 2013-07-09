@@ -32,9 +32,9 @@ item::item(al::vector Position, pickup* Pickup)
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
 	m_sprite->setScale(0.35f,0.35f);
-	float asdf = m_sprite->getTransformedSize().x;
-	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()/2,
-		m_sprite->getTransformedSize()/4,true);
+	float hitboxSize = 0.9f;
+	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
+		m_sprite->getTransformedSize()*hitboxSize/2,true);
 	m_sprite->setLayer(10-290);
 
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);

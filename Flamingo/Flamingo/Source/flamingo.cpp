@@ -7,7 +7,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
-	m_throwMultiplier = 1.0f;
+	m_throwMultiplier = 1.4f;
 	m_moveTime = 0.3f;
 	m_hasFood = false;
 	m_distance = 0;
@@ -17,9 +17,9 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_flamingoPosition = vector(980,515);
 
 	////////HEAD/////////
-	m_drag = 0;
 	m_headOrigin = m_flamingoPosition + vector(-19,-165);
 	m_headRotate = 0;
+	m_drag = 0;
 
 	
 	// Textures and sprites
@@ -48,6 +48,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_crosshairSprite.setTexture(m_crossTexture);
 	m_crosshairSprite.setPosition(m_headOrigin);
 	m_crosshairSprite.setOrigin(vector(25, 25));
+	m_crosshairSprite.setColor(0,0,0,0);
 
 	////////////ARROW//////////
 	m_arrowTexture = new texture("origonArrow.png");
@@ -55,6 +56,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_arrowSprite.setOrigin(vector(m_arrowSprite.getTextureSize().x/2, m_arrowSprite.getTextureSize().y/2));
 	m_arrowSprite.setPosition(m_headOrigin);
 	m_arrowSprite.setLayer(290);
+	m_arrowSprite.setColor(0,0,0,0);
 	
 
 #pragma endregion
@@ -157,8 +159,6 @@ void flamingo::update(float DeltaTime)
 				m_headRotate = angle;
 			}
 
-#pragma region Arrow
-
 			m_arrowSprite.setColor(
 				(m_distance/m_maxDistance) * 255,
 				(1-(m_distance/m_maxDistance)) * 255,
@@ -167,8 +167,6 @@ void flamingo::update(float DeltaTime)
 
 			m_arrowSprite.setScale((m_distance*2) / m_arrowSprite.getTextureSize().x,m_distance/m_arrowSprite.getTextureSize().y/4);
 			m_arrowSprite.setRotation(m_direction.getAngle());
-
-#pragma endregion
 
 		}
 		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
