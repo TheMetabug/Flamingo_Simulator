@@ -52,6 +52,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
+	m_pauseOpacitySprite.setLayer(297);
 	
 }
 
