@@ -170,7 +170,7 @@ void pickups::update(float DeltaTime)
 
 		case 1: // in mouth
 			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
-			if (m_flamingo->m_drag == 4)
+			if (m_flamingo->m_drag == 0)
 			{
 				itemList[i]->m_state = 2;
 			}
@@ -178,7 +178,7 @@ void pickups::update(float DeltaTime)
 
 		case 2: // waiting for release
 			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
-			if (m_flamingo->m_drag == 6) // just released
+			if (m_flamingo->m_drag == 2) // just released
 			{
 				itemList[i]->m_direction = m_flamingo->m_direction * (1+m_flamingo->m_throwMultiplier); // take direction
 				itemList[i]->m_state = 3;

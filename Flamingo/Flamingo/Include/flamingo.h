@@ -46,7 +46,7 @@ private:
 
 	////////////HEAD///////////
 
-	al::vector m_mousePosition, m_headPosition, m_headOrigin, m_crossHair, m_direction;
+	al::vector m_mousePosition, m_mouseStartPos, m_headPosition, m_headOrigin, m_crossHair, m_direction;
 
 	hitbox* m_headHitbox;
 

@@ -139,6 +139,11 @@ const vector &operator *=(vector& LeftVal, float RightVal)
 	return LeftVal;
 }
 
+//void operator <<(std::ostream& Ostr, const vector RightVal)
+//{
+//    Ostr << "x:" << RightVal.x << ", y:" << RightVal.y << "";
+//}
+
 }
 
 #pragma endregion
