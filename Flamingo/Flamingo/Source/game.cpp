@@ -48,6 +48,16 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	m_titleCard = new titleCard();
 
+		m_ReturnPosition = (vector(640,360));
+			m_ReturnTexture = new texture("yesnoMenu.png");
+			m_ReturnCheck.setTexture(m_ReturnTexture);
+			m_ReturnCheck.setPosition(m_ReturnPosition);
+			m_ReturnCheck.setOrigin(vector(m_ReturnCheck.getSize().x/2,
+			m_ReturnCheck.getSize().y/2));
+			m_ReturnCheck.setScale(1,1);
+
+			m_ReturnCheck.setLayer(299);
+
 	
 }
 
@@ -63,6 +73,7 @@ game::~game()
 	delete m_gui;
 	delete m_titleCard;
 	delete m_soundLibrary;
+	
 }
 
 void game::update(float deltaTime)
@@ -86,6 +97,7 @@ void game::update(float deltaTime)
 		if (m_input->isKeyPressed(al::Key::Space))
 		{
 			state = Menu;
+			/*state = ReturnTitle;*/
 			m_gui->m_title =false;
 		}
 
@@ -246,6 +258,9 @@ void game::update(float deltaTime)
 
 
 		break;
+		case ReturnTitle:
+		
+		break;
 	}
 		
 	
@@ -272,8 +287,11 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 		break;
+	
+	case ReturnTitle:
+		m_viewport->draw(&m_ReturnCheck);
+	
 	case Gamemenu:
-
 	case Play:
 	case Pause:
 
@@ -315,6 +333,7 @@ void game::draw()
 		break;
 	case Credits:
 		break;
+
 
 	}
 
