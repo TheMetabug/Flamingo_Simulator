@@ -3,11 +3,15 @@ layer	NIMI
 299	Options+ menu
 298	"pause"-opacity
 297	HP/score-tekstit ym. tekstit ja play-napit
-296	Flamingo + vihollislintu
-295	Pes‰n p‰‰llimm‰inen taso
-294	poikaset
-291	Veden "l‰pin‰kyvyys-taso" + pes‰
-1-290	pick-upit
+291	Veden "l‰pin‰kyvyys-taso" + flamingo head
+
+10-290	pick-upit
+100	Flamingo
+
+4	Pes‰n p‰‰llimm‰inen taso
+3	poikaset
+2	pes‰n alempi taso
+1	vihollislintu
 
 
 0 Tausta+pilvet

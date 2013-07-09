@@ -6,8 +6,8 @@ nest::nest(collision* Collide, gui* Gui)
 {
 	///// nest //////
 	m_nestPosition = vector(120, 550);
-	m_eggPosition = m_nestPosition + vector(-40,60);
-	m_eggVector = vector(-100,-100);
+	m_eggPosition = m_nestPosition + vector(0,60);
+	m_eggVector = vector(-80,-30);
 
 	// score //
 	m_gui = Gui;
@@ -108,14 +108,15 @@ void nest::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_flamingonest);
 
+	for (int i = m_eggs.size()-1; i >= 0; --i)
+		Viewport->draw(m_eggs[i]);
+
 	for (int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		if (m_hatchlings[i]->m_isThere)
 			Viewport->draw(m_hatchlings[i]->m_sprite);
 	}
 
-	for (int i = m_eggs.size()-1; i >= 0; --i)
-		Viewport->draw(m_eggs[i]);
 }
 
 void nest::egg(float DeltaTime)	
@@ -182,7 +183,9 @@ void nest::addEgg()
 	m_eggs.push_back(new sprite(m_eggTexture));
 	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
 	m_eggs.back()->setOrigin(vector(width/2, height/2));
-	m_eggs.back()->setScale(0.5f,0.5f);
+	m_eggs.back()->setScale(0.2f);
+	m_eggs.back()->setLayer(294);
+	m_eggs.back()->set
 
 	for (int i = 0; i < m_eggs.size(); ++i)
 	{
