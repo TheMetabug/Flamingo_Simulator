@@ -24,8 +24,8 @@ private:
 	al::texture* m_waterTexture;
 	al::sprite m_water;
 
-	al::texture* m_groundTexture;
-	al::sprite m_ground;
+	al::texture* m_opacityTexture;
+	al::sprite m_waterOpacity;
 
 };
 

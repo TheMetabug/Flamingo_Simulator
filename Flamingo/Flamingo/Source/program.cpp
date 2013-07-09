@@ -98,12 +98,12 @@ vector &vector::operator -=(const vector& RightVal)
 
 vector vector::operator /(float RightVal)
 {
-	return vector(this->x / RightVal,this->y / RightVal);
+	return vector(this->x / (float)RightVal,this->y / (float)RightVal);
 }
 vector &vector::operator /=(float RightVal)
 {
-	this->x /= RightVal;
-	this->y /= RightVal;
+	this->x /= (float)RightVal;
+	this->y /= (float)RightVal;
 	return *this;
 }
 

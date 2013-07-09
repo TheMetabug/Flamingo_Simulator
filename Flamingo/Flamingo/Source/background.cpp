@@ -19,11 +19,11 @@ background::background()
 	m_sky.setOrigin(vector(0, 0));
 	m_sky.setLayer(0);
 
-	m_groundTexture = new texture("water_Opacity.png");
-	m_ground.setTexture(m_groundTexture);
-	m_ground.setPosition(vector(1280, 720));
-	m_ground.setOrigin(vector(1036, 58));
-	m_ground.setLayer(0);
+	m_opacityTexture = new texture("water_Opacity.png");
+	m_waterOpacity.setTexture(m_opacityTexture);
+	m_waterOpacity.setPosition(vector(WINDOW_WIDTH, WINDOW_HEIGHT));
+	m_waterOpacity.setOrigin(vector(m_waterOpacity.getTextureSize()));
+	m_waterOpacity.setLayer(290);
 }
 
 background::~background()
@@ -40,7 +40,7 @@ void background::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_sky);
 	Viewport->draw(&m_water);
-	Viewport->draw(&m_ground);
+	Viewport->draw(&m_waterOpacity);
 }
 
 //////////////////CLOUDS////////////////////////////

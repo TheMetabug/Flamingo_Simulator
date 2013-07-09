@@ -45,7 +45,7 @@ item::~item()
 	std::cout<<"aaand its gone"<<std::endl;
 }
 
-void item::update(float DeltaTime)
+bool item::update(float DeltaTime)
 {
 	switch (m_state)
 	{
@@ -60,6 +60,8 @@ void item::update(float DeltaTime)
 	case 4:
 		m_direction.y += 3;
 		m_position += m_direction * DeltaTime;
+		if (m_position.y > 1000)
+			return false;
 		break;
 	default:
 		break;
@@ -68,6 +70,7 @@ void item::update(float DeltaTime)
 	m_animation->update(DeltaTime);
 	m_sprite->setPosition(m_position);
 	m_hitbox->Position = m_position;
+	return true;
 }
 
 void item::draw(al::viewport* Viewport)
@@ -143,7 +146,11 @@ void pickups::update(float DeltaTime)
 
 	for (int i = itemList.size() - 1; i >= 0; --i)
 	{
-		itemList[i]->update(DeltaTime);
+		if(!itemList[i]->update(DeltaTime)) // update returns false if item needs to be deleted
+		{
+			deleteItem(i);
+			break;
+		}
 
 		switch (itemList[i]->m_state)
 		{

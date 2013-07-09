@@ -41,7 +41,7 @@ namespace pups
 		item(al::vector Position, pickup* Pickup);
 		~item();
 
-		void update(float DeltaTime);
+		bool update(float DeltaTime);
 		void draw(al::viewport* Viewport);
 
 		al::vector m_position;
