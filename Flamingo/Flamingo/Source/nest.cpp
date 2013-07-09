@@ -5,7 +5,9 @@ using namespace al;
 nest::nest(collision* Collide, gui* Gui)
 {
 	///// nest //////
-	m_nestPosition = al::vector(120, 550);
+	m_nestPosition = vector(120, 550);
+	m_eggPosition = m_nestPosition + vector(-40,60);
+	m_eggVector = vector(-100,-100);
 
 	// score //
 	m_gui = Gui;
@@ -15,9 +17,9 @@ nest::nest(collision* Collide, gui* Gui)
 	m_flamingonest.setTexture(m_nestTexture);
 	m_flamingonest.setPosition(m_nestPosition);
 	m_flamingonest.setOrigin(vector(m_flamingonest.getSize().x/2,
-		m_flamingonest.getSize().y/2));
+									m_flamingonest.getSize().y/2));
 	m_flamingonest.setScale(1,1);
-
+	//m_flamingonest.setTextureRectangle(rectangle(vector(),m_flamingonest.getSize().x/2, m_flamingonest.getSize().y/2));
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
 		al::vector(m_flamingonest.getGlobalBounds().width,
@@ -25,6 +27,15 @@ nest::nest(collision* Collide, gui* Gui)
 		al::vector(m_flamingonest.getGlobalBounds().width/2,
 					 m_flamingonest.getGlobalBounds().height/2 - 170),
 		0);
+
+	/// egg ///
+	m_eggTexture = new texture("hatchingAnimation.png");
+
+	for (int i = 0; i < 5; ++i)
+	{
+		addEgg();
+	}
+
 
 	///// hatchlings /////
 
@@ -41,7 +52,9 @@ nest::nest(collision* Collide, gui* Gui)
 
 	m_hatchlingTexture = new texture("Hatchling_sheet_v2.png");
 
-	for (int i = 0; i < 3; ++i)
+	
+
+	for (int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		// create texture,sprite, positions etc
 		m_hatchlings[i]->m_sprite = new sprite(m_hatchlingTexture);
@@ -95,7 +108,13 @@ void nest::draw(al::viewport* Viewport)
 	Viewport->draw(&m_flamingonest);
 
 	for (int i = 0; i < m_hatchlings.size(); ++i)
-		Viewport->draw(m_hatchlings[i]->m_sprite);
+	{
+		if (m_hatchlings[i]->m_isThere)
+			Viewport->draw(m_hatchlings[i]->m_sprite);
+	}
+
+	for (int i = m_eggs.size()-1; i >= 0; --i)
+		Viewport->draw(m_eggs[i]);
 }
 
 void nest::egg(float DeltaTime)	
@@ -153,6 +172,23 @@ void nest::happy(float DeltaTime)
 	{
 		m_hatchlings[i]->m_animation->ChangeAnimation(9,1,9,5);
 		m_hatchlings[i]->m_timer = 0;
-
 	}
+}
+
+void nest::addEgg()
+{
+	float width = 256, height = 256;
+	m_eggs.push_back(new sprite(m_eggTexture));
+	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
+	m_eggs.back()->setOrigin(vector(width/2, height/2));
+	m_eggs.back()->setScale(0.5f,0.5f);
+
+	for (int i = 0; i < m_eggs.size(); ++i)
+	{
+		m_eggs[i]->setPosition(
+			m_eggPosition +
+			(m_eggVector / m_eggs.size()) * (i + 1)
+			);
+	}
+
 }
