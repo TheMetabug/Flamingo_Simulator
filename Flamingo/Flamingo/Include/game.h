@@ -40,6 +40,10 @@ private:
 	al::texture *m_GmenuTexture;
 	al::sprite m_GMenu;
 	
+	al::vector m_creditsPosition, m_creditsOrigin;
+	al::texture *m_creditsTexture;
+	al::sprite m_credits;
+	
 	bool P_release;
 	bool M_release;
 	bool ML_release;

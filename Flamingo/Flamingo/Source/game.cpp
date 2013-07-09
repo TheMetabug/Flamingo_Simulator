@@ -68,6 +68,14 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			  
 			m_GMenu.setLayer(299);
 
+			m_creditsPosition = (vector(640,360));
+			m_creditsTexture = new texture("creditsPlaceholder.png");
+			m_credits.setTexture(m_creditsTexture);
+			m_credits.setPosition(m_creditsPosition);
+			m_credits.setOrigin(vector(m_credits.getSize().x/2,
+			m_credits.getSize().y/2));
+			m_credits.setScale(1,1);
+			
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
@@ -113,6 +121,7 @@ void game::update(float deltaTime)
 		{
 			state = Menu;
 			/*state = ReturnTitle;*/
+			/*state = Credits;*/
 			m_gui->m_title =false;
 		}
 
@@ -247,6 +256,7 @@ void game::update(float deltaTime)
 		
 		break;
 	case Credits:
+
 		break;
 	case Options:
 		break;
@@ -345,6 +355,7 @@ void game::draw()
 
 		break;
 	case Credits:
+		m_viewport->draw(&m_credits);
 		break;
 
 
