@@ -5,8 +5,8 @@ layer	NIMI
 297	HP/score-tekstit ym. tekstit ja play-napit
 296	Flamingo + vihollislintu
 295	Pes‰n p‰‰llimm‰inen taso
-294	pes‰
-291	Veden "l‰pin‰kyvyys-taso"
+294	poikaset
+291	Veden "l‰pin‰kyvyys-taso" + pes‰
 1-290	pick-upit
 
 

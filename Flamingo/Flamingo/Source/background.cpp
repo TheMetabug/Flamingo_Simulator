@@ -5,22 +5,25 @@ using namespace al;
 background::background()				
 {
 	//window = Window;
+	
 
 	m_waterTexture = new texture("ground_water_Background.png");
 	m_water.setTexture(m_waterTexture);
 	m_water.setPosition(vector(1280, 720));
 	m_water.setOrigin(vector(1280, 462));
+	m_water.setLayer(0);
 
 	m_skyTexture = new texture("skyplaceholder.png");
 	m_sky.setTexture(m_skyTexture);
 	m_sky.setPosition(vector(0, 0));
 	m_sky.setOrigin(vector(0, 0));
+	m_sky.setLayer(0);
 
 	m_groundTexture = new texture("water_Opacity.png");
 	m_ground.setTexture(m_groundTexture);
 	m_ground.setPosition(vector(1280, 720));
 	m_ground.setOrigin(vector(1036, 58));
-
+	m_ground.setLayer(0);
 }
 
 background::~background()

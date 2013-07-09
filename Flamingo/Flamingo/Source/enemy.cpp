@@ -18,7 +18,7 @@ enemy::enemy(collision* Collide, gui* Gui)
 	m_sprite->setPosition(vector(m_enemyOrigin.x, m_enemyOrigin.y));
 	m_sprite->setOrigin(vector(128,128));
 	m_sprite->setScale(0.5f);
-	m_sprite->setLayer(8);
+	m_sprite->setLayer(296);
 	
 
 	m_animation = new animation(m_sprite, 4, 256, 256);

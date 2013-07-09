@@ -17,6 +17,7 @@ nest::nest(collision* Collide, gui* Gui)
 	m_flamingonest.setOrigin(vector(m_flamingonest.getSize().x/2,
 		m_flamingonest.getSize().y/2));
 	m_flamingonest.setScale(1,1);
+	m_flamingonest.setLayer(291);
 
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
@@ -52,6 +53,7 @@ nest::nest(collision* Collide, gui* Gui)
 		m_hatchlings[i]->m_sprite->setOrigin(al::vector(	m_hatchlings[i]->m_sprite->getSize().x/2,
 														m_hatchlings[i]->m_sprite->getSize().y/2));
 		m_hatchlings[i]->m_sprite->setScale(0.5f,0.5f);
+		m_hatchlings[i]->m_sprite->setLayer(294);
 
 		//animation
 
