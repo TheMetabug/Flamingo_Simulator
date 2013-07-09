@@ -119,13 +119,13 @@ void flamingo::update(float DeltaTime)
 			if(m_direction.x < 0)
 			{
 				float angle = m_direction.getAngle();
-				m_flamingoHead.setScale(0.5f,0.5f);
+				flip(false);
 				m_headRotate = angle;
 			}
 			else
 			{
 				float angle = (-m_direction).getAngle();
-				m_flamingoHead.setScale(-0.5f,0.5f);
+				flip(true);
 				m_headRotate = angle;
 			}
 		}
@@ -167,6 +167,8 @@ void flamingo::update(float DeltaTime)
 				m_crossHair = m_headOrigin;
 				m_direction = vector(0,0);
 				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+				m_headRotate = 0;
+				flip(false);
 			}
 			else
 			{
@@ -174,6 +176,8 @@ void flamingo::update(float DeltaTime)
 				m_crossHair = m_headOrigin;
 				m_direction = vector(0,0);
 				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+				m_headRotate = 0;
+				flip(false);
 			}
 		}
 		break;
@@ -305,4 +309,13 @@ void flamingo::draw(al::viewport* Viewport)
 		Viewport->draw(&m_neckPieces[i]->m_sprite);
 	Viewport->draw(&m_flamingoHead);
 	Viewport->draw(&m_crosshairSprite);
+}
+
+
+void flamingo::flip(bool HeadFlipped)
+{
+	if (HeadFlipped)
+		m_flamingoHead.setScale(-0.5f,0.5f);
+	else
+		m_flamingoHead.setScale(0.5f,0.5f);
 }

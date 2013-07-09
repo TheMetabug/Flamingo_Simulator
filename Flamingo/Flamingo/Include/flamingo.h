@@ -33,6 +33,8 @@ public:
 	animation *m_headAnimation;
 
 private:
+	void flip(bool HeadFlipped);
+
 	float m_moveTime;
 	al::input* m_input;
 	float m_timer, m_multiplier, m_headRotate;
