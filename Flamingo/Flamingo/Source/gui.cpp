@@ -70,6 +70,7 @@ titleCard::titleCard()
 {
 	m_titlePosition = vector(640, 360);
 	setTexture("titlescreen_Placeholder.png");
+	
 } 
 
 titleCard::~titleCard()
@@ -130,6 +131,9 @@ gui::gui(al::input* Input)
 	m_button = new button("GameButtons.png",vector(300,300),m_input);
 	m_button2 = new button("GameButtons.png",vector(1054,75),m_input);
 	m_button3 = new button("GameButtons.png",vector(908,75),m_input);
+
+
+
 
 	m_font = new font();
 

@@ -48,6 +48,10 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	m_titleCard = new titleCard();
 
+	// opacity
+
+	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
+	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	
 }
 
@@ -103,7 +107,6 @@ void game::update(float deltaTime)
 			{
 				ML_release = false;
 				state = Gamemenu;
-		
 			}
 
 			
@@ -202,8 +205,6 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 		}
 
-		
-
 
 		break;
 	case Pause:
@@ -232,16 +233,12 @@ void game::update(float deltaTime)
 		
 		m_gui->update(deltaTime);
 
-		//if (m_gui->m_button2->isPressed())
-		//{
-			
 			if(m_gui->m_button2->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Play;
 				m_gui->m_Gmenu = false;
 			}
-		//}
 
 
 
@@ -273,10 +270,9 @@ void game::draw()
 
 		break;
 	case Gamemenu:
-
-	case Play:
 	case Pause:
-
+	
+	case Play:
 		// backGround
 		backGround->draw(m_viewport);
 		
@@ -285,7 +281,6 @@ void game::draw()
 
 		// nest
 		flamingonest->draw(m_viewport);
-
 
 		// enemy
 		enemyBird->draw(m_viewport);
@@ -297,6 +292,11 @@ void game::draw()
 
 		flamingoBase->draw(m_viewport);		
 
+		if(m_gui->m_pause == true || m_gui->m_Gmenu == true )
+		{
+			// pauseopacity
+			m_viewport->draw(&m_pauseOpacitySprite);
+		}
 
 		// gui
 		m_gui->draw(m_viewport);
