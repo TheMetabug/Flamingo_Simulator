@@ -576,7 +576,7 @@ void viewport::draw(al::text* Text)
 
 void viewport::renderSprites()
 {
- 	for (int i = 0; i < 1001; ++i)
+ 	for (int i = 0; i < 301; ++i)
 	{
 		for(int j = 0; j < m_spriteLayer[i].size(); ++j)
 		{

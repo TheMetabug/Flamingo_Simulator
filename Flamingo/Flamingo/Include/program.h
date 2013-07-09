@@ -174,7 +174,7 @@ public:
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);
-	/*Layer 0-1000*/
+	/*Layer 0-300*/
 	void setLayer(int Layer);
 
 	vector getPosition();
@@ -208,8 +208,8 @@ public:
 
 private:
 	sf::RenderWindow* m_window;
-	std::vector<sprite*> m_spriteLayer[1001];
-	std::vector<text*> m_textLayer[1001];
+	std::vector<sprite*> m_spriteLayer[301];
+	std::vector<text*> m_textLayer[301];
 };
 
 #pragma endregion
