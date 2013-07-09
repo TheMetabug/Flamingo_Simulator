@@ -10,6 +10,8 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_throwMultiplier = 1.0f;
 	m_moveTime = 0.3f;
 	m_hasFood = false;
+	m_distance = 0;
+	m_maxDistance = 200;
 
 	/////////BODY//////////
 	m_flamingoPosition = vector(980,515);
@@ -47,13 +49,18 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_crosshairSprite.setPosition(m_headOrigin);
 	m_crosshairSprite.setOrigin(vector(25, 25));
 
-	/////////////NECK//////////
-	m_neckTexture = new texture("Flamingo_player_neck.png");
+	////////////ARROW//////////
+	m_arrowTexture = new texture("origonArrow.png");
+	m_arrowSprite.setTexture(m_arrowTexture);
+	m_arrowSprite.setOrigin(vector(m_arrowSprite.getTextureSize().x/2, m_arrowSprite.getTextureSize().y/2));
+	m_arrowSprite.setPosition(m_headOrigin);
+	m_arrowSprite.setLayer(290);
 	
-	
+
 #pragma endregion
 
 	/////////NECK///////
+	m_neckTexture = new texture("Flamingo_player_neck.png");
 
 	int neckPieceCount = 10;
 	for (int i = 0; i < neckPieceCount; ++i)
@@ -61,7 +68,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 
 		m_neckPieces.push_back(new neckPiece());
 		m_neckPieces[i]->m_sprite.setTexture(m_neckTexture);
-		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition + vector(-1*i,-17*i));
+		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition);
 		m_neckPieces[i]->m_sprite.setOrigin(vector(18, 20));
 		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
 		m_neckPieces[i]->m_sprite.setLayer(100);
@@ -116,10 +123,11 @@ void flamingo::update(float DeltaTime)
 			//cant drag head too far away.
 			m_direction = m_mouseStartPos - m_input->getMousePosition();
 
-			float distance = m_direction.getLenght();
-			if (distance > 200)
+			m_distance = m_direction.getLenght();
+			if (m_distance > m_maxDistance)
 			{
-				m_direction /= distance / 200.0f;
+				m_direction /= m_distance / m_maxDistance;
+				m_distance = m_maxDistance;
 			}
 			
 			m_headPosition = m_headOrigin - m_direction;
@@ -148,14 +156,29 @@ void flamingo::update(float DeltaTime)
 				flip(true);
 				m_headRotate = angle;
 			}
+
+#pragma region Arrow
+
+			m_arrowSprite.setColor(
+				(m_distance/m_maxDistance) * 255,
+				(1-(m_distance/m_maxDistance)) * 255,
+				(m_distance/m_maxDistance) * 0 * 255,
+				(m_distance/m_maxDistance * 0.0f + 0.8f) * 255);
+
+			m_arrowSprite.setScale((m_distance*2) / m_arrowSprite.getTextureSize().x,m_distance/m_arrowSprite.getTextureSize().y/4);
+			m_arrowSprite.setRotation(m_direction.getAngle());
+
+#pragma endregion
+
 		}
-		if(!sf::Mouse::isButtonPressed(sf::Mouse::Left)) // head released
+		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
 		{
 			m_timer = 0;
 			m_drag = 2;
 			m_soundLibrary->m_sounds[0]->play();
 			m_headAnimation->ChangeAnimation(2,1,2,15);
 			m_direction = m_crossHair - m_headPosition;
+			m_arrowSprite.setColor(0,0,0,0);
 		}
 		break;
 	case 2: // head released goes to crosshair
@@ -230,6 +253,7 @@ void flamingo::draw(al::viewport* Viewport)
 		Viewport->draw(&m_neckPieces[i]->m_sprite);
 	Viewport->draw(&m_flamingoHead);
 	Viewport->draw(&m_crosshairSprite);
+	Viewport->draw(&m_arrowSprite);
 }
 
 

@@ -37,7 +37,7 @@ private:
 
 	float m_moveTime;
 	al::input* m_input;
-	float m_timer, m_multiplier, m_throwMultiplier, m_headRotate;
+	float m_timer, m_multiplier, m_throwMultiplier, m_headRotate, m_distance, m_maxDistance;
 	bool m_hasFood;
 
 	///////////BODY////////////
@@ -65,10 +65,12 @@ private:
 	al::texture* m_crossTexture;
 	al::texture* m_neckTexture;
 	al::texture* m_bodyTexture;
+	al::texture* m_arrowTexture;
 	al::sprite m_flamingoNeck;
 	al::sprite m_flamingoHead;
 	al::sprite m_crosshairSprite;
 	al::sprite m_flamingoBody;
+	al::sprite m_arrowSprite;
 
 	// sound
 	soundLibrary* m_soundLibrary;
