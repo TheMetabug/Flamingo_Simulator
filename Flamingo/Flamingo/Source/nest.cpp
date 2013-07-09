@@ -185,7 +185,6 @@ void nest::addEgg()
 	m_eggs.back()->setOrigin(vector(width/2, height/2));
 	m_eggs.back()->setScale(0.2f);
 	m_eggs.back()->setLayer(294);
-	m_eggs.back()->set
 
 	for (int i = 0; i < m_eggs.size(); ++i)
 	{
