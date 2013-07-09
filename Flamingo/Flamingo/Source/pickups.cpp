@@ -35,7 +35,7 @@ item::item(al::vector Position, pickup* Pickup)
 	float asdf = m_sprite->getTransformedSize().x;
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()/2,
 		m_sprite->getTransformedSize()/4,true);
-	m_sprite->setLayer(1-296);
+	m_sprite->setLayer(10-290);
 
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
 }

@@ -29,7 +29,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_flamingoBody.setPosition(m_flamingoPosition);
 	m_flamingoBody.setOrigin(vector(10, 100));
 	m_flamingoBody.setScale(0.5f, 0.5f);
-	m_flamingoBody.setLayer(296);
+	m_flamingoBody.setLayer(100);
 
 	////////////HEAD///////////
 	m_headTexture = new texture("Flamingo_player_head_Animation.png");
@@ -37,7 +37,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_flamingoHead.setPosition(m_headOrigin);
 	m_flamingoHead.setOrigin(vector(120, 70));
 	m_flamingoHead.setScale(0.5f, 0.5f);
-	m_flamingoHead.setLayer(296);
+	m_flamingoHead.setLayer(291);
 
 	m_headAnimation = new animation(&m_flamingoHead, 6, 200, 143, false);
 	m_headAnimation->ChangeAnimation(0, 1, 0, 20);
@@ -64,7 +64,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition + vector(-1*i,-17*i));
 		m_neckPieces[i]->m_sprite.setOrigin(vector(18, 20));
 		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
-		m_neckPieces[i]->m_sprite.setLayer(296);
+		m_neckPieces[i]->m_sprite.setLayer(100);
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
 		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI)))/8);

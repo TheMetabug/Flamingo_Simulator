@@ -23,7 +23,7 @@ void button::setTexture(std::string TextureName)
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
 	m_sprite.setScale(1,1);
-	m_sprite.setLayer(298);
+	m_sprite.setLayer(296);
 }
 
 void button::update(float DeltaTime)
