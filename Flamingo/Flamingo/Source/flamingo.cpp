@@ -7,6 +7,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
+	m_throwMultiplier = 1.2f;
 	m_moveTime = 0.3f;
 	m_hasFood = false;
 
@@ -202,7 +203,7 @@ void flamingo::update(float DeltaTime)
 			//cant drag head too far away.
 			float distance = m_direction.getLenght();
 			// crosshair goes opposite direction of the head from the origin
-			m_crossHair = m_headOrigin + vector(m_direction.x * m_multiplier, m_direction.y * m_multiplier);
+			m_crossHair = m_headOrigin + vector(m_direction.x * m_throwMultiplier, m_direction.y * m_throwMultiplier);
 			m_crosshairSprite.setPosition(m_crossHair);
 			//rotate head
  			float angle = m_direction.getAngle();

@@ -180,7 +180,7 @@ void pickups::update(float DeltaTime)
 			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
 			if (m_flamingo->m_drag == 6) // just released
 			{
-				itemList[i]->m_direction = m_flamingo->m_direction * m_flamingo->m_multiplier; // take direction
+				itemList[i]->m_direction = m_flamingo->m_direction * (1+m_flamingo->m_throwMultiplier); // take direction
 				itemList[i]->m_state = 3;
 			}
 			break;

@@ -37,7 +37,7 @@ private:
 
 	float m_moveTime;
 	al::input* m_input;
-	float m_timer, m_multiplier, m_headRotate;
+	float m_timer, m_multiplier, m_throwMultiplier, m_headRotate;
 	bool m_hasFood;
 
 	///////////BODY////////////
