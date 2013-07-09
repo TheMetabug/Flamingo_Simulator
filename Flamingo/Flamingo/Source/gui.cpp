@@ -23,6 +23,7 @@ void button::setTexture(std::string TextureName)
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
 	m_sprite.setScale(1,1);
+	m_sprite.setLayer(298);
 }
 
 void button::update(float DeltaTime)
@@ -70,6 +71,7 @@ titleCard::titleCard()
 {
 	m_titlePosition = vector(640, 360);
 	setTexture("titlescreen_Placeholder.png");
+	
 } 
 
 titleCard::~titleCard()
@@ -131,6 +133,9 @@ gui::gui(al::input* Input)
 	m_button2 = new button("GameButtons.png",vector(1054,75),m_input);
 	m_button3 = new button("GameButtons.png",vector(908,75),m_input);
 
+
+
+
 	m_font = new font();
 
 	m_font->loadFromFile("arial.ttf");
@@ -143,24 +148,31 @@ gui::gui(al::input* Input)
 	Gmenutext = new text("GAME MENU", m_font, 50);
 	SCOREtext = new text("SCORE", m_font,50);
 	
-	
+	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
+
 	HPtext->setColor();
+	HPtext->setLayer(296);
 	
 	SCOREtext->setPosition(vector(0, 50));
 	SCOREtext->setColor();
+	SCOREtext->setLayer(296);
 
 	PAUSEtext->setPosition(vector(640, 360));
 	PAUSEtext->setOrigin(vector(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
 	PAUSEtext->setColor();
+	PAUSEtext->setLayer(298);
 
 	TITLEtext->setPosition(vector(500,550));
 	TITLEtext->setColor();
+	TITLEtext->setLayer(298);
 
 	MENUtext->setPosition (vector(550,100));
 	MENUtext->setColor(255,0,255, 255);
+	MENUtext->setLayer(298);
 
 	Gmenutext->setPosition (vector(550,100));
 	Gmenutext->setColor();
+	Gmenutext->setLayer(298);
 	
 	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 }

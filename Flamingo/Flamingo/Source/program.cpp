@@ -49,12 +49,12 @@ float vector::getAngle()
 	}
 	else
 	{
-	float angle = atan(y/x)*(180.0f/PI);
-	if (x > 0)
-		angle += 180;
-	else if (angle < 0)
-		angle += 360;
-	return angle;
+		float angle = atan(y/x)*(180.0f/PI);
+		if (x > 0)
+			angle += 180;
+		else if (angle < 0)
+			angle += 360;
+		return angle;
 	}
 }
 
@@ -576,7 +576,7 @@ void viewport::draw(al::text* Text)
 
 void viewport::renderSprites()
 {
- 	for (int i = 0; i < 1001; ++i)
+ 	for (int i = 0; i < 301; ++i)
 	{
 		for(int j = 0; j < m_spriteLayer[i].size(); ++j)
 		{

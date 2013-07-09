@@ -81,6 +81,9 @@ private:
 	al::text* Gmenutext;
 	al::text* SCOREtext;
 
+
+
+
 	friend class game;
 };
 

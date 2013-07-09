@@ -70,6 +70,8 @@ private:
 
 	// titleCard
 	titleCard *m_titleCard;
+
+
 	
 
 	//flamingo
@@ -97,6 +99,10 @@ private:
 
 	////sound
 	soundLibrary* m_soundLibrary;
+
+
+	al::texture m_pauseOpacityTexture;
+	al::sprite m_pauseOpacitySprite;
 
 };
 
