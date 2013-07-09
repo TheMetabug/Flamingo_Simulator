@@ -21,6 +21,7 @@ public:
 	al::vector Size;
 	al::vector Origo;
 
+	bool isRound;
 	bool isEnabled;
 
 private:

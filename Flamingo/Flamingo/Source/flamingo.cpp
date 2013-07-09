@@ -91,7 +91,6 @@ flamingo::~flamingo()
 
 void flamingo::update(float DeltaTime)
 {
-	m_bodyToHead = m_flamingoPosition - m_headPosition;
 	m_timer += DeltaTime;
 	//m_headRotate += DeltaTime * 90;
 	
@@ -196,6 +195,8 @@ void flamingo::update(float DeltaTime)
 
 	//////////NECK///////////////
 #pragma region Neck
+
+	m_bodyToHead = m_flamingoPosition - m_headPosition;
 	{
 		float lenght = m_bodyToHead.getLenght();
 		float angle = m_bodyToHead.getAngle();

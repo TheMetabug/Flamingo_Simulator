@@ -8,6 +8,7 @@ hitbox::hitbox(al::vector _Position, al::vector _Size, al::vector _Origo, bool _
 	Size = _Size;
 	isEnabled = _isEnabled;
 	Origo = _Origo;
+	isRound = true;
 
 
 }
@@ -38,6 +39,16 @@ void hitbox::draw(sf::RenderWindow* window)
 		box.setFillColor(sf::Color::Transparent);
 		box.setPosition(hitRect().left, hitRect().top);
 		window->draw(box);
+	}
+	if(isRound)
+	{
+		sf::CircleShape circle;
+		circle.setRadius(hitRect().width/2);
+		circle.setOutlineColor(sf::Color::Blue);
+		circle.setOutlineThickness(3);
+		circle.setFillColor(sf::Color::Transparent);
+		circle.setPosition(hitRect().left, hitRect().top);
+		window->draw(circle);
 	}
 }
 
@@ -160,6 +171,15 @@ bool collision::isCollided(hitbox *hitbox1,hitbox *hitbox2)
 	{
 		if(hitbox1->hitRect().intersects(hitbox2->hitRect()))
 		{
+			if (hitbox1->isRound && hitbox2->isRound)
+			{
+				if ((hitbox1->Position - hitbox2->Position).getLenght() <= ((hitbox1->Size.x + hitbox2->Size.x)/2.0f))
+				{
+					return true;
+				}
+				else
+					return false;
+			}
 			return true;
 		}
 	}
