@@ -116,7 +116,7 @@ public:
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);
-	/*Layer 0-1000*/
+	/*Layer 0-5 game items, 10-290 pickups, 295-300 menu items*/
 	void setLayer(int Layer);
 	//vector getColor(); lets make this later...
 	vector getPosition();
@@ -174,7 +174,7 @@ public:
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);
-	/*Layer 0-300*/
+	/*Layer 0-5 game items, 10-290 pickups, 295-300 menu items*/
 	void setLayer(int Layer);
 
 	vector getPosition();
