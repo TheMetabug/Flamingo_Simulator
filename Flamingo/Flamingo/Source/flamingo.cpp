@@ -80,8 +80,8 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	}
 
 
-	float HBW = m_flamingoHead.getGlobalBounds().width / 2;
-	float HBH = m_flamingoHead.getGlobalBounds().width / 2;
+	float HBW = m_flamingoHead.getGlobalBounds().width * 0.8f;
+	float HBH = m_flamingoHead.getGlobalBounds().width * 0.8f;
 	float HBOX = HBW/2 ;
 	float HBOY = HBH/2 ;
 
