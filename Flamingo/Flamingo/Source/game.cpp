@@ -9,6 +9,8 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	////sound
 	m_soundLibrary = new soundLibrary();
+
+	m_soundLibrary->m_musics[0]->play();
 	
 	// gameStates
 
@@ -237,7 +239,6 @@ void game::update(float deltaTime)
 		//uusi
 		if (m_gui->m_button->isPressed())
 		{
-			m_soundLibrary->m_musics[0]->play();
 			state = Play;
 			m_gui->m_menu = false;
 		}

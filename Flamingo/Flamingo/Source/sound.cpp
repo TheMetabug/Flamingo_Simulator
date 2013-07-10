@@ -9,7 +9,6 @@ music::music(std::string Filename)
 {
 	m_music = new sf::Music();
 	m_music->setLoop(true);
-	m_music->setVolume(10);
 
 	load(Filename);	
 }
@@ -84,7 +83,8 @@ soundLibrary::soundLibrary()
 {
 #pragma region Musics
 
-	m_musics.push_back(new music("whatislove"));
+	m_musics.push_back(new music("version2"));
+	m_musics.push_back(new music("version2"));
 
 #pragma endregion here we keep the musics, dont mix us plz
 //////////////////////////////////////////////////////////DONT MIX THESE//////////////////
