@@ -87,15 +87,20 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 game::~game()
 {
 	std::cout<<"deleted maingame"<<std::endl;
+	delete m_input;
 	delete flamingoBase;
 	delete flamingonest;
 	delete enemyBird;
 	delete backGround;
+	delete m_cloud;
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
 	delete m_titleCard;
 	delete m_soundLibrary;
+	delete m_ReturnTexture;
+	delete m_GmenuTexture;
+	delete m_creditsTexture;
 	
 }
 
