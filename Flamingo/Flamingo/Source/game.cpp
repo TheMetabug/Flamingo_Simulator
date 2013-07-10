@@ -49,7 +49,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	m_titleCard = new titleCard();
 
 		m_ReturnPosition = (vector(640,360));
-			m_ReturnTexture = new texture("yesnoMenu.png");
+			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
 			m_ReturnCheck.setTexture(m_ReturnTexture);
 			m_ReturnCheck.setPosition(m_ReturnPosition);
 			m_ReturnCheck.setOrigin(vector(m_ReturnCheck.getSize().x/2,
@@ -59,7 +59,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			m_ReturnCheck.setLayer(300);
 
 			m_GmenuPosition = (vector(640,360));
-			m_GmenuTexture = new texture("pausemenu.png");
+			m_GmenuTexture = new texture("GameMenu/pausemenu.png");
 			m_GMenu.setTexture(m_GmenuTexture);
 			m_GMenu.setPosition(m_GmenuPosition);
 			m_GMenu.setOrigin(vector(m_GMenu.getSize().x/2,
@@ -78,7 +78,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			
 		// opacity
 
-	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
+	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	m_pauseOpacitySprite.setLayer(298);
 			
