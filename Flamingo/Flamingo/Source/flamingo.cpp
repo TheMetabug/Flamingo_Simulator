@@ -96,6 +96,11 @@ flamingo::~flamingo()
 {
 	std::cout<<"deleted flamingo"<<std::endl;
 	delete m_bodyTexture;
+	delete m_headTexture;
+	delete m_crossTexture;
+	delete m_neckTexture;
+	delete m_arrowTexture;
+	delete m_headAnimation;
 }
 
 void flamingo::update(float DeltaTime)

@@ -48,7 +48,7 @@ namespace pups
 		al::vector m_position;
 		al::vector m_direction;
 		pickup* m_pickup;
-		al::sprite* m_sprite;
+		al::sprite *m_sprite;
 		animation* m_animation;
 		hitbox* m_hitbox;
 		int m_state;
@@ -73,9 +73,9 @@ public:
 
 private:
 	float m_timer;
-	nest* m_nest;
-	enemy* m_enemy;
-	flamingo* m_flamingo;
+	nest *m_nest;
+	enemy *m_enemy;
+	flamingo *m_flamingo;
 	int m_index;
 
 	soundLibrary* m_soundLibrary;
@@ -89,7 +89,7 @@ private:
 	std::vector<pups::pickup*> pickupList;
 	std::vector<pups::item*> itemList;
 
-	al::texture* m_texture;
+	al::texture *m_texture;
 
 	void deleteItem(int i);
 

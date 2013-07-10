@@ -43,6 +43,9 @@ item::item(al::vector Position, pickup* Pickup)
 item::~item()
 {
 	std::cout<<"aaand its gone"<<std::endl;
+	delete m_sprite;
+	delete m_animation;
+	delete m_hitbox;
 }
 
 bool item::update(float DeltaTime)
@@ -135,6 +138,7 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 pickups::~pickups()
 {
 	std::cout<<"deleting pickups"<<std::endl;
+	delete m_texture;
 	for (int i = 0; i < pickupList.size(); ++i)
 	{
 		delete pickupList[i];

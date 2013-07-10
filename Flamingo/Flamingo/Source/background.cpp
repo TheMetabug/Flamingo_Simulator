@@ -30,6 +30,9 @@ background::background()
 background::~background()
 {
 	std::cout<<"deleted background"<<std::endl;
+	delete m_skyTexture;
+	delete m_waterTexture;
+	delete m_opacityTexture;
 }
 
 void background::update(float DeltaTime)
@@ -74,6 +77,12 @@ cloud::cloud()
 cloud::~cloud()
 {
 	std::cout<<"deleted cloud"<<std::endl;
+
+	for (int i = 0; i < m_clouds.size(); ++i)
+		delete m_clouds[i];
+
+	for (int i = 0; i < m_cloudsTexture.size(); ++i)
+		delete m_cloudsTexture[i];
 }
 
 void cloud::update(float DeltaTime)
