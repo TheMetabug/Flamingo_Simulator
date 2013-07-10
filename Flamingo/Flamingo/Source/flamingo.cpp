@@ -41,7 +41,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_flamingoHead.setScale(0.5f, 0.5f);
 	m_flamingoHead.setLayer(291);
 
-	m_headAnimation = new animation(&m_flamingoHead, 6, 200, 143, false);
+	m_headAnimation = new animation(&m_flamingoHead, 6, 214, 143, false);
 	m_headAnimation->ChangeAnimation(0, 1, 0, 20);
 
 	m_crossTexture = new texture("crosshair.png");	
