@@ -23,7 +23,7 @@ void button::setTexture(std::string TextureName)
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
 	m_sprite.setScale(1,1);
-	m_sprite.setLayer(296);
+	/*m_sprite.setLayer(296);*/
 }
 
 void button::update(float DeltaTime)
@@ -127,12 +127,24 @@ gui::gui(al::input* Input)
 	button2 = Listbutton
 	button3 = mute-button*/
 	m_button = new button("buttons/GameButtons.png",vector(300,300),m_input);
+	m_button->m_sprite.setLayer(296);
 	m_button2 = new button("buttons/GameButtons.png",vector(1054,75),m_input);
+	m_button2->m_sprite.setLayer(296);
 	m_button3 = new button("buttons/GameButtons.png",vector(908,75),m_input);
+	m_button3->m_sprite.setLayer(296);
 
 	// GameMenu's buttons
-	m_menubutton1 = new button("GameMenu/ResumeGame.png",vector(908,75),m_input);
-
+	m_Gmenubutton1 = new button("GameMenu/ResumeGame.png",vector(628,331),m_input);
+	m_Gmenubutton1->m_sprite.setLayer(299);
+	
+	m_Gmenubutton2 = new button("GameMenu/Restart.png",vector(628,361),m_input);
+	m_Gmenubutton2->m_sprite.setLayer(299);
+	
+	m_Gmenubutton3 = new button("GameMenu/Options.png",vector(628,391),m_input);
+	m_Gmenubutton3->m_sprite.setLayer(299);
+	
+	m_Gmenubutton4 = new button("GameMenu/ReturnTitle.png",vector(628,421),m_input);
+	m_Gmenubutton4->m_sprite.setLayer(299);
 
 
 
@@ -190,6 +202,10 @@ gui::~gui()
 	delete m_button;
 	delete m_button2;
 	delete m_button3;
+	delete m_Gmenubutton1;
+	delete m_Gmenubutton2;
+	delete m_Gmenubutton3;
+	delete m_Gmenubutton4;
 }
 
 void gui::update(float DeltaTime)
@@ -227,8 +243,14 @@ void gui::update(float DeltaTime)
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
 	}
-		
-
+	
+	if (m_Gmenu)
+	{
+		m_Gmenubutton1->update(DeltaTime);
+		m_Gmenubutton2->update(DeltaTime);
+		m_Gmenubutton3->update(DeltaTime);
+		m_Gmenubutton4->update(DeltaTime);
+	}
 	
 }
 
@@ -237,25 +259,30 @@ void gui::draw(al::viewport* Viewport)
 	
 	
 	if (m_pause)
-	Viewport->draw(PAUSEtext);
+		Viewport->draw(PAUSEtext);
 
 	if (m_title)
-	Viewport->draw(TITLEtext);
+		Viewport->draw(TITLEtext);
 
 	if(m_menu)
 	{
-	Viewport->draw(MENUtext);
-	m_button->draw(Viewport); //button
+		Viewport->draw(MENUtext);
+		m_button->draw(Viewport); //button
 	}
 	
 	
 	if(m_Gmenu)
-	Viewport->draw(Gmenutext);
-
-	
+	{
+		Viewport->draw(Gmenutext);
+		m_Gmenubutton1->draw(Viewport);
+		m_Gmenubutton2->draw(Viewport);
+		m_Gmenubutton3->draw(Viewport);
+		m_Gmenubutton4->draw(Viewport);
+		
+	}
 		
 	
-	if(m_Play)
+	if (m_Play)
 	{
 		m_button2->draw(Viewport); //button2
 		m_button3->draw(Viewport); //button3

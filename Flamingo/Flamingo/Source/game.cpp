@@ -278,7 +278,14 @@ void game::update(float deltaTime)
 				state = Play;
 				m_gui->m_Gmenu = false;
 			}
-
+			
+			if(m_gui->m_Gmenubutton1->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Play;
+				
+				m_gui->m_Gmenu = false;
+			}
 
 
 		break;

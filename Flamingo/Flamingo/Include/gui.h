@@ -69,7 +69,10 @@ public:
 	button* m_button;
 	button* m_button2;
 	button* m_button3;
-	button* m_menubutton1;
+	button* m_Gmenubutton1;
+	button* m_Gmenubutton2;
+	button* m_Gmenubutton3;
+	button* m_Gmenubutton4;
 
 private:
 	al::input* m_input;
