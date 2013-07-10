@@ -24,6 +24,7 @@ background::background()
 	m_waterOpacity.setPosition(vector(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_waterOpacity.setOrigin(vector(m_waterOpacity.getTextureSize()));
 	m_waterOpacity.setLayer(290);
+	m_waterOpacity.setColor(255,255,255, 0.6f * 255);
 }
 
 background::~background()
@@ -36,7 +37,7 @@ void background::update(float DeltaTime)
 	
 }
 
-void background::draw(al::viewport* Viewport)	
+void background::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_sky);
 	Viewport->draw(&m_water);
