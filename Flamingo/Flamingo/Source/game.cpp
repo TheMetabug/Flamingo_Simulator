@@ -50,7 +50,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	m_titleCard = new titleCard();
 
-		m_ReturnPosition = (vector(640,360));
+		m_ReturnPosition = (vector(640,375));
 			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
 			m_ReturnCheck.setTexture(m_ReturnTexture);
 			m_ReturnCheck.setPosition(m_ReturnPosition);
