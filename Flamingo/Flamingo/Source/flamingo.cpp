@@ -154,17 +154,25 @@ void flamingo::update(float DeltaTime)
 			m_crosshairSprite.setPosition(m_crossHair);
 			//rotate head
  			float angle = m_direction.getAngle();
-			if(m_direction.x < 0)
+			if (m_distance > 5)
 			{
-				float angle = m_direction.getAngle();
-				flip(false);
-				m_headRotate = angle;
+				if(m_direction.x < 0)
+				{
+					float angle = m_direction.getAngle();
+					flip(false);
+					m_headRotate = angle;
+				}
+				else
+				{
+					float angle = (-m_direction).getAngle();
+					flip(true);
+					m_headRotate = angle;
+				}
 			}
 			else
 			{
-				float angle = (-m_direction).getAngle();
-				flip(true);
-				m_headRotate = angle;
+				flip(false);
+				m_headRotate = 0;
 			}
 
 			m_arrowSprite.setColor(
