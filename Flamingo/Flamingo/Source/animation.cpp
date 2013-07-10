@@ -13,6 +13,10 @@ animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int Framesi
 	m_flip = Flip;
 	m_timer = 0.0f;
 	setVisibleFrame();
+	if (fmod(Sprite->getTextureSize().x,FramesizeX) != 0)
+		std::cout<<"Check FramesizeX!!!!!!"<<std::endl;
+	if (fmod(Sprite->getTextureSize().y,FramesizeY) != 0)
+		std::cout<<"Check FramesizeY!!!!!!"<<std::endl;
 }
 
 animation::~animation()
@@ -52,7 +56,7 @@ void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int Anim
 void animation::setVisibleFrame()
 {
 	
-	int currentFrameX = m_currentFrame % (int(m_sprite->getTextureSize().x / m_framesizeX)) * m_framesizeX;
+	int currentFrameX = m_currentFrame % ((int)((m_sprite->getTextureSize().x / m_framesizeX)+0.5f)) * m_framesizeX;
 	int currentFrameY = (int)(floor((double)m_currentFrame / ((double)m_sprite->getTextureSize().x / (double)m_framesizeX))) * m_framesizeY;
 	al::rectangle frame = al::rectangle(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY);
 	m_sprite->setTextureRectangle(frame);
