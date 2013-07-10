@@ -61,7 +61,7 @@ sound::~sound()
 
 void sound::load(std::string filename)
 {
-	m_buffer->loadFromFile("Assets/Sounds/" + filename + ".wav");
+	m_buffer->loadFromFile("Assets/Sound effects/" + filename + ".wav");
 	m_soundName = filename;
 }
 void sound::play()
@@ -83,14 +83,29 @@ soundLibrary::soundLibrary()
 {
 #pragma region Musics
 
-	m_musics.push_back(new music("whatislove"));
+	m_musics.push_back(new music("version2"));
+	m_musics.push_back(new music("version2"));
 
 #pragma endregion here we keep the musics, dont mix us plz
 //////////////////////////////////////////////////////////DONT MIX THESE//////////////////
 #pragma region Sounds
 
-	m_sounds.push_back(new sound("boing"));
+	m_sounds.push_back(new sound("bojoing"));
 	m_sounds.push_back(new sound("sound1"));
+	m_sounds.push_back(new sound("kuminauha"));
+	m_sounds.push_back(new sound("kuminauha2_1"));
+	m_sounds.push_back(new sound("button"));
+	m_sounds.push_back(new sound("piip piip"));
+	m_sounds.push_back(new sound("piip piip 2"));
+	m_sounds.push_back(new sound("failure"));
+	m_sounds.push_back(new sound("fail2"));
+	m_sounds.push_back(new sound("mäisk"));
+	m_sounds.push_back(new sound("mäisk2"));
+	m_sounds.push_back(new sound("Energy"));
+	m_sounds.push_back(new sound("iloinen piip piip"));
+	m_sounds.push_back(new sound("kuoriutuminen"));
+	m_sounds.push_back(new sound("kuoriutuminen kaksi"));
+	m_sounds.push_back(new sound("vihainen piipiip"));
 
 #pragma endregion here we keep the sounds, dont mix us plz
 }

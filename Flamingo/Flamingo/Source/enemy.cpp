@@ -39,6 +39,7 @@ enemy::~enemy()
 	delete m_texture;
 	delete m_sprite;
 	delete m_animation;
+	
 }
 
 void enemy::update(float DeltaTime)

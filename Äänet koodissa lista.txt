@@ -1,0 +1,16 @@
+0 - bojoing
+1 - sound1
+2 - kuminauha
+3 - kuminauha2
+4 - button
+5 - piip piip
+6 - piip piip 2
+7 - failure
+8 - fail2
+9 - mäisk
+10 - mäisk2
+11 - Energy
+12 - iloinen piip piip
+13 - kuoriutuminen
+14 - kuoriutuminen kaksi
+15 - vihainen piip piip

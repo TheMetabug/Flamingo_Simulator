@@ -69,6 +69,7 @@ public:
 	button* m_button;
 	button* m_button2;
 	button* m_button3;
+	button* m_menubutton1;
 
 private:
 	al::input* m_input;

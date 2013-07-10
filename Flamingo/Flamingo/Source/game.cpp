@@ -9,6 +9,8 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	////sound
 	m_soundLibrary = new soundLibrary();
+
+	m_soundLibrary->m_musics[0]->play();
 	
 	// gameStates
 
@@ -33,7 +35,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	enemyBird = new enemy(collide, m_gui);
 
 	// pickups
-	m_pickups = new pickups(collide, flamingonest, enemyBird, flamingoBase);
+	m_pickups = new pickups(collide, flamingonest, enemyBird, flamingoBase, m_soundLibrary);
 
 	// backGround
 	backGround = new background();
@@ -49,7 +51,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	m_titleCard = new titleCard();
 
 		m_ReturnPosition = (vector(640,360));
-			m_ReturnTexture = new texture("yesnoMenu.png");
+			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
 			m_ReturnCheck.setTexture(m_ReturnTexture);
 			m_ReturnCheck.setPosition(m_ReturnPosition);
 			m_ReturnCheck.setOrigin(vector(m_ReturnCheck.getSize().x/2,
@@ -59,7 +61,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			m_ReturnCheck.setLayer(300);
 
 			m_GmenuPosition = (vector(640,360));
-			m_GmenuTexture = new texture("pausemenu.png");
+			m_GmenuTexture = new texture("GameMenu/pausemenu.png");
 			m_GMenu.setTexture(m_GmenuTexture);
 			m_GMenu.setPosition(m_GmenuPosition);
 			m_GMenu.setOrigin(vector(m_GMenu.getSize().x/2,
@@ -78,7 +80,7 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			
 		// opacity
 
-	m_pauseOpacityTexture.loadTexture("pauseScreenOpacity.png");
+	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	m_pauseOpacitySprite.setLayer(298);
 			
@@ -87,15 +89,20 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 game::~game()
 {
 	std::cout<<"deleted maingame"<<std::endl;
+	delete m_input;
 	delete flamingoBase;
 	delete flamingonest;
 	delete enemyBird;
 	delete backGround;
+	delete m_cloud;
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
 	delete m_titleCard;
 	delete m_soundLibrary;
+	delete m_ReturnTexture;
+	delete m_GmenuTexture;
+	delete m_creditsTexture;
 	
 }
 
@@ -232,7 +239,6 @@ void game::update(float deltaTime)
 		//uusi
 		if (m_gui->m_button->isPressed())
 		{
-			m_soundLibrary->m_musics[0]->play();
 			state = Play;
 			m_gui->m_menu = false;
 		}

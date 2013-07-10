@@ -45,19 +45,6 @@ private:
 	std::vector<al::vector> m_cloudPositions;
 
 	float m_startPosition_x, m_respawnPosition_x, m_startPosition_y, m_respawnPosition_y;
-
-	al::texture* m_cloudTexture_1;
-	al::sprite m_cloud_1;
-	
-	al::texture* m_cloudTexture_2;
-	al::sprite m_cloud_2;
-
-	al::texture* m_cloudTexture_3;
-	al::sprite m_cloud_3;
-
-	
-
-
 };
 
 #endif

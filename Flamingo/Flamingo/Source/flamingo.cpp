@@ -96,6 +96,11 @@ flamingo::~flamingo()
 {
 	std::cout<<"deleted flamingo"<<std::endl;
 	delete m_bodyTexture;
+	delete m_headTexture;
+	delete m_crossTexture;
+	delete m_neckTexture;
+	delete m_arrowTexture;
+	delete m_headAnimation;
 }
 
 void flamingo::update(float DeltaTime)
@@ -114,14 +119,17 @@ void flamingo::update(float DeltaTime)
 		{
 			m_mouseStartPos = m_input->getMousePosition();
 			m_drag = 1;
-			m_soundLibrary->m_sounds[1]->play();
+			//m_soundLibrary->m_sounds[1]->play();
 			m_headAnimation->ChangeAnimation(1,1,1,15);
+			m_soundLibrary->m_sounds[3]->play();
 		}
 		break;
 	case 1: // head being dragged
 		//m_headPosition = m_headOrigin - m_direction;
 
 		{
+		
+
 			//cant drag head too far away.
 			m_direction = m_mouseStartPos - m_input->getMousePosition();
 

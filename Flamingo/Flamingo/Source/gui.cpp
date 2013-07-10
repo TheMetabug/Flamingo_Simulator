@@ -126,9 +126,12 @@ gui::gui(al::input* Input)
 	/*button = "test" button
 	button2 = Listbutton
 	button3 = mute-button*/
-	m_button = new button("GameButtons.png",vector(300,300),m_input);
-	m_button2 = new button("GameButtons.png",vector(1054,75),m_input);
-	m_button3 = new button("GameButtons.png",vector(908,75),m_input);
+	m_button = new button("buttons/GameButtons.png",vector(300,300),m_input);
+	m_button2 = new button("buttons/GameButtons.png",vector(1054,75),m_input);
+	m_button3 = new button("buttons/GameButtons.png",vector(908,75),m_input);
+
+	// GameMenu's buttons
+	m_menubutton1 = new button("GameMenu/ResumeGame.png",vector(908,75),m_input);
 
 
 
@@ -137,7 +140,7 @@ gui::gui(al::input* Input)
 
 	m_font->loadFromFile("arial.ttf");
 	
-	// add information what each text does
+	
 	HPtext = new text("HP-mittari", m_font, 50);
 	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
 	TITLEtext = new text("Press SPACE",m_font, 50);

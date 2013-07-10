@@ -83,8 +83,16 @@ nest::nest(collision* Collide, gui* Gui)
 nest::~nest()
 {
 	std::cout<<"deleted nest"<<std::endl;
-	//delete Animator;
+	delete m_eggTexture;
+	delete m_hatchlingTexture;
+	delete m_nestTexture;
+	//delete m_theEgg;
+	//delete m_eggAnimation;
+	for (int i = 0; i < m_eggs.size(); ++i)
+		delete m_eggs[i];
+
 }
+
 void nest::update(float DeltaTime)
 {
 	//m_timer += DeltaTime;

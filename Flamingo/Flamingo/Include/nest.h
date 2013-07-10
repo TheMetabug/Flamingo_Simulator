@@ -26,7 +26,7 @@ public:
 	al::vector m_position;
 	al::sprite* m_sprite;
 	hitbox* m_hitbox;
-	animation* m_animation;
+	animation *m_animation;
 	float m_timer;
 	bool m_isThere;
 };
@@ -51,7 +51,6 @@ public:
 	void addEgg();
 
 private:
-	animation	*Animator;
 
 	hitbox		*m_nestHitbox;
 	hitbox		*m_hatchlingHitbox;
@@ -66,13 +65,13 @@ private:
 
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;
-	al::sprite* m_theEgg;
-	animation* m_eggAnimation;
+	al::sprite *m_theEgg;
+	animation *m_eggAnimation;
 
 	al::texture *m_nestTexture;
 	al::sprite	 m_flamingonest;
 
-	al::texture* m_hatchlingTexture;
+	al::texture *m_hatchlingTexture;
 	std::vector<hatchling*> m_hatchlings;
 
 

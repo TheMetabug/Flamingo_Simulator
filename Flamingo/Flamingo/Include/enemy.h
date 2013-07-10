@@ -12,7 +12,6 @@
 class enemy
 {
 public:
-	//enemy(){}
 	enemy(collision* Collide, gui* Gui);
 	~enemy();
 	void update(float DeltaTime);
