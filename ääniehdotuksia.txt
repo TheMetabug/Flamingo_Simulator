@@ -1,0 +1,8 @@
+painikkeet (eri ‰‰net esim. ‰‰ni-asetuksiin)
+vihollisen tyrm‰‰minen
+esineen osuminen viholliseen/poikaseen/pes‰‰n
+poikasen kasvu
+score ‰‰ni(ehk‰ vain tapauksessa kun poikanen kasvaa?)
+?varoitus ‰‰ni kun hp:t putoavat liikaa?
+taso l‰pi?
+spawni ‰‰ni
