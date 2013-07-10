@@ -287,6 +287,28 @@ void game::update(float deltaTime)
 				m_gui->m_Gmenu = false;
 			}
 
+			//Gmenubutton2
+			
+			
+			
+			if(m_gui->m_Gmenubutton3->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Options;
+				
+				
+			}
+
+			
+
+			if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = ReturnTitle;
+				
+				m_gui->m_Gmenu = false;
+			}
+
 
 		break;
 		case ReturnTitle:
