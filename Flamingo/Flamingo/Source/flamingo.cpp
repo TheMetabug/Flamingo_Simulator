@@ -114,14 +114,17 @@ void flamingo::update(float DeltaTime)
 		{
 			m_mouseStartPos = m_input->getMousePosition();
 			m_drag = 1;
-			m_soundLibrary->m_sounds[1]->play();
+			//m_soundLibrary->m_sounds[1]->play();
 			m_headAnimation->ChangeAnimation(1,1,1,15);
+			m_soundLibrary->m_sounds[3]->play();
 		}
 		break;
 	case 1: // head being dragged
 		//m_headPosition = m_headOrigin - m_direction;
 
 		{
+		
+
 			//cant drag head too far away.
 			m_direction = m_mouseStartPos - m_input->getMousePosition();
 

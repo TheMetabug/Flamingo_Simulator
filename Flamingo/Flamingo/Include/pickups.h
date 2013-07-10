@@ -10,6 +10,7 @@
 #include "nest.h"
 #include "enemy.h"
 #include "flamingo.h"
+#include "sound.h"
 
 namespace pups
 {
@@ -63,7 +64,7 @@ class pickups
 
 public:
 	//pickups(){}
-	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo);
+	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary);
 	~pickups();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -76,6 +77,8 @@ private:
 	enemy* m_enemy;
 	flamingo* m_flamingo;
 	int m_index;
+
+	soundLibrary* m_soundLibrary;
 
 
 

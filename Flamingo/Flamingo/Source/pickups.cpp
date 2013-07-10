@@ -113,17 +113,19 @@ void item::stayInWater()
 
 #pragma region Pickups
 
-pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo)
+pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary)
 	: m_collision(Collision),
 	  m_nest(Nest),
 	  m_enemy(Enemy),
 	  m_flamingo(Flamingo),
 	  m_timer(0),
-	  m_index(-1)
+	  m_index(-1),
+	  m_soundLibrary(SoundLibrary) 
 {
 	m_spawnPosition = al::vector(1200,600);
 
 	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
+
 	
 	pickupList.push_back(new pickup(m_texture, Shoe, 0.0f, 20.0f));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 200.0f));
@@ -223,6 +225,7 @@ void pickups::update(float DeltaTime)
 					if(itemList[i]->m_pickup->m_foodValue == 0)
 					{
 						m_nest->happy(DeltaTime);
+						m_soundLibrary->m_sounds[9]->play(); // mäisk
 						itemList[i]->m_state = 5;
 						itemList[i]->m_direction = itemList[i]->m_position - m_enemy->m_enemyBirdPosition;
 					}
@@ -237,9 +240,12 @@ void pickups::update(float DeltaTime)
 				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
 				{
 					deleteItem(i);
+					m_soundLibrary->m_sounds[6]->play();
 				}
 				else
 				{
+					m_soundLibrary->m_sounds[12]->play(); // piip
+					m_soundLibrary->m_sounds[9]->play(); // mäisk
 					itemList[i]->m_state = 5;
 					itemList[i]->m_direction = itemList[i]->m_position - m_nest->m_nestPosition;
 				}
