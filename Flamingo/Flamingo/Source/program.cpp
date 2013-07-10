@@ -571,28 +571,36 @@ viewport::~viewport()
 
 void viewport::draw(al::sprite* Sprite)
 {
-	m_spriteLayer[Sprite->m_layer].push_back(Sprite);
+	m_objects[Sprite->m_layer].push_back(Sprite->m_sprite);
+	//m_spriteLayer[Sprite->m_layer].push_back(Sprite);
 }
 
 void viewport::draw(al::text* Text)
 {
-	m_textLayer[Text->m_layer].push_back(Text);
+	m_objects[Text->m_layer].push_back(Text->m_text);
+	//m_textLayer[Text->m_layer].push_back(Text);
 }
 
 void viewport::renderSprites()
 {
  	for (int i = 0; i < 301; ++i)
 	{
-		for(int j = 0; j < m_spriteLayer[i].size(); ++j)
+		for(int j = 0; j < m_objects[i].size(); ++j)
 		{
-			m_window->draw(*m_spriteLayer[i][j]->m_sprite);
+			m_window->draw(*m_objects[i][j]);
 		}
-		m_spriteLayer[i].clear();
-		for(int j = 0; j < m_textLayer[i].size(); ++j)
-		{
-			m_window->draw(*m_textLayer[i][j]->m_text);
-		}
-		m_textLayer[i].clear();
+		m_objects[i].clear();
+
+		//for(int j = 0; j < m_spriteLayer[i].size(); ++j)
+		//{
+		//	m_window->draw(*m_spriteLayer[i][j]->m_sprite);
+		//}
+		//m_spriteLayer[i].clear();
+		//for(int j = 0; j < m_textLayer[i].size(); ++j)
+		//{
+		//	m_window->draw(*m_textLayer[i][j]->m_text);
+		//}
+		//m_textLayer[i].clear();
 	}
 }
 
