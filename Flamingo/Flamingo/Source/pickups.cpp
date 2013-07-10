@@ -63,6 +63,12 @@ bool item::update(float DeltaTime)
 		if (m_position.y > 1000)
 			return false;
 		break;
+	case 5:
+		m_direction.y += 3;
+		m_position += m_direction * DeltaTime;
+		if (m_position.y > 1000)
+			return false;
+		break;
 	default:
 		break;
 	}
@@ -205,6 +211,7 @@ void pickups::update(float DeltaTime)
 			break;
 
 		case 4: // flying
+			{
 			int c_item = m_collision->HitHatchling(itemList[i]->m_hitbox);
 			switch (c_item)
 			{
@@ -214,17 +221,36 @@ void pickups::update(float DeltaTime)
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
 					
 					if(itemList[i]->m_pickup->m_foodValue == 0)
+					{
 						m_nest->happy(DeltaTime);
+						itemList[i]->m_state = 5;
+						itemList[i]->m_direction = itemList[i]->m_position - m_enemy->m_enemyBirdPosition;
+					}
 					else
+					{
 						m_nest->mad(DeltaTime);
-					deleteItem(i); // delete in the end
+						deleteItem(i);
+					}
 				}
 				break;
 			default:
-				m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue);
-				deleteItem(i); // delete in the end
+				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
+				{
+					deleteItem(i);
+				}
+				else
+				{
+					itemList[i]->m_state = 5;
+					itemList[i]->m_direction = itemList[i]->m_position - m_nest->m_nestPosition;
+				}
 				break;
 			}
+			}
+			break;
+		case 5:
+			break;
+		default:
+			std::cout<<"Undefined item state"<<std::endl;
 			break;
 		}
 

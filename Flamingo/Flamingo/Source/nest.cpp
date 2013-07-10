@@ -138,16 +138,21 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 		{
 			m_hatchlings[Id-1]->m_animation->ChangeAnimation(6,2,6,5);
  			m_gui->SCORE += 100;
+			m_hatchlings[Id-1]->m_timer = 0;
 
 		}
 		else
 		{
 			m_hatchlings[Id-1]->m_animation->ChangeAnimation(2,1,2,5);
 			m_gui->SCORE -= 50;
+			m_hatchlings[Id-1]->m_timer = 0;
+			return false;
 		}
-		m_hatchlings[Id-1]->m_timer = 0;
+
 	}
-	return false;
+	else
+		return false;
+	return true;
 }
 
 void nest::die(float DeltaTime)	
