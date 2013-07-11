@@ -27,14 +27,13 @@ public:
 	al::sprite* m_sprite;
 	hitbox* m_hitbox;
 	animation *m_animation;
-	float m_timer;
+	float m_timer, m_eatPoints;
 	bool m_isThere;
 };
 
 class nest
 {
 public:
-	//nest(){}
 	nest(collision* Collide, gui* Gui);
 	~nest();
 	void update(float DeltaTime);
@@ -44,7 +43,7 @@ public:
 	void sleep(float DeltaTime);
 	bool eat(float DeltaTime, int Id, float foodValue);
 	void die(float DeltaTime);
-	void fly(float DeltaTime);
+	void fly(float DeltaTime, int Id);
 	void mad(float DeltaTime);
 	void happy(float DeltaTime);
 
@@ -55,7 +54,8 @@ private:
 	hitbox		*m_nestHitbox;
 	hitbox		*m_hatchlingHitbox;
 
-	al::vector	m_nestPosition, 
+	al::vector	m_nestPosition,
+				m_nestPositionFront, 
 				m_nestOrigin,
 				m_hatchlingPosition_1,
 				m_hatchlingPosition_2,
@@ -65,16 +65,23 @@ private:
 
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;
+
 	al::sprite *m_theEgg;
 	animation *m_eggAnimation;
 
 	al::texture *m_nestTexture;
 	al::sprite	 m_flamingonest;
 
+	al::sprite	 m_flamingonestFront;
+
 	al::texture *m_hatchlingTexture;
 	std::vector<hatchling*> m_hatchlings;
 
+	al::texture *m_hatchlingFlyTexture;
+	al::sprite *m_hatchlingFly;
+	animation *m_hatchlingFlyAnimation;
 
+	int m_eggCount;
 	float m_hatchlingRotation, m_timer, m_eggTimer;
 	bool m_isAlive;
 	

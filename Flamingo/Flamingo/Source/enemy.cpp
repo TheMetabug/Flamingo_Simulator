@@ -88,7 +88,7 @@ void enemy::draw(al::viewport* Viewport)
 
 void enemy::eat(float foodValue, vector itemDirection)
 {
-	if(foodValue == 0) // when boot hits enemy
+	if(foodValue <= 0) // when boot hits enemy
 	{
 		m_birdPhase = 1;
 		m_direction = itemDirection;

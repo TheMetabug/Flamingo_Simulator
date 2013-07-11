@@ -130,7 +130,7 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
 
 	
-	pickupList.push_back(new pickup(m_texture, Shoe, 0.0f, 20.0f));
+	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 20.0f));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 200.0f));
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 60.0f));
 }
@@ -226,7 +226,7 @@ void pickups::update(float DeltaTime)
 				{
 					m_enemy->eat(itemList[i]->m_pickup->m_foodValue, itemList[i]->m_direction);
 					
-					if(itemList[i]->m_pickup->m_foodValue == 0)
+					if(itemList[i]->m_pickup->m_foodValue <= 0)
 					{
 						m_nest->happy(DeltaTime);
 						m_soundLibrary->m_sounds[9]->play(); // mäisk
@@ -248,7 +248,9 @@ void pickups::update(float DeltaTime)
 				}
 				else
 				{
-					m_soundLibrary->m_sounds[12]->play(); // piip
+					if(itemList[i]->m_pickup->m_foodValue <= 0)
+						m_soundLibrary->m_sounds[12]->play(); // piip
+
 					m_soundLibrary->m_sounds[9]->play(); // mäisk
 					itemList[i]->m_state = 5;
 					itemList[i]->m_direction = itemList[i]->m_position - m_nest->m_nestPosition;
