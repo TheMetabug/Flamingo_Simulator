@@ -337,12 +337,12 @@ void sprite::setScale(vector Scale)
 }
 void sprite::setLayer(int Layer)
 {
-	if (Layer >= 0 && Layer <= 1000)
+	if (Layer >= 0 && Layer <= LAYER_COUNT)
 		m_layer = Layer;
 	else if (Layer < 0)
 		m_layer = 0;
-	else if (Layer > 1000)
-		m_layer = 1000;
+	else if (Layer > LAYER_COUNT)
+		m_layer = LAYER_COUNT;
 }
 //vector sprite::getColor()
 //{
@@ -582,7 +582,7 @@ void viewport::draw(al::text* Text)
 
 void viewport::renderSprites()
 {
- 	for (int i = 0; i < 301; ++i)
+ 	for (int i = 0; i < LAYER_COUNT + 1; ++i)
 	{
 		for(int j = 0; j < m_objects[i].size(); ++j)
 		{

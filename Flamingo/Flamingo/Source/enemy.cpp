@@ -100,7 +100,7 @@ void enemy::eat(float foodValue, vector itemDirection)
 	{
 		m_animation->ChangeAnimation(4,2,4,10);
 		m_birdPhase = 3;
-		m_gui->SCORE -= 9000;
+		m_gui->SCORE -= 100;
 	}
 }
 

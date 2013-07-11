@@ -6,7 +6,7 @@
 #define WATERR 900
 #define WATER_LEFT 400
 #define WATER_RIGHT 1240
-#define WATER_TOP 460
+#define WATER_TOP 430
 #define WATER_BOTTOM 680
 
 using namespace pups;
@@ -14,11 +14,13 @@ using namespace al;
 
 
 #pragma region Pickup
-pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed):
+pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity):
 	m_texture(Texture),
 	m_itemName(itemName),
 	m_foodValue(FoodValue),
-	m_speed(Speed)
+	m_speed(Speed),
+	m_scale(Scale),
+	m_opacity(Opacity)
 {
 }
 
@@ -39,13 +41,14 @@ item::item(al::vector Position, pickup* Pickup)
 	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
-	m_sprite->setScale(0.35f,0.35f);
+	m_sprite->setScale(m_pickup->m_scale);
 	float hitboxSize = 0.9f;
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
 		m_sprite->getTransformedSize()*hitboxSize/2,true);
 	m_sprite->setLayer(10-290);
 
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
+	m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
 }
 
 item::~item()
@@ -64,19 +67,33 @@ bool item::update(float DeltaTime)
 		m_position += m_direction * DeltaTime * m_pickup->m_speed;
 
 		stayInWater();
+		{
+			int layer = ((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 10;
+			//if (layer < 40 || layer > 280)
+			//	std::cout<<layer<<std::endl;
+
+			m_sprite->setLayer(layer);
+			m_sprite->setScale(m_pickup->m_scale * (0.7f + layer / 600.0f));
+			m_sprite->setPosition(m_position);
+		}
 		break;
 	case 1:
+		m_sprite->setScale(m_pickup->m_scale);
 		m_direction = vector(0,0);
+		m_sprite->setPosition(m_position);
+		m_sprite->setColor(255,255,255,255);
 		break;
 	case 4:
-		m_direction.y += 3;
+		m_direction.y += 1000*DeltaTime;
 		m_position += m_direction * DeltaTime;
+		m_sprite->setPosition(m_position);
 		if (m_position.y > 1000)
 			return false;
 		break;
 	case 5:
-		m_direction.y += 3;
+		m_direction.y += 1000*DeltaTime;
 		m_position += m_direction * DeltaTime;
+		m_sprite->setPosition(m_position);
 		if (m_position.y > 1000)
 			return false;
 		break;
@@ -100,13 +117,8 @@ void item::stayInWater()
 	vector direction(m_position - vector(WATERX,WATERY));
 	if (direction.getLenght() > WATERR)
 	{
-		float asdf = m_direction.getAngle();
-		float zxcv = direction.getAngle();
-		float qwer = 180 - 2*(asdf-zxcv);
-
 		m_direction.rotate(180 - 2*(m_direction.getAngle() - direction.getAngle()));
 		m_position += (1-(direction.getLenght() / WATERR)) * direction;
-		//m_direction.rotate direction.getAngle() + 180 
 	}
 
 	float left = WATER_LEFT;
@@ -118,7 +130,8 @@ void item::stayInWater()
 		m_direction.x = -m_direction.x;
 		m_position.x = WATER_LEFT;
 	}
-	else if (m_position.x > WATER_RIGHT)
+	else 
+		if (m_position.x > WATER_RIGHT)
 	{
 		m_direction.x = -m_direction.x;
 		m_position.x = WATER_RIGHT;
@@ -155,9 +168,9 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
 
 	
-	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 20.0f));
-	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 200.0f));
-	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 60.0f));
+	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 1));
+	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.9));
+	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75));
 }
 
 pickups::~pickups()
@@ -351,8 +364,34 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 	water.setOutlineThickness(3);
 	water.setFillColor(sf::Color::Transparent);
 	water.setPosition(WATERX - WATERR,WATERY - WATERR);
-
 	window->draw(water);
+	
+	sf::RectangleShape LeftLine;
+		LeftLine.setSize(sf::Vector2f(2,WATER_BOTTOM-WATER_TOP));
+		LeftLine.setPosition(sf::Vector2f(WATER_LEFT-1,WATER_TOP));
+		LeftLine.setFillColor(sf::Color::Red);
+		window->draw(LeftLine);
+	sf::RectangleShape RightLine;
+		RightLine.setSize(sf::Vector2f(2,WATER_BOTTOM-WATER_TOP));
+		RightLine.setPosition(sf::Vector2f(WATER_RIGHT-1,WATER_TOP));
+		RightLine.setFillColor(sf::Color::Red);
+		window->draw(RightLine);
+	sf::RectangleShape TopLine;
+		TopLine.setSize(sf::Vector2f(WATER_RIGHT-WATER_LEFT,2));
+		TopLine.setPosition(sf::Vector2f(WATER_LEFT,WATER_TOP-1));
+		TopLine.setFillColor(sf::Color::Red);
+		window->draw(TopLine);
+	sf::RectangleShape BottomLine;
+		BottomLine.setSize(sf::Vector2f(WATER_RIGHT-WATER_LEFT,2));
+		BottomLine.setPosition(sf::Vector2f(WATER_LEFT,WATER_BOTTOM-1));
+		BottomLine.setFillColor(sf::Color::Red);
+		window->draw(BottomLine);
+	//sf::IntRect left(WATER_LEFT-1,0,2,WINDOW_HEIGHT);
+	//sf::IntRect right(WATER_RIGHT-1,0,2,WINDOW_HEIGHT);
+	//sf::IntRect top(0,WATER_TOP-1,WINDOW_WIDTH,2);
+	//sf::IntRect bottom(0,WATER_BOTTOM-1,WINDOW_WIDTH,2);
+
+	
 }
 
 void pickups::deleteItem(int i)

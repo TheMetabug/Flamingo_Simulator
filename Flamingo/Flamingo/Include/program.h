@@ -2,6 +2,7 @@
 #define PROGRAM_H
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+#define LAYER_COUNT 300
 #define PI 3.14159265358979323846264
 
 #include <SFML/Graphics.hpp>
@@ -210,7 +211,7 @@ public:
 
 private:
 	sf::RenderWindow* m_window;
-	std::vector<sf::Drawable*> m_objects[301];
+	std::vector<sf::Drawable*> m_objects[LAYER_COUNT + 1];
 };
 
 #pragma endregion

@@ -155,11 +155,6 @@ void nest::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_flamingonest);
 
-	for (int i = m_eggs.size()-1; i >= 0; --i)
-		Viewport->draw(m_eggs[i]);
-
-	Viewport->draw(m_theEgg);
-
 	Viewport->draw(m_hatchlingFly);
 
 	for (int i = 0; i < m_hatchlings.size(); ++i)
@@ -167,6 +162,11 @@ void nest::draw(al::viewport* Viewport)
 		if (m_hatchlings[i]->m_isThere)
 			Viewport->draw(m_hatchlings[i]->m_sprite);
 	}
+
+	for (int i = m_eggs.size()-1; i >= 0; --i)
+		Viewport->draw(m_eggs[i]);
+
+	Viewport->draw(m_theEgg);
 	
 	Viewport->draw(&m_flamingonestFront);
 	

@@ -25,12 +25,14 @@ namespace pups
 	class pickup
 	{
 	public:
-		pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed);
+		pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity);
 		~pickup();
 		al::texture* m_texture;
 		ItemName m_itemName;
 		float m_foodValue;
 		float m_speed;
+		float m_scale;
+		float m_opacity;
 	};
 
 
