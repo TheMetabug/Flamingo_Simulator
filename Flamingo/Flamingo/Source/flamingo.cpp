@@ -31,7 +31,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_flamingoBody.setPosition(m_flamingoPosition);
 	m_flamingoBody.setOrigin(vector(10, 100));
 	m_flamingoBody.setScale(0.5f, 0.5f);
-	m_flamingoBody.setLayer(100);
+	m_flamingoBody.setLayer(220);
 
 	////////////HEAD///////////
 	m_headTexture = new texture("Flamingo_player_head_Animation.png");
@@ -77,6 +77,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
 		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI)))/8);
+		m_neckPieces[i]->m_turnedPositionMultiplier = vector(place,(sin(float(place * -1 * PI)))/3);
 	}
 
 
@@ -115,7 +116,7 @@ void flamingo::update(float DeltaTime)
 	case 0: // head in origin
 		m_headPosition = m_headOrigin;
 		if (m_input->isButtonPressed(al::Button::MouseLeft) &&
-			(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 50 )
+			(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 100 )
 		{
 			m_mouseStartPos = m_input->getMousePosition();
 			m_drag = 1;
@@ -158,13 +159,13 @@ void flamingo::update(float DeltaTime)
 			{
 				if(m_direction.x < 0)
 				{
-					float angle = (-m_direction).getAngle();
+					angle = (-m_direction).getAngle();
 					flip(false);
 					m_headRotate = angle;
 				}
 				else
 				{
-					float angle = m_direction.getAngle();
+					angle = m_direction.getAngle();
 					flip(true);
 					m_headRotate = angle;
 				}
@@ -187,12 +188,24 @@ void flamingo::update(float DeltaTime)
 		}
 		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
 		{
-			m_timer = 0;
-			m_drag = 2;
-			m_soundLibrary->m_sounds[0]->play();
-			m_headAnimation->ChangeAnimation(2,1,2,15);
-			m_direction = m_crossHair - m_headPosition;
-			m_arrowSprite.setColor(0,0,0,0);
+			if (m_direction.getLenght()>15)
+			{
+				m_timer = 0;
+				m_drag = 2;
+				m_soundLibrary->m_sounds[0]->play();
+				m_headAnimation->ChangeAnimation(2,1,2,15);
+				m_direction = m_crossHair - m_headPosition;
+				m_arrowSprite.setColor(0,0,0,0);
+			}
+			else
+			{
+				m_drag = 0;
+				m_crossHair = m_headOrigin;
+				m_direction = vector(0,0);
+				m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+				m_headRotate = 0;
+				flip(false);
+			}
 		}
 		break;
 	case 2: // head released goes to crosshair
@@ -237,10 +250,25 @@ void flamingo::update(float DeltaTime)
 	{
 		float lenght = m_bodyToHead.getLenght();
 		float angle = m_bodyToHead.getAngle();
-		
+		float turn = 0;
+		if ((m_direction.x > 0 && (m_drag == 1 || m_drag == 2)) || (m_direction.x < 0 && m_drag == 3))
+		{
+			if (m_headRotate > 180)
+				turn = 360 - m_headRotate;
+			else
+				turn = m_headRotate;
+			std::cout<<turn<<", ";
+			turn = 1 - (turn / 90.0f);
+			std::cout<<turn<<", "<<std::endl;
+		}
+
+
 		for (int i = 0; i < m_neckPieces.size(); ++i)
 		{
-			m_neckPieces[i]->m_positionRelative = m_neckPieces[i]->m_positionMultiplier * lenght;
+			m_neckPieces[i]->m_positionRelative = 
+				(m_neckPieces[i]->m_positionMultiplier * (1-turn) +
+				m_neckPieces[i]->m_turnedPositionMultiplier * turn)
+				* lenght;
 			m_neckPieces[i]->m_positionRelative.rotate(angle);
 			m_neckPieces[i]->m_sprite.setPosition(m_neckPieces[i]->m_positionRelative + m_flamingoPosition);
 		}

@@ -17,7 +17,7 @@ public:
 	~neckPiece();
 	
 	al::sprite m_sprite;
-	al::vector m_positionMultiplier, m_positionRelative;
+	al::vector m_positionMultiplier, m_positionRelative, m_turnedPositionMultiplier;
 	
 };
 
