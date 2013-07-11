@@ -27,7 +27,7 @@ public:
 	 //flamingo(){}
 	 flamingo(soundLibrary* SoundLibrary, collision* Collide, al::input* Input);
 	~flamingo();
-	void update(float DeltaTime);
+	void update(float DeltaTime, bool MLPressed);
 	void draw(al::viewport* Viewport);
 	
 	animation *m_headAnimation;

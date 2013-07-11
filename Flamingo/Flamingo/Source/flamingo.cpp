@@ -104,7 +104,7 @@ flamingo::~flamingo()
 	delete m_headAnimation;
 }
 
-void flamingo::update(float DeltaTime)
+void flamingo::update(float DeltaTime, bool MLPressed)
 {
 	m_timer += DeltaTime;
 	//m_headRotate += DeltaTime * 90;
@@ -115,7 +115,7 @@ void flamingo::update(float DeltaTime)
 	{
 	case 0: // head in origin
 		m_headPosition = m_headOrigin;
-		if (m_input->isButtonPressed(al::Button::MouseLeft) &&
+		if (MLPressed &&
 			(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 100 )
 		{
 			m_mouseStartPos = m_input->getMousePosition();
@@ -186,7 +186,7 @@ void flamingo::update(float DeltaTime)
 			m_arrowSprite.setRotation((-m_direction).getAngle());
 
 		}
-		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
+		if(!MLPressed) // head released
 		{
 			if (m_direction.getLenght()>15)
 			{

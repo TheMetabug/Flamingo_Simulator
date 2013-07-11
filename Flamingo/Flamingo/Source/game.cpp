@@ -130,7 +130,6 @@ void game::update(float deltaTime)
 
 	switch(state)
 	{
-	
 
 	case TitleScreen:
 		// gui
@@ -145,7 +144,6 @@ void game::update(float deltaTime)
 			/*state = Credits;*/
 			m_gui->m_title =false;
 		}
-
 	
 		break;
 	
@@ -161,10 +159,14 @@ void game::update(float deltaTime)
 				ML_release = false;
 				state = Gamemenu;
 			}
-
-			if(m_gui->m_button3->isPressed() && ML_release)
+			else if(m_gui->m_button3->isPressed() && ML_release)
 			{
+				ML_release = false;
 				m_soundLibrary->m_musics[0]->play();
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
 			}
 			
 
@@ -190,7 +192,7 @@ void game::update(float deltaTime)
 		// hitbox
 
 		//flamingo
-		flamingoBase->update(deltaTime);
+		flamingoBase->update(deltaTime, !ML_release);
 
 		// nest
 		flamingonest->update(deltaTime);
@@ -286,17 +288,21 @@ void game::update(float deltaTime)
 		m_gui->m_Options = true;	
 		m_gui->update(deltaTime);
 
-		if(m_gui->m_backbutton->isPressed() && ML_release)
+			if(m_gui->m_backbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Gamemenu;
 				m_gui->m_Options = false;
 			}
-		if(m_gui->m_applybutton->isPressed() && ML_release)
+			else if(m_gui->m_applybutton->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Gamemenu;
 				m_gui->m_Options = false;
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
 			}
 
 			
@@ -314,36 +320,28 @@ void game::update(float deltaTime)
 				state = Play;
 				m_gui->m_Gmenu = false;
 			}
-			
-			if(m_gui->m_Gmenubutton1->isPressed() && ML_release)
+			else if(m_gui->m_Gmenubutton1->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Play;
 				
 				m_gui->m_Gmenu = false;
 			}
-
-			//Gmenubutton2
-			
-			
-			
-			if(m_gui->m_Gmenubutton3->isPressed() && ML_release)
+			else if(m_gui->m_Gmenubutton3->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Options;
 				m_gui->m_Gmenu = false;
-				
-				
 			}
-
-			
-
-			if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
+			else if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = ReturnTitle;
-				
 				m_gui->m_Gmenu = false;
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
 			}
 
 
@@ -359,13 +357,16 @@ void game::update(float deltaTime)
 				
 				m_gui->m_returnTitle = false;
 			}
-		
-			if(m_gui->m_nobutton->isPressed() && ML_release)
+			else if(m_gui->m_nobutton->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Gamemenu;
 				
 				m_gui->m_returnTitle = false;
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
 			}
 		break;
 	}
