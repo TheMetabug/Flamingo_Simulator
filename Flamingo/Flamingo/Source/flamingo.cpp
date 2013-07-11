@@ -158,13 +158,13 @@ void flamingo::update(float DeltaTime)
 			{
 				if(m_direction.x < 0)
 				{
-					float angle = m_direction.getAngle();
+					float angle = (-m_direction).getAngle();
 					flip(false);
 					m_headRotate = angle;
 				}
 				else
 				{
-					float angle = (-m_direction).getAngle();
+					float angle = m_direction.getAngle();
 					flip(true);
 					m_headRotate = angle;
 				}
@@ -182,7 +182,7 @@ void flamingo::update(float DeltaTime)
 				(m_distance/m_maxDistance * 0.0f + 0.8f) * 255);
 
 			m_arrowSprite.setScale((m_distance*2) / m_arrowSprite.getTextureSize().x,m_distance/m_arrowSprite.getTextureSize().y/4);
-			m_arrowSprite.setRotation(m_direction.getAngle());
+			m_arrowSprite.setRotation((-m_direction).getAngle());
 
 		}
 		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
@@ -233,7 +233,7 @@ void flamingo::update(float DeltaTime)
 	//////////NECK///////////////
 #pragma region Neck
 
-	m_bodyToHead = m_flamingoPosition - m_headPosition;
+	m_bodyToHead =  m_headPosition - m_flamingoPosition;
 	{
 		float lenght = m_bodyToHead.getLenght();
 		float angle = m_bodyToHead.getAngle();

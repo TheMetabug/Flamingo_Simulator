@@ -211,8 +211,6 @@ public:
 private:
 	sf::RenderWindow* m_window;
 	std::vector<sf::Drawable*> m_objects[301];
-	//std::vector<sprite*> m_spriteLayer[301];
-	//std::vector<text*> m_textLayer[301];
 };
 
 #pragma endregion

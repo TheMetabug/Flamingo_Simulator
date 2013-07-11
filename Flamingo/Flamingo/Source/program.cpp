@@ -43,14 +43,14 @@ float vector::getAngle()
 {
 	if (x == 0)
 	{
-		if (y < 0)
+		if (y > 0)
 			return 90;
 		return 270;
 	}
 	else
 	{
 		float angle = atan(y/x)*(180.0f/PI);
-		if (x > 0)
+		if (x < 0)
 			angle += 180;
 		else if (angle < 0)
 			angle += 360;
@@ -60,6 +60,7 @@ float vector::getAngle()
 
 void vector::rotate(float Degrees)
 {
+	Degrees = fmod(Degrees,360);
 	sf::Transform transform;
 	transform.rotate(Degrees);
 	vector rotated = transform.transformPoint(x,y);
@@ -572,13 +573,11 @@ viewport::~viewport()
 void viewport::draw(al::sprite* Sprite)
 {
 	m_objects[Sprite->m_layer].push_back(Sprite->m_sprite);
-	//m_spriteLayer[Sprite->m_layer].push_back(Sprite);
 }
 
 void viewport::draw(al::text* Text)
 {
 	m_objects[Text->m_layer].push_back(Text->m_text);
-	//m_textLayer[Text->m_layer].push_back(Text);
 }
 
 void viewport::renderSprites()
@@ -590,17 +589,6 @@ void viewport::renderSprites()
 			m_window->draw(*m_objects[i][j]);
 		}
 		m_objects[i].clear();
-
-		//for(int j = 0; j < m_spriteLayer[i].size(); ++j)
-		//{
-		//	m_window->draw(*m_spriteLayer[i][j]->m_sprite);
-		//}
-		//m_spriteLayer[i].clear();
-		//for(int j = 0; j < m_textLayer[i].size(); ++j)
-		//{
-		//	m_window->draw(*m_textLayer[i][j]->m_text);
-		//}
-		//m_textLayer[i].clear();
 	}
 }
 
