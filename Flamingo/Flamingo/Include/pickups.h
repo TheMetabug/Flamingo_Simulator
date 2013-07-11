@@ -72,6 +72,8 @@ public:
 	
 
 private:
+	void deleteItem(int i);
+
 	float m_timer;
 	nest *m_nest;
 	enemy *m_enemy;
@@ -91,7 +93,6 @@ private:
 
 	al::texture *m_texture;
 
-	void deleteItem(int i);
 
 };
 

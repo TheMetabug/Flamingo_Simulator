@@ -1,6 +1,14 @@
 #include "pickups.h"
 #include <time.h>
 
+#define WATERX 900
+#define WATERY 1350
+#define WATERR 900
+#define WATER_LEFT 400
+#define WATER_RIGHT 1240
+#define WATER_TOP 460
+#define WATER_BOTTOM 680
+
 using namespace pups;
 using namespace al;
 
@@ -89,27 +97,44 @@ void item::draw(al::viewport* Viewport)
 
 void item::stayInWater()
 {
-	float left = 450, right = 1280, top = 500, bottom = 720;
-	if (m_position.x < left)
+	vector direction(m_position - vector(WATERX,WATERY));
+	if (direction.getLenght() > WATERR)
+	{
+		float asdf = m_direction.getAngle();
+		float zxcv = direction.getAngle();
+		float qwer = 180 - 2*(asdf-zxcv);
+
+		m_direction.rotate(180 - 2*(m_direction.getAngle() - direction.getAngle()));
+		m_position += (1-(direction.getLenght() / WATERR)) * direction;
+		//m_direction.rotate direction.getAngle() + 180 
+	}
+
+	float left = WATER_LEFT;
+	float right = WATER_RIGHT;
+	//float top = WATER_TOP;
+	float bottom = WATER_BOTTOM;
+	if (m_position.x < WATER_LEFT)
 	{
 		m_direction.x = -m_direction.x;
-		m_position.x = left;
+		m_position.x = WATER_LEFT;
 	}
-	else if (m_position.x > right)
+	else if (m_position.x > WATER_RIGHT)
 	{
 		m_direction.x = -m_direction.x;
-		m_position.x = right;
+		m_position.x = WATER_RIGHT;
 	}
-	if (m_position.y < top)
+	//if (m_position.y < top)
+	//{
+	//	m_direction.y = -m_direction.y;
+	//	m_position.y = top;
+	//}
+	//else 
+		if (m_position.y > WATER_BOTTOM)
 	{
 		m_direction.y = -m_direction.y;
-		m_position.y = top;
+		m_position.y = WATER_BOTTOM;
 	}
-	else if (m_position.y > bottom)
-	{
-		m_direction.y = -m_direction.y;
-		m_position.y = bottom;
-	}
+
 }
 
 #pragma endregion
@@ -318,6 +343,16 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 	{
 		itemList[i]->m_hitbox->draw(window);
 	}
+
+	sf::CircleShape water;
+	water.setPointCount(100);
+	water.setRadius(WATERR);
+	water.setOutlineColor(sf::Color::Red);
+	water.setOutlineThickness(3);
+	water.setFillColor(sf::Color::Transparent);
+	water.setPosition(WATERX - WATERR,WATERY - WATERR);
+
+	window->draw(water);
 }
 
 void pickups::deleteItem(int i)
