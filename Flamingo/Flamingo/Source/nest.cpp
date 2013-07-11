@@ -5,7 +5,7 @@ using namespace al;
 nest::nest(collision* Collide, gui* Gui)
 {
 	///// nest //////
-	m_nestPosition = vector(120, 550);
+	m_nestPosition = vector(95, 535);
 	m_eggPosition = m_nestPosition + vector(0,60);
 	m_eggVector = vector(-80,-30);
 
