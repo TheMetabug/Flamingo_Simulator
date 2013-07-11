@@ -76,9 +76,12 @@ public:
 	button* m_Gmenubutton2;
 	button* m_Gmenubutton3;
 	button* m_Gmenubutton4;
-
+	 
 	button* m_yesbutton;
 	button* m_nobutton;
+
+	button* m_backbutton;
+	button* m_applybutton;
 
 
 private:

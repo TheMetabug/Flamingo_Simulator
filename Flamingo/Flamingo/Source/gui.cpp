@@ -151,8 +151,14 @@ gui::gui(al::input* Input)
 	m_yesbutton = new button("GameMenu/yesButton.png",vector(580,375),m_input);
 	m_yesbutton->m_sprite.setLayer(300);
 
-	m_nobutton= new button("GameMenu/noButton.png",vector(687,375),m_input);
+	m_nobutton = new button("GameMenu/noButton.png",vector(687,375),m_input);
 	m_nobutton->m_sprite.setLayer(300);
+
+	m_backbutton = new button("OptionsMenu/Back.png",vector(575,450),m_input);
+	m_backbutton->m_sprite.setLayer(300);
+
+	m_applybutton = new button("OptionsMenu/Apply.png",vector(700,450),m_input);
+	m_applybutton->m_sprite.setLayer(300);
 
 
 	m_font = new font();
@@ -215,6 +221,8 @@ gui::~gui()
 	delete m_Gmenubutton4;
 	delete m_yesbutton;
 	delete m_nobutton;
+	delete m_backbutton;
+	delete m_applybutton;
 }
 
 void gui::update(float DeltaTime)
@@ -241,6 +249,13 @@ void gui::update(float DeltaTime)
 	}
 	else
 		HPtext->setString("");	
+
+	if (m_Options)
+	{
+		m_backbutton->update(DeltaTime);
+		m_applybutton->update(DeltaTime);
+
+	}
 
 	if (m_returnTitle)
 	{
@@ -298,6 +313,12 @@ void gui::draw(al::viewport* Viewport)
 	{
 		m_yesbutton->draw(Viewport);
 		m_nobutton->draw(Viewport);
+	}
+
+	if (m_Options)
+	{
+		m_backbutton->draw(Viewport);
+		m_applybutton->draw(Viewport);
 	}
 		
 	

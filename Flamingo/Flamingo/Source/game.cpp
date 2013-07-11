@@ -285,6 +285,20 @@ void game::update(float deltaTime)
 	case Options:
 		m_gui->m_Options = true;	
 		m_gui->update(deltaTime);
+
+		if(m_gui->m_backbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Gamemenu;
+				m_gui->m_Options = false;
+			}
+		if(m_gui->m_applybutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Gamemenu;
+				m_gui->m_Options = false;
+			}
+
 			
 
 		break;
