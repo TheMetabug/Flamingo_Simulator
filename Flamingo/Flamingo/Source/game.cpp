@@ -77,7 +77,20 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 			m_credits.setOrigin(vector(m_credits.getSize().x/2,
 			m_credits.getSize().y/2));
 			m_credits.setScale(1,1);
+
+			m_optionsPosition = (vector(640,360));
+			m_optionsTexture = new texture("OptionsMenu/options menu.png");
+			m_options.setTexture(m_optionsTexture);
+			m_options.setPosition(m_optionsPosition);
+			m_options.setOrigin(vector(m_options.getSize().x/2,
+			m_options.getSize().y/2));
+			m_options.setScale(1,1);
+
 			
+			m_options.setLayer(299);
+
+			
+
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
@@ -103,6 +116,7 @@ game::~game()
 	delete m_ReturnTexture;
 	delete m_GmenuTexture;
 	delete m_creditsTexture;
+	delete m_optionsTexture;
 	
 }
 
@@ -265,6 +279,10 @@ void game::update(float deltaTime)
 
 		break;
 	case Options:
+		m_gui->m_Options = true;	
+		m_gui->update(deltaTime);
+			
+
 		break;
 	case Gamemenu:
 		
@@ -295,6 +313,7 @@ void game::update(float deltaTime)
 			{
 				ML_release = false;
 				state = Options;
+				m_gui->m_Gmenu = false;
 				
 				
 			}
@@ -346,6 +365,12 @@ void game::draw()
 	
 	case Gamemenu:
 		m_viewport->draw(&m_GMenu);
+	case Options:
+		if (m_gui->m_Options)
+		{
+			m_viewport->draw(&m_options);
+		}
+
 	case Pause:
 	
 	case Play:

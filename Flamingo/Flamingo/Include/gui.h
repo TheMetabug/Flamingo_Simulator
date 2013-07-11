@@ -65,6 +65,7 @@ public:
 	bool m_Play;
 	bool m_menu;
 	bool m_Gmenu;
+	bool m_Options;
 	
 	button* m_button;
 	button* m_button2;

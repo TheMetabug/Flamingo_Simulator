@@ -107,6 +107,7 @@ gui::gui(al::input* Input)
 	m_Play = false;
 	m_menu = false;
 	m_Gmenu = false;
+	m_Options = false;
 	
 	// HP-basics
 	HPmax = 100; //max HP

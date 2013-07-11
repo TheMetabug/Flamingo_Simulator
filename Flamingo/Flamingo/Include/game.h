@@ -43,6 +43,10 @@ private:
 	al::vector m_creditsPosition, m_creditsOrigin;
 	al::texture *m_creditsTexture;
 	al::sprite m_credits;
+
+	al::vector m_optionsPosition, m_optionsOrigin;
+	al::texture *m_optionsTexture;
+	al::sprite m_options;
 	
 	bool P_release;
 	bool M_release;
