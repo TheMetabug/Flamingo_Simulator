@@ -108,6 +108,7 @@ gui::gui(al::input* Input)
 	m_menu = false;
 	m_Gmenu = false;
 	m_Options = false;
+	m_returnTitle = false;
 	
 	// HP-basics
 	HPmax = 100; //max HP
@@ -147,6 +148,11 @@ gui::gui(al::input* Input)
 	m_Gmenubutton4 = new button("GameMenu/ReturnTitle.png",vector(628,421),m_input);
 	m_Gmenubutton4->m_sprite.setLayer(299);
 
+	m_yesbutton = new button("GameMenu/yesButton.png",vector(580,375),m_input);
+	m_yesbutton->m_sprite.setLayer(300);
+
+	m_nobutton= new button("GameMenu/noButton.png",vector(687,375),m_input);
+	m_nobutton->m_sprite.setLayer(300);
 
 
 	m_font = new font();
@@ -207,6 +213,8 @@ gui::~gui()
 	delete m_Gmenubutton2;
 	delete m_Gmenubutton3;
 	delete m_Gmenubutton4;
+	delete m_yesbutton;
+	delete m_nobutton;
 }
 
 void gui::update(float DeltaTime)
@@ -233,7 +241,12 @@ void gui::update(float DeltaTime)
 	}
 	else
 		HPtext->setString("");	
-		
+
+	if (m_returnTitle)
+	{
+		m_yesbutton->update(DeltaTime);
+		m_nobutton->update(DeltaTime);
+	}	
 	
 	
 	if (m_menu)
@@ -280,6 +293,11 @@ void gui::draw(al::viewport* Viewport)
 		m_Gmenubutton3->draw(Viewport);
 		m_Gmenubutton4->draw(Viewport);
 		
+	}
+	if(m_returnTitle)
+	{
+		m_yesbutton->draw(Viewport);
+		m_nobutton->draw(Viewport);
 	}
 		
 	

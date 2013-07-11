@@ -162,6 +162,10 @@ void game::update(float deltaTime)
 				state = Gamemenu;
 			}
 
+			if(m_gui->m_button3->isPressed() && ML_release)
+			{
+				m_soundLibrary->m_musics[0]->play();
+			}
 			
 
 		if(!m_input->isKeyPressed(al::Key::Pause))
@@ -268,7 +272,7 @@ void game::update(float deltaTime)
 			P_release = true;
 		else if (P_release)
 		{
-			m_soundLibrary->m_musics[0]->play();
+			
 			P_release = false;
 			state = Play;
 			m_gui->m_pause = false;
@@ -331,7 +335,24 @@ void game::update(float deltaTime)
 
 		break;
 		case ReturnTitle:
+			m_gui->update(deltaTime);
+			m_gui->m_returnTitle = true;
+
+			if(m_gui->m_yesbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Menu;
+				
+				m_gui->m_returnTitle = false;
+			}
 		
+			if(m_gui->m_nobutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Gamemenu;
+				
+				m_gui->m_returnTitle = false;
+			}
 		break;
 	}
 		
@@ -362,6 +383,7 @@ void game::draw()
 	
 	case ReturnTitle:
 		m_viewport->draw(&m_ReturnCheck);
+		
 	
 	case Gamemenu:
 		m_viewport->draw(&m_GMenu);

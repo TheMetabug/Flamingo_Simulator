@@ -66,14 +66,20 @@ public:
 	bool m_menu;
 	bool m_Gmenu;
 	bool m_Options;
+	bool m_returnTitle;
 	
 	button* m_button;
 	button* m_button2;
 	button* m_button3;
+
 	button* m_Gmenubutton1;
 	button* m_Gmenubutton2;
 	button* m_Gmenubutton3;
 	button* m_Gmenubutton4;
+
+	button* m_yesbutton;
+	button* m_nobutton;
+
 
 private:
 	al::input* m_input;
