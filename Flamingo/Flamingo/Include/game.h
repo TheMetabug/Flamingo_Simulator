@@ -22,8 +22,8 @@ public:
 
 	~game();
 
+	void init();
 	void update(float deltaTime);
-
 	void draw();
 	void drawDebugInfo(sf::RenderWindow *window);
 	al::input* m_input;
@@ -51,6 +51,7 @@ private:
 	bool P_release;
 	bool M_release;
 	bool ML_release;
+	bool m_muted;
 	
 	// gameStates
 	enum GameState

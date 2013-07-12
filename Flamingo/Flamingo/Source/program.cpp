@@ -212,6 +212,7 @@ texture::texture()
 {}
 
 texture::texture(std::string TextureName)
+	: m_texture(NULL)
 {
 	loadTexture(TextureName);
 }
@@ -223,9 +224,16 @@ texture::~texture()
 
 void texture::loadTexture(std::string TextureName)
 {
-	m_texture = new sf::Texture();
-	m_texture->loadFromFile("Assets/" + TextureName);
-	m_texture->setSmooth(true);
+	if (m_texture == NULL)
+	{
+		m_texture = new sf::Texture();
+		m_texture->loadFromFile("Assets/" + TextureName);
+		m_texture->setSmooth(true);
+	}
+	else 
+	{
+		std::cout<<"Texture already loaded";
+	}
 }
 
 #pragma endregion

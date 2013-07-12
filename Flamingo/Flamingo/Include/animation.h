@@ -14,6 +14,7 @@ public:
 	~animation();
 	void update(float deltaTime);
 	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);
+	int getCurrentFrame();
 private:
 	void setVisibleFrame();
 	

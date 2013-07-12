@@ -46,9 +46,15 @@ int main()
 	sf::Clock clock;
 	sf::Time dt;
 	float deltaTime;
-
+	
+	window->clear(sf::Color::Transparent);
 	game MainGame(window, viewport);
+	viewport->renderSprites();
 	renderStatistics m_renderStatistics(window);
+    window->display();
+	MainGame.init();
+
+
 
 
 	// Run the program as long as the window is open

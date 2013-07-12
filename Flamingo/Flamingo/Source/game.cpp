@@ -2,16 +2,23 @@
 using namespace al;
 
 game::game(sf::RenderWindow* Window, viewport* Viewport)
+	:	window(Window),
+		m_viewport(Viewport)
 {
-	window = Window;
-	m_viewport = Viewport;
+	m_muted = false;
 	m_input = new input(window);
 
 	////sound
 	m_soundLibrary = new soundLibrary();
-
 	m_soundLibrary->m_musics[0]->play();
 	
+	m_titleCard = new titleCard();
+	m_titleCard->draw(Viewport);
+}
+
+void game::init()
+{
+
 	// gameStates
 
 	state = TitleScreen;
@@ -48,7 +55,6 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 
 	// titleCard
 
-	m_titleCard = new titleCard();
 
 		m_ReturnPosition = (vector(640,375));
 			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
@@ -162,7 +168,19 @@ void game::update(float deltaTime)
 			else if(m_gui->m_button3->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_soundLibrary->m_musics[0]->play();
+
+				if (!m_muted)
+				{
+					m_muted = true;
+					m_soundLibrary->mute(true);
+					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[5]);
+				}
+				else
+				{
+					m_muted = false;
+					m_soundLibrary->mute(false);
+					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[0]);
+				}
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{

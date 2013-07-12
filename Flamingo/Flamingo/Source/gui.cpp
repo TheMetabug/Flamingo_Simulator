@@ -3,11 +3,11 @@
 using namespace al;
 
 
-button::button(std::string TextureName, al::vector Position, al::input* Input)
+button::button(al::texture* Texture, al::vector Position, al::input* Input)
 {
 	m_input = Input;
 	m_position = Position;
-	setTexture(TextureName);
+	setTexture(Texture);
 }
 
 button::~button()
@@ -15,10 +15,10 @@ button::~button()
 	delete m_animation;
 }
 
-void button::setTexture(std::string TextureName)
+void button::setTexture(al::texture* Texture)
 {
-	m_texture.loadTexture(TextureName);
-	m_sprite.setTexture(&m_texture);
+	//m_texture.loadTexture(TextureName);
+	m_sprite.setTexture(Texture);
 	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
@@ -41,8 +41,11 @@ bool button::isPressed()
 	if(mouseOver())
 	{
 		if(m_input->isButtonPressed(al::Button::MouseLeft))
-		{			
-			m_animation->ChangeAnimation(2,0,2,100);
+		{
+			if (m_animation->getCurrentFrame() == 1)
+			{
+				m_animation->ChangeAnimation(2,0,2,100);
+			}
 			return true;
 		}
 		else
@@ -128,36 +131,46 @@ gui::gui(al::input* Input)
 	/*button = "test" button
 	button2 = Listbutton
 	button3 = mute-button*/
-	m_button = new button("buttons/GameButtons.png",vector(300,300),m_input);
+
+	m_buttonTextures.push_back(new texture("buttons/GameButtons.png")); // 0
+	m_button = new button(m_buttonTextures.back(),vector(300,300),m_input);
 	m_button->m_sprite.setLayer(296);
-	m_button2 = new button("buttons/GameButtons.png",vector(1054,75),m_input);
+	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input);
 	m_button2->m_sprite.setLayer(296);
-	m_button3 = new button("buttons/GameButtons.png",vector(908,75),m_input);
+	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input);
 	m_button3->m_sprite.setLayer(296);
 
 	// GameMenu's buttons
-	m_Gmenubutton1 = new button("GameMenu/ResumeGame.png",vector(628,331),m_input);
+	m_buttonTextures.push_back(new texture("GameMenu/ResumeGame.png")); // 1
+	m_Gmenubutton1 = new button(m_buttonTextures.back(),vector(628,331),m_input);
 	m_Gmenubutton1->m_sprite.setLayer(299);
 	
-	m_Gmenubutton2 = new button("GameMenu/Restart.png",vector(628,361),m_input);
+	m_buttonTextures.push_back(new texture("GameMenu/Restart.png")); // 2
+	m_Gmenubutton2 = new button(m_buttonTextures.back(),vector(628,361),m_input);
 	m_Gmenubutton2->m_sprite.setLayer(299);
 	
-	m_Gmenubutton3 = new button("GameMenu/Options.png",vector(628,391),m_input);
+	m_buttonTextures.push_back(new texture("GameMenu/Options.png")); // 3
+	m_Gmenubutton3 = new button(m_buttonTextures.back(),vector(628,391),m_input);
 	m_Gmenubutton3->m_sprite.setLayer(299);
 	
-	m_Gmenubutton4 = new button("GameMenu/ReturnTitle.png",vector(628,421),m_input);
+	m_buttonTextures.push_back(new texture("GameMenu/ReturnTitle.png")); // 4
+	m_Gmenubutton4 = new button(m_buttonTextures.back(),vector(628,421),m_input);
 	m_Gmenubutton4->m_sprite.setLayer(299);
-
-	m_yesbutton = new button("GameMenu/yesButton.png",vector(580,375),m_input);
+	
+	m_buttonTextures.push_back(new texture("GameMenu/yesButton.png")); // 5
+	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input);
 	m_yesbutton->m_sprite.setLayer(300);
-
-	m_nobutton = new button("GameMenu/noButton.png",vector(687,375),m_input);
+	
+	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 6
+	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input);
 	m_nobutton->m_sprite.setLayer(300);
-
-	m_backbutton = new button("OptionsMenu/Back.png",vector(575,450),m_input);
+	
+	m_buttonTextures.push_back(new texture("OptionsMenu/Back.png")); // 7
+	m_backbutton = new button(m_buttonTextures.back(),vector(575,450),m_input);
 	m_backbutton->m_sprite.setLayer(300);
-
-	m_applybutton = new button("OptionsMenu/Apply.png",vector(700,450),m_input);
+	
+	m_buttonTextures.push_back(new texture("OptionsMenu/Apply.png")); // 8
+	m_applybutton = new button(m_buttonTextures.back(),vector(700,450),m_input);
 	m_applybutton->m_sprite.setLayer(300);
 
 
@@ -223,6 +236,11 @@ gui::~gui()
 	delete m_nobutton;
 	delete m_backbutton;
 	delete m_applybutton;
+
+	for (int i = 0; i < m_buttonTextures.size(); ++i)
+	{
+		delete m_buttonTextures[i];
+	}
 }
 
 void gui::update(float DeltaTime)

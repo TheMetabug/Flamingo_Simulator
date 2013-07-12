@@ -257,9 +257,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 				turn = 360 - m_headRotate;
 			else
 				turn = m_headRotate;
-			std::cout<<turn<<", ";
 			turn = 1 - (turn / 90.0f);
-			std::cout<<turn<<", "<<std::endl;
 		}
 
 

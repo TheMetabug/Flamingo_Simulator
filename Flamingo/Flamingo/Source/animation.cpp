@@ -61,3 +61,8 @@ void animation::setVisibleFrame()
 	al::rectangle frame = al::rectangle(currentFrameX, currentFrameY, m_framesizeX, m_framesizeY);
 	m_sprite->setTextureRectangle(frame);
 }
+
+int animation::getCurrentFrame()
+{
+	return m_currentFrame;
+}

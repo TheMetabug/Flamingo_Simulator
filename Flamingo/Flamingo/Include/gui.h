@@ -12,9 +12,9 @@ class button
 {
 public:
 	button(){}
-	button(std::string TextureName, al::vector Position, al::input* Input);
+	button(al::texture* Texture, al::vector Position, al::input* Input);
    ~button();
-	void setTexture(std::string TextureName);
+   void setTexture(al::texture* Texture);
    	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 	bool isPressed();
@@ -26,7 +26,7 @@ private:
 	bool mouseOver();
 	al::input* m_input;
 
-	al::texture m_texture;
+	//al::texture m_texture;
 	/*al::sprite m_sprite;*/
 
 };
@@ -94,6 +94,8 @@ private:
 	al::text* MENUtext;
 	al::text* Gmenutext;
 	al::text* SCOREtext;
+
+	std::vector<al::texture*> m_buttonTextures;
 
 
 
