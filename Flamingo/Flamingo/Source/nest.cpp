@@ -110,8 +110,8 @@ nest::nest(collision* Collide, gui* Gui)
 
 	m_hatchlingFlyTexture = new texture("flamingoGrowupAnimation.png");
 	m_hatchlingFly = new sprite(m_hatchlingFlyTexture);
-	m_hatchlingFlyAnimation = new animation(m_hatchlingFly, 1, 256, 472, false, 7.0f,10);
-	m_hatchlingFly->setScale(0.5f);
+	m_hatchlingFlyAnimation = new animation(m_hatchlingFly, 1, 256, 472, 7.0f,10);
+	m_hatchlingFly->setScale(0.66666666666666667f);
 	m_hatchlingFly->setLayer(2);
 	m_hatchlingFly->setOrigin(vector(m_theEgg->getSize()/2));
 
@@ -194,7 +194,15 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 			m_hatchlings[Id-1]->m_timer = 0;
 			m_hatchlings[Id-1]->m_eatPoints += foodValue;
 			if(m_hatchlings[Id-1]->m_eatPoints >= 3)
+			{
 				fly(DeltaTime,Id-1);
+				
+				m_hatchlingFly->setPosition(m_hatchlings[Id-1]->m_position);
+				m_hatchlings[Id-1]->m_isThere = false;
+				m_hatchlings[Id-1]->m_hitbox->isEnabled = false;
+				m_hatchlingFlyAnimation->ChangeAnimation(0,5,0,5);
+
+			}
 
 		}
 		else
@@ -220,10 +228,12 @@ void nest::die(float DeltaTime)
 
 void nest::fly(float DeltaTime, int Id)	
 {
-
-		m_hatchlingFly->setPosition(m_hatchlings[Id]->m_position);
-		m_hatchlings[Id]->m_isThere = false;
-		m_hatchlingFlyAnimation->ChangeAnimation(0,5,0,5);
+	if(m_hatchlingFlyAnimation->getCurrentFrame() == 4)
+	{
+		m_hatchlingFlyAnimation->ChangeAnimation(5,1,5,5);
+		//m_hatchlingFly->setPosition(
+	}
+	
 
 }
 

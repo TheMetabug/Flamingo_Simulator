@@ -2,7 +2,7 @@
 
 
 
-animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip, float Fps, int FirstFrame)
+animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, float Fps, int FirstFrame)
 {
 	m_sprite = Sprite;
 	m_frames = Frames;
@@ -10,7 +10,6 @@ animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int Framesi
 	m_framesizeY = FramesizeY;
 	m_fps = Fps;
 	m_currentFrame = m_firstFrame = FirstFrame;
-	m_flip = Flip;
 	m_timer = 0.0f;
 	setVisibleFrame();
 	if (fmod(Sprite->getTextureSize().x,FramesizeX) != 0)

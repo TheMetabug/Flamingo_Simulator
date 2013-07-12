@@ -83,7 +83,8 @@ private:
 
 	int m_eggCount;
 	float m_hatchlingRotation, m_timer, m_eggTimer;
-	bool m_isAlive;
+	
+	std::vector<int> flyings;
 	
 	// SCORE-stats
 	gui *m_gui;

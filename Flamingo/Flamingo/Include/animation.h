@@ -10,7 +10,7 @@
 class animation
 {
 public:
-	animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, bool Flip = false, float Fps= (5.0f), int FirstFrame = 0);
+	animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, float Fps= (5.0f), int FirstFrame = 0);
 	~animation();
 	void update(float deltaTime);
 	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);

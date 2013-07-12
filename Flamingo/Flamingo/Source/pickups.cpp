@@ -38,7 +38,7 @@ item::item(al::vector Position, pickup* Pickup)
 	  m_state(0)
 {
 	m_sprite = new al::sprite((Pickup->m_texture));
-	m_animation = new animation(m_sprite,1,256,256,false, 1.0f, Pickup->m_itemName);
+	m_animation = new animation(m_sprite,1,256,256, 1.0f, Pickup->m_itemName);
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
 	m_sprite->setScale(m_pickup->m_scale);
