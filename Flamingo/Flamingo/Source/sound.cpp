@@ -57,7 +57,8 @@ void music::setVolume(float Volume)
 ///////// SOUND //////////
 
 sound::sound()
-	:	m_volumeMultiplier(1.0f)
+	:	m_volumeMultiplier(1.0f),
+		m_mute(false)
 {
 	m_buffer = new sf::SoundBuffer();
 	m_sound = new sf::Sound();
@@ -65,13 +66,14 @@ sound::sound()
 	setVolume(30);
 }
 sound::sound(std::string Filename)
-	:	m_volumeMultiplier(1.0f)
+	:	m_volumeMultiplier(1.0f),
+		m_mute(false)
 {
 	m_buffer = new sf::SoundBuffer();
 	load(Filename);
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
-	setVolume(30);
+	setVolume(100);
 }
 sound::~sound()
 {
