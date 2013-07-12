@@ -2,15 +2,20 @@
 
 ///////// MUSIC /////////
 music::music()
+	:	m_volumeMultiplier(1.0f),
+		m_mute(false)
 {
 	m_music = new sf::Music();
+	setVolume(30);
 }
 music::music(std::string Filename)
+	:	m_volumeMultiplier(1.0f),
+		m_mute(false)
 {
 	m_music = new sf::Music();
 	m_music->setLoop(true);
-	m_music->setVolume(30);
-
+	setVolume(30);
+	
 	load(Filename);	
 }
 
@@ -39,20 +44,34 @@ void music::pause()
 	m_music->pause();
 }
 
+void music::setVolume(float Volume)
+{
+	if (!m_mute)
+		m_music->setVolume(Volume * m_volumeMultiplier);
+	else
+		m_music->setVolume(0);
+
+	m_volume = Volume;
+}
+
 ///////// SOUND //////////
 
 sound::sound()
+	:	m_volumeMultiplier(1.0f)
 {
 	m_buffer = new sf::SoundBuffer();
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
+	setVolume(30);
 }
 sound::sound(std::string Filename)
+	:	m_volumeMultiplier(1.0f)
 {
 	m_buffer = new sf::SoundBuffer();
 	load(Filename);
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
+	setVolume(30);
 }
 sound::~sound()
 {
@@ -77,10 +96,22 @@ void sound::pause()
 {
 	m_sound->play();
 }
+void sound::setVolume(float Volume)
+{
+	if (!m_mute)
+		m_sound->setVolume(Volume * m_volumeMultiplier);
+	else
+		m_sound->setVolume(0);
+
+	m_volume = Volume;
+}
 
 
 
 soundLibrary::soundLibrary()
+	:	m_mute(false),
+		m_musicVolume(100),
+		m_soundVolume(100)
 {
 #pragma region Musics
 
@@ -130,4 +161,52 @@ music* soundLibrary::findMusic(std::string musicName)
 			return m_musics[i];
 	}
 	return NULL;
+}
+
+void soundLibrary::mute(bool Mute)
+{
+	if (Mute)
+	{
+		for (int i = 0; i < m_musics.size(); ++i)
+		{
+			m_musics[i]->m_mute = true;
+			m_musics[i]->setVolume(m_musics[i]->m_volume);
+		}
+		for (int i = 0; i < m_sounds.size(); ++i)
+		{
+			m_sounds[i]->m_mute = true;
+			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_musics.size(); ++i)
+		{
+			m_musics[i]->m_mute = false;
+			m_musics[i]->setVolume(m_musics[i]->m_volume);
+		}
+		for (int i = 0; i < m_sounds.size(); ++i)
+		{
+			m_sounds[i]->m_mute = false;
+			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
+		}
+	}
+}
+
+void soundLibrary::setMusicVolume(float volume)
+{
+	for (int i = 0; i < m_musics.size(); ++i)
+	{
+		m_musics[i]->m_volumeMultiplier = volume;
+		m_musics[i]->setVolume(m_musics[i]->m_volume);
+	}
+}
+
+void soundLibrary::setSoundsVolume(float volume)
+{
+	for (int i = 0; i < m_sounds.size(); ++i)
+	{
+		m_sounds[i]->m_volumeMultiplier = volume;
+		m_sounds[i]->setVolume(m_sounds[i]->m_volume);
+	}
 }
