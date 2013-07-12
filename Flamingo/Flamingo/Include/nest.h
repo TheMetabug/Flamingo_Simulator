@@ -12,23 +12,24 @@
 class hatchling
 {
 public:
-	hatchling()
-		: m_isThere(true),
-		  m_timer(0)
-		{}
+	hatchling(al::texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide);
 
-	~hatchling()
-	{
-		delete m_sprite;
-		delete m_animation;
-	}
-	
+	~hatchling();
+
+	void update(float DeltaTime);
+	void draw(al::viewport* Viewport);
+
+
 	al::vector m_position;
 	al::sprite* m_sprite;
-	hitbox* m_hitbox;
+	al::sprite* m_flySprite;
 	animation *m_animation;
-	float m_timer, m_eatPoints;
+	animation *m_flyAnimation;
+	hitbox* m_hitbox;
+	float m_timer, m_eatPoints, m_rotation, m_flyScale;
 	bool m_isThere;
+	bool m_fly;
+	int m_state;
 };
 
 class nest
@@ -75,16 +76,14 @@ private:
 	al::sprite	 m_flamingonestFront;
 
 	al::texture *m_hatchlingTexture;
+	al::texture *m_hatchlingFlyTexture;
 	std::vector<hatchling*> m_hatchlings;
 
-	al::texture *m_hatchlingFlyTexture;
-	al::sprite *m_hatchlingFly;
-	animation *m_hatchlingFlyAnimation;
+	//al::sprite *m_hatchlingFly;
+	//animation *m_hatchlingFlyAnimation;
 
 	int m_eggCount;
 	float m_hatchlingRotation, m_timer, m_eggTimer;
-	
-	std::vector<int> flyings;
 	
 	// SCORE-stats
 	gui *m_gui;
