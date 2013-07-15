@@ -173,7 +173,7 @@ void game::update(float deltaTime)
 				{
 					m_muted = true;
 					m_soundLibrary->mute(true);
-					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[5]);
+					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
 				}
 				else
 				{
