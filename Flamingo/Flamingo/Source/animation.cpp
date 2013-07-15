@@ -45,7 +45,11 @@ void animation::update(float deltaTime)
 
 void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop)
 {
-	ChangeAnimation(FirstFrameofLoop, FramesinLoop, FirstFrameofLoop);
+	m_firstFrame = FirstFrameofLoop;
+	m_frames = FramesinLoop;
+	m_currentFrame = FirstFrameofLoop;
+	m_timer = 0;
+	setVisibleFrame();
 }
 
 void animation::ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps)
