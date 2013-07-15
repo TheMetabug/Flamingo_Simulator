@@ -81,6 +81,10 @@ public:
 	button* m_nobutton;
 
 	button* m_donebutton;
+	button* m_plusmusic;
+	button* m_minusmusic;
+	button* m_plussounds;
+	button* m_minussounds;
 	
 
 

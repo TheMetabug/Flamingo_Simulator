@@ -169,7 +169,19 @@ gui::gui(al::input* Input)
 	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input);
 	m_donebutton->m_sprite.setLayer(300);
 	
+	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
+	m_plusmusic = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_plusmusic->m_sprite.setLayer(300);
 	
+	m_plussounds = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_plussounds->m_sprite.setLayer(300);
+
+	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
+	m_minusmusic = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_minusmusic->m_sprite.setLayer(300);
+	
+	m_minussounds = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_minussounds->m_sprite.setLayer(300);
 
 	m_font = new font();
 
@@ -232,6 +244,11 @@ gui::~gui()
 	delete m_yesbutton;
 	delete m_nobutton;
 	delete m_donebutton;
+	delete m_plusmusic;
+	delete m_plussounds;
+	delete m_minusmusic;
+	delete m_minussounds;
+
 	
 
 	for (int i = 0; i < m_buttonTextures.size(); ++i)
@@ -268,6 +285,10 @@ void gui::update(float DeltaTime)
 	if (m_Options)
 	{
 		m_donebutton->update(DeltaTime);
+		m_plusmusic->update(DeltaTime);
+		m_plussounds->update(DeltaTime);
+		m_minusmusic->update(DeltaTime);
+		m_minussounds->update(DeltaTime);
 		
 
 	}
@@ -333,6 +354,11 @@ void gui::draw(al::viewport* Viewport)
 	if (m_Options)
 	{
 		m_donebutton->draw(Viewport);
+		m_donebutton->draw(Viewport);
+		m_plusmusic->draw(Viewport);
+		m_plussounds->draw(Viewport);
+		m_minusmusic->draw(Viewport);
+		m_minussounds->draw(Viewport);
 		
 	}
 		
