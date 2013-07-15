@@ -13,7 +13,8 @@ public:
 	animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, float Fps= (5.0f), int FirstFrame = 0);
 	~animation();
 	void update(float deltaTime);
-	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps);
+	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop);
+	void ChangeAnimation(int FirstFrameofLoop, int FramesinLoop, int AnimationStartPoint, float Fps = (5.0f));
 	int getCurrentFrame();
 private:
 	void setVisibleFrame();
