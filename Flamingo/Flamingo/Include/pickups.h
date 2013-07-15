@@ -16,9 +16,9 @@ namespace pups
 {
 	enum ItemName
 	{
-		Shoe = 0,
+		Plancton = 0,
 		Shrimp,
-		Plancton
+		Shoe
 	};
 
 	//Class for pickup types, containing texture, sprite, id and edibility

@@ -13,7 +13,6 @@ using namespace pups;
 using namespace al;
 
 
-#pragma region Pickup
 pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity):
 	m_texture(Texture),
 	m_itemName(itemName),
@@ -23,14 +22,10 @@ pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float S
 	m_opacity(Opacity)
 {
 }
-
 pickup::~pickup()
 {
 	std::cout<<"deleted pickup type"<<std::endl;
 }
-#pragma endregion
-
-#pragma region Item
 
 item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
@@ -38,7 +33,8 @@ item::item(al::vector Position, pickup* Pickup)
 	  m_state(0)
 {
 	m_sprite = new al::sprite((Pickup->m_texture));
-	m_animation = new animation(m_sprite,1,256,256, 1.0f, Pickup->m_itemName);
+	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
+	m_animation = new animation(m_sprite,2,256,256, ((rand()%100))/100.0f + m_direction.getLenght()*m_pickup->m_speed/100.0f, Pickup->m_itemName * 3);
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
 	m_sprite->setScale(m_pickup->m_scale);
@@ -47,10 +43,8 @@ item::item(al::vector Position, pickup* Pickup)
 		m_sprite->getTransformedSize()*hitboxSize/2,true);
 	m_sprite->setLayer(10-290);
 
-	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
 	m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
 }
-
 item::~item()
 {
 	std::cout<<"aaand its gone"<<std::endl;
@@ -58,7 +52,6 @@ item::~item()
 	delete m_animation;
 	delete m_hitbox;
 }
-
 bool item::update(float DeltaTime)
 {
 	switch (m_state)
@@ -106,12 +99,10 @@ bool item::update(float DeltaTime)
 	m_hitbox->Position = m_position;
 	return true;
 }
-
 void item::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
 }
-
 void item::stayInWater()
 {
 	vector direction(m_position - vector(WATERX,WATERY));
@@ -150,10 +141,6 @@ void item::stayInWater()
 
 }
 
-#pragma endregion
-
-#pragma region Pickups
-
 pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary)
 	: m_collision(Collision),
 	  m_nest(Nest),
@@ -165,14 +152,13 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 {
 	m_spawnPosition = al::vector(1200,600);
 
-	m_texture = new texture("itemsplaceholder.png"); // Texture containing all item animations
+	m_texture = new texture("Item_sheet.png"); // Texture containing all item animations
 
 	
 	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 9));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85));
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75));
 }
-
 pickups::~pickups()
 {
 	std::cout<<"deleting pickups"<<std::endl;
@@ -189,7 +175,6 @@ pickups::~pickups()
 		delete itemList[i];
 	}
 }
-
 void pickups::update(float DeltaTime)
 {
 	m_timer += DeltaTime;
@@ -341,7 +326,6 @@ void pickups::update(float DeltaTime)
 		}
 	}
 }
-
 void pickups::draw(al::viewport* Viewport)
 {
 	for (int i = 0; i < itemList.size(); ++i)
@@ -349,7 +333,6 @@ void pickups::draw(al::viewport* Viewport)
 		itemList[i]->draw(Viewport);
 	}
 }
-
 void pickups::drawHitBoxes(sf::RenderWindow* window)
 {
 	for (int i = 0; i < itemList.size(); ++i)
@@ -393,12 +376,9 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 
 	
 }
-
 void pickups::deleteItem(int i)
 {
 	delete itemList[i];
 	itemList.erase(itemList.begin() + i);
 	m_index--;
 }
-
-#pragma endregion
