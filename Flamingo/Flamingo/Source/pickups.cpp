@@ -34,7 +34,13 @@ item::item(al::vector Position, pickup* Pickup)
 {
 	m_sprite = new al::sprite((Pickup->m_texture));
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
-	m_animation = new animation(m_sprite,2,256,256, ((rand()%100))/100.0f + m_direction.getLenght()*m_pickup->m_speed/100.0f, Pickup->m_itemName * 3);
+	m_animation = new animation(
+		m_sprite,
+		2,
+		256,
+		256, 
+		((rand()%100))/100.0f + m_direction.getLenght()*m_pickup->m_speed/100.0f, 
+		Pickup->m_itemName * 3);
 	m_sprite->setPosition(vector(m_position));
 	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
 	m_sprite->setScale(m_pickup->m_scale);
@@ -42,6 +48,11 @@ item::item(al::vector Position, pickup* Pickup)
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
 		m_sprite->getTransformedSize()*hitboxSize/2,true);
 	m_sprite->setLayer(10-290);
+
+	if (m_pickup->m_itemName == Shoe)
+	{
+		m_animation->ChangeAnimation(Pickup->m_itemName * 3,1);
+	}
 
 	m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
 }
