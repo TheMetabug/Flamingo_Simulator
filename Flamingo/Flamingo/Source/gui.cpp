@@ -19,6 +19,7 @@ void button::setTexture(al::texture* Texture)
 {
 	//m_texture.loadTexture(TextureName);
 	m_sprite.setTexture(Texture);
+	float asdf = m_sprite.getTextureSize().x/2;
 	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
@@ -170,17 +171,17 @@ gui::gui(al::input* Input)
 	m_donebutton->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
-	m_plusmusic = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_plusmusic = new button(m_buttonTextures.back(),vector(748,323),m_input);
 	m_plusmusic->m_sprite.setLayer(300);
 	
-	m_plussounds = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_plussounds = new button(m_buttonTextures.back(),vector(748,378),m_input);
 	m_plussounds->m_sprite.setLayer(300);
 
-	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
-	m_minusmusic = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_buttonTextures.push_back(new texture("OptionsMenu/minus.png")); // 1
+	m_minusmusic = new button(m_buttonTextures.back(),vector(667,323),m_input);
 	m_minusmusic->m_sprite.setLayer(300);
 	
-	m_minussounds = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_minussounds = new button(m_buttonTextures.back(),vector(667,378),m_input);
 	m_minussounds->m_sprite.setLayer(300);
 
 	m_font = new font();

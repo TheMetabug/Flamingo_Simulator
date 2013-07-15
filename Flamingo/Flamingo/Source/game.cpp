@@ -311,6 +311,7 @@ void game::update(float deltaTime)
 				state = Gamemenu;
 				m_gui->m_Options = false;
 			}
+
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
 				ML_release = false;
