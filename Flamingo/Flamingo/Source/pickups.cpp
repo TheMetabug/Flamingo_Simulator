@@ -206,12 +206,14 @@ void pickups::update(float DeltaTime)
 				if (m_collision->HitHead(itemList[i]->m_hitbox) && !m_flamingo->m_hasFood)
 				{
 					std::cout<<"collide "<<i<<std::endl;
+
 					if(m_index >= 0)
 					{
 						if(((itemList[i]->m_position - m_flamingo->m_headPosition).getLenght()) < 
 							((itemList[m_index]->m_position - m_flamingo->m_headPosition).getLenght()))
 						
 							m_index = i;
+						
 					}
 					else
 					{
@@ -223,6 +225,7 @@ void pickups::update(float DeltaTime)
 
 		case 1: // in mouth
 			itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
+			itemList[i]->m_animation->ChangeAnimation(itemList[i]->m_pickup->m_itemName * 3 + 2,1);
 			if (m_flamingo->m_drag == 0)
 			{
 				itemList[i]->m_state = 2;
