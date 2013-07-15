@@ -306,13 +306,7 @@ void game::update(float deltaTime)
 		m_gui->m_Options = true;	
 		m_gui->update(deltaTime);
 
-			if(m_gui->m_backbutton->isPressed() && ML_release)
-			{
-				ML_release = false;
-				state = Gamemenu;
-				m_gui->m_Options = false;
-			}
-			else if(m_gui->m_applybutton->isPressed() && ML_release)
+			if(m_gui->m_donebutton->isPressed() && ML_release)
 			{
 				ML_release = false;
 				state = Gamemenu;

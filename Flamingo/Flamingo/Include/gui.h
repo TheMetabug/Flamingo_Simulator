@@ -80,8 +80,8 @@ public:
 	button* m_yesbutton;
 	button* m_nobutton;
 
-	button* m_backbutton;
-	button* m_applybutton;
+	button* m_donebutton;
+	
 
 
 private:

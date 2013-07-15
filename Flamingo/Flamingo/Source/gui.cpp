@@ -141,7 +141,7 @@ gui::gui(al::input* Input)
 	m_button3->m_sprite.setLayer(296);
 
 	// GameMenu's buttons
-	m_buttonTextures.push_back(new texture("GameMenu/ResumeGame.png")); // 1
+	m_buttonTextures.push_back(new texture("GameMenu/MenuButton.png")); // 1
 	m_Gmenubutton1 = new button(m_buttonTextures.back(),vector(628,331),m_input);
 	m_Gmenubutton1->m_sprite.setLayer(299);
 	
@@ -165,14 +165,11 @@ gui::gui(al::input* Input)
 	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input);
 	m_nobutton->m_sprite.setLayer(300);
 	
-	m_buttonTextures.push_back(new texture("OptionsMenu/Back.png")); // 4
-	m_backbutton = new button(m_buttonTextures.back(),vector(575,450),m_input);
-	m_backbutton->m_sprite.setLayer(300);
+	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 4
+	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input);
+	m_donebutton->m_sprite.setLayer(300);
 	
-	m_buttonTextures.push_back(new texture("OptionsMenu/Apply.png")); // 5
-	m_applybutton = new button(m_buttonTextures.back(),vector(700,450),m_input);
-	m_applybutton->m_sprite.setLayer(300);
-
+	
 
 	m_font = new font();
 
@@ -234,8 +231,8 @@ gui::~gui()
 	delete m_Gmenubutton4;
 	delete m_yesbutton;
 	delete m_nobutton;
-	delete m_backbutton;
-	delete m_applybutton;
+	delete m_donebutton;
+	
 
 	for (int i = 0; i < m_buttonTextures.size(); ++i)
 	{
@@ -270,8 +267,8 @@ void gui::update(float DeltaTime)
 
 	if (m_Options)
 	{
-		m_backbutton->update(DeltaTime);
-		m_applybutton->update(DeltaTime);
+		m_donebutton->update(DeltaTime);
+		
 
 	}
 
@@ -335,8 +332,8 @@ void gui::draw(al::viewport* Viewport)
 
 	if (m_Options)
 	{
-		m_backbutton->draw(Viewport);
-		m_applybutton->draw(Viewport);
+		m_donebutton->draw(Viewport);
+		
 	}
 		
 	
