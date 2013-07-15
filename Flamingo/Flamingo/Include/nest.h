@@ -8,16 +8,23 @@
 #include "program.h"
 #include "gui.h"
 
+//Hatchling
 
 class hatchling
 {
 public:
 	hatchling(al::texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide);
-
 	~hatchling();
 
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
+
+	void fly();
+	void eat(float foodValue);
+	void mad();
+	void happy();
+
+	void reset();
 
 
 	al::vector m_position;
@@ -32,16 +39,20 @@ public:
 	int m_state;
 };
 
+//Nest
+
 class nest
 {
 public:
 	nest(collision* Collide, gui* Gui);
 	~nest();
+
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
 	void egg(float DeltaTime);
 	void sleep(float DeltaTime);
+
 	bool eat(float DeltaTime, int Id, float foodValue);
 	void die(float DeltaTime);
 	void fly(float DeltaTime, int Id);
@@ -49,6 +60,7 @@ public:
 	void happy(float DeltaTime);
 
 	void addEgg();
+	void reset();
 
 private:
 
@@ -82,8 +94,9 @@ private:
 	//al::sprite *m_hatchlingFly;
 	//animation *m_hatchlingFlyAnimation;
 
-	int m_eggCount;
+	//int m_eggCount;
 	float m_hatchlingRotation, m_timer, m_eggTimer;
+	bool m_hatching;
 	
 	// SCORE-stats
 	gui *m_gui;
@@ -91,8 +104,5 @@ private:
 	friend class pickups;
 	friend class gui;
 };
-
-
-
 
 #endif

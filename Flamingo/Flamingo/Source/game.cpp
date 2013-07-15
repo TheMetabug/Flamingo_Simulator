@@ -158,34 +158,33 @@ void game::update(float deltaTime)
 		// show text
 		m_gui->m_Play = true;
 
-		//if (m_gui->m_button2->isPressed())
-		//{
-			if(m_gui->m_button2->isPressed() && ML_release)
-			{
-				ML_release = false;
-				state = Gamemenu;
-			}
-			else if(m_gui->m_button3->isPressed() && ML_release)
-			{
-				ML_release = false;
 
-				if (!m_muted)
-				{
-					m_muted = true;
-					m_soundLibrary->mute(true);
-					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
-				}
-				else
-				{
-					m_muted = false;
-					m_soundLibrary->mute(false);
-					m_gui->m_button3->setTexture(m_gui->m_buttonTextures[0]);
-				}
-			}
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		if(m_gui->m_button2->isPressed() && ML_release)
+		{
+			ML_release = false;
+			state = Gamemenu;
+		}
+		else if(m_gui->m_button3->isPressed() && ML_release)
+		{
+			ML_release = false;
+
+			if (!m_muted)
 			{
-				ML_release = false;
+				m_muted = true;
+				m_soundLibrary->mute(true);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
 			}
+			else
+			{
+				m_muted = false;
+				m_soundLibrary->mute(false);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[0]);
+			}
+		}
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			ML_release = false;
+		}
 			
 
 		if(!m_input->isKeyPressed(al::Key::Pause))
@@ -339,6 +338,14 @@ void game::update(float deltaTime)
 				
 				m_gui->m_Gmenu = false;
 			}
+			else if(m_gui->m_Gmenubutton2->isPressed() && ML_release)
+			{
+				ML_release = false;
+				state = Play;
+				reset();
+				
+				m_gui->m_Gmenu = false;
+			}
 			else if(m_gui->m_Gmenubutton3->isPressed() && ML_release)
 			{
 				ML_release = false;
@@ -477,6 +484,11 @@ void game::draw()
 	// particles
 
 	
+}
+
+void game::reset()
+{
+	flamingonest->reset();
 }
 
 void game::drawDebugInfo(sf::RenderWindow *window)

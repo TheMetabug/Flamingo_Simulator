@@ -25,7 +25,11 @@ public:
 	void init();
 	void update(float deltaTime);
 	void draw();
+
+	void reset();
+
 	void drawDebugInfo(sf::RenderWindow *window);
+
 	al::input* m_input;
 
 private:

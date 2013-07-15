@@ -70,7 +70,6 @@ vector input::getMousePosition()
 	if (active)
 	{
 		vector retVal(sf::Mouse::getPosition(*window));
-		vector asdf = window->getSize();
 		retVal.x /= window->getSize().x/(float)WINDOW_WIDTH;
 		retVal.y /= window->getSize().y/(float)WINDOW_HEIGHT;
 		return retVal;

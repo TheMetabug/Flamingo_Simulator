@@ -162,7 +162,6 @@ rectangle::rectangle()
 }
 rectangle::rectangle(float Left, float Top, float Width, float Height)
 {
-	//sf::Rect<float> asdf(,);
 	left = Left;
 	top = Top;
 	width = Width;
