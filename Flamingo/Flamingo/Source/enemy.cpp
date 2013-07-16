@@ -40,6 +40,7 @@ enemy::~enemy()
 	delete m_animation;
 	
 }
+
 void enemy::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
@@ -82,6 +83,7 @@ void enemy::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
 }
+
 void enemy::eat(float foodValue, vector itemDirection)
 {
 	if(foodValue <= 0) // when boot hits enemy
