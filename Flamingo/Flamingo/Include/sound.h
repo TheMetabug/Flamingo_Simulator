@@ -74,6 +74,8 @@ private:
 	bool m_mute;
 	float m_musicVolume;
 	float m_soundVolume;
+
+	friend class game;
 };
 
 #endif

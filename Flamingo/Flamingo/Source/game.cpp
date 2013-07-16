@@ -311,11 +311,35 @@ void game::update(float deltaTime)
 				state = Gamemenu;
 				m_gui->m_Options = false;
 			}
+			else if(m_gui->m_plusmusic->isPressed() && ML_release)
+				{
+					ML_release = false;
+					if (m_soundLibrary->m_musicVolume < 100)
+					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume+10);
+				}
+			else if(m_gui->m_minusmusic->isPressed() && ML_release)
+				{
+					ML_release = false;
+					if (m_soundLibrary->m_musicVolume > 0)
+					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume-10);
+				}
+			else if(m_gui->m_plussounds->isPressed() && ML_release)
+				{
+					ML_release = false;
+					if (m_soundLibrary->m_soundVolume < 100)
+						m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume+10);
+				}
+			else if(m_gui->m_minussounds->isPressed() && ML_release)
+				{
+					ML_release = false;
+					if (m_soundLibrary->m_soundVolume > 0)
+					m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
+				}
 
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
-			{
+				{
 				ML_release = false;
-			}
+				}
 
 			
 

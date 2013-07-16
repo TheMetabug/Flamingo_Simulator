@@ -112,8 +112,8 @@ void sound::setVolume(float Volume)
 
 soundLibrary::soundLibrary()
 	:	m_mute(false),
-		m_musicVolume(100),
-		m_soundVolume(100)
+		m_musicVolume(50),
+		m_soundVolume(50)
 {
 #pragma region Musics
 
@@ -202,6 +202,7 @@ void soundLibrary::setMusicVolume(float volume)
 		m_musics[i]->m_volumeMultiplier = volume;
 		m_musics[i]->setVolume(m_musics[i]->m_volume);
 	}
+	m_musicVolume = volume;
 }
 
 void soundLibrary::setSoundsVolume(float volume)
@@ -211,4 +212,5 @@ void soundLibrary::setSoundsVolume(float volume)
 		m_sounds[i]->m_volumeMultiplier = volume;
 		m_sounds[i]->setVolume(m_sounds[i]->m_volume);
 	}
+	m_soundVolume = volume;
 }
