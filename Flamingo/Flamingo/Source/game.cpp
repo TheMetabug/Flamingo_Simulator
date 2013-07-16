@@ -133,6 +133,7 @@ void game::init()
 }
 void game::update(float deltaTime)
 {
+	m_flamingoHeadPressed = false;
 	// gameStates
 	if (!m_input->isButtonPressed(al::Button::MouseLeft))
 	{
@@ -177,18 +178,19 @@ void game::update(float deltaTime)
 			{
 				m_muted = true;
 				m_soundLibrary->mute(true);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
 			}
 			else
 			{
 				m_muted = false;
 				m_soundLibrary->mute(false);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
 			}
 		}
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			ML_release = false;
+			m_flamingoHeadPressed = true;
 		}
 			
 
@@ -206,7 +208,7 @@ void game::update(float deltaTime)
 		// hitbox
 
 		//flamingo
-		m_flamingo->update(deltaTime, !ML_release);
+		m_flamingo->update(deltaTime, m_flamingoHeadPressed);
 
 		// nest
 		m_nest->update(deltaTime);

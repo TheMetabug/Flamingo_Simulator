@@ -75,7 +75,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 		m_neckPieces[i]->m_sprite.setPosition(m_flamingoPosition);
 		m_neckPieces[i]->m_sprite.setOrigin(vector(18, 20));
 		m_neckPieces[i]->m_sprite.setScale(0.5f, 0.5f);
-		m_neckPieces[i]->m_sprite.setLayer(100);
+		m_neckPieces[i]->m_sprite.setLayer(220);
 
 		float place = ((float)i + 0.5f)/(float)neckPieceCount;
 		m_neckPieces[i]->m_positionMultiplier = vector(place,(sin(float(place * -2 * PI)))/8);
@@ -117,8 +117,8 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 	{
 	case 0: // head in origin
 		m_headPosition = m_headOrigin;
-		if (MLPressed &&
-			(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 100 )
+		if (MLPressed)// &&
+			//(m_input->getMousePosition() - m_flamingoHead.getPosition()).getLenght() < 100 )
 		{
 			m_mouseStartPos = m_input->getMousePosition();
 			m_drag = 1;
@@ -188,7 +188,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			m_arrowSprite.setRotation((-m_direction).getAngle());
 
 		}
-		if(!MLPressed) // head released
+		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
 		{
 			if (m_direction.getLenght()>15)
 			{

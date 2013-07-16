@@ -55,6 +55,7 @@ private:
 	bool P_release;
 	bool M_release;
 	bool ML_release;
+	bool m_flamingoHeadPressed;
 	bool m_muted;
 	
 	// gameStates
