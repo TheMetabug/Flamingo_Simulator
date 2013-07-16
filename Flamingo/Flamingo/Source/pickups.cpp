@@ -300,7 +300,7 @@ void pickups::update(float DeltaTime)
 				}
 				else
 				{
-					if(itemList[i]->m_pickup->m_foodValue <= 0)
+					if(itemList[i]->m_pickup->m_foodValue <= 0 && c_item != 0)
 						m_soundLibrary->m_sounds[12]->play(); // piip
 
 					m_soundLibrary->m_sounds[9]->play(); // mäisk
