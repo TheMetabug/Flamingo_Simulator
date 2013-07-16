@@ -333,12 +333,12 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 		{
 			if(m_hatchlings[Id-1]->m_eatPoints >= 3)
 			{
- 				m_gui->SCORE += 100;
+ 				m_gui->SCORE += 500;
 				m_hatchlings[Id-1]->fly();
 			}
 			else
 			{
- 				m_gui->SCORE += 500;
+ 				m_gui->SCORE += 100;
 				m_hatchlings[Id-1]->eat(foodValue);
 			}
 

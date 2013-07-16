@@ -3,7 +3,6 @@
 using namespace al;
 
 enemy::enemy(collision* Collide, gui* Gui)
-	: m_timer(0)
 {
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 250;
@@ -15,7 +14,7 @@ enemy::enemy(collision* Collide, gui* Gui)
 
 	m_texture = new texture("enemyAnimation.png");
 	m_sprite = new sprite(m_texture);
-	m_sprite->setPosition(vector(m_enemyOrigin.x, m_enemyOrigin.y));
+	m_sprite->setPosition(vector(-m_enemyOrigin.x, m_enemyOrigin.y));
 	m_sprite->setOrigin(vector(128,128));
 	m_sprite->setScale(0.5f);
 	m_sprite->setLayer(1);
@@ -31,8 +30,8 @@ enemy::enemy(collision* Collide, gui* Gui)
 					 m_sprite->getTransformedSize().y/2),
 		2);
 
+	reset();
 }
-
 enemy::~enemy()
 {
 	std::cout<<"deleted enemy"<<std::endl;
@@ -41,7 +40,6 @@ enemy::~enemy()
 	delete m_animation;
 	
 }
-
 void enemy::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
@@ -80,12 +78,10 @@ void enemy::update(float DeltaTime)
 	m_sprite->setPosition(m_enemyBirdPosition);
 	m_hitbox->Position = m_enemyBirdPosition;
 }
-
 void enemy::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
 }
-
 void enemy::eat(float foodValue, vector itemDirection)
 {
 	if(foodValue <= 0) // when boot hits enemy
@@ -103,7 +99,6 @@ void enemy::eat(float foodValue, vector itemDirection)
 		m_gui->SCORE -= 100;
 	}
 }
-
 void enemy::fly(float DeltaTime)
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
@@ -114,11 +109,11 @@ void enemy::fly(float DeltaTime)
 
 
 }
-
 void enemy::die(float DeltaTime)
 {
 	m_direction = ((m_enemyBirdPosition - m_prevPosition) / DeltaTime) * 1.0f + m_direction * 0.4f;
 	m_timer += DeltaTime;
+
 	if(m_timer > 0.0f)
 	{
 		m_birdPhase = 2;
@@ -126,9 +121,7 @@ void enemy::die(float DeltaTime)
 	}
 
 	m_enemyBirdPosition.x -= 300*DeltaTime;
-
 }
-
 void enemy::fall(float DeltaTime)
 {
 	m_timer += DeltaTime;
@@ -143,7 +136,6 @@ void enemy::fall(float DeltaTime)
 		m_timer = 0;
 	}
 }
-
 void enemy::happy(float DeltaTime)
 {
 	m_timer += DeltaTime;
@@ -160,7 +152,6 @@ void enemy::happy(float DeltaTime)
 	}
 
 }
-
 void enemy::respawn()
 {
 	//m_enemyBirdPosition = vector(0, 50); 
@@ -170,20 +161,20 @@ void enemy::respawn()
 	m_sprite->setRotation(0);
 	
 }
-
 void enemy::flyBack(float DeltaTime)
 {
-	//m_enemyBirdPosition.x = m_enemyOrigin.x + 60 * sin(m_enemyRotate);
-	//m_enemyBirdPosition.x++;
 	m_enemyBirdPosition.x = m_enemyOrigin.x + (60 * m_enemyRotate);
 	m_enemyBirdPosition.y = m_enemyOrigin.y + 100 * sin(2*m_enemyRotate);
-	//m_enemyBirdPosition.x += 1;
-	//m_enemyBirdPosition.y += 1;
-	//std::cout << "X: " << m_enemyBirdPosition.x <<  "Y: " << m_enemyBirdPosition.y << std::endl;
-//
-	if (m_enemyBirdPosition.x > m_enemyOrigin.x)
-	{
-		m_birdPhase = 0;
+
+	if (m_enemyBirdPosition.x > 0)
 		m_hitbox->isEnabled = true;
-	}
+
+	if (m_enemyBirdPosition.x > m_enemyOrigin.x)
+		m_birdPhase = 0;
+}
+void enemy::reset()
+{
+	m_hitbox->isEnabled = false;
+	m_timer = -(rand()%10);
+ 	m_birdPhase = 2;
 }

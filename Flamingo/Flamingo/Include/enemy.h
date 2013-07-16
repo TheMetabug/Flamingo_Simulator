@@ -33,6 +33,7 @@ private:
 	void happy(float DeltaTime);
 	void respawn();
 	void flyBack(float DeltaTime);
+	void reset();
 
 
 	al::texture *m_texture;
