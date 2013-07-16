@@ -106,6 +106,10 @@ private:
 	//cloud
 	cloud* m_cloud;
 
+	// tree
+	tree* m_tree1;
+	tree* m_tree2;
+
 	// particles
 
 	//renderstatistics

@@ -47,4 +47,23 @@ private:
 	float m_startPosition_x, m_respawnPosition_x, m_startPosition_y, m_respawnPosition_y;
 };
 
+class tree
+{
+
+public:
+	tree(al::vector Scale, al::vector Position);
+	~tree();
+	void update(float DeltaTime);
+	void draw(al::viewport* Viewport);
+
+private:
+	al::texture* m_treeTexture;
+	al::sprite* m_treeSprite;
+	al::vector m_treePosition;
+	al::vector m_treeScale;
+
+	float m_rotation, m_timer;
+
+};
+
 #endif

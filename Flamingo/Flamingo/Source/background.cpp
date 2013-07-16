@@ -11,7 +11,7 @@ background::background()
 	m_water.setTexture(m_waterTexture);
 	m_water.setPosition(vector(1280, 720));
 	m_water.setOrigin(vector(1280, 462));
-	m_water.setLayer(0);
+	m_water.setLayer(1);
 
 	m_skyTexture = new texture("skyplaceholder.png");
 	m_sky.setTexture(m_skyTexture);
@@ -101,4 +101,50 @@ void cloud::draw(al::viewport* Viewport)
 	{
 		Viewport->draw(m_clouds[i]);
 	}	
+}
+
+tree::tree(al::vector Scale, al::vector Position)
+{
+	m_treePosition = Position;
+	m_treeScale = Scale;
+
+	m_rotation = 0;
+	m_timer = 0;
+
+	m_treeTexture = new texture("treeBackground.png");
+	m_treeSprite = new sprite(m_treeTexture);
+	m_treeSprite->setOrigin(vector(m_treeSprite->getSize().x/2,m_treeSprite->getSize().y));
+	m_treeSprite->setPosition(m_treePosition);
+	m_treeSprite->setScale(m_treeScale);
+	m_treeSprite->setLayer(0);
+
+}
+
+tree::~tree()
+{
+	delete m_treeTexture;
+}
+
+void tree::update(float DeltaTime)
+{
+	m_timer += DeltaTime*2;
+
+	if(m_timer >= 0 && m_timer <= 4)
+	m_rotation += DeltaTime*2;
+
+	if(m_timer >=4)
+	m_rotation -= DeltaTime*2;
+
+	if(m_timer >= 8)
+	{
+		m_timer = 0;
+		m_rotation = 0;
+	}
+
+	m_treeSprite->setRotation(m_rotation);
+}
+
+void tree::draw(al::viewport* Viewport)
+{
+	Viewport->draw(m_treeSprite);
 }
