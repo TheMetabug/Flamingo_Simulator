@@ -18,7 +18,9 @@ namespace pups
 	{
 		Plancton = 0,
 		Shrimp,
-		Shoe
+		Shoe,
+		Can,
+		Krill
 	};
 
 	//Class for pickup types, containing texture, sprite, id and edibility
@@ -34,7 +36,6 @@ namespace pups
 		float m_scale;
 		float m_opacity;
 	};
-
 
 	//Class for individual items, contains pointer to pickup, telling what type of item this is
 	class item
@@ -60,6 +61,7 @@ namespace pups
 
 	};
 }
+
 //Class that creates pickup types, controls individual items
 class pickups
 {
@@ -68,10 +70,11 @@ public:
 	//pickups(){}
 	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary);
 	~pickups();
+
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 	void drawHitBoxes(sf::RenderWindow* window);
-	
+	void reset();
 
 private:
 	void deleteItem(int i);
@@ -97,7 +100,5 @@ private:
 
 
 };
-
-
 
 #endif

@@ -12,7 +12,7 @@
 using namespace pups;
 using namespace al;
 
-
+// Pickup
 pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity):
 	m_texture(Texture),
 	m_itemName(itemName),
@@ -27,6 +27,7 @@ pickup::~pickup()
 	std::cout<<"deleted pickup type"<<std::endl;
 }
 
+// Item
 item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
 	  m_pickup(Pickup),
@@ -63,6 +64,7 @@ item::~item()
 	delete m_animation;
 	delete m_hitbox;
 }
+
 bool item::update(float DeltaTime)
 {
 	switch (m_state)
@@ -114,6 +116,7 @@ void item::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
 }
+
 void item::stayInWater()
 {
 	vector direction(m_position - vector(WATERX,WATERY));
@@ -152,6 +155,7 @@ void item::stayInWater()
 
 }
 
+// Pickups
 pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary)
 	: m_collision(Collision),
 	  m_nest(Nest),
@@ -166,9 +170,11 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	m_texture = new texture("Item_sheet.png"); // Texture containing all item animations
 
 	
-	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 9));
-	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85));
-	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75));
+	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f));
+	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f));
+	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 9.0f));
+	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 9.0f));
+	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f));
 }
 pickups::~pickups()
 {
@@ -186,6 +192,7 @@ pickups::~pickups()
 		delete itemList[i];
 	}
 }
+
 void pickups::update(float DeltaTime)
 {
 	m_timer += DeltaTime;
@@ -322,17 +329,25 @@ void pickups::update(float DeltaTime)
 			{
 				int rarity = rand()%100;
 				ItemName name;
-				if (rarity <25)
+				if (rarity < 20)
 				{
 					name = Shoe;
 				}
-				else if (rarity < 50)
+				else if (rarity < 40)
 				{
 					name = Shrimp;
 				}
-				else if (rarity < 100)
+				else if (rarity < 60)
 				{
 					name = Plancton;
+				}
+				else if (rarity < 80)
+				{
+					name = Can;
+				}
+				else if (rarity < 100)
+				{
+					name = Krill;
 				}
 
 				itemList.push_back(new item(m_spawnPosition,pickupList[name]));
@@ -390,6 +405,16 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 
 	
 }
+void pickups::reset()
+{
+	for (int i = 0; i < itemList.size(); ++i)
+	{
+		std::cout<<"deleting item "<<i+1<<" ";
+		delete itemList[i];
+		itemList.clear();
+	}
+}
+
 void pickups::deleteItem(int i)
 {
 	delete itemList[i];
