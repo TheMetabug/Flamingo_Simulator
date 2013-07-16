@@ -103,13 +103,15 @@ void cloud::draw(al::viewport* Viewport)
 	}	
 }
 
-tree::tree(al::vector Scale, al::vector Position)
+tree::tree(al::vector Scale, al::vector Position, float speed)
 {
 	m_treePosition = Position;
 	m_treeScale = Scale;
+	m_speed = speed;
 
 	m_rotation = 0;
 	m_timer = 0;
+	//m_speed = speed;
 
 	m_treeTexture = new texture("treeBackground.png");
 	m_treeSprite = new sprite(m_treeTexture);
@@ -127,7 +129,7 @@ tree::~tree()
 
 void tree::update(float DeltaTime)
 {
-	m_timer += DeltaTime*2;
+	m_timer += DeltaTime* m_speed;
 
 	if(m_timer >= 0 && m_timer <= 4)
 	m_rotation += DeltaTime*2;

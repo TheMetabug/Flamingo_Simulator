@@ -51,7 +51,7 @@ class tree
 {
 
 public:
-	tree(al::vector Scale, al::vector Position);
+	tree(al::vector Scale, al::vector Position, float speed);
 	~tree();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -62,7 +62,7 @@ private:
 	al::vector m_treePosition;
 	al::vector m_treeScale;
 
-	float m_rotation, m_timer;
+	float m_rotation, m_timer, m_speed;
 
 };
 

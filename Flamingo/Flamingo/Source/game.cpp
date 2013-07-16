@@ -71,8 +71,8 @@ void game::init()
 	m_cloud = new cloud();
 
 	// tree
-	m_tree1 = new tree(vector(0.4,0.4),vector(315,420));
-	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400));
+	m_tree1 = new tree(vector(0.4,0.4),vector(315,420),1.0f);
+	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400),3.0f);
 
 
 	// particles
