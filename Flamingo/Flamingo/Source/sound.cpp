@@ -144,7 +144,12 @@ soundLibrary::soundLibrary()
 #pragma endregion here we keep the sounds, dont mix us plz
 }
 soundLibrary::~soundLibrary()
-{}
+{
+	for (int i = 0; i < m_sounds.size(); ++i)
+		delete m_sounds[i];
+	for (int i = 0; i < m_musics.size(); ++i)
+		delete m_musics[i];
+}
 
 sound* soundLibrary::findSound(std::string soundName)
 {
