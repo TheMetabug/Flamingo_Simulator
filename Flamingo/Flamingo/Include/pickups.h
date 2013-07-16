@@ -80,6 +80,7 @@ public:
 private:
 	void deleteItem(int i);
 	void addItem();
+	int countItem(pups::ItemName itemName);
 
 	float m_timer;
 	nest *m_nest;

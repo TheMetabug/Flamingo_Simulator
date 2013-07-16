@@ -419,21 +419,22 @@ void pickups::addItem()
 
 			int rarity = rand()%100;
 			ItemName name;
-			if (rarity < 20)
+			if (rarity < 25)
 			{
-				name = Shoe;
+				if (countItem(Shoe) <3)
+					name = Shoe;
+				else if (countItem(Can) <2)
+					name = Can;
+				else
+					name = Plancton;
 			}
-			else if (rarity < 40)
+			else if (rarity < 50)
 			{
 				name = Shrimp;
 			}
-			else if (rarity < 60)
+			else if (rarity < 75)
 			{
 				name = Plancton;
-			}
-			else if (rarity < 80)
-			{
-				name = Can;
 			}
 			else if (rarity < 100)
 			{
@@ -443,4 +444,15 @@ void pickups::addItem()
 			itemList.push_back(new item(position,pickupList[name]));
 		}
 	}
+}
+
+int pickups::countItem(ItemName itemName)
+{
+	int retVal = 0;
+	for (int i = 0; i < itemList.size(); ++i)
+	{
+		if (itemList[i]->m_pickup->m_itemName == itemName)
+			retVal++;
+	}
+	return retVal;
 }

@@ -45,13 +45,10 @@ splashParticle::splashParticle(vector Position, vector Direction, vector Scale, 
 }
 bool splashParticle::update(float DeltaTime)
 {
-	//m_life -= DeltaTime;
 	m_animation->update(DeltaTime);
 	//particle::update(DeltaTime);
 	m_life-= DeltaTime;
 	m_sprite.setPosition(vector(m_position.x, m_startY + 50 * sin(PI*(-m_life/m_startLife))));
-	//m_sprite.setLayer(221);
-	std::cout<<((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 15<<std::endl;
 	m_sprite.setLayer(((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 80);
 	if (m_animation->getCurrentFrame() > 5)
 		return true;
