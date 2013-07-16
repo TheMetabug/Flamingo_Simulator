@@ -2,8 +2,9 @@
 
 using namespace al;
 
-flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
+flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input, particleEngine* ParticleEngine)
 {
+	m_particleEngine = ParticleEngine;
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
@@ -20,6 +21,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input)
 	m_headOrigin = m_flamingoPosition + vector(-19,-165);
 	m_headRotate = 0;
 	m_drag = 0;
+	m_splashed = false;
 
 	
 	// Textures and sprites
@@ -210,8 +212,18 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 		break;
 	case 2: // head released goes to crosshair
 		m_headPosition = m_crossHair - m_direction * (1 - m_timer / m_moveTime);
+		if (!m_splashed)
+		{
+			vector direction(m_headPosition - vector(WATERX,WATERY));
+			if (direction.getLenght() < WATERR && m_headPosition.y < WATER_BOTTOM - 30 && (1 - m_timer / m_moveTime < 0.3f) && !m_hasFood)
+			{
+				m_particleEngine->addSplash(m_headPosition,m_direction);
+				m_splashed = true;
+			}
+		}
 		if (m_timer > m_moveTime)
 		{
+			m_splashed = false;
 			m_drag = 3;
 			if (!m_hasFood)
 				m_headHitbox->isEnabled = true;

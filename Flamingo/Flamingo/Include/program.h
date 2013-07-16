@@ -5,6 +5,14 @@
 #define LAYER_COUNT 300
 #define PI 3.14159265358979323846264
 
+#define WATERX 900
+#define WATERY 1350
+#define WATERR 900
+#define WATER_LEFT 400
+#define WATER_RIGHT 1240
+#define WATER_TOP 430
+#define WATER_BOTTOM 680
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 

@@ -9,6 +9,7 @@
 #include "sound.h"
 #include "animation.h"
 #include "input.h"
+#include "particleEngine.h"
 
 class neckPiece
 {
@@ -25,7 +26,7 @@ class flamingo
 {
 public:
 	 //flamingo(){}
-	 flamingo(soundLibrary* SoundLibrary, collision* Collide, al::input* Input);
+	 flamingo(soundLibrary* SoundLibrary, collision* Collide, al::input* Input, particleEngine* ParticleEngine);
 	~flamingo();
 	void update(float DeltaTime, bool MLPressed);
 	void draw(al::viewport* Viewport);
@@ -39,6 +40,7 @@ private:
 	al::input* m_input;
 	float m_timer, m_multiplier, m_throwMultiplier, m_headRotate, m_distance, m_maxDistance;
 	bool m_hasFood;
+	bool m_splashed;
 
 	///////////BODY////////////
 
@@ -74,6 +76,7 @@ private:
 
 	// sound
 	soundLibrary* m_soundLibrary;
+	particleEngine* m_particleEngine;
 	
 	friend class pickups;
 };

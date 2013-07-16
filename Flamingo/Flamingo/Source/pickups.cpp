@@ -1,13 +1,6 @@
 #include "pickups.h"
 #include <time.h>
 
-#define WATERX 900
-#define WATERY 1350
-#define WATERR 900
-#define WATER_LEFT 400
-#define WATER_RIGHT 1240
-#define WATER_TOP 430
-#define WATER_BOTTOM 680
 
 using namespace pups;
 using namespace al;

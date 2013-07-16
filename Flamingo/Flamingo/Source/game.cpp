@@ -33,11 +33,15 @@ game::~game()
 	delete m_GmenuTexture;
 	delete m_creditsTexture;
 	delete m_optionsTexture;
+	delete m_particleEngine;
 	
 }
 
 void game::init()
 {
+	
+	// particles
+	m_particleEngine = new particleEngine();
 
 	// gameStates
 
@@ -53,7 +57,7 @@ void game::init()
 
 
 	// head
-	m_flamingo = new flamingo(m_soundLibrary, collide, m_input);
+	m_flamingo = new flamingo(m_soundLibrary, collide, m_input, m_particleEngine);
 
 	// nest
 	m_nest = new nest(collide, m_gui);
@@ -71,7 +75,6 @@ void game::init()
 	m_cloud = new cloud();
 
 
-	// particles
 
 	// titleCard
 
@@ -416,10 +419,10 @@ void game::update(float deltaTime)
 	
 
 
-	// animation
 
 
 	// particles
+	m_particleEngine->update(deltaTime);
 
 
 }
@@ -504,6 +507,7 @@ void game::draw()
 
 
 	// particles
+	m_particleEngine->draw(m_viewport);
 
 	
 }

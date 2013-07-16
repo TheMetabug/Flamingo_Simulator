@@ -14,6 +14,7 @@
 #include "sound.h"
 #include "program.h"
 #include "input.h"
+#include "particleEngine.h"
 
 class game 
 {
@@ -107,6 +108,7 @@ private:
 	cloud* m_cloud;
 
 	// particles
+	particleEngine* m_particleEngine;
 
 	//renderstatistics
 
