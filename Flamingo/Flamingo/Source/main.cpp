@@ -28,7 +28,7 @@ int main()
 
 	// Set window parametres
 	
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flamingo Simulator 2013");
+    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flamia");
 	al::viewport* viewport = new al::viewport(window);
 	//window->setFramerateLimit(120);
 

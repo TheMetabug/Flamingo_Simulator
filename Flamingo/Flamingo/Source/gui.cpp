@@ -116,6 +116,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_Gmenu = false;
 	m_Options = false;
 	m_returnTitle = false;
+	m_credits= false;
 	m_soundLibrary = SoundLibrary;
 
 	
@@ -138,16 +139,19 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	button2 = Listbutton
 	button3 = mute-button*/
 
-	m_buttonTextures.push_back(new texture("buttons/GameButtons.png")); // 0
-	m_button = new button(m_buttonTextures.back(),vector(300,300),m_input, m_soundLibrary);
-	m_button->m_sprite.setLayer(296);
+	//gameplay-buttons
+
+	m_buttonTextures.push_back(new texture("buttons/menubutton.png")); // 0
 	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input,m_soundLibrary);
 	m_button2->m_sprite.setLayer(296);
+	
+	m_buttonTextures.push_back(new texture("buttons/muteButton1.png")); // 1
 	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input, m_soundLibrary);
 	m_button3->m_sprite.setLayer(296);
+	m_buttonTextures.push_back(new texture("buttons/muteButton2.png")); // 2
 
 	// GameMenu's buttons
-	m_buttonTextures.push_back(new texture("GameMenu/MenuButton.png")); // 1
+	m_buttonTextures.push_back(new texture("GameMenu/MenuButton.png")); // 3
 	m_Gmenubutton1 = new button(m_buttonTextures.back(),vector(628,331),m_input, m_soundLibrary);
 	m_Gmenubutton1->m_sprite.setLayer(299);
 	
@@ -163,32 +167,57 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_Gmenubutton4 = new button(m_buttonTextures.back(),vector(628,421),m_input, m_soundLibrary);
 	m_Gmenubutton4->m_sprite.setLayer(299);
 	
-	m_buttonTextures.push_back(new texture("GameMenu/yesButton.png")); // 2
+	// ReturnTitle buttons
+	
+	m_buttonTextures.push_back(new texture("GameMenu/yesButton.png")); // 4
 	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
 	m_yesbutton->m_sprite.setLayer(300);
 	
-	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 3
+	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 5
 	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
 	m_nobutton->m_sprite.setLayer(300);
 	
-	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 4
+	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 6
 	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input, m_soundLibrary);
 	m_donebutton->m_sprite.setLayer(300);
 	
-	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
+	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 7
 	m_plusmusic = new button(m_buttonTextures.back(),vector(748,323),m_input, m_soundLibrary);
 	m_plusmusic->m_sprite.setLayer(300);
 	
 	m_plussounds = new button(m_buttonTextures.back(),vector(748,378),m_input, m_soundLibrary);
 	m_plussounds->m_sprite.setLayer(300);
 
-	m_buttonTextures.push_back(new texture("OptionsMenu/minus.png")); // 1
+	m_buttonTextures.push_back(new texture("OptionsMenu/minus.png")); // 8
 	m_minusmusic = new button(m_buttonTextures.back(),vector(667,323),m_input, m_soundLibrary);
 	m_minusmusic->m_sprite.setLayer(300);
 	
 	m_minussounds = new button(m_buttonTextures.back(),vector(667,378),m_input, m_soundLibrary);
 	m_minussounds->m_sprite.setLayer(300);
 
+	// MainMenu buttons
+	m_buttonTextures.push_back(new texture("MainMenu/playButton.png")); // 9
+	m_mainbutton1 = new button(m_buttonTextures.back(),vector(628,490),m_input, m_soundLibrary);
+	m_mainbutton1->m_sprite.setLayer(1);
+
+	m_buttonTextures.push_back(new texture("MainMenu/instructionsButton.png")); // 10
+	m_mainbutton2 = new button(m_buttonTextures.back(),vector(667,550),m_input, m_soundLibrary);
+	m_mainbutton2->m_sprite.setLayer(1);
+	
+	m_buttonTextures.push_back(new texture("MainMenu/creditsButton.png")); // 11
+	m_mainbutton3 = new button(m_buttonTextures.back(),vector(630,600),m_input, m_soundLibrary);
+	m_mainbutton3->m_sprite.setLayer(1);
+	
+	m_buttonTextures.push_back(new texture("MainMenu/quitButton.png")); // 12
+	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,666),m_input, m_soundLibrary);
+	m_mainbutton4->m_sprite.setLayer(1);
+
+	m_buttonTextures.push_back(new texture("Buttons/exitButton.png")); // 13
+	m_xbutton = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_xbutton->m_sprite.setLayer(300);
+
+	
+	
 	m_font = new font();
 	m_font2 = new font();
 
@@ -200,7 +229,6 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext = new text("HP-mittari", m_font, 50);
 	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
 	TITLEtext = new text("Press SPACE",m_font, 50);
-	MENUtext = new text("MENU, press button to flamingo", m_font, 50); 
 	SCOREtext = new text("SCORE", m_font,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
@@ -224,12 +252,6 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	TITLEtext->setColor();
 	TITLEtext->setLayer(298);
 
-	MENUtext->setPosition (vector(550,100));
-	MENUtext->setColor(255,0,255, 255);
-	MENUtext->setLayer(298);
-
-	
-
 	MUSICtext->setPosition (vector(686,310));
 	MUSICtext->setColor(83,77,67,255);
 	MUSICtext->setLayer(299);
@@ -246,10 +268,8 @@ gui::~gui()
 	delete HPtext;
 	delete PAUSEtext;
 	delete TITLEtext;
-	delete MENUtext;
 	delete SCOREtext;
 	delete m_font;
-	delete m_button;
 	delete m_button2;
 	delete m_button3;
 	delete m_Gmenubutton1;
@@ -265,6 +285,12 @@ gui::~gui()
 	delete m_minussounds;
 	delete MUSICtext;
 	delete SOUNDtext;
+	delete m_mainbutton1;
+	delete m_mainbutton2;
+	delete m_mainbutton3;
+	delete m_mainbutton4;
+	delete m_xbutton;
+
 
 	
 
@@ -320,7 +346,10 @@ void gui::update(float DeltaTime)
 	
 	
 	if (m_menu)
-		m_button->update(DeltaTime);
+		m_mainbutton1->update(DeltaTime);
+		m_mainbutton2->update(DeltaTime);
+		m_mainbutton3->update(DeltaTime);
+		m_mainbutton4->update(DeltaTime);
 
 	if (m_Play)
 	{
@@ -335,7 +364,10 @@ void gui::update(float DeltaTime)
 		m_Gmenubutton3->update(DeltaTime);
 		m_Gmenubutton4->update(DeltaTime);
 	}
-	
+	if (m_credits)
+	{
+		m_xbutton->update(DeltaTime);
+	}
 }
 
 void gui::draw(al::viewport* Viewport)
@@ -350,8 +382,10 @@ void gui::draw(al::viewport* Viewport)
 
 	if(m_menu)
 	{
-		Viewport->draw(MENUtext);
-		m_button->draw(Viewport); //button
+		m_mainbutton1->draw(Viewport);
+		m_mainbutton2->draw(Viewport);
+		m_mainbutton3->draw(Viewport);
+		m_mainbutton4->draw(Viewport);
 	}
 	
 	
@@ -392,6 +426,8 @@ void gui::draw(al::viewport* Viewport)
 		Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
 	}
+	if (m_credits)
+		m_xbutton->draw(Viewport);
 	
 	/*if (1)
 		m_button2->draw();*/

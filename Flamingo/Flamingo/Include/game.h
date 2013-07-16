@@ -63,7 +63,7 @@ private:
 		TitleScreen = 0,
 		Play,
 		Menu,
-		Pause,
+		Tutorial,
 		Credits,
 		Options,
 		Gamemenu,
@@ -106,6 +106,10 @@ private:
 
 	//cloud
 	cloud* m_cloud;
+
+	// tree
+	tree* m_tree1;
+	tree* m_tree2;
 
 	// particles
 	particleEngine* m_particleEngine;

@@ -74,6 +74,10 @@ void game::init()
 	//cloud
 	m_cloud = new cloud();
 
+	// tree
+	m_tree1 = new tree(vector(0.4,0.4),vector(315,420),1.0f);
+	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400),3.0f);
+
 
 
 	// titleCard
@@ -173,13 +177,13 @@ void game::update(float deltaTime)
 			{
 				m_muted = true;
 				m_soundLibrary->mute(true);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
 			}
 			else
 			{
 				m_muted = false;
 				m_soundLibrary->mute(false);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[0]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
 			}
 		}
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
@@ -188,15 +192,7 @@ void game::update(float deltaTime)
 		}
 			
 
-		if(!m_input->isKeyPressed(al::Key::Pause))
-			P_release = true;
-		else if (P_release)
-		{
-			m_soundLibrary->m_musics[0]->pause();
-			m_soundLibrary->m_sounds[0]->play();
-			P_release = false;
-			m_state = Pause;
-		}
+		
 		
 		if(!m_input->isKeyPressed(al::Key::Menu))
 			M_release = true;
@@ -227,6 +223,10 @@ void game::update(float deltaTime)
 		// cloud
 		m_cloud->update(deltaTime);
 
+		// tree
+		m_tree1->update(deltaTime);
+		m_tree2->update(deltaTime);
+
 		// gui
 		m_gui->update(deltaTime);
 
@@ -240,66 +240,58 @@ void game::update(float deltaTime)
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
 		
-		//Close all the game texts!
-		m_gui->m_Play = false;
-		m_gui->m_pause = false;
-		
-		if(!m_input->isKeyPressed(al::Key::Menu))
-			M_release = true;
-		else if (M_release)
-		{
-			M_release = false;
-			m_state = Play;
-			m_gui->m_menu = false;
-		}
-
-
-		/*if(	m_input->getMousePosition().x > m_gui->m_button->m_position.x  - m_gui->m_button->m_sprite.getSize().x/2 &&
-			m_input->getMousePosition().x < m_gui->m_button->m_position.x + m_gui->m_button->m_sprite.getSize().x/2 &&
-			m_input->getMousePosition().y > m_gui->m_button->m_position.y - m_gui->m_button->m_sprite.getSize().y/2 &&
-			m_input->getMousePosition().y < m_gui->m_button->m_position.y + m_gui->m_button->m_sprite.getSize().y/2)
-		{
-			
-			m_gui->m_button->m_animation->ChangeAnimation(1,0,1,100);
-
-			if(m_input->isButtonPressed(al::Button::MouseLeft))
+		if(m_gui->m_mainbutton1->isPressed() && ML_release)
 			{
-				m_soundLibrary->m_musics[0]->play();
-				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
+				ML_release = false;
 				m_state = Play;
 				m_gui->m_menu = false;
 			}
-		}
-		else
-			m_gui->m_button->m_animation->ChangeAnimation(0,0,0,100);*/
-		
+		if(m_gui->m_mainbutton2->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Tutorial;
+				m_gui->m_menu = false;
+			}
+		if(m_gui->m_mainbutton3->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Credits;
+				m_gui->m_menu = false;
+			}
 
-		//uusi
-		if (m_gui->m_button->isPressed())
-		{
-			m_state = Play;
-			m_gui->m_menu = false;
-		}
+		//mainbutton4
+
+
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+				{
+				ML_release = false;
+				}
+	
 
 
 		break;
-	case Pause:
+	case Tutorial:
 		m_gui->update(deltaTime);
 		m_gui->m_pause = true;
 
 		
-		if(!m_input->isKeyPressed(al::Key::Pause))
-			P_release = true;
-		else if (P_release)
-		{
-			
-			P_release = false;
-			m_state = Play;
-			m_gui->m_pause = false;
-		}
 		
 		break;
 	case Credits:
+		m_gui->m_credits = true;
+		m_gui->update(deltaTime);
+		if(m_gui->m_xbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Menu;
+				m_gui->m_credits = false;
+			}
+
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+				{
+				ML_release = false;
+				}
+
 
 		break;
 	case Options:
@@ -383,6 +375,7 @@ void game::update(float deltaTime)
 				ML_release = false;
 				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
+				m_gui->m_Play = false;
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
@@ -452,7 +445,7 @@ void game::draw()
 			m_viewport->draw(&m_options);
 		}
 
-	case Pause:
+	case Tutorial:
 	
 	case Play:
 		// backGround
@@ -460,6 +453,10 @@ void game::draw()
 		
 		//cloud
 		m_cloud->draw(m_viewport);
+
+		// tree
+		m_tree1->draw(m_viewport);
+		m_tree2->draw(m_viewport);
 
 		// nest
 		m_nest->draw(m_viewport);
@@ -471,7 +468,6 @@ void game::draw()
 		m_pickups->draw(m_viewport);
 
 		// flamingo
-
 		m_flamingo->draw(m_viewport);		
 
 		if(m_gui->m_pause == true || m_gui->m_Gmenu == true )
@@ -497,6 +493,8 @@ void game::draw()
 		break;
 	case Credits:
 		m_viewport->draw(&m_credits);
+		m_gui->draw(m_viewport);
+
 		break;
 
 

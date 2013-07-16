@@ -70,10 +70,15 @@ public:
 	bool m_Gmenu;
 	bool m_Options;
 	bool m_returnTitle;
+	bool m_credits;
 	
-	button* m_button;
 	button* m_button2;
 	button* m_button3;
+
+	button* m_mainbutton1;
+	button* m_mainbutton2;
+	button* m_mainbutton3;
+	button* m_mainbutton4;
 
 	button* m_Gmenubutton1;
 	button* m_Gmenubutton2;
@@ -88,6 +93,8 @@ public:
 	button* m_minusmusic;
 	button* m_plussounds;
 	button* m_minussounds;
+
+	button* m_xbutton;
 	
 
 
@@ -100,8 +107,6 @@ private:
 	al::text* HPtext;
 	al::text* PAUSEtext;
 	al::text* TITLEtext;
-	al::text* MENUtext;
-	al::text* Gmenutext;
 	
 	al::text* SCOREtext;
 	al::text* MUSICtext;
