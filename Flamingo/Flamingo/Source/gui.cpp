@@ -212,8 +212,8 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,666),m_input, m_soundLibrary);
 	m_mainbutton4->m_sprite.setLayer(1);
 
-	m_buttonTextures.push_back(new texture("MainMenu/exitButton.png")); // 13
-	m_xbutton = new button(m_buttonTextures.back(),vector(626,666),m_input, m_soundLibrary);
+	m_buttonTextures.push_back(new texture("Buttons/exitButton.png")); // 13
+	m_xbutton = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
 	m_xbutton->m_sprite.setLayer(300);
 
 	
