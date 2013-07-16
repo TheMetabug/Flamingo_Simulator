@@ -298,7 +298,7 @@ void nest::update(float DeltaTime)
 	{
 		m_hatchlings[i]->update(DeltaTime);
 
-		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging)
+		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
 		{
 			m_whichBird = i;
 			m_egging = true;
@@ -356,8 +356,13 @@ void nest::egg(float DeltaTime)
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
-			m_eggAnimation->ChangeAnimation(0,1);
+
 			removeEgg();
+
+			if (m_eggCount > 0)
+				m_eggAnimation->ChangeAnimation(0,1);
+			else
+				m_eggAnimation->ChangeAnimation(6,1);
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
 		}
@@ -430,6 +435,7 @@ void nest::happy(float DeltaTime)
 
 void nest::addEgg()
 {
+	m_eggCount++;
 	float width = 256, height = 256;
 	m_eggs.push_back(new sprite(m_eggTexture));
 	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
@@ -441,7 +447,9 @@ void nest::addEgg()
 }
 void nest::removeEgg()
 {
-	m_eggs.pop_back();
+	m_eggCount--;
+	if (m_eggs.size()>0)
+		m_eggs.pop_back();
 
 	updateEggPositions();
 }
@@ -457,6 +465,7 @@ void nest::updateEggPositions()
 }
 void nest::reset()
 {
+	m_eggCount = 1;
 	for (int i = m_eggs.size()-1; i >= 0; --i)
 	{
 		delete m_eggs[i];
@@ -476,6 +485,7 @@ void nest::reset()
 
 	m_hatching = false;
 	m_egging = false;
+	m_noEggs = false;
 	m_theEgg->setPosition(m_eggPosition);
 	m_eggAnimation->ChangeAnimation(0,1);
 }

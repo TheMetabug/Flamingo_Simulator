@@ -99,10 +99,12 @@ private:
 	//al::sprite *m_hatchlingFly;
 	//animation *m_hatchlingFlyAnimation;
 
-	//int m_eggCount;
+	int m_eggCount;
 	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime;
 	bool m_hatching;
 	bool m_egging;
+
+	bool m_noEggs;
 	
 	// SCORE-stats
 	gui *m_gui;
