@@ -33,7 +33,7 @@ public:
 	animation *m_animation;
 	animation *m_flyAnimation;
 	hitbox* m_hitbox;
-	float m_timer, m_eatPoints, m_rotation, m_flyScale;
+	float m_timer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
 	bool m_isThere;
 	bool m_fly;
 	int m_state;
@@ -62,6 +62,8 @@ public:
 	void addEgg();
 	void reset();
 
+	int m_whichBird;
+
 private:
 
 	hitbox		*m_nestHitbox;
@@ -74,7 +76,8 @@ private:
 				m_hatchlingPosition_2,
 				m_hatchlingPosition_3,
 				m_eggPosition,
-				m_eggVector;
+				m_eggVector,
+				m_eggTarget;
 
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;

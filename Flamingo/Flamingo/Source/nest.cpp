@@ -31,12 +31,16 @@ hatchling::hatchling(texture* HatchlingTexture, al::texture* FlyTexture, collisi
 	m_flySprite->setLayer(2);
 	m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
 
+	m_travelTime = 0;
+
 	reset();
 }
 hatchling::~hatchling()
 {
 	delete m_sprite;
 	delete m_animation;
+	delete m_flySprite;
+	delete m_flyAnimation;
 }
 
 void hatchling::update(float DeltaTime)
@@ -70,25 +74,26 @@ void hatchling::update(float DeltaTime)
 		break;
 	case 2:
 		{
-			vector finalPosition = vector(500,500);
-			float travelTime = 2.0f;
+			vector finalPosition = vector(280,100);
+			m_travelTime = 2.0f;
 			if (m_timer > 0.0f)
 			{
 				//m_position.y -= 250 * DeltaTime;
-				m_flySprite->setPosition(m_position + (m_timer / travelTime) *(finalPosition - m_position));
+				m_flySprite->setPosition(m_position + (m_timer / m_travelTime) *(finalPosition - m_position));
+				m_flySprite->setScale(m_flyScale * ((2.0f - m_timer) / 2.0f ) );
 			}
-			if (m_timer > travelTime)
+			if (m_timer > m_travelTime)
 			{
 				m_flySprite->setPosition(finalPosition);
 				m_state = 3;
-				m_timer = -5;
+				m_timer = -2;
 			}
 		}
 		break;
 	case 3:
 		if (m_timer < 0)
 		{
-			m_flySprite->setScale(m_flyScale * ((m_timer / -5.0f)));
+			
 		}
 		else
 		{
@@ -292,7 +297,15 @@ void nest::update(float DeltaTime)
 	for (int i = 0; i < 3; ++i)
 	{
 		m_hatchlings[i]->update(DeltaTime);
+
+		if (m_hatchlings[i]->m_fly)
+		{
+			egg(DeltaTime);
+		}
 	}
+
+
+
 
 }
 void nest::draw(al::viewport* Viewport)
@@ -318,6 +331,15 @@ void nest::draw(al::viewport* Viewport)
 
 void nest::egg(float DeltaTime)	
 {
+	for(int i = 0; i < m_hatchlings.size(); ++i)
+	{
+		m_eggTarget = m_hatchlings[m_whichBird]->m_position;
+		m_theEgg->setPosition(m_hatchlings[m_whichBird]->m_position +
+								(m_timer / m_hatchlings[m_whichBird]->m_travelTime)
+									*(m_eggTarget - m_hatchlings[m_whichBird]->m_position));
+	}
+
+
 
 }
 void nest::sleep(float DeltaTime)
@@ -331,10 +353,11 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 	{
 		if(foodValue > 0)
 		{
-			if(m_hatchlings[Id-1]->m_eatPoints >= 3)
+			if(m_hatchlings[Id-1]->m_eatPoints >= 1) // change 1 to 3!!!!!!!!!! 1 is just for debugging
 			{
  				m_gui->SCORE += 500;
 				m_hatchlings[Id-1]->fly();
+				m_whichBird = Id-1;
 			}
 			else
 			{
