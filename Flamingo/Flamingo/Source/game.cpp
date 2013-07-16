@@ -272,7 +272,7 @@ void game::update(float deltaTime)
 		
 
 		//uusi
-		if (m_gui->m_button->isPressed())
+		if (m_gui->m_mainbutton1->isPressed())
 		{
 			m_state = Play;
 			m_gui->m_menu = false;
