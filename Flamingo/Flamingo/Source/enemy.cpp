@@ -9,12 +9,12 @@ enemy::enemy(collision* Collide, gui* Gui)
 	m_enemyOrigin.y = 300;
 	m_birdPhase = 0;
 
+
 	// score //
 	m_gui = Gui;
 
 	m_texture = new texture("enemyAnimation.png");
 	m_sprite = new sprite(m_texture);
-	m_sprite->setPosition(vector(-m_enemyOrigin.x, m_enemyOrigin.y));
 	m_sprite->setOrigin(vector(128,128));
 	m_sprite->setScale(0.5f);
 	m_sprite->setLayer(1);
@@ -82,6 +82,17 @@ void enemy::update(float DeltaTime)
 void enemy::draw(al::viewport* Viewport)
 {
 	Viewport->draw(m_sprite);
+}
+
+void enemy::reset()
+{
+	m_enemyBirdPosition = -m_enemyOrigin;
+	m_sprite->setPosition(m_enemyBirdPosition);
+	m_hitbox->Position = m_enemyBirdPosition;
+
+	m_hitbox->isEnabled = false;
+	m_timer = -(rand()%10);
+ 	m_birdPhase = 2;
 }
 
 void enemy::eat(float foodValue, vector itemDirection)
@@ -173,10 +184,4 @@ void enemy::flyBack(float DeltaTime)
 
 	if (m_enemyBirdPosition.x > m_enemyOrigin.x)
 		m_birdPhase = 0;
-}
-void enemy::reset()
-{
-	m_hitbox->isEnabled = false;
-	m_timer = -(rand()%10);
- 	m_birdPhase = 2;
 }

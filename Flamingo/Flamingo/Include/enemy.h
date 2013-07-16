@@ -18,6 +18,8 @@ public:
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
+	void reset();
+
 private:
 	void eat(float foodValue, al::vector itemDirection);
 	void fly(float DeltaTime);
@@ -26,7 +28,6 @@ private:
 	void happy(float DeltaTime);
 	void respawn();
 	void flyBack(float DeltaTime);
-	void reset();
 
 	animation* m_animation;
 	hitbox* m_hitbox;

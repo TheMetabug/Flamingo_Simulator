@@ -19,7 +19,6 @@ class game
 {
 public:
 	game(sf::RenderWindow *Window, al::viewport* Viewport);
-
 	~game();
 
 	void init();
@@ -70,7 +69,7 @@ private:
 		ReturnTitle
 	};
 
-	GameState state;
+	GameState m_state;
 
 	// hitbox
 	collision* collide;
@@ -90,19 +89,19 @@ private:
 	
 
 	//flamingo
-	flamingo* flamingoBase;
+	flamingo* m_flamingo;
 
 	// nest
-	nest* flamingonest;
+	nest* m_nest;
 
 	// enemy
-	enemy* enemyBird;
+	enemy* m_enemy;
 
 	// pickups
 	pickups* m_pickups;
 
 	// water
-	background* backGround;
+	background* m_background;
 
 	//cloud
 	cloud* m_cloud;

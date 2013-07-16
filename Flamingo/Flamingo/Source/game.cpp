@@ -15,13 +15,33 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	m_titleCard = new titleCard();
 	m_titleCard->draw(Viewport);
 }
+game::~game()
+{
+	std::cout<<"deleted maingame"<<std::endl;
+	delete m_input;
+	delete m_flamingo;
+	delete m_nest;
+	delete m_enemy;
+	delete m_background;
+	delete m_cloud;
+	delete m_pickups;
+	delete collide;
+	delete m_gui;
+	delete m_titleCard;
+	delete m_soundLibrary;
+	delete m_ReturnTexture;
+	delete m_GmenuTexture;
+	delete m_creditsTexture;
+	delete m_optionsTexture;
+	
+}
 
 void game::init()
 {
 
 	// gameStates
 
-	state = TitleScreen;
+	m_state = TitleScreen;
 
 	// gui
 	m_gui = new gui(m_input);
@@ -33,19 +53,19 @@ void game::init()
 
 
 	// head
-	flamingoBase = new flamingo(m_soundLibrary, collide, m_input);
+	m_flamingo = new flamingo(m_soundLibrary, collide, m_input);
 
 	// nest
-	flamingonest = new nest(collide, m_gui);
+	m_nest = new nest(collide, m_gui);
 
 	// enemy
-	enemyBird = new enemy(collide, m_gui);
+	m_enemy = new enemy(collide, m_gui);
 
 	// pickups
-	m_pickups = new pickups(collide, flamingonest, enemyBird, flamingoBase, m_soundLibrary);
+	m_pickups = new pickups(collide, m_nest, m_enemy, m_flamingo, m_soundLibrary);
 
 	// backGround
-	backGround = new background();
+	m_background = new background();
 
 	//cloud
 	m_cloud = new cloud();
@@ -104,28 +124,6 @@ void game::init()
 	m_pauseOpacitySprite.setLayer(298);
 			
 }
-
-game::~game()
-{
-	std::cout<<"deleted maingame"<<std::endl;
-	delete m_input;
-	delete flamingoBase;
-	delete flamingonest;
-	delete enemyBird;
-	delete backGround;
-	delete m_cloud;
-	delete m_pickups;
-	delete collide;
-	delete m_gui;
-	delete m_titleCard;
-	delete m_soundLibrary;
-	delete m_ReturnTexture;
-	delete m_GmenuTexture;
-	delete m_creditsTexture;
-	delete m_optionsTexture;
-	
-}
-
 void game::update(float deltaTime)
 {
 	// gameStates
@@ -134,7 +132,7 @@ void game::update(float deltaTime)
 		ML_release = true;
 	}
 
-	switch(state)
+	switch(m_state)
 	{
 
 	case TitleScreen:
@@ -145,9 +143,9 @@ void game::update(float deltaTime)
 
 		if (m_input->isKeyPressed(al::Key::Space))
 		{
-			state = Menu;
-			/*state = ReturnTitle;*/
-			/*state = Credits;*/
+			m_state = Menu;
+			/*m_state = ReturnTitle;*/
+			/*m_state = Credits;*/
 			m_gui->m_title =false;
 		}
 	
@@ -162,7 +160,7 @@ void game::update(float deltaTime)
 		if(m_gui->m_button2->isPressed() && ML_release)
 		{
 			ML_release = false;
-			state = Gamemenu;
+			m_state = Gamemenu;
 		}
 		else if(m_gui->m_button3->isPressed() && ML_release)
 		{
@@ -194,7 +192,7 @@ void game::update(float deltaTime)
 			m_soundLibrary->m_musics[0]->pause();
 			m_soundLibrary->m_sounds[0]->play();
 			P_release = false;
-			state = Pause;
+			m_state = Pause;
 		}
 		
 		if(!m_input->isKeyPressed(al::Key::Menu))
@@ -203,25 +201,25 @@ void game::update(float deltaTime)
 		{
 			m_soundLibrary->m_musics[0]->pause();
 			M_release = false;
-			state = Gamemenu;
+			m_state = Gamemenu;
 			
 		}
 		// hitbox
 
 		//flamingo
-		flamingoBase->update(deltaTime, !ML_release);
+		m_flamingo->update(deltaTime, !ML_release);
 
 		// nest
-		flamingonest->update(deltaTime);
+		m_nest->update(deltaTime);
 
 		// enemy
-		enemyBird->update(deltaTime);
+		m_enemy->update(deltaTime);
 
 		// pickups
 		m_pickups->update(deltaTime);
 
 		// backGround
-		backGround->update(deltaTime);
+		m_background->update(deltaTime);
 
 		// cloud
 		m_cloud->update(deltaTime);
@@ -248,7 +246,7 @@ void game::update(float deltaTime)
 		else if (M_release)
 		{
 			M_release = false;
-			state = Play;
+			m_state = Play;
 			m_gui->m_menu = false;
 		}
 
@@ -265,7 +263,7 @@ void game::update(float deltaTime)
 			{
 				m_soundLibrary->m_musics[0]->play();
 				m_gui->m_button->m_animation->ChangeAnimation(2,0,2,100);
-				state = Play;
+				m_state = Play;
 				m_gui->m_menu = false;
 			}
 		}
@@ -276,7 +274,7 @@ void game::update(float deltaTime)
 		//uusi
 		if (m_gui->m_button->isPressed())
 		{
-			state = Play;
+			m_state = Play;
 			m_gui->m_menu = false;
 		}
 
@@ -293,7 +291,7 @@ void game::update(float deltaTime)
 		{
 			
 			P_release = false;
-			state = Play;
+			m_state = Play;
 			m_gui->m_pause = false;
 		}
 		
@@ -308,7 +306,7 @@ void game::update(float deltaTime)
 			if(m_gui->m_donebutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Gamemenu;
+				m_state = Gamemenu;
 				m_gui->m_Options = false;
 			}
 			else if(m_gui->m_plusmusic->isPressed() && ML_release)
@@ -353,20 +351,20 @@ void game::update(float deltaTime)
 			if(m_gui->m_button2->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Play;
+				m_state = Play;
 				m_gui->m_Gmenu = false;
 			}
 			else if(m_gui->m_Gmenubutton1->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Play;
+				m_state = Play;
 				
 				m_gui->m_Gmenu = false;
 			}
 			else if(m_gui->m_Gmenubutton2->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Play;
+				m_state = Play;
 				reset();
 				
 				m_gui->m_Gmenu = false;
@@ -374,13 +372,13 @@ void game::update(float deltaTime)
 			else if(m_gui->m_Gmenubutton3->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Options;
+				m_state = Options;
 				m_gui->m_Gmenu = false;
 			}
 			else if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = ReturnTitle;
+				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
@@ -397,14 +395,14 @@ void game::update(float deltaTime)
 			if(m_gui->m_yesbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Menu;
+				m_state = Menu;
 				
 				m_gui->m_returnTitle = false;
 			}
 			else if(m_gui->m_nobutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				state = Gamemenu;
+				m_state = Gamemenu;
 				
 				m_gui->m_returnTitle = false;
 			}
@@ -425,12 +423,11 @@ void game::update(float deltaTime)
 
 
 }
-
 void game::draw()
 {
 	// gameStates
 
-		switch(state)
+		switch(m_state)
 	{
 	case TitleScreen:
 		// titlecard
@@ -456,23 +453,23 @@ void game::draw()
 	
 	case Play:
 		// backGround
-		backGround->draw(m_viewport);
+		m_background->draw(m_viewport);
 		
 		//cloud
 		m_cloud->draw(m_viewport);
 
 		// nest
-		flamingonest->draw(m_viewport);
+		m_nest->draw(m_viewport);
 
 		// enemy
-		enemyBird->draw(m_viewport);
+		m_enemy->draw(m_viewport);
 
 		// pickups
 		m_pickups->draw(m_viewport);
 
 		// flamingo
 
-		flamingoBase->draw(m_viewport);		
+		m_flamingo->draw(m_viewport);		
 
 		if(m_gui->m_pause == true || m_gui->m_Gmenu == true )
 		{
@@ -513,7 +510,9 @@ void game::draw()
 
 void game::reset()
 {
-	flamingonest->reset();
+	m_nest->reset();
+	m_enemy->reset();
+	m_pickups->reset();
 }
 
 void game::drawDebugInfo(sf::RenderWindow *window)
