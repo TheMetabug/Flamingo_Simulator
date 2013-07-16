@@ -193,19 +193,19 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 
 	// MainMenu buttons
 	m_buttonTextures.push_back(new texture("MainMenu/playButton.png")); // 7
-	m_mainbutton1 = new button(m_buttonTextures.back(),vector(628,490),m_input);
+	m_mainbutton1 = new button(m_buttonTextures.back(),vector(628,490),m_input, m_soundLibrary);
 	m_mainbutton1->m_sprite.setLayer(1);
 
 	m_buttonTextures.push_back(new texture("MainMenu/instructionsButton.png")); // 8
-	m_mainbutton2 = new button(m_buttonTextures.back(),vector(667,550),m_input);
+	m_mainbutton2 = new button(m_buttonTextures.back(),vector(667,550),m_input, m_soundLibrary);
 	m_mainbutton2->m_sprite.setLayer(1);
 	
 	m_buttonTextures.push_back(new texture("MainMenu/creditsButton.png")); // 9
-	m_mainbutton3 = new button(m_buttonTextures.back(),vector(630,600),m_input);
+	m_mainbutton3 = new button(m_buttonTextures.back(),vector(630,600),m_input, m_soundLibrary);
 	m_mainbutton3->m_sprite.setLayer(1);
 	
 	m_buttonTextures.push_back(new texture("MainMenu/quitButton.png")); // 10
-	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,666),m_input);
+	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,666),m_input, m_soundLibrary);
 	m_mainbutton4->m_sprite.setLayer(1);
 
 

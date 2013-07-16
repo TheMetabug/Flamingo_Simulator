@@ -62,7 +62,7 @@ private:
 		TitleScreen = 0,
 		Play,
 		Menu,
-		Pause,
+		Tutorial,
 		Credits,
 		Options,
 		Gamemenu,
