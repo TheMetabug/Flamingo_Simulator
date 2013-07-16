@@ -3,11 +3,12 @@
 using namespace al;
 
 
-button::button(al::texture* Texture, al::vector Position, al::input* Input)
+button::button(al::texture* Texture, al::vector Position, al::input* Input,soundLibrary* SoundLibrary)
 {
 	m_input = Input;
 	m_position = Position;
 	setTexture(Texture);
+	m_soundLibrary = SoundLibrary;
 }
 
 button::~button()
@@ -46,6 +47,7 @@ bool button::isPressed()
 			if (m_animation->getCurrentFrame() == 1)
 			{
 				m_animation->ChangeAnimation(2,0,2,100);
+				m_soundLibrary->m_sounds[4]->play();
 			}
 			return true;
 		}
@@ -103,7 +105,7 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input)
+gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 {
 	m_input = Input;
 	m_pause = false;
@@ -113,6 +115,8 @@ gui::gui(al::input* Input)
 	m_Gmenu = false;
 	m_Options = false;
 	m_returnTitle = false;
+	m_soundLibrary = SoundLibrary;
+
 	
 	// HP-basics
 	HPmax = 100; //max HP
@@ -134,54 +138,54 @@ gui::gui(al::input* Input)
 	button3 = mute-button*/
 
 	m_buttonTextures.push_back(new texture("buttons/GameButtons.png")); // 0
-	m_button = new button(m_buttonTextures.back(),vector(300,300),m_input);
+	m_button = new button(m_buttonTextures.back(),vector(300,300),m_input, m_soundLibrary);
 	m_button->m_sprite.setLayer(296);
-	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input);
+	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input,m_soundLibrary);
 	m_button2->m_sprite.setLayer(296);
-	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input);
+	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input, m_soundLibrary);
 	m_button3->m_sprite.setLayer(296);
 
 	// GameMenu's buttons
 	m_buttonTextures.push_back(new texture("GameMenu/MenuButton.png")); // 1
-	m_Gmenubutton1 = new button(m_buttonTextures.back(),vector(628,331),m_input);
+	m_Gmenubutton1 = new button(m_buttonTextures.back(),vector(628,331),m_input, m_soundLibrary);
 	m_Gmenubutton1->m_sprite.setLayer(299);
 	
 	
-	m_Gmenubutton2 = new button(m_buttonTextures.back(),vector(628,361),m_input);
+	m_Gmenubutton2 = new button(m_buttonTextures.back(),vector(628,361),m_input, m_soundLibrary);
 	m_Gmenubutton2->m_sprite.setLayer(299);
 	
 	
-	m_Gmenubutton3 = new button(m_buttonTextures.back(),vector(628,391),m_input);
+	m_Gmenubutton3 = new button(m_buttonTextures.back(),vector(628,391),m_input, m_soundLibrary);
 	m_Gmenubutton3->m_sprite.setLayer(299);
 	
 	
-	m_Gmenubutton4 = new button(m_buttonTextures.back(),vector(628,421),m_input);
+	m_Gmenubutton4 = new button(m_buttonTextures.back(),vector(628,421),m_input, m_soundLibrary);
 	m_Gmenubutton4->m_sprite.setLayer(299);
 	
 	m_buttonTextures.push_back(new texture("GameMenu/yesButton.png")); // 2
-	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input);
+	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
 	m_yesbutton->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 3
-	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input);
+	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
 	m_nobutton->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 4
-	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input);
+	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input, m_soundLibrary);
 	m_donebutton->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/plus.png")); // 1
-	m_plusmusic = new button(m_buttonTextures.back(),vector(748,323),m_input);
+	m_plusmusic = new button(m_buttonTextures.back(),vector(748,323),m_input, m_soundLibrary);
 	m_plusmusic->m_sprite.setLayer(300);
 	
-	m_plussounds = new button(m_buttonTextures.back(),vector(748,378),m_input);
+	m_plussounds = new button(m_buttonTextures.back(),vector(748,378),m_input, m_soundLibrary);
 	m_plussounds->m_sprite.setLayer(300);
 
 	m_buttonTextures.push_back(new texture("OptionsMenu/minus.png")); // 1
-	m_minusmusic = new button(m_buttonTextures.back(),vector(667,323),m_input);
+	m_minusmusic = new button(m_buttonTextures.back(),vector(667,323),m_input, m_soundLibrary);
 	m_minusmusic->m_sprite.setLayer(300);
 	
-	m_minussounds = new button(m_buttonTextures.back(),vector(667,378),m_input);
+	m_minussounds = new button(m_buttonTextures.back(),vector(667,378),m_input, m_soundLibrary);
 	m_minussounds->m_sprite.setLayer(300);
 
 	m_font = new font();

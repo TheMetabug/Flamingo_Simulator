@@ -44,7 +44,7 @@ void game::init()
 	m_state = TitleScreen;
 
 	// gui
-	m_gui = new gui(m_input);
+	m_gui = new gui(m_input, m_soundLibrary);
 
 	// hitbox
 	collide = new collision();

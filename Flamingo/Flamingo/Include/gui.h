@@ -6,13 +6,14 @@
 #include "animation.h"
 #include "program.h"
 #include "input.h"
+#include "sound.h"
 
 
 class button
 {
 public:
 	button(){}
-	button(al::texture* Texture, al::vector Position, al::input* Input);
+	button(al::texture* Texture, al::vector Position, al::input* Input, soundLibrary* SoundLibrary);
    ~button();
    void setTexture(al::texture* Texture);
    	void update(float DeltaTime);
@@ -25,6 +26,8 @@ public:
 private:
 	bool mouseOver();
 	al::input* m_input;
+
+	soundLibrary* m_soundLibrary;
 
 	//al::texture m_texture;
 	/*al::sprite m_sprite;*/
@@ -52,7 +55,7 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input);
+	gui(al::input* Input, soundLibrary* SoundLibrary);
 	~gui();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -98,6 +101,8 @@ private:
 	al::text* MENUtext;
 	al::text* Gmenutext;
 	al::text* SCOREtext;
+
+	soundLibrary* m_soundLibrary;
 
 	std::vector<al::texture*> m_buttonTextures;
 
