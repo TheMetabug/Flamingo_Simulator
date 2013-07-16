@@ -42,8 +42,8 @@ item::item(al::vector Position, pickup* Pickup)
 		256, 
 		((rand()%100))/100.0f + m_direction.getLenght()*m_pickup->m_speed/100.0f, 
 		Pickup->m_itemName * 3);
-	m_sprite->setPosition(vector(m_position));
-	m_sprite->setOrigin(vector(m_sprite->getSize() / 2));
+	m_sprite->setPosition(m_position);
+	m_sprite->setOrigin((m_sprite->getSize() / 2));
 	m_sprite->setScale(m_pickup->m_scale);
 	float hitboxSize = 0.9f;
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
@@ -331,36 +331,7 @@ void pickups::update(float DeltaTime)
 	{
 		m_timer -= 1.0f;
 
-		if (itemList.size() < 20)
-		{
-			for (int i = 0; i < 1; ++i)
-			{
-				int rarity = rand()%100;
-				ItemName name;
-				if (rarity < 20)
-				{
-					name = Shoe;
-				}
-				else if (rarity < 40)
-				{
-					name = Shrimp;
-				}
-				else if (rarity < 60)
-				{
-					name = Plancton;
-				}
-				else if (rarity < 80)
-				{
-					name = Can;
-				}
-				else if (rarity < 100)
-				{
-					name = Krill;
-				}
-
-				itemList.push_back(new item(m_spawnPosition,pickupList[name]));
-			}
-		}
+		addItem();
 	}
 }
 void pickups::draw(al::viewport* Viewport)
@@ -428,4 +399,41 @@ void pickups::deleteItem(int i)
 	delete itemList[i];
 	itemList.erase(itemList.begin() + i);
 	m_index--;
+}
+void pickups::addItem()
+{
+	if (itemList.size() < 20)
+	{
+		for (int i = 0; i < 1; ++i)
+		{
+			float posX = WATER_LEFT + (WATER_RIGHT-WATER_LEFT) * (rand()%100)/100.0f;
+			float posY = WATER_TOP + (WATER_BOTTOM-WATER_TOP) * (rand()%100)/100.0f;
+			vector position(posX,posY);
+
+			int rarity = rand()%100;
+			ItemName name;
+			if (rarity < 20)
+			{
+				name = Shoe;
+			}
+			else if (rarity < 40)
+			{
+				name = Shrimp;
+			}
+			else if (rarity < 60)
+			{
+				name = Plancton;
+			}
+			else if (rarity < 80)
+			{
+				name = Can;
+			}
+			else if (rarity < 100)
+			{
+				name = Krill;
+			}
+
+			itemList.push_back(new item(position,pickupList[name]));
+		}
+	}
 }

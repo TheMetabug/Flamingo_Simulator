@@ -78,6 +78,7 @@ public:
 
 private:
 	void deleteItem(int i);
+	void addItem();
 
 	float m_timer;
 	nest *m_nest;
