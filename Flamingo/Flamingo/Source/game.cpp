@@ -44,7 +44,7 @@ void game::init()
 	m_state = TitleScreen;
 
 	// gui
-	m_gui = new gui(m_input);
+	m_gui = new gui(m_input, m_soundLibrary);
 
 	// hitbox
 	collide = new collision();
@@ -311,26 +311,26 @@ void game::update(float deltaTime)
 			}
 			else if(m_gui->m_plusmusic->isPressed() && ML_release)
 				{
+					std::cout<<"plusmusic"<<std::endl;
 					ML_release = false;
-					if (m_soundLibrary->m_musicVolume < 100)
 					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume+10);
 				}
 			else if(m_gui->m_minusmusic->isPressed() && ML_release)
 				{
+					std::cout<<"minusmusic"<<std::endl;
 					ML_release = false;
-					if (m_soundLibrary->m_musicVolume > 0)
 					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume-10);
 				}
 			else if(m_gui->m_plussounds->isPressed() && ML_release)
 				{
+					std::cout<<"plussounds"<<std::endl;
 					ML_release = false;
-					if (m_soundLibrary->m_soundVolume < 100)
 						m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume+10);
 				}
 			else if(m_gui->m_minussounds->isPressed() && ML_release)
 				{
+					std::cout<<"minussounds"<<std::endl;
 					ML_release = false;
-					if (m_soundLibrary->m_soundVolume > 0)
 					m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
 				}
 

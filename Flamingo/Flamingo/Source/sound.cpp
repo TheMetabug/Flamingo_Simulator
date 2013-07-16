@@ -2,19 +2,15 @@
 
 ///////// MUSIC /////////
 music::music()
-	:	m_volumeMultiplier(1.0f),
-		m_mute(false)
+	:	m_mute(false)
 {
 	m_music = new sf::Music();
-	setVolume(30);
 }
 music::music(std::string Filename)
-	:	m_volumeMultiplier(1.0f),
-		m_mute(false)
+	:	m_mute(false)
 {
 	m_music = new sf::Music();
 	m_music->setLoop(true);
-	setVolume(30);
 	
 	load(Filename);	
 }
@@ -47,7 +43,7 @@ void music::pause()
 void music::setVolume(float Volume)
 {
 	if (!m_mute)
-		m_music->setVolume(Volume * m_volumeMultiplier);
+		m_music->setVolume(Volume * m_volumeMultiplier/100.0f);
 	else
 		m_music->setVolume(0);
 
@@ -57,23 +53,19 @@ void music::setVolume(float Volume)
 ///////// SOUND //////////
 
 sound::sound()
-	:	m_volumeMultiplier(1.0f),
-		m_mute(false)
+	:	m_mute(false)
 {
 	m_buffer = new sf::SoundBuffer();
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
-	setVolume(30);
 }
 sound::sound(std::string Filename)
-	:	m_volumeMultiplier(1.0f),
-		m_mute(false)
+	:	m_mute(false)
 {
 	m_buffer = new sf::SoundBuffer();
 	load(Filename);
 	m_sound = new sf::Sound();
 	m_sound->setBuffer(*m_buffer);
-	setVolume(100);
 }
 sound::~sound()
 {
@@ -101,7 +93,7 @@ void sound::pause()
 void sound::setVolume(float Volume)
 {
 	if (!m_mute)
-		m_sound->setVolume(Volume * m_volumeMultiplier);
+		m_sound->setVolume(Volume * m_volumeMultiplier/100.0f);
 	else
 		m_sound->setVolume(0);
 
@@ -119,6 +111,12 @@ soundLibrary::soundLibrary()
 
 	m_musics.push_back(new music("versio3"));
 	m_musics.push_back(new music("version2"));
+
+	for (int i = 0; i < m_musics.size(); ++i)
+	{
+		m_musics[i]->m_volumeMultiplier = 50;
+		m_musics[i]->setVolume(m_musicVolume);
+	}
 
 #pragma endregion here we keep the musics, dont mix us plz
 //////////////////////////////////////////////////////////DONT MIX THESE//////////////////
@@ -159,6 +157,12 @@ soundLibrary::soundLibrary()
 
 
 
+
+	for (int i = 0; i < m_sounds.size(); ++i)
+	{
+		m_sounds[i]->m_volumeMultiplier = 50;
+		m_sounds[i]->setVolume(m_soundVolume);
+	}
 
 #pragma endregion here we keep the sounds, dont mix us plz
 }
@@ -221,6 +225,10 @@ void soundLibrary::mute(bool Mute)
 
 void soundLibrary::setMusicVolume(float volume)
 {
+	if (volume < 0)
+		volume = 0;
+	if (volume > 100)
+		volume = 100;
 	for (int i = 0; i < m_musics.size(); ++i)
 	{
 		m_musics[i]->m_volumeMultiplier = volume;
@@ -231,6 +239,10 @@ void soundLibrary::setMusicVolume(float volume)
 
 void soundLibrary::setSoundsVolume(float volume)
 {
+	if (volume < 0)
+		volume = 0;
+	if (volume > 100)
+		volume = 100;
 	for (int i = 0; i < m_sounds.size(); ++i)
 	{
 		m_sounds[i]->m_volumeMultiplier = volume;

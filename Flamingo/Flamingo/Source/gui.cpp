@@ -103,8 +103,9 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input)
+gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 {
+	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_pause = false;
 	m_title = false;
@@ -185,16 +186,21 @@ gui::gui(al::input* Input)
 	m_minussounds->m_sprite.setLayer(300);
 
 	m_font = new font();
+	m_font2 = new font();
 
 	m_font->loadFromFile("arial.ttf");
+	m_font2->loadFromFile("Arial black.ttf");
+
 	
 	
 	HPtext = new text("HP-mittari", m_font, 50);
 	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
 	TITLEtext = new text("Press SPACE",m_font, 50);
 	MENUtext = new text("MENU, press button to flamingo", m_font, 50); 
-	Gmenutext = new text("GAME MENU", m_font, 50);
 	SCOREtext = new text("SCORE", m_font,50);
+	MUSICtext = new text("music volume", m_font2,20);
+	SOUNDtext = new text("sounds volume", m_font2,20);
+
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
 
@@ -218,10 +224,15 @@ gui::gui(al::input* Input)
 	MENUtext->setColor(255,0,255, 255);
 	MENUtext->setLayer(298);
 
-	Gmenutext->setPosition (vector(550,100));
-	Gmenutext->setColor();
-	Gmenutext->setLayer(298);
 	
+
+	MUSICtext->setPosition (vector(686,310));
+	MUSICtext->setColor(83,77,67,255);
+	MUSICtext->setLayer(299);
+
+	SOUNDtext->setPosition (vector(686,365));
+	SOUNDtext->setColor(83,77,67,255);
+	SOUNDtext->setLayer(299);
 	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 }
 
@@ -232,7 +243,6 @@ gui::~gui()
 	delete PAUSEtext;
 	delete TITLEtext;
 	delete MENUtext;
-	delete Gmenutext;
 	delete SCOREtext;
 	delete m_font;
 	delete m_button;
@@ -249,6 +259,8 @@ gui::~gui()
 	delete m_plussounds;
 	delete m_minusmusic;
 	delete m_minussounds;
+	delete MUSICtext;
+	delete SOUNDtext;
 
 	
 
@@ -290,6 +302,8 @@ void gui::update(float DeltaTime)
 		m_plussounds->update(DeltaTime);
 		m_minusmusic->update(DeltaTime);
 		m_minussounds->update(DeltaTime);
+		MUSICtext->setString(std::to_string((long double)m_soundLibrary->m_musicVolume ));
+		SOUNDtext->setString(std::to_string((long double)m_soundLibrary->m_soundVolume));
 		
 
 	}
@@ -339,7 +353,7 @@ void gui::draw(al::viewport* Viewport)
 	
 	if(m_Gmenu)
 	{
-		Viewport->draw(Gmenutext);
+		
 		m_Gmenubutton1->draw(Viewport);
 		m_Gmenubutton2->draw(Viewport);
 		m_Gmenubutton3->draw(Viewport);
@@ -360,6 +374,9 @@ void gui::draw(al::viewport* Viewport)
 		m_plussounds->draw(Viewport);
 		m_minusmusic->draw(Viewport);
 		m_minussounds->draw(Viewport);
+		Viewport->draw(MUSICtext);
+		Viewport->draw(SOUNDtext);
+
 		
 	}
 		

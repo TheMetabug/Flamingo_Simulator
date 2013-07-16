@@ -77,7 +77,7 @@ private:
 	float m_soundVolume;
 
 	friend class game;
-	
+	friend class gui;
 };
 
 #endif

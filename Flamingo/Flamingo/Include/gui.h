@@ -6,6 +6,7 @@
 #include "animation.h"
 #include "program.h"
 #include "input.h"
+#include "sound.h"
 
 
 class button
@@ -52,7 +53,7 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input);
+	gui(al::input* Input, soundLibrary* SoundLibrary);
 	~gui();
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
@@ -89,16 +90,19 @@ public:
 
 
 private:
+	soundLibrary* m_soundLibrary;
 	al::input* m_input;
-	al::font* m_font;
+	al::font* m_font; //perusfontti
+	al::font* m_font2; // ArialBlack "valikkofontti"
 	
 	al::text* HPtext;
 	al::text* PAUSEtext;
 	al::text* TITLEtext;
 	al::text* MENUtext;
-	al::text* Gmenutext;
+	
 	al::text* SCOREtext;
-
+	al::text* MUSICtext;
+	al::text* SOUNDtext;
 	std::vector<al::texture*> m_buttonTextures;
 
 
