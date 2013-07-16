@@ -24,7 +24,8 @@ pickup::~pickup()
 item::item(al::vector Position, pickup* Pickup)
 	: m_position(Position),
 	  m_pickup(Pickup),
-	  m_state(0)
+	  m_state(-1),
+	  m_timer(0)
 {
 	m_sprite = new al::sprite((Pickup->m_texture));
 	m_direction = vector((rand()%200 / 100.0f)-1,(rand()%200 / 100.0f)-1);
@@ -40,7 +41,7 @@ item::item(al::vector Position, pickup* Pickup)
 	m_sprite->setScale(m_pickup->m_scale);
 	float hitboxSize = 0.9f;
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
-		m_sprite->getTransformedSize()*hitboxSize/2,true);
+		m_sprite->getTransformedSize()*hitboxSize/2,false);
 	m_sprite->setLayer(10-290);
 
 	if (m_pickup->m_itemName == Shoe)
@@ -48,7 +49,7 @@ item::item(al::vector Position, pickup* Pickup)
 		m_animation->ChangeAnimation(Pickup->m_itemName * 3,1);
 	}
 
-	m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+	m_sprite->setColor(170,210,250,0);
 }
 item::~item()
 {
@@ -62,6 +63,18 @@ bool item::update(float DeltaTime)
 {
 	switch (m_state)
 	{
+	case -1:
+		m_timer += DeltaTime;
+		m_sprite->setColor(170,210,250, m_timer * m_pickup->m_opacity*255);
+		if (m_timer > 0.5)
+		{
+			m_hitbox->isEnabled = true;
+		}
+		if (m_timer > 1)
+		{
+			m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+			m_state = 0;
+		}
 	case 0:
 		m_position += m_direction * DeltaTime * m_pickup->m_speed;
 
@@ -165,8 +178,8 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f));
-	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 9.0f));
-	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 9.0f));
+	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f));
+	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f));
 	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f));
 }
 pickups::~pickups()
@@ -200,6 +213,7 @@ void pickups::update(float DeltaTime)
 
 		switch (itemList[i]->m_state)
 		{
+		case -1: // fading in
 		case 0: // floating around
 			if (m_collision->head->isEnabled)
 			{

@@ -58,6 +58,7 @@ namespace pups
 
 	private:
 		void stayInWater();
+		float m_timer;
 
 	};
 }
