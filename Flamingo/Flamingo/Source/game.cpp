@@ -170,13 +170,13 @@ void game::update(float deltaTime)
 			{
 				m_muted = true;
 				m_soundLibrary->mute(true);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
 			}
 			else
 			{
 				m_muted = false;
 				m_soundLibrary->mute(false);
-				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[0]);
+				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[2]);
 			}
 		}
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
@@ -233,20 +233,24 @@ void game::update(float deltaTime)
 			{
 				ML_release = false;
 				m_state = Play;
-				m_gui->m_Options = false;
+				m_gui->m_menu = false;
 			}
 		if(m_gui->m_mainbutton2->isPressed() && ML_release)
 			{
 				ML_release = false;
 				m_state = Tutorial;
-				m_gui->m_Options = false;
+				m_gui->m_menu = false;
 			}
 		if(m_gui->m_mainbutton3->isPressed() && ML_release)
 			{
 				ML_release = false;
 				m_state = Credits;
-				m_gui->m_Options = false;
+				m_gui->m_menu = false;
 			}
+
+		//mainbutton4
+
+
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 				{
 				ML_release = false;
@@ -263,6 +267,9 @@ void game::update(float deltaTime)
 		
 		break;
 	case Credits:
+		m_gui->m_credits = true;
+		m_gui->update(deltaTime);
+
 
 		break;
 	case Options:
@@ -346,6 +353,7 @@ void game::update(float deltaTime)
 				ML_release = false;
 				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
+				m_gui->m_Play = false;
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
@@ -460,6 +468,8 @@ void game::draw()
 		break;
 	case Credits:
 		m_viewport->draw(&m_credits);
+		m_gui->draw(m_viewport);
+
 		break;
 
 

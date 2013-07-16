@@ -70,7 +70,7 @@ public:
 	bool m_Gmenu;
 	bool m_Options;
 	bool m_returnTitle;
-	
+	bool m_credits;
 	
 	button* m_button2;
 	button* m_button3;
@@ -93,6 +93,8 @@ public:
 	button* m_minusmusic;
 	button* m_plussounds;
 	button* m_minussounds;
+
+	button* m_xbutton;
 	
 
 
