@@ -269,6 +269,17 @@ void game::update(float deltaTime)
 	case Credits:
 		m_gui->m_credits = true;
 		m_gui->update(deltaTime);
+		if(m_gui->m_xbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Menu;
+				m_gui->m_credits = false;
+			}
+
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+				{
+				ML_release = false;
+				}
 
 
 		break;
