@@ -14,3 +14,16 @@
 13 - kuoriutuminen
 14 - kuoriutuminen kaksi
 15 - vihainen piip piip
+16 - yksi piip
+17 - vihollislintu
+18 - pop
+19 - pop2
+20 - pop3
+21 - piipyksi2
+22 - flamingo1
+23 - flamingo2
+24 - flamingo3
+25 - flamingo4
+26 - flamingo5
+27 - kuminauha2_1
+28 - boing

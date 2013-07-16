@@ -216,6 +216,9 @@ private :
     // Member data
     ////////////////////////////////////////////////////////////
     const SoundBuffer* m_buffer; ///< Sound buffer bound to the source
+
+	friend class pickups;
+
 };
 
 } // namespace sf

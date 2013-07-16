@@ -53,6 +53,7 @@ private:
 	sf::Sound *m_sound;
 
 	friend class soundLibrary;
+	friend class pickups;
 };
 
 class soundLibrary
@@ -76,6 +77,7 @@ private:
 	float m_soundVolume;
 
 	friend class game;
+	
 };
 
 #endif

@@ -140,6 +140,25 @@ soundLibrary::soundLibrary()
 	m_sounds.push_back(new sound("kuoriutuminen"));
 	m_sounds.push_back(new sound("kuoriutuminen kaksi"));
 	m_sounds.push_back(new sound("vihainen piipiip"));
+	m_sounds.push_back(new sound("yksi piip"));
+	m_sounds.push_back(new sound("vihollislintu"));
+	m_sounds.push_back(new sound("pop"));
+	m_sounds.push_back(new sound("pop2"));
+	m_sounds.push_back(new sound("pop3"));
+	m_sounds.push_back(new sound("piipyksi2"));
+	m_sounds.push_back(new sound("flamingo1"));
+	m_sounds.push_back(new sound("flamingo2"));
+	m_sounds.push_back(new sound("flamingo3"));
+	m_sounds.push_back(new sound("flamingo4"));
+	m_sounds.push_back(new sound("flamingo5"));
+	m_sounds.push_back(new sound("kuminauha2_1"));
+	m_sounds.push_back(new sound("boing"));
+
+
+
+
+
+
 
 #pragma endregion here we keep the sounds, dont mix us plz
 }

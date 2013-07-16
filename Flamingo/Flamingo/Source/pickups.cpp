@@ -253,10 +253,12 @@ void pickups::update(float DeltaTime)
 			{
 				itemList[i]->m_state = 4;
 				m_flamingo->m_hasFood = false;
+				
 			}
 			else
 			{
 				itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
+				m_soundLibrary->m_sounds[18]->play(); // pop
 			}
 			break;
 
@@ -274,12 +276,18 @@ void pickups::update(float DeltaTime)
 					{
 						m_nest->happy(DeltaTime);
 						m_soundLibrary->m_sounds[9]->play(); // mäisk
+						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8);
+						m_soundLibrary->m_sounds[17]->play(); //vihollislintu 
+						
+
 						itemList[i]->m_state = 5;
 						itemList[i]->m_direction = itemList[i]->m_position - m_enemy->m_enemyBirdPosition;
 					}
 					else
 					{
 						m_nest->mad(DeltaTime);
+						m_soundLibrary->m_sounds[17]->m_sound->setPitch(1.0);
+						m_soundLibrary->m_sounds[17]->play(); //vihollislintu
 						deleteItem(i);
 					}
 				}
