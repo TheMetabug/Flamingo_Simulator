@@ -60,6 +60,8 @@ public:
 	void happy(float DeltaTime);
 
 	void addEgg();
+	void removeEgg();
+	void updateEggPositions();
 	void reset();
 
 	int m_whichBird;
@@ -98,8 +100,9 @@ private:
 	//animation *m_hatchlingFlyAnimation;
 
 	//int m_eggCount;
-	float m_hatchlingRotation, m_timer, m_eggTimer;
+	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime;
 	bool m_hatching;
+	bool m_egging;
 	
 	// SCORE-stats
 	gui *m_gui;

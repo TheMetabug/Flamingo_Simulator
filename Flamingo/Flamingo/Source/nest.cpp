@@ -100,9 +100,9 @@ void hatchling::update(float DeltaTime)
 			m_flyAnimation->ChangeAnimation(0,1,0,1);
 			m_flySprite->setScale(m_flyScale);
 			m_state = 0;
-			m_hitbox->isEnabled = true;
+			//m_hitbox->isEnabled = true;
 			m_eatPoints = 0;
-			m_isThere = true;
+			//m_isThere = true;
 			m_fly = false;
 			m_timer = 0;
 		}
@@ -230,7 +230,7 @@ nest::nest(collision* Collide, gui* Gui)
 	m_flamingonestFront.setLayer(3);
 
 
-
+	m_travelTime = 2.0f;
 
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
@@ -298,13 +298,19 @@ void nest::update(float DeltaTime)
 	{
 		m_hatchlings[i]->update(DeltaTime);
 
-		if (m_hatchlings[i]->m_fly)
+		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging)
 		{
-			egg(DeltaTime);
+			m_whichBird = i;
+			m_egging = true;
+			m_eggTimer = 0;
+			m_eggTarget = m_hatchlings[i]->m_position;
 		}
 	}
 
-
+	if (m_egging || m_hatching)
+	{
+		egg(DeltaTime);
+	}
 
 
 }
@@ -331,16 +337,31 @@ void nest::draw(al::viewport* Viewport)
 
 void nest::egg(float DeltaTime)	
 {
-	for(int i = 0; i < m_hatchlings.size(); ++i)
+	m_eggTimer += DeltaTime;
+
+	if (m_eggTimer < m_travelTime)
 	{
-		m_eggTarget = m_hatchlings[m_whichBird]->m_position;
-		m_theEgg->setPosition(m_hatchlings[m_whichBird]->m_position +
-								(m_timer / m_hatchlings[m_whichBird]->m_travelTime)
-									*(m_eggTarget - m_hatchlings[m_whichBird]->m_position));
+		m_theEgg->setPosition(m_eggPosition +
+			(m_eggTarget - m_eggPosition) * ((m_eggTimer)/m_travelTime));
 	}
-
-
-
+	else
+	{
+		if (m_egging)
+		{
+			m_theEgg->setPosition(m_eggTarget);
+			m_eggAnimation->ChangeAnimation(0,7);
+			m_egging = false;
+			m_hatching = true;
+		}
+		if (m_eggAnimation->getCurrentFrame() == 6)
+		{
+			m_theEgg->setPosition(m_eggPosition);
+			m_eggAnimation->ChangeAnimation(0,1);
+			removeEgg();
+			m_hatching = false;
+			m_hatchlings[m_whichBird]->reset();
+		}
+	}
 }
 void nest::sleep(float DeltaTime)
 {
@@ -357,7 +378,6 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 			{
  				m_gui->SCORE += 500;
 				m_hatchlings[Id-1]->fly();
-				m_whichBird = Id-1;
 			}
 			else
 			{
@@ -417,6 +437,16 @@ void nest::addEgg()
 	m_eggs.back()->setScale(0.2f);
 	m_eggs.back()->setLayer(3);
 
+	updateEggPositions();
+}
+void nest::removeEgg()
+{
+	m_eggs.pop_back();
+
+	updateEggPositions();
+}
+void nest::updateEggPositions()
+{
 	for (int i = 0; i < m_eggs.size(); ++i)
 	{
 		m_eggs[i]->setPosition(
@@ -445,5 +475,7 @@ void nest::reset()
 	}
 
 	m_hatching = false;
+	m_egging = false;
+	m_theEgg->setPosition(m_eggPosition);
 	m_eggAnimation->ChangeAnimation(0,1);
 }
