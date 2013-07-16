@@ -258,6 +258,11 @@ void game::update(float deltaTime)
 				m_state = Credits;
 				m_gui->m_menu = false;
 			}
+		if(m_gui->m_mainbutton4->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_viewport->close();
+			}
 
 		//mainbutton4
 

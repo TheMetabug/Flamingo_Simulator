@@ -216,6 +216,7 @@ public:
 	void draw(al::sprite* Sprite);
 	void draw(al::text* Text);
 	void renderSprites();
+	void close();
 
 private:
 	sf::RenderWindow* m_window;

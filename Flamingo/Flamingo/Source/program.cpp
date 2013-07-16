@@ -599,6 +599,11 @@ void viewport::renderSprites()
 	}
 }
 
+void viewport::close()
+{
+	m_window->close();
+}
+
 #pragma endregion
 
 #pragma endregion
