@@ -30,6 +30,7 @@ game::~game()
 	delete m_soundLibrary;
 	delete m_ReturnTexture;
 	delete m_GmenuTexture;
+	delete m_scoreTexture;
 	delete m_creditsTexture;
 	delete m_optionsTexture;
 	delete m_particleEngine;
@@ -113,7 +114,15 @@ void game::init()
 			
 			m_options.setLayer(299);
 
-			
+			m_scorePosition = (vector(115,59));
+			m_scoreTexture = new texture("scoreBoard.png");
+			m_Score.setTexture(m_scoreTexture);
+			m_Score.setPosition(m_scorePosition);
+			m_Score.setOrigin(vector(m_Score.getSize().x/2,
+			m_Score.getSize().y/2));
+			m_Score.setScale(1,1);
+
+			m_Score.setLayer(295);
 
 		// opacity
 
@@ -218,6 +227,7 @@ void game::update(float deltaTime)
 
 		// titlecard
 		m_titleCard->update(deltaTime);
+		
 
 		break;
 	
@@ -470,6 +480,7 @@ void game::draw()
 		// backGround
 		m_background->draw(m_viewport);
 
+		m_viewport->draw(&m_Score);
 
 		// nest
 		m_nest->draw(m_viewport);

@@ -213,7 +213,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext = new text("HP-mittari", m_font, 50);
 	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
 	TITLEtext = new text("Press SPACE",m_font, 50);
-	SCOREtext = new text("SCORE", m_font,50);
+	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
 
@@ -223,8 +223,8 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext->setColor();
 	HPtext->setLayer(296);
 	
-	SCOREtext->setPosition(vector(0, 50));
-	SCOREtext->setColor(255,151,255);
+	SCOREtext->setPosition(vector(50, 50));
+	SCOREtext->setColor(83,77,67,255);
 	SCOREtext->setLayer(296);
 
 	PAUSEtext->setPosition(vector(640, 360));
@@ -304,7 +304,7 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
-		SCOREtext->setString("SCORE:   " + std::to_string((long double)SCORE) );
+		SCOREtext->setString(std::to_string((long double)SCORE) );
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
 		//HPtext->

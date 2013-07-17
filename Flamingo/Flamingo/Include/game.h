@@ -40,6 +40,10 @@ private:
 	al::texture *m_ReturnTexture;
 	al::sprite m_ReturnCheck;
 	
+	al::vector m_scorePosition, m_scoreOrigin;
+	al::texture *m_scoreTexture;
+	al::sprite m_Score;
+
 	al::vector m_GmenuPosition, m_GmenuOrigin;
 	al::texture *m_GmenuTexture;
 	al::sprite m_GMenu;
