@@ -9,13 +9,13 @@
 #include "gui.h"
 #include "particleEngine.h"
 #include "sound.h"
-
+class nest;
 //Hatchling
 
 class hatchling
 {
 public:
-	hatchling(al::texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide, particleEngine* ParticleEngine);
+	hatchling(nest* Nest, collision* Collide);
 	~hatchling();
 
 	void update(float DeltaTime);
@@ -41,6 +41,10 @@ public:
 	bool m_isThere;
 	bool m_fly;
 	int m_state;
+
+	nest *m_nest;
+
+	friend class nest;
 };
 
 //Nest
@@ -115,7 +119,11 @@ private:
 	// SCORE-stats
 	gui *m_gui;
 
+	// sound
+	soundLibrary* m_soundLibrary;
+
 	friend class pickups;
+	friend class hatchling;
 	friend class gui;
 };
 

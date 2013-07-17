@@ -4,12 +4,12 @@ using namespace al;
 
 //Hatchling
 
-hatchling::hatchling(texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide, particleEngine* ParticleEngine)
+hatchling::hatchling(nest* Nest, collision* Collide)
 	:	m_flyScale(2.0f/3.0f)
 {
-		m_sprite = new sprite(HatchlingTexture);
+	m_sprite = new sprite(Nest->m_hatchlingTexture);
 		m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
-		m_particleEngine = ParticleEngine;
+		m_particleEngine = Nest->m_particleEngine;
 
 		m_sprite->setPosition(m_position);
 		m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
@@ -26,13 +26,15 @@ hatchling::hatchling(texture* HatchlingTexture, al::texture* FlyTexture, collisi
 						0);
 
 		
-	m_flySprite = new sprite(FlyTexture);
+		m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
 	m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
 	m_flySprite->setScale(m_flyScale);
 	m_flySprite->setLayer(2);
 	m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
 
 	m_travelTime = 0;
+
+	m_nest = Nest;
 
 	reset();
 }
@@ -99,6 +101,7 @@ void hatchling::update(float DeltaTime)
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
+			m_nest->m_soundLibrary->m_sounds[29]->play(); //point
 			m_timer = 0;
 		}
 		break;
@@ -107,6 +110,7 @@ void hatchling::update(float DeltaTime)
 		{
 			m_state = 0;
 			m_timer = 0;
+			m_nest->m_soundLibrary->m_sounds[7]->play(); //failure
 			m_fly = false;
 		}
 
@@ -281,7 +285,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	for (int i = 0; i < 3; ++i)
 	{
-		m_hatchlings.push_back(new hatchling(m_hatchlingTexture, m_hatchlingFlyTexture, Collide, m_particleEngine));
+		m_hatchlings.push_back(new hatchling(this, Collide));
 	}
 
 
@@ -292,8 +296,9 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	reset();
 
-	// hatchling fly sprite
 
+	//sound
+	m_soundLibrary = new soundLibrary();
 
 }
 nest::~nest()
