@@ -71,6 +71,10 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 		0.8f + (rand()%400)/100.0f,
 		0.8f + (rand()%400)/100.0f
 		);
+	if (rand()%100 < 50)
+	{
+		m_scale.x = -m_scale.x;
+	}
 }
 bool feather::update(float DeltaTime)
 {
