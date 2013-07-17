@@ -148,14 +148,14 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
 	m_yesbutton->m_sprite.setLayer(300);
 
-	m_yesbutton2 = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
+	m_yesbutton2 = new button(m_buttonTextures.back(),vector(580,600),m_input, m_soundLibrary);
 	m_yesbutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 5
 	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
 	m_nobutton->m_sprite.setLayer(300);
 
-	m_nobutton2 = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
+	m_nobutton2 = new button(m_buttonTextures.back(),vector(687,600),m_input, m_soundLibrary);
 	m_nobutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 6
@@ -441,6 +441,7 @@ void gui::reset()
 	m_Options = false;
 	m_returnTitle = false;
 	m_credits= false;
+	m_quit = false;
 	
 	SCORE= 0;
 }
