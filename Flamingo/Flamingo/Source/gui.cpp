@@ -216,6 +216,9 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_xbutton = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
 	m_xbutton->m_sprite.setLayer(300);
 
+	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
+	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_xbutton->m_sprite.setLayer(300);
 	
 	
 	m_font = new font();

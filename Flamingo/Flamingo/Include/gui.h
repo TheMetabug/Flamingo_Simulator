@@ -95,7 +95,9 @@ public:
 	button* m_minussounds;
 
 	button* m_xbutton;
-	
+
+	button* m_tutorialbutton1;
+	button* m_tutorialbutton2;
 
 
 private:
