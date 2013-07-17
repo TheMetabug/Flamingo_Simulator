@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "program.h"
+class cloud;
+class tree;
 
 class background
 {
@@ -15,6 +17,11 @@ public:
 	void draw(al::viewport* Viewport);
 
 private:
+
+	cloud* m_cloud;
+
+	tree* m_tree1;
+	tree* m_tree2;
 
 	al::vector m_waterPosition;
 

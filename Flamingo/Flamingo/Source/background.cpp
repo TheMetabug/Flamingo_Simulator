@@ -25,6 +25,16 @@ background::background()
 	m_waterOpacity.setOrigin(vector(m_waterOpacity.getTextureSize()));
 	m_waterOpacity.setLayer(290);
 	m_waterOpacity.setColor(255,255,255, 0.6f * 255);
+
+		//cloud
+	m_cloud = new cloud();
+
+	// tree
+	m_tree1 = new tree(vector(0.4,0.4),vector(315,420),1.0f);
+	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400),3.0f);
+
+
+
 }
 
 background::~background()
@@ -33,11 +43,19 @@ background::~background()
 	delete m_skyTexture;
 	delete m_waterTexture;
 	delete m_opacityTexture;
+	delete m_cloud;
+	delete m_tree1;
+	delete m_tree2;
 }
 
 void background::update(float DeltaTime)
 {
-	
+	// cloud
+	m_cloud->update(DeltaTime);
+
+	// tree
+	m_tree1->update(DeltaTime);
+	m_tree2->update(DeltaTime);	
 }
 
 void background::draw(al::viewport* Viewport)
@@ -45,6 +63,14 @@ void background::draw(al::viewport* Viewport)
 	Viewport->draw(&m_sky);
 	Viewport->draw(&m_water);
 	Viewport->draw(&m_waterOpacity);
+			
+	//cloud
+	m_cloud->draw(Viewport);
+
+	// tree
+	m_tree1->draw(Viewport);
+	m_tree2->draw(Viewport);
+
 }
 
 //////////////////CLOUDS////////////////////////////

@@ -23,7 +23,6 @@ game::~game()
 	delete m_nest;
 	delete m_enemy;
 	delete m_background;
-	delete m_cloud;
 	delete m_pickups;
 	delete collide;
 	delete m_gui;
@@ -70,14 +69,6 @@ void game::init()
 
 	// backGround
 	m_background = new background();
-
-	//cloud
-	m_cloud = new cloud();
-
-	// tree
-	m_tree1 = new tree(vector(0.4,0.4),vector(315,420),1.0f);
-	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400),3.0f);
-
 
 
 	// titleCard
@@ -221,13 +212,6 @@ void game::update(float deltaTime)
 
 		// backGround
 		m_background->update(deltaTime);
-
-		// cloud
-		m_cloud->update(deltaTime);
-
-		// tree
-		m_tree1->update(deltaTime);
-		m_tree2->update(deltaTime);
 
 		// gui
 		m_gui->update(deltaTime);
@@ -457,13 +441,7 @@ void game::draw()
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);
-		
-		//cloud
-		m_cloud->draw(m_viewport);
 
-		// tree
-		m_tree1->draw(m_viewport);
-		m_tree2->draw(m_viewport);
 
 		// nest
 		m_nest->draw(m_viewport);

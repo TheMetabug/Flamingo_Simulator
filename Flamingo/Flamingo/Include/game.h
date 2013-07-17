@@ -88,8 +88,6 @@ private:
 	titleCard *m_titleCard;
 
 
-	
-
 	//flamingo
 	flamingo* m_flamingo;
 
@@ -104,13 +102,6 @@ private:
 
 	// water
 	background* m_background;
-
-	//cloud
-	cloud* m_cloud;
-
-	// tree
-	tree* m_tree1;
-	tree* m_tree2;
 
 	// particles
 	particleEngine* m_particleEngine;
