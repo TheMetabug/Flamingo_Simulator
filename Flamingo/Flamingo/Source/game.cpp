@@ -375,6 +375,31 @@ void game::update(float deltaTime)
 
 
 		break;
+		
+	case Quit:
+				m_gui->update(deltaTime);
+			m_gui->m_returnTitle = true;
+
+			if(m_gui->m_yesbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Menu;
+				
+				m_gui->m_returnTitle = false;
+			}
+			else if(m_gui->m_nobutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Menu;
+				
+				m_gui->m_returnTitle = false;
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
+			}
+
+		
 		case ReturnTitle:
 			m_gui->update(deltaTime);
 			m_gui->m_returnTitle = true;

@@ -76,6 +76,7 @@ public:
 	bool m_Options;
 	bool m_returnTitle;
 	bool m_credits;
+	bool m_quit;
 	
 	button* m_button2;
 	button* m_button3;
@@ -91,7 +92,9 @@ public:
 	button* m_Gmenubutton4;
 	 
 	button* m_yesbutton;
+	button* m_yesbutton2;
 	button* m_nobutton;
+	button* m_nobutton2;
 
 	button* m_donebutton;
 	button* m_plusmusic;

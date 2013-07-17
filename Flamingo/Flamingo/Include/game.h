@@ -68,7 +68,8 @@ private:
 		Credits,
 		Options,
 		Gamemenu,
-		ReturnTitle
+		ReturnTitle,
+		Quit
 	};
 
 	GameState m_state;

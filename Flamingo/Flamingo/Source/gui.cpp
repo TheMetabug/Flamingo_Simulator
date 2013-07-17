@@ -147,10 +147,16 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_buttonTextures.push_back(new texture("GameMenu/yesButton.png")); // 4
 	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
 	m_yesbutton->m_sprite.setLayer(300);
+
+	m_yesbutton2 = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
+	m_yesbutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 5
 	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
 	m_nobutton->m_sprite.setLayer(300);
+
+	m_nobutton2 = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
+	m_nobutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 6
 	m_donebutton = new button(m_buttonTextures.back(),vector(620,440),m_input, m_soundLibrary);
@@ -259,6 +265,8 @@ gui::~gui()
 	delete m_Gmenubutton4;
 	delete m_yesbutton;
 	delete m_nobutton;
+	delete m_yesbutton2;
+	delete m_nobutton2;
 	delete m_donebutton;
 	delete m_plusmusic;
 	delete m_plussounds;
@@ -323,14 +331,20 @@ void gui::update(float DeltaTime)
 	{
 		m_yesbutton->update(DeltaTime);
 		m_nobutton->update(DeltaTime);
+
 	}	
-	
-	
+	if (m_quit)
+	{
+		m_yesbutton2->update(DeltaTime);
+		m_nobutton2->update(DeltaTime);
+	}
 	if (m_menu)
+	{
 		m_mainbutton1->update(DeltaTime);
 		m_mainbutton2->update(DeltaTime);
 		m_mainbutton3->update(DeltaTime);
 		m_mainbutton4->update(DeltaTime);
+	}
 
 	if (m_Play)
 	{
@@ -409,6 +423,11 @@ void gui::draw(al::viewport* Viewport)
 	if (m_credits)
 		m_xbutton->draw(Viewport);
 	
+	if (m_quit)
+	{
+		m_yesbutton2->draw(Viewport);
+		m_nobutton2->draw(Viewport);
+	}
 	/*if (1)
 		m_button2->draw();*/
 }
