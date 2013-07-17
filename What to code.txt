@@ -1,32 +1,34 @@
 pickups
 	spawni
 	alue
-gui
-	nappi vilkkuu
+
+
 gui + game	
 	menut
 flamingo
-	nuoli (osottaa suunnan ja voimakkuuden)
-	rajoitukset
+
+
 	animaatio
-	rotation
-flamingo + hitbox + pickups
-	head hitbox oikeaan paikkaan, oikea positio
-	heittämisessä mutltiplier pienemmäksi
+
+
+
+
+
+
+
+
+
+
+
+
+
 nest
 	munat
 	healthit
 	kasvaneet flamingot menevät scoreksi
-enemy
-	tulo ruudulle
-	spawnaus randomiksi
 
 animation
 	parantelua
-
-
-
-
 
 
 partikkelit

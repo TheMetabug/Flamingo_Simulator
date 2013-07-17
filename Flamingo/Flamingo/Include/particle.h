@@ -38,10 +38,12 @@ private:
 class feather : public particle
 {
 public:
-	feather(al::vector Position, al::vector Direction, al::vector Scale, al::texture* Texture);
+	feather(al::vector Position, al::vector Direction, al::vector Scale, al::texture* Texture, bool Enemy);
 	~feather(){}
 	bool update(float DeltaTime);
 private:
+	void setColor(int R = 255,int G = 255,int B = 255,int A = 255);
+
 	float m_timer;
 	float m_r,m_g,m_b,m_a;
 };

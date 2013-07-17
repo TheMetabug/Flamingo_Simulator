@@ -15,8 +15,8 @@ public:
 	void reset();
 
 	void addSplash(al::vector Position, al::vector Direction);
-	void addFeather(al::vector Position);
-	void addFeather(al::vector Position, al::vector Direction, float SpreadDegrees);
+	void addFeather(al::vector Position, bool Enemy = false);
+	void addFeather(al::vector Position, al::vector Direction, float SpreadDegrees, bool Enemy = false);
 private:
 	al::texture* m_splashTexture;
 	al::texture* m_featherTexture;

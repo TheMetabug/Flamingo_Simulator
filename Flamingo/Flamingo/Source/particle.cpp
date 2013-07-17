@@ -58,14 +58,13 @@ bool splashParticle::update(float DeltaTime)
 	return false;
 }
 
-feather::feather(vector Position, vector Direction, vector Scale, texture* Texture)
+feather::feather(vector Position, vector Direction, vector Scale, texture* Texture, bool Enemy)
 	: particle(Position,1000*Direction,Scale,Texture,5.0f)
 {
-	m_r = 205 + rand()%50;
-	m_g = 205 + rand()%50;
-	m_b = 205 + rand()%50;
-	m_a = 155 + rand()%50;
-	m_sprite.setColor(m_r, m_g, m_b, m_a);
+	if (Enemy)
+		setColor(140,182,123);
+	else
+		setColor();
 	m_scale = vector(
 		0.8f + (rand()%400)/1000.0f,
 		0.8f + (rand()%400)/1000.0f
@@ -76,6 +75,14 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 	}
 	m_sprite.setScale(m_scale);
 	m_timer = -0.08f;
+}
+void feather::setColor(int R,int G,int B,int A)
+{
+	m_r = R - 15 + rand()%15;
+	m_g = G - 15 + rand()%15;
+	m_b = B - 15 + rand()%15;
+	m_a = A - 100 + rand()%50;
+	m_sprite.setColor(m_r, m_g, m_b, m_a);
 }
 bool feather::update(float DeltaTime)
 {
