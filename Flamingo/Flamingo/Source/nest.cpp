@@ -90,6 +90,7 @@ void hatchling::update(float DeltaTime)
 				m_flySprite->setPosition(finalPosition);
 				m_state = 3;
 				m_timer = -2;
+				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
 			}
 		}
 		break;
@@ -101,7 +102,7 @@ void hatchling::update(float DeltaTime)
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
-			m_nest->m_soundLibrary->m_sounds[29]->play(); //point
+			
 			m_timer = 0;
 		}
 		break;
@@ -378,12 +379,14 @@ void nest::egg(float DeltaTime)
 			m_eggAnimation->ChangeAnimation(0,7);
 			m_egging = false;
 			m_hatching = true;
+			m_soundLibrary->m_sounds[13]->play(); //kuoriutuminen
 		}
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
 
 			removeEgg();
+			m_soundLibrary->m_sounds[14]->play(); //kuoriutuminen kaksi
 
 			if (m_eggCount > 0)
 				m_eggAnimation->ChangeAnimation(0,1);
