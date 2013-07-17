@@ -336,7 +336,7 @@ void pickups::update(float DeltaTime)
 
 	if (m_timer > 2.0f)
 	{
-		m_timer -= 1.0f;
+		m_timer -= 2.0f + (rand()%200)/100.0f;
 
 		addItem();
 	}
@@ -399,6 +399,8 @@ void pickups::reset()
 		delete itemList[i];
 		itemList.clear();
 	}
+	
+	m_timer = 0;
 }
 
 void pickups::deleteItem(int i)
@@ -409,7 +411,7 @@ void pickups::deleteItem(int i)
 }
 void pickups::addItem()
 {
-	if (itemList.size() < 20)
+	if (itemList.size() < 12)
 	{
 		for (int i = 0; i < 1; ++i)
 		{
@@ -419,12 +421,22 @@ void pickups::addItem()
 
 			int rarity = rand()%100;
 			ItemName name;
-			if (rarity < 25)
+			if (rarity < 15)
 			{
 				if (countItem(Shoe) <3)
 					name = Shoe;
 				else if (countItem(Can) <2)
 					name = Can;
+				else
+					name = Plancton;
+			}
+			else if (rarity < 25)
+			{
+				
+				if (countItem(Can) <2)
+					name = Can;
+				else if (countItem(Shoe) <3)
+					name = Shoe;
 				else
 					name = Plancton;
 			}

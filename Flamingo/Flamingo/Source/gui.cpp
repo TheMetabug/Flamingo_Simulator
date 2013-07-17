@@ -224,7 +224,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext->setLayer(296);
 	
 	SCOREtext->setPosition(vector(0, 50));
-	SCOREtext->setColor();
+	SCOREtext->setColor(255,151,255);
 	SCOREtext->setLayer(296);
 
 	PAUSEtext->setPosition(vector(640, 360));
@@ -417,7 +417,7 @@ void gui::draw(al::viewport* Viewport)
 	{
 		m_button2->draw(Viewport); //button2
 		m_button3->draw(Viewport); //button3
-		Viewport->draw(HPtext);
+		//Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
 	}
 	if (m_credits)

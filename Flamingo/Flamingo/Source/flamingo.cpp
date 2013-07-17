@@ -8,7 +8,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
 	m_multiplier = 3.0f;
-	m_throwMultiplier = 1.4f;
+	m_throwMultiplier = 1.2f;
 	m_moveTime = 0.3f;
 	m_hasFood = false;
 	m_distance = 0;
@@ -137,10 +137,22 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			m_direction = m_mouseStartPos - m_input->getMousePosition();
 
 			m_distance = m_direction.getLenght();
-			if (m_distance > m_maxDistance)
+			if (!m_hasFood)
 			{
-				m_direction /= m_distance / m_maxDistance;
-				m_distance = m_maxDistance;
+				if (m_distance > m_maxDistance)
+				{
+					m_direction /= m_distance / m_maxDistance;
+					m_distance = m_maxDistance;
+				}
+			}
+			else
+			{
+				float throwLimiter = 0.9f;
+				if (m_distance > m_maxDistance * throwLimiter)
+				{
+					m_direction /= m_distance / (m_maxDistance * throwLimiter);
+					m_distance = m_maxDistance * throwLimiter;
+				}
 			}
 			
 			m_headPosition = m_headOrigin - m_direction;
