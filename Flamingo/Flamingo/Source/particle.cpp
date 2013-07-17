@@ -42,12 +42,17 @@ splashParticle::splashParticle(vector Position, vector Direction, vector Scale, 
 	m_animation = new animation(&m_sprite,7,176,114, 6 / m_life);
 	m_sprite.setOrigin(m_sprite.getSize()/2);
 	m_sprite.setColor(255,255,255,180);
+	if (Direction.x > 0)
+	{
+		m_scale.x = -m_scale.x;
+		m_sprite.setScale(m_scale);
+	}
 }
 bool splashParticle::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
-	//particle::update(DeltaTime);
-	m_life-= DeltaTime;
+	particle::update(DeltaTime);
+	//m_life-= DeltaTime;
 	m_sprite.setPosition(vector(m_position.x, m_startY + 50 * sin(PI*(-m_life/m_startLife))));
 	m_sprite.setLayer(((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 80);
 	if (m_animation->getCurrentFrame() > 5)

@@ -187,7 +187,7 @@ void game::update(float deltaTime)
 				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
 			}
 		}
-		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		else if(m_input->isButtonPressed(al::Button::MouseLeft) && ML_release)
 		{
 			ML_release = false;
 			m_flamingoHeadPressed = true;

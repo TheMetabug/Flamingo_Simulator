@@ -107,9 +107,17 @@ void enemy::eat(float foodValue, vector itemDirection)
 	}
 	else // when any food hits enemy
 	{
-		m_animation->ChangeAnimation(4,2,4,10);
-		m_birdPhase = 3;
-		m_gui->SCORE -= 100;
+		if (m_birdPhase == 4)
+		{
+			m_animation->ChangeAnimation(4,2,4,10);
+			m_gui->SCORE -= 100;
+		}
+		else
+		{
+			m_animation->ChangeAnimation(4,2,4,10);
+			m_birdPhase = 3;
+			m_gui->SCORE -= 100;
+		}
 	}
 }
 void enemy::fly(float DeltaTime)
@@ -163,19 +171,20 @@ void enemy::happy(float DeltaTime)
 		m_timer = 0;
 		m_animation->ChangeAnimation(0,2,0,5);
 	}
-
 }
 void enemy::respawn()
 {
 	//m_enemyBirdPosition = vector(0, 50); 
 	m_enemyRotate = -10;
 	m_birdPhase = 4;
-	m_animation->ChangeAnimation(0,2,0,10);
+	m_animation->ChangeAnimation(0,2,0,5);
 	m_sprite->setRotation(0);
 	
 }
 void enemy::flyBack(float DeltaTime)
 {
+	m_prevPosition = vector(m_enemyBirdPosition);
+
 	m_enemyBirdPosition.x = m_enemyOrigin.x + (60 * m_enemyRotate);
 	m_enemyBirdPosition.y = m_enemyOrigin.y + 100 * sin(2*m_enemyRotate);
 
@@ -183,5 +192,8 @@ void enemy::flyBack(float DeltaTime)
 		m_hitbox->isEnabled = true;
 
 	if (m_enemyBirdPosition.x > m_enemyOrigin.x)
+	{
 		m_birdPhase = 0;
+		m_animation->ChangeAnimation(0,2,0,5);
+	}
 }
