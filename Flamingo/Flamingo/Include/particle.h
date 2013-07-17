@@ -37,9 +37,13 @@ private:
 
 class feather : public particle
 {
+public:
 	feather(al::vector Position, al::vector Direction, al::vector Scale, al::texture* Texture);
 	~feather(){}
 	bool update(float DeltaTime);
+private:
+	float m_timer;
+	float m_r,m_g,m_b,m_a;
 };
 
 #endif

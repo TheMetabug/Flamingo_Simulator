@@ -203,7 +203,7 @@ void hatchling::die()
 	m_timer = -5;
 	for (int i = 0; i < 100; ++i)
 	{
-		m_particleEngine->addSplash(m_position,vector());
+		m_particleEngine->addFeather(m_position);
 	}
 }
 
