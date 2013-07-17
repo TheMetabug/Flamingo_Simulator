@@ -379,14 +379,14 @@ void nest::egg(float DeltaTime)
 			m_eggAnimation->ChangeAnimation(0,7);
 			m_egging = false;
 			m_hatching = true;
-			m_soundLibrary->m_sounds[13]->play(); //kuoriutuminen
+			m_soundLibrary->m_sounds[13]->playWithRandPitch(0.2f); //kuoriutuminen
 		}
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
 
 			removeEgg();
-			m_soundLibrary->m_sounds[14]->play(); //kuoriutuminen kaksi
+			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
 			if (m_eggCount > 0)
 				m_eggAnimation->ChangeAnimation(0,1);

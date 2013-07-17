@@ -124,7 +124,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			m_drag = 1;
 			//m_soundLibrary->m_sounds[1]->play();
 			m_headAnimation->ChangeAnimation(1,1,1,15);
-			m_soundLibrary->m_sounds[3]->play();
+			m_soundLibrary->m_sounds[3]->playWithRandPitch(0.2f); // kuminauha
 		}
 		break;
 	case 1: // head being dragged
@@ -206,7 +206,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			{
 				m_timer = 0;
 				m_drag = 2;
-				m_soundLibrary->m_sounds[0]->play();
+				m_soundLibrary->m_sounds[0]->playWithRandPitch(0.2f);
 				m_headAnimation->ChangeAnimation(2,1,2,15);
 				m_direction = m_crossHair - m_headPosition;
 				m_arrowSprite.setColor(0,0,0,0);
@@ -230,6 +230,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			if (direction.getLenght() < WATERR && m_headPosition.y < WATER_BOTTOM - 30 && (1 - m_timer / m_moveTime < 0.3f) && !m_hasFood)
 			{
 				m_particleEngine->addSplash(m_headPosition,m_direction);
+				m_soundLibrary->m_sounds[33]->playWithRandPitch(0.2f); // slpash
 				m_splashed = true;
 			}
 		}

@@ -265,7 +265,7 @@ void pickups::update(float DeltaTime)
 			else
 			{
 				itemList[i]->m_position = m_flamingo->m_headHitbox->Position;
-				m_soundLibrary->m_sounds[18]->play(); // pop
+				m_soundLibrary->m_sounds[18]->playWithRandPitch(0.4f); // pop
 			}
 			break;
 
@@ -282,7 +282,7 @@ void pickups::update(float DeltaTime)
 					if(itemList[i]->m_pickup->m_foodValue <= 0)
 					{
 						m_nest->happy(DeltaTime);
-						m_soundLibrary->m_sounds[9]->play(); // mäisk
+						m_soundLibrary->m_sounds[9]->playWithRandPitch(0.4f); // mäisk
 						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu 
 						
@@ -303,14 +303,14 @@ void pickups::update(float DeltaTime)
 				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
 				{
 					deleteItem(i);
-					m_soundLibrary->m_sounds[6]->play();
+					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f);
 				}
 				else
 				{
 					if(itemList[i]->m_pickup->m_foodValue <= 0 && c_item != 0)
-						m_soundLibrary->m_sounds[12]->play(); // piip
+						m_soundLibrary->m_sounds[12]->playWithRandPitch(0.1f); // piip
 
-					m_soundLibrary->m_sounds[9]->play(); // mäisk
+					m_soundLibrary->m_sounds[9]->playWithRandPitch(0.4f); // mäisk
 					itemList[i]->m_state = 5;
 					itemList[i]->m_direction = itemList[i]->m_position - m_nest->m_nestPosition;
 				}

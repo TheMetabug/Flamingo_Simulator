@@ -82,6 +82,13 @@ void sound::play()
 {
 	m_sound->play();
 }
+void sound::playWithRandPitch(float randAmount)
+{
+	float pitch = 1 + (1-((rand()%(200))/100.0f)) * randAmount;
+
+	m_sound->setPitch(pitch);
+	m_sound->play();
+}
 void sound::stop()
 {
 	m_sound->stop();
@@ -98,6 +105,11 @@ void sound::setVolume(float Volume)
 		m_sound->setVolume(0);
 
 	m_volume = Volume;
+}
+
+void sound::setPitch(float Pitch)
+{
+	m_sound->setPitch(Pitch);
 }
 
 

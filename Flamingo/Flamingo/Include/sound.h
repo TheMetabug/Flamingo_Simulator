@@ -39,9 +39,11 @@ public:
 
 	void load(std::string filename);
 	void play();
+	void playWithRandPitch(float randAmount);
 	void stop();
 	void pause();
 	void setVolume(float Volume);
+	void setPitch(float Pitch);
 	std::string m_soundName;
 
 private:
