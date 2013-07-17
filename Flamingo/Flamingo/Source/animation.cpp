@@ -2,8 +2,9 @@
 
 
 
-animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, float Fps, int FirstFrame)
+animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int FramesizeY, float Fps, int FirstFrame, bool Loop)
 {
+	m_loop = Loop;
 	m_sprite = Sprite;
 	m_frames = Frames;
 	m_framesizeX = FramesizeX;
@@ -34,7 +35,10 @@ void animation::update(float deltaTime)
 		m_currentFrame++;
 		if (m_currentFrame >= m_firstFrame + m_frames)
 		{
-			m_currentFrame = m_firstFrame;
+			if (m_loop)
+				m_currentFrame = m_firstFrame;
+			else
+				m_currentFrame--;
 		}
 		m_timer -= 1.0 / m_fps;
 		//counter++;
