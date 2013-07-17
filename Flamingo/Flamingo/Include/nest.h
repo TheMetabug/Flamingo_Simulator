@@ -8,6 +8,7 @@
 #include "program.h"
 #include "gui.h"
 #include "particleEngine.h"
+#include "sound.h"
 
 //Hatchling
 

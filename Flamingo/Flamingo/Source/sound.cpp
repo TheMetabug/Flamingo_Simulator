@@ -151,6 +151,11 @@ soundLibrary::soundLibrary()
 	m_sounds.push_back(new sound("flamingo5"));
 	m_sounds.push_back(new sound("kuminauha2_1"));
 	m_sounds.push_back(new sound("boing"));
+	m_sounds.push_back(new sound("point"));
+	m_sounds.push_back(new sound("loiskis"));
+	m_sounds.push_back(new sound("loiskis2"));
+	m_sounds.push_back(new sound("loiskis3"));
+	m_sounds.push_back(new sound("splash"));
 
 
 

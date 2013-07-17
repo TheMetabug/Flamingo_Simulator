@@ -27,3 +27,8 @@
 26 - flamingo5
 27 - kuminauha2_1
 28 - boing
+29 - point
+30 - loiskis
+31 - loiskis2
+32 - loiskis3
+33 - splash
