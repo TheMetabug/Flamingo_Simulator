@@ -500,6 +500,7 @@ void game::reset()
 	m_nest->reset();
 	m_enemy->reset();
 	m_pickups->reset();
+	m_gui->reset();
 }
 
 void game::drawDebugInfo(sf::RenderWindow *window)

@@ -2,7 +2,6 @@
 
 using namespace al;
 
-
 button::button(al::texture* Texture, al::vector Position, al::input* Input,soundLibrary* SoundLibrary)
 {
 	m_input = Input;
@@ -10,7 +9,6 @@ button::button(al::texture* Texture, al::vector Position, al::input* Input,sound
 	setTexture(Texture);
 	m_soundLibrary = SoundLibrary;
 }
-
 button::~button()
 {
 	delete m_animation;
@@ -27,17 +25,14 @@ void button::setTexture(al::texture* Texture)
 	m_sprite.setScale(1,1);
 	/*m_sprite.setLayer(296);*/
 }
-
 void button::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
 }
-
 void button::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_sprite);
 }
-
 bool button::isPressed()
 {
 	if(mouseOver())
@@ -68,6 +63,7 @@ bool button::mouseOver()
 		return true;
 	return false;
 }
+
 //////////////////////////////////////////////////////////////////////////
 
 titleCard::titleCard()
@@ -76,7 +72,6 @@ titleCard::titleCard()
 	setTexture("titlescreen_Placeholder.png");
 	
 } 
-
 titleCard::~titleCard()
 {
 
@@ -101,38 +96,18 @@ void titleCard::draw(al::viewport* Viewport)
 	Viewport->draw(&m_titleSprite);
 }
 
-
-
 //////////////////////////////////////////////////////////////////////////
 
 gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 {
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
-	m_pause = false;
-	m_title = false;
-	m_Play = false;
-	m_menu = false;
-	m_Gmenu = false;
-	m_Options = false;
-	m_returnTitle = false;
-	m_credits= false;
 	m_soundLibrary = SoundLibrary;
 
-	
 	// HP-basics
 	HPmax = 100; //max HP
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
-
-
-	SCORE= 0;
-	
-	
-	
-
-	
-
 
 
 	/*button = "test" button
@@ -263,8 +238,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SOUNDtext->setColor(83,77,67,255);
 	SOUNDtext->setLayer(299);
 	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
-}
 
+	
+	reset();
+	m_Play = false;
+}
 gui::~gui()
 {
 	std::cout<<"deleted gui"<<std::endl;
@@ -372,7 +350,6 @@ void gui::update(float DeltaTime)
 		m_xbutton->update(DeltaTime);
 	}
 }
-
 void gui::draw(al::viewport* Viewport)
 {
 	
@@ -434,4 +411,17 @@ void gui::draw(al::viewport* Viewport)
 	
 	/*if (1)
 		m_button2->draw();*/
+}
+void gui::reset()
+{
+	m_pause = false;
+	m_title = false;
+	m_Play = true;
+	m_menu = false;
+	m_Gmenu = false;
+	m_Options = false;
+	m_returnTitle = false;
+	m_credits= false;
+	
+	SCORE= 0;
 }
