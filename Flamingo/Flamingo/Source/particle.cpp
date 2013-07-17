@@ -32,14 +32,12 @@ void particle::draw(viewport* Viewport)
 	Viewport->draw(&m_sprite);
 }
 
-
-
 splashParticle::splashParticle(vector Position, vector Direction, vector Scale, texture* Texture)
-	: particle(Position,vector(),Scale,Texture,1.0f)
+	: particle(Position,vector(Direction.x/5.0f,-Direction.y/5.0f),Scale,Texture,1.0f)
 {
 	m_startY = Position.y;
-	m_direction = vector(Direction.x/5.0f,-Direction.y/5.0f);
-	m_animation = new animation(&m_sprite,7,176,114, 6 / m_life);
+	//m_direction = vector(Direction.x/5.0f,-Direction.y/5.0f);
+	m_animation = new animation(&m_sprite,7,176,114, 6 / m_life,0,false);
 	m_sprite.setOrigin(m_sprite.getSize()/2);
 	m_sprite.setColor(255,255,255,180);
 	if (Direction.x > 0)
@@ -58,4 +56,23 @@ bool splashParticle::update(float DeltaTime)
 	if (m_animation->getCurrentFrame() > 5)
 		return true;
 	return false;
+}
+
+feather::feather(vector Position, vector Direction, vector Scale, texture* Texture)
+	: particle(Position,Direction,Scale,Texture,1.0f)
+{
+	m_sprite.setColor(
+		205 + rand()%50,
+		205 + rand()%50,
+		205 + rand()%50,
+		205 + rand()%50
+		);
+	m_scale = vector(
+		0.8f + (rand()%400)/100.0f,
+		0.8f + (rand()%400)/100.0f
+		);
+}
+bool feather::update(float DeltaTime)
+{
+	return true;
 }

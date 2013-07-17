@@ -35,4 +35,11 @@ private:
 	float m_startY;
 };
 
+class feather : public particle
+{
+	feather(al::vector Position, al::vector Direction, al::vector Scale, al::texture* Texture);
+	~feather(){}
+	bool update(float DeltaTime);
+};
+
 #endif
