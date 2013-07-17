@@ -59,7 +59,7 @@ void game::init()
 	m_flamingo = new flamingo(m_soundLibrary, collide, m_input, m_particleEngine);
 
 	// nest
-	m_nest = new nest(collide, m_gui);
+	m_nest = new nest(collide, m_gui, m_particleEngine);
 
 	// enemy
 	m_enemy = new enemy(collide, m_gui);

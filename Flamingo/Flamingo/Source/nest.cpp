@@ -4,11 +4,12 @@ using namespace al;
 
 //Hatchling
 
-hatchling::hatchling(texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide)
+hatchling::hatchling(texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide, particleEngine* ParticleEngine)
 	:	m_flyScale(2.0f/3.0f)
 {
 		m_sprite = new sprite(HatchlingTexture);
 		m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
+		m_particleEngine = ParticleEngine;
 
 		m_sprite->setPosition(m_position);
 		m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
@@ -91,21 +92,24 @@ void hatchling::update(float DeltaTime)
 		}
 		break;
 	case 3:
-		if (m_timer < 0)
-		{
-			
-		}
-		else
+		if (m_timer > 0)
 		{
 			m_flyAnimation->ChangeAnimation(0,1,0,1);
 			m_flySprite->setScale(m_flyScale);
 			m_state = 0;
-			//m_hitbox->isEnabled = true;
 			m_eatPoints = 0;
-			//m_isThere = true;
 			m_fly = false;
 			m_timer = 0;
 		}
+		break;
+	case 4:
+		if (m_timer > 0)
+		{
+			m_state = 0;
+			m_timer = 0;
+			m_fly = false;
+		}
+
 		break;
 	}
 }
@@ -127,6 +131,8 @@ void hatchling::draw(viewport* Viewport)
 		break;
 	case 3:
 		Viewport->draw(m_flySprite);
+		break;
+	case 4:
 		break;
 	default:
 		std::cout<<"damn noob you forgot something"<<std::endl;
@@ -160,9 +166,10 @@ void hatchling::eat(float foodValue)
 		}
 		else
 		{
-			m_animation->ChangeAnimation(2,1);
+			die();
+			//m_animation->ChangeAnimation(2,1);
 			m_timer = 0;
-			m_eatPoints += foodValue;
+			//m_eatPoints += foodValue;
 		}
 	}
 }
@@ -182,6 +189,18 @@ void hatchling::happy()
 		m_timer = 0;
 	}
 }
+void hatchling::die()
+{
+	m_isThere = false;
+	m_fly = true;
+	m_hitbox->isEnabled = false;
+	m_state = 4;
+	m_timer = -5;
+	for (int i = 0; i < 100; ++i)
+	{
+		m_particleEngine->addSplash(m_position,vector());
+	}
+}
 
 void hatchling::reset()
 {
@@ -198,12 +217,14 @@ void hatchling::reset()
 
 //Nest
 
-nest::nest(collision* Collide, gui* Gui)
+nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 {
 	///// nest //////
 	m_nestPosition = vector(95, 535);
 	m_eggPosition = m_nestPosition + vector(0,60);
 	m_eggVector = vector(-80,-30);
+
+	m_particleEngine = ParticleEngine;
 
 	// score //
 	m_gui = Gui;
@@ -260,7 +281,7 @@ nest::nest(collision* Collide, gui* Gui)
 
 	for (int i = 0; i < 3; ++i)
 	{
-		m_hatchlings.push_back(new hatchling(m_hatchlingTexture, m_hatchlingFlyTexture, Collide));
+		m_hatchlings.push_back(new hatchling(m_hatchlingTexture, m_hatchlingFlyTexture, Collide, m_particleEngine));
 	}
 
 

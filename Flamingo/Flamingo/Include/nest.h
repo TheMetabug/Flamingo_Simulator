@@ -7,13 +7,14 @@
 #include "animation.h"
 #include "program.h"
 #include "gui.h"
+#include "particleEngine.h"
 
 //Hatchling
 
 class hatchling
 {
 public:
-	hatchling(al::texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide);
+	hatchling(al::texture* HatchlingTexture, al::texture* FlyTexture, collision* Collide, particleEngine* ParticleEngine);
 	~hatchling();
 
 	void update(float DeltaTime);
@@ -23,6 +24,7 @@ public:
 	void eat(float foodValue);
 	void mad();
 	void happy();
+	void die();
 
 	void reset();
 
@@ -31,6 +33,7 @@ public:
 	al::sprite* m_sprite;
 	al::sprite* m_flySprite;
 	animation *m_animation;
+	particleEngine* m_particleEngine;
 	animation *m_flyAnimation;
 	hitbox* m_hitbox;
 	float m_timer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
@@ -44,7 +47,7 @@ public:
 class nest
 {
 public:
-	nest(collision* Collide, gui* Gui);
+	nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine);
 	~nest();
 
 	void update(float DeltaTime);
@@ -80,6 +83,8 @@ private:
 				m_eggPosition,
 				m_eggVector,
 				m_eggTarget;
+
+	particleEngine* m_particleEngine;
 
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;
