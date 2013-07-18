@@ -1,0 +1,8 @@
+1. Drag and drop the head with your mouse to pickup objects
+2.drag and drop head again to launch the objects
+3.gain points by throwing food to hatchlings
+4.gain points by throwing cans or boots to enemy bird
+5.lose points by throwing cans or boots to hatchlings
+6.lose points by throwing food to enemy bird
+7.feed enough food to hatchlings to make them grow
+8.???
