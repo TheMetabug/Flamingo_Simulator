@@ -216,7 +216,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	
 	HPtext = new text("HP-mittari", m_font, 50);
 	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
-	TITLEtext = new text("Press SPACE",m_font, 50);
+	TITLEtext = new text("Tap the fucking screen or click",m_font, 50);
 	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
@@ -236,7 +236,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	PAUSEtext->setColor();
 	PAUSEtext->setLayer(298);
 
-	TITLEtext->setPosition(vector(500,550));
+	TITLEtext->setPosition(vector(300,655));
 	TITLEtext->setColor();
 	TITLEtext->setLayer(298);
 

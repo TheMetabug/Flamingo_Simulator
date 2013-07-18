@@ -158,12 +158,13 @@ void game::update(float deltaTime)
 
 		m_gui->m_title = true;
 
-		if (m_input->isKeyPressed(al::Key::Space))
+		if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			m_state = Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
-			m_gui->m_title =false;
+			m_gui->m_title =false;	
+			ML_release = false;
 		}
 	
 		break;
