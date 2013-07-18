@@ -49,6 +49,7 @@ enemy::~enemy()
 void enemy::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
+	m_prevPosition = m_enemyBirdPosition;
 	m_enemyRotate += DeltaTime*2;
 
 	switch(m_birdPhase)
