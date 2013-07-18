@@ -11,6 +11,7 @@
 #include "enemy.h"
 #include "flamingo.h"
 #include "sound.h"
+#include "particleEngine.h"
 
 namespace pups
 {
@@ -27,7 +28,7 @@ namespace pups
 	class pickup
 	{
 	public:
-		pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity);
+		pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity, pickups* Pickups);
 		~pickup();
 		al::texture* m_texture;
 		ItemName m_itemName;
@@ -35,6 +36,7 @@ namespace pups
 		float m_speed;
 		float m_scale;
 		float m_opacity;
+		pickups* m_pickups;
 	};
 
 	//Class for individual items, contains pointer to pickup, telling what type of item this is
@@ -69,7 +71,7 @@ class pickups
 
 public:
 	//pickups(){}
-	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary);
+	pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary, particleEngine* ParticleEngine);
 	~pickups();
 
 	void update(float DeltaTime);
@@ -89,6 +91,7 @@ private:
 	int m_index;
 
 	soundLibrary* m_soundLibrary;
+	particleEngine* m_particleEngine;
 
 
 
@@ -101,7 +104,7 @@ private:
 
 	al::texture *m_texture;
 
-
+	friend class pups::item;
 };
 
 #endif

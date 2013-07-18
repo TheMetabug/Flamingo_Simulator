@@ -6,13 +6,15 @@ using namespace pups;
 using namespace al;
 
 // Pickup
-pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity):
+pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float Speed, float Scale, float Opacity, pickups* Pickups):
 	m_texture(Texture),
 	m_itemName(itemName),
 	m_foodValue(FoodValue),
 	m_speed(Speed),
 	m_scale(Scale),
-	m_opacity(Opacity)
+	m_opacity(Opacity),
+	m_pickups(Pickups)
+
 {
 }
 pickup::~pickup()
@@ -45,11 +47,6 @@ item::item(al::vector Position, pickup* Pickup)
 	m_hitbox = new hitbox(m_position, m_sprite->getTransformedSize()*hitboxSize,
 		m_sprite->getTransformedSize()*hitboxSize/2,false);
 	m_sprite->setLayer(10-290);
-
-	if (m_pickup->m_itemName == Shoe)
-	{
-		m_animation->ChangeAnimation(Pickup->m_itemName * 3,1);
-	}
 
 	m_sprite->setColor(170,210,250,0);
 }
@@ -105,6 +102,19 @@ bool item::update(float DeltaTime)
 		m_sprite->setPosition(m_position);
 		if (m_position.y > 1000)
 			return false;
+		if (m_position.y > (WATER_BOTTOM * 2 + WATER_TOP)/3 && 
+			m_position.y < WINDOW_HEIGHT &&
+			m_position.x > WATER_LEFT && 
+			m_position.x < WINDOW_WIDTH
+			)
+		{
+			m_pickup->m_pickups->m_particleEngine->addSplash(m_position,m_direction);
+			m_pickup->m_pickups->m_soundLibrary->m_sounds[33]->playWithRandPitch(0.2f);
+			m_direction = (rand()%100 +1)/100.0f * (m_direction / m_direction.getLenght());
+			m_state = 0;
+			m_animation->ChangeAnimation(m_pickup->m_itemName * 3,2);
+			m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+		}
 		break;
 	case 5:
 		m_direction.y += 1000*DeltaTime;
@@ -166,25 +176,26 @@ void item::stayInWater()
 }
 
 // Pickups
-pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary)
+pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flamingo, soundLibrary* SoundLibrary, particleEngine* ParticleEngine)
 	: m_collision(Collision),
 	  m_nest(Nest),
 	  m_enemy(Enemy),
 	  m_flamingo(Flamingo),
 	  m_timer(0),
 	  m_index(-1),
-	  m_soundLibrary(SoundLibrary) 
+	  m_soundLibrary(SoundLibrary),
+	  m_particleEngine(ParticleEngine)
 {
 	m_spawnPosition = al::vector(1200,600);
 
 	m_texture = new texture("Item_sheet.png"); // Texture containing all item animations
 
 	
-	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f));
-	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f));
-	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f));
-	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f));
-	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f));
+	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f, this));
+	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f, this));
+	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f, this));
+	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f, this));
+	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 }
 pickups::~pickups()
 {
