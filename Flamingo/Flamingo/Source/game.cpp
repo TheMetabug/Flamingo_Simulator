@@ -65,7 +65,7 @@ void game::init()
 	m_nest = new nest(collide, m_gui, m_particleEngine);
 
 	// enemy
-	m_enemy = new enemy(collide, m_gui);
+	m_enemy = new enemy(collide, m_gui, m_particleEngine);
 
 	// pickups
 	m_pickups = new pickups(collide, m_nest, m_enemy, m_flamingo, m_soundLibrary);

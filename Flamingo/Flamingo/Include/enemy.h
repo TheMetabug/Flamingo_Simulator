@@ -6,13 +6,14 @@
 #include "animation.h"
 #include "hitbox.h"
 #include "program.h"
+#include "particleEngine.h"
 #include <math.h>
 #include "gui.h"
 
 class enemy
 {
 public:
-	enemy(collision* Collide, gui* Gui);
+	enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine);
 	~enemy();
 
 	void update(float DeltaTime);
@@ -33,6 +34,7 @@ private:
 	hitbox* m_hitbox;
 	collision *m_collision;
 	al::vector m_enemyOrigin, m_enemyBirdPosition, m_prevPosition, m_direction;
+	particleEngine* m_particleEngine;
 
 	int m_birdPhase;
 	float m_timer;

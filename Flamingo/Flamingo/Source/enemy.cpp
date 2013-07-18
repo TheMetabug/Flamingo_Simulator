@@ -2,8 +2,9 @@
 
 using namespace al;
 
-enemy::enemy(collision* Collide, gui* Gui)
+enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 {
+	m_particleEngine = ParticleEngine;
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 250;
 	m_enemyOrigin.y = 300;
@@ -144,6 +145,11 @@ void enemy::die(float DeltaTime)
 	}
 
 	m_enemyBirdPosition.x -= 300*DeltaTime;
+
+	for (int i = 0; i < 100; ++i)
+	{
+		m_particleEngine->addFeather(m_enemyBirdPosition,true);
+	}
 }
 void enemy::fall(float DeltaTime)
 {

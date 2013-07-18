@@ -73,7 +73,12 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 	{
 		m_scale.y = -m_scale.y;
 	}
+	
+	//m_sprite.setOrigin(vector(m_sprite.getTransformedSize().x/2,-m_sprite.getTransformedSize().y/2));
+
 	m_sprite.setScale(m_scale);
+	m_sprite.setLayer(280);
+
 	m_timer = -0.08f;
 	m_rotate = (rand()%1000)/100;
 }
