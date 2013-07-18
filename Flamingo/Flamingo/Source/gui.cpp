@@ -71,18 +71,12 @@ titleCard::titleCard()
 	m_titlePosition = vector(640, 360);
 	setTexture("titlescreen_Placeholder.png");
 
-	m_logoPosition = vector(1040, 760);
-	m_logoTexture = new texture("nameLogo.png");
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(m_logoPosition);
-	m_logoSprite.setOrigin(vector(m_titleSprite.getSize().x/2, m_titleSprite.getSize().y/2));
-	m_logoSprite.setScale(1,1);
-	//m_logoSprite.setLayer(299);
+	
 	
 } 
 titleCard::~titleCard()
 {
-	delete m_logoTexture;
+
 }
 
 void titleCard::setTexture(std::string TextureName)
@@ -102,7 +96,7 @@ void titleCard::update(float DeltaTime)
 void titleCard::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_titleSprite);
-	Viewport->draw(&m_logoSprite);
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -157,14 +151,14 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_yesbutton = new button(m_buttonTextures.back(),vector(580,375),m_input, m_soundLibrary);
 	m_yesbutton->m_sprite.setLayer(300);
 
-	m_yesbutton2 = new button(m_buttonTextures.back(),vector(580,600),m_input, m_soundLibrary);
+	m_yesbutton2 = new button(m_buttonTextures.back(),vector(580,620),m_input, m_soundLibrary);
 	m_yesbutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("GameMenu/noButton.png")); // 5
 	m_nobutton = new button(m_buttonTextures.back(),vector(687,375),m_input, m_soundLibrary);
 	m_nobutton->m_sprite.setLayer(300);
 
-	m_nobutton2 = new button(m_buttonTextures.back(),vector(687,600),m_input, m_soundLibrary);
+	m_nobutton2 = new button(m_buttonTextures.back(),vector(687,620),m_input, m_soundLibrary);
 	m_nobutton2->m_sprite.setLayer(300);
 	
 	m_buttonTextures.push_back(new texture("OptionsMenu/Done.png")); // 6
@@ -191,15 +185,15 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_mainbutton1->m_sprite.setLayer(1);
 
 	m_buttonTextures.push_back(new texture("MainMenu/instructionsButton.png")); // 10
-	m_mainbutton2 = new button(m_buttonTextures.back(),vector(667,550),m_input, m_soundLibrary);
+	m_mainbutton2 = new button(m_buttonTextures.back(),vector(650,550),m_input, m_soundLibrary);
 	m_mainbutton2->m_sprite.setLayer(1);
 	
 	m_buttonTextures.push_back(new texture("MainMenu/creditsButton.png")); // 11
-	m_mainbutton3 = new button(m_buttonTextures.back(),vector(630,600),m_input, m_soundLibrary);
+	m_mainbutton3 = new button(m_buttonTextures.back(),vector(625,605),m_input, m_soundLibrary);
 	m_mainbutton3->m_sprite.setLayer(1);
 	
 	m_buttonTextures.push_back(new texture("MainMenu/quitButton.png")); // 12
-	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,666),m_input, m_soundLibrary);
+	m_mainbutton4 = new button(m_buttonTextures.back(),vector(626,670),m_input, m_soundLibrary);
 	m_mainbutton4->m_sprite.setLayer(1);
 
 	m_buttonTextures.push_back(new texture("Buttons/exitButton.png")); // 13

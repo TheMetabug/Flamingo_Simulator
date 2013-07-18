@@ -76,7 +76,14 @@ void game::init()
 
 	// titleCard
 
-	
+			m_logoPosition = vector(640, 580);
+			m_logoTexture = new texture("nameLogo.png");
+			m_logoSprite.setTexture(m_logoTexture);
+			m_logoSprite.setPosition(m_logoPosition);
+			m_logoSprite.setOrigin(vector(m_logoSprite.getSize().x/2, m_logoSprite.getSize().y/2));
+			m_logoSprite.setScale(1,1);
+			//m_logoSprite.setLayer(299);
+
 			m_ReturnPosition = (vector(640,375));
 			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
 			m_ReturnCheck.setTexture(m_ReturnTexture);
@@ -95,7 +102,7 @@ void game::init()
 			m_GMenu.getSize().y/2));
 			m_GMenu.setScale(1,1);
 			  
-			m_GMenu.setLayer(299);
+			m_GMenu.setLayer(298);
 
 			m_creditsPosition = (vector(640,360));
 			m_creditsTexture = new texture("creditsPlaceholder.png");
@@ -130,7 +137,7 @@ void game::init()
 
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
-	m_pauseOpacitySprite.setLayer(298);
+	m_pauseOpacitySprite.setLayer(297);
 			
 }
 void game::update(float deltaTime)
@@ -258,6 +265,7 @@ void game::update(float deltaTime)
 			}
 		if(m_gui->m_mainbutton4->isPressed() && ML_release)
 			{
+				m_ReturnCheck.setPosition(vector(640,620));
 				ML_release = false;
 				m_state = Quit;
 				
@@ -384,10 +392,11 @@ void game::update(float deltaTime)
 			}
 			else if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
 			{
+				m_ReturnCheck.setPosition(vector(640,375));
 				ML_release = false;
 				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
-				m_gui->m_Play = false;
+				
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
@@ -397,11 +406,38 @@ void game::update(float deltaTime)
 
 		break;
 		
-	case Quit:
+	
+		
+		case ReturnTitle:
+			m_gui->update(deltaTime);
+			m_gui->m_returnTitle = true;
+
+			
+			if(m_gui->m_yesbutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Menu;
+				
+				m_gui->m_returnTitle = false;
+			}
+			else if(m_gui->m_nobutton->isPressed() && ML_release)
+			{
+				ML_release = false;
+				m_state = Gamemenu;
+				
+				m_gui->m_returnTitle = false;
+			}
+			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			{
+				ML_release = false;
+			}
+		break;
+
+		case Quit:
 			m_gui->update(deltaTime);
 			m_gui->m_quit = true;
 
-			m_ReturnCheck.setPosition(vector(640,600));
+			/*m_ReturnCheck.setPosition(vector(640,600));*/
 
 			if(m_gui->m_yesbutton2->isPressed() && ML_release)
 			{
@@ -420,30 +456,6 @@ void game::update(float deltaTime)
 			{
 				ML_release = false;
 				
-			}
-		break;
-		
-		case ReturnTitle:
-			m_gui->update(deltaTime);
-			m_gui->m_returnTitle = true;
-
-			if(m_gui->m_yesbutton->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Menu;
-				
-				m_gui->m_returnTitle = false;
-			}
-			else if(m_gui->m_nobutton->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Gamemenu;
-				
-				m_gui->m_returnTitle = false;
-			}
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
-			{
-				ML_release = false;
 			}
 		break;
 	}
@@ -467,6 +479,7 @@ void game::draw()
 	case TitleScreen:
 		// titlecard
 		m_titleCard->draw(m_viewport);
+		m_viewport->draw(&m_logoSprite);
 		// gui
 		m_gui->draw(m_viewport);
 
@@ -477,6 +490,7 @@ void game::draw()
 		
 	
 	case Gamemenu:
+
 		m_viewport->draw(&m_GMenu);
 	case Options:
 		if (m_gui->m_Options)
@@ -504,7 +518,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_pause == true || m_gui->m_Gmenu == true )
+		if(m_gui->m_pause == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);

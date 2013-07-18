@@ -56,6 +56,10 @@ private:
 	al::vector m_optionsPosition, m_optionsOrigin;
 	al::texture *m_optionsTexture;
 	al::sprite m_options;
+
+	al::texture* m_logoTexture;
+	al::sprite m_logoSprite;
+	al::vector m_logoPosition;
 	
 	bool P_release;
 	bool M_release;

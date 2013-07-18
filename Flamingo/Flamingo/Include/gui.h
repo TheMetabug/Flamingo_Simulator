@@ -49,13 +49,8 @@ public:
 	animation *m_titleAnimation;
 	al::sprite m_titleSprite;
 
-	al::vector m_logoPosition;
-
 private:
 	al::texture m_texture;
-
-	al::texture* m_logoTexture;
-	al::sprite m_logoSprite;
 
 };
 
