@@ -38,6 +38,9 @@ int main()
 	// Set window parametres
 	
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamia");//, sf::Style::Fullscreen);
+	sf::Image icon;
+	if (icon.loadFromFile("Assets/icon.png"))
+		window->setIcon(64,64,icon.getPixelsPtr());
 	sf::View view(sf::Vector2f(WINDOW_WIDTH/2,WINDOW_HEIGHT/2),sf::Vector2f(WINDOW_WIDTH,WINDOW_HEIGHT));
 	window->setView(view);
 	al::viewport* viewport = new al::viewport(window);
