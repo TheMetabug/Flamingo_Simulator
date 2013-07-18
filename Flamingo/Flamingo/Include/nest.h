@@ -110,7 +110,7 @@ private:
 	//animation *m_hatchlingFlyAnimation;
 
 	int m_eggCount;
-	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime;
+	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime, m_scale;
 	bool m_hatching;
 	bool m_egging;
 

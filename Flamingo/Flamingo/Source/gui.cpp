@@ -70,11 +70,19 @@ titleCard::titleCard()
 {
 	m_titlePosition = vector(640, 360);
 	setTexture("titlescreen_Placeholder.png");
+
+	m_logoPosition = vector(1040, 760);
+	m_logoTexture = new texture("nameLogo.png");
+	m_logoSprite.setTexture(m_logoTexture);
+	m_logoSprite.setPosition(m_logoPosition);
+	m_logoSprite.setOrigin(vector(m_titleSprite.getSize().x/2, m_titleSprite.getSize().y/2));
+	m_logoSprite.setScale(1,1);
+	//m_logoSprite.setLayer(299);
 	
 } 
 titleCard::~titleCard()
 {
-
+	delete m_logoTexture;
 }
 
 void titleCard::setTexture(std::string TextureName)
@@ -94,6 +102,7 @@ void titleCard::update(float DeltaTime)
 void titleCard::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_titleSprite);
+	Viewport->draw(&m_logoSprite);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -199,7 +208,8 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
 	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
-	m_xbutton->m_sprite.setLayer(300);
+	m_tutorialbutton1->m_sprite.setLayer(300);
+
 	
 	
 	m_font = new font();
@@ -292,9 +302,6 @@ gui::~gui()
 void gui::update(float DeltaTime)
 {
 	
-
-
-
 	//edit  HP settings
 		if( HPnow < 0) 
 	{
@@ -372,7 +379,10 @@ void gui::draw(al::viewport* Viewport)
 		Viewport->draw(PAUSEtext);
 
 	if (m_title)
+	{	
 		Viewport->draw(TITLEtext);
+	}
+		
 
 	if(m_menu)
 	{

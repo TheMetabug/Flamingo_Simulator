@@ -27,16 +27,16 @@ hatchling::hatchling(nest* Nest, collision* Collide)
 
 		
 		m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
-	m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
-	m_flySprite->setScale(m_flyScale);
-	m_flySprite->setLayer(2);
-	m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
+		m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
+		m_flySprite->setScale(m_flyScale);
+		m_flySprite->setLayer(2);
+		m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
 
-	m_travelTime = 0;
+		m_travelTime = 0;
 
-	m_nest = Nest;
+		m_nest = Nest;
 
-	reset();
+		reset();
 }
 hatchling::~hatchling()
 {
@@ -77,7 +77,7 @@ void hatchling::update(float DeltaTime)
 		break;
 	case 2:
 		{
-			vector finalPosition = vector(280,100);
+			vector finalPosition = vector(100,70);
 			m_travelTime = 2.0f;
 			if (m_timer > 0.0f)
 			{
@@ -102,6 +102,7 @@ void hatchling::update(float DeltaTime)
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
+			m_nest->m_gui->SCORE += 500;
 			
 			m_timer = 0;
 		}
@@ -258,6 +259,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	m_travelTime = 2.0f;
 
+	m_scale = 0.0f;
+
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
 		al::vector(m_flamingonest.getGlobalBounds().width,
@@ -368,8 +371,10 @@ void nest::egg(float DeltaTime)
 
 	if (m_eggTimer < m_travelTime)
 	{
+
 		m_theEgg->setPosition(m_eggPosition +
 			(m_eggTarget - m_eggPosition) * ((m_eggTimer)/m_travelTime));
+		m_theEgg->setScale(m_scale += DeltaTime/5);
 	}
 	else
 	{
@@ -384,8 +389,11 @@ void nest::egg(float DeltaTime)
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
-
+			
+			m_scale = 0.0f;
+			m_theEgg->setScale(m_scale);
 			removeEgg();
+			
 			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
 			if (m_eggCount > 0)
@@ -394,6 +402,7 @@ void nest::egg(float DeltaTime)
 				m_eggAnimation->ChangeAnimation(6,1);
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
+			
 		}
 	}
 }
@@ -410,7 +419,6 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 		{
 			if(m_hatchlings[Id-1]->m_eatPoints >= 1) // change 1 to 3!!!!!!!!!! 1 is just for debugging
 			{
- 				m_gui->SCORE += 500;
 				m_hatchlings[Id-1]->fly();
 			}
 			else
@@ -517,4 +525,6 @@ void nest::reset()
 	m_noEggs = false;
 	m_theEgg->setPosition(m_eggPosition);
 	m_eggAnimation->ChangeAnimation(0,1);
+	m_scale = 0.0f;
+	m_theEgg->setScale(m_scale);
 }
