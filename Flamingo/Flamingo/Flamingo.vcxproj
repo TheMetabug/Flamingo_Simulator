@@ -114,6 +114,9 @@
     <ClInclude Include="Include\renderStatistics.h" />
     <ClInclude Include="Include\sound.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
