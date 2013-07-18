@@ -315,7 +315,7 @@ void pickups::update(float DeltaTime)
 				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
 				{
 					deleteItem(i);
-					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f);
+					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f); // piip piip
 				}
 				else
 				{

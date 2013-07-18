@@ -91,6 +91,7 @@ void hatchling::update(float DeltaTime)
 				m_state = 3;
 				m_timer = -2;
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
+				m_nest->m_gui->SCORE += 500;
 			}
 		}
 		break;
@@ -102,7 +103,6 @@ void hatchling::update(float DeltaTime)
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
-			m_nest->m_gui->SCORE += 500;
 			
 			m_timer = 0;
 		}
@@ -112,7 +112,7 @@ void hatchling::update(float DeltaTime)
 		{
 			m_state = 0;
 			m_timer = 0;
-			m_nest->m_soundLibrary->m_sounds[7]->play(); //failure
+			//m_nest->m_soundLibrary->m_sounds[7]->play(); //failure
 			m_fly = false;
 		}
 
@@ -261,7 +261,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	m_travelTime = 2.0f;
 
-	m_scale = 0.0f;
+	m_theEggScale = 0.2f;
+	m_scale = m_theEggScale;
 
 	// hitbox
 	m_nestHitbox = Collide->createHitBox(m_nestPosition,
@@ -394,7 +395,7 @@ void nest::egg(float DeltaTime)
 		{
 			m_theEgg->setPosition(m_eggPosition);
 			
-			m_scale = 0.0f;
+			m_scale = m_theEggScale;
 			m_theEgg->setScale(m_scale);
 			removeEgg();
 			
@@ -481,7 +482,7 @@ void nest::addEgg()
 	m_eggs.push_back(new sprite(m_eggTexture));
 	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
 	m_eggs.back()->setOrigin(vector(width/2, height/2));
-	m_eggs.back()->setScale(0.2f);
+	m_eggs.back()->setScale(m_theEggScale);
 	m_eggs.back()->setLayer(3);
 
 	updateEggPositions();
@@ -529,6 +530,6 @@ void nest::reset()
 	m_noEggs = false;
 	m_theEgg->setPosition(m_eggPosition);
 	m_eggAnimation->ChangeAnimation(0,1);
-	m_scale = 0.0f;
+	m_scale = m_theEggScale;
 	m_theEgg->setScale(m_scale);
 }
