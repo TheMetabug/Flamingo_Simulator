@@ -8,6 +8,7 @@
 // SFML is copyrighted to respective owners
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <Windows.h>
 #include "game.h"
 #include "program.h"
 
@@ -20,15 +21,23 @@ int main()
 {
 	srand(time(NULL));
 
+#if _DEBUG
 	bool F1Released = false;
 	bool F2Released = false;
 
 	bool FPS = false;
 	bool Hitbox = false;
+#else
+	HWND hwnd = GetConsoleWindow();
+	ShowWindow(hwnd, SW_HIDE);
+#endif
+
 
 	// Set window parametres
 	
-    sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Flamia");
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(1280, 720), "Flamia");//, sf::Style::Fullscreen);
+	sf::View view(sf::Vector2f(WINDOW_WIDTH/2,WINDOW_HEIGHT/2),sf::Vector2f(WINDOW_WIDTH,WINDOW_HEIGHT));
+	window->setView(view);
 	al::viewport* viewport = new al::viewport(window);
 	//window->setFramerateLimit(120);
 
@@ -50,7 +59,9 @@ int main()
 	window->clear(sf::Color::Transparent);
 	game MainGame(window, viewport);
 	viewport->renderSprites();
+#if _DEBUG
 	renderStatistics m_renderStatistics(window);
+#endif
     window->display();
 	MainGame.init();
 
@@ -60,7 +71,7 @@ int main()
 	// Run the program as long as the window is open
     while (window->isOpen())
     {
-		
+#if _DEBUG
 		if(!sf::Keyboard::isKeyPressed(sf::Keyboard::F1))
 			F1Released = true;
 		else if (F1Released)
@@ -76,11 +87,12 @@ int main()
 			F2Released = false;
 			Hitbox = !Hitbox;
 		}
+#endif
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		{
-			window->close();
-		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		//{
+		//	window->close();
+		//}
 
         sf::Event event;
         while (window->pollEvent(event))
@@ -108,7 +120,10 @@ int main()
 
 		deltaTime = dt.asMicroseconds()/1000000.0f;
 		MainGame.update(deltaTime);
+
+#if _DEBUG
 		m_renderStatistics.update(dt);
+#endif
 
 		// Draw
 
@@ -117,7 +132,8 @@ int main()
 		MainGame.draw();
 
 		viewport->renderSprites();
-
+		
+#if _DEBUG
 		if (FPS)
 		{
 			m_renderStatistics.draw();
@@ -127,6 +143,8 @@ int main()
 		{
 			MainGame.drawDebugInfo(window);
 		}
+#endif
+
 
 
 		//end the current frame
