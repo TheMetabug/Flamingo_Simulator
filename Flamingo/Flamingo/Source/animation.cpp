@@ -13,15 +13,19 @@ animation::animation(al::sprite *Sprite, int Frames, int FramesizeX, int Framesi
 	m_currentFrame = m_firstFrame = FirstFrame;
 	m_timer = 0.0f;
 	setVisibleFrame();
+#if _DEBUG
 	if (fmod(Sprite->getTextureSize().x,FramesizeX) != 0)
 		std::cout<<"Check FramesizeX!!!!!!"<<std::endl;
 	if (fmod(Sprite->getTextureSize().y,FramesizeY) != 0)
 		std::cout<<"Check FramesizeY!!!!!!"<<std::endl;
+#endif
 }
 
 animation::~animation()
 {
+#if _DEBUG
 	std::cout<<"deleted animation"<<std::endl;
+#endif
 }
 
 void animation::update(float deltaTime)

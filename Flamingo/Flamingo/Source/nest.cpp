@@ -141,7 +141,9 @@ void hatchling::draw(viewport* Viewport)
 	case 4:
 		break;
 	default:
+#if _DEBUG
 		std::cout<<"damn noob you forgot something"<<std::endl;
+#endif
 		break;
 
 	}
@@ -307,7 +309,9 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 }
 nest::~nest()
 {
+#if _DEBUG
 	std::cout<<"deleted nest"<<std::endl;
+#endif
 	delete m_eggTexture;
 	delete m_hatchlingTexture;
 	delete m_nestTexture;

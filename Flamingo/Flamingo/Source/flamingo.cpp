@@ -97,7 +97,9 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 
 flamingo::~flamingo()
 {
+#if _DEBUG
 	std::cout<<"deleted flamingo"<<std::endl;
+#endif
 	delete m_bodyTexture;
 	delete m_headTexture;
 	delete m_crossTexture;
@@ -272,7 +274,9 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 		}
 		break;
 	default:
+#if _DEBUG
 		std::cout<<"Oh maan! Something is really wrong with flaming drag state"<<std::endl;
+#endif
 		break;
 	}
 

@@ -26,7 +26,9 @@ bool input::isButtonPressed(Button button)
 			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
 			break;
 		default:
+#if _DEBUG
 			std::cout<<"button not definied"<<std::endl;
+#endif
 			break;
 		}
 	}
@@ -52,7 +54,9 @@ bool input::isKeyPressed(Key key)
 			return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
 			break;
 		default:
+#if _DEBUG
 			std::cout<<"key not definied"<<std::endl;
+#endif
 			break;
 		}
 	}

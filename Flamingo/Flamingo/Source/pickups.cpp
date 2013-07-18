@@ -17,7 +17,9 @@ pickup::pickup(al::texture* Texture, ItemName itemName, float FoodValue, float S
 }
 pickup::~pickup()
 {
+#if _DEBUG
 	std::cout<<"deleted pickup type"<<std::endl;
+#endif
 }
 
 // Item
@@ -53,7 +55,9 @@ item::item(al::vector Position, pickup* Pickup)
 }
 item::~item()
 {
+#if _DEBUG
 	std::cout<<"aaand its gone"<<std::endl;
+#endif
 	delete m_sprite;
 	delete m_animation;
 	delete m_hitbox;
@@ -184,17 +188,23 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 }
 pickups::~pickups()
 {
+#if _DEBUG
 	std::cout<<"deleting pickups"<<std::endl;
+#endif
 	delete m_texture;
 	for (int i = 0; i < pickupList.size(); ++i)
 	{
 		delete pickupList[i];
+#if _DEBUG
 		std::cout<<"deleted pickup "<<i+1<<std::endl;
+#endif
 	}
 
 	for (int i = 0; i < itemList.size(); ++i)
 	{
+#if _DEBUG
 		std::cout<<"deleting item "<<i+1<<" ";
+#endif
 		delete itemList[i];
 	}
 }
@@ -219,7 +229,9 @@ void pickups::update(float DeltaTime)
 			{
 				if (m_collision->HitHead(itemList[i]->m_hitbox) && !m_flamingo->m_hasFood)
 				{
+#if _DEBUG
 					std::cout<<"collide "<<i<<std::endl;
+#endif
 
 					if(m_index >= 0)
 					{
@@ -321,7 +333,9 @@ void pickups::update(float DeltaTime)
 		case 5:
 			break;
 		default:
+#if _DEBUG
 			std::cout<<"Undefined item state"<<std::endl;
+#endif
 			break;
 		}
 
@@ -395,7 +409,9 @@ void pickups::reset()
 {
 	for (int i = 0; i < itemList.size(); ++i)
 	{
+#if _DEBUG
 		std::cout<<"deleting item "<<i+1<<" ";
+#endif
 		delete itemList[i];
 		itemList.clear();
 	}

@@ -34,7 +34,9 @@ enemy::enemy(collision* Collide, gui* Gui)
 }
 enemy::~enemy()
 {
+#if _DEBUG
 	std::cout<<"deleted enemy"<<std::endl;
+#endif
 	delete m_texture;
 	delete m_sprite;
 	delete m_animation;

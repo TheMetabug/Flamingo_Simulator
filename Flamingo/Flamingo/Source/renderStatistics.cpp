@@ -22,7 +22,9 @@ renderStatistics::renderStatistics(sf::RenderWindow* Window)
 
 renderStatistics::~renderStatistics()
 {
+#if _DEBUG
 	std::cout<<"deleted renderStatistics"<<std::endl;
+#endif
 	delete text;
 	delete font;
 }

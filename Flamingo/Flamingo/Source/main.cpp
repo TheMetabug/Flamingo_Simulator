@@ -15,7 +15,9 @@
 //music
 #include <SFML/Audio.hpp>
 
-//#include "renderStatistics.h"
+#if _DEBUG
+#include "renderStatistics.h"
+#endif
 
 int main()
 {
@@ -105,13 +107,17 @@ int main()
 
 			if (event.type == sf::Event::LostFocus)
 			{
+#if _DEBUG
 				std::cout<<"lost focus ";
+#endif
 				MainGame.m_input->active = false;
 			}
 
 			if (event.type == sf::Event::GainedFocus)
 			{
+#if _DEBUG
 				std::cout<<"gain focus ";
+#endif
 				MainGame.m_input->active = true;
 			}
         }

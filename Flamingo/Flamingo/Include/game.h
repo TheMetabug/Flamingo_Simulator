@@ -10,7 +10,6 @@
 #include "nest.h"
 #include "flamingo.h"
 #include "pickups.h"
-#include "renderStatistics.h"
 #include "sound.h"
 #include "program.h"
 #include "input.h"
@@ -27,8 +26,10 @@ public:
 	void draw();
 
 	void reset();
-
+	
+#if _DEBUG
 	void drawDebugInfo(sf::RenderWindow *window);
+#endif
 
 	al::input* m_input;
 
@@ -110,8 +111,6 @@ private:
 
 	// particles
 	particleEngine* m_particleEngine;
-
-	//renderstatistics
 
 
 	////sound

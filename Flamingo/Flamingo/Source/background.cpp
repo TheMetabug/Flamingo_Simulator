@@ -39,7 +39,9 @@ background::background()
 
 background::~background()
 {
+#if _DEBUG
 	std::cout<<"deleted background"<<std::endl;
+#endif
 	delete m_skyTexture;
 	delete m_waterTexture;
 	delete m_opacityTexture;
@@ -102,7 +104,9 @@ cloud::cloud()
 
 cloud::~cloud()
 {
+#if _DEBUG
 	std::cout<<"deleted cloud"<<std::endl;
+#endif
 
 	for (int i = 0; i < m_clouds.size(); ++i)
 		delete m_clouds[i];

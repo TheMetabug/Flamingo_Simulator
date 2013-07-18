@@ -231,7 +231,9 @@ void texture::loadTexture(std::string TextureName)
 	}
 	else 
 	{
+#if _DEBUG
 		std::cout<<"Texture already loaded";
+#endif
 	}
 }
 
@@ -256,9 +258,13 @@ sprite::sprite(al::texture *Texture)
 
 sprite::~sprite()
 {
+#if _DEBUG
 	std::cout<<"deleting...  ";
+#endif
 	delete m_sprite;
+#if _DEBUG
 	std::cout<<"deleted sprite"<<std::endl;
+#endif
 }
 
 void sprite::setColor(sf::Uint8 R, sf::Uint8 G, sf::Uint8 B, sf::Uint8 A)
@@ -325,7 +331,9 @@ void sprite::setOriginPoint(int Point)
 		break;
 	default:
 		m_sprite->setOrigin(0,0);
+#if _DEBUG
 		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
+#endif
 		break;
 	}
 }
@@ -505,7 +513,9 @@ void text::setOriginPoint(int Point)
 		break;
 	default:
 		m_text->setOrigin(0,0);
+#if _DEBUG
 		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
+#endif
 		break;
 	}
 }

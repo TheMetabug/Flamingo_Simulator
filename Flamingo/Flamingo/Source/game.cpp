@@ -17,7 +17,9 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 }
 game::~game()
 {
+#if _DEBUG
 	std::cout<<"deleted maingame"<<std::endl;
+#endif
 	delete m_input;
 	delete m_flamingo;
 	delete m_nest;
@@ -308,25 +310,33 @@ void game::update(float deltaTime)
 			}
 			else if(m_gui->m_plusmusic->isPressed() && ML_release)
 				{
+#if _DEBUG
 					std::cout<<"plusmusic"<<std::endl;
+#endif
 					ML_release = false;
 					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume+10);
 				}
 			else if(m_gui->m_minusmusic->isPressed() && ML_release)
 				{
+#if _DEBUG
 					std::cout<<"minusmusic"<<std::endl;
+#endif
 					ML_release = false;
 					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume-10);
 				}
 			else if(m_gui->m_plussounds->isPressed() && ML_release)
 				{
+#if _DEBUG
 					std::cout<<"plussounds"<<std::endl;
+#endif
 					ML_release = false;
 						m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume+10);
 				}
 			else if(m_gui->m_minussounds->isPressed() && ML_release)
 				{
+#if _DEBUG
 					std::cout<<"minussounds"<<std::endl;
+#endif
 					ML_release = false;
 					m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
 				}
@@ -544,8 +554,10 @@ void game::reset()
 	m_gui->reset();
 }
 
+#if _DEBUG
 void game::drawDebugInfo(sf::RenderWindow *window)
 {
 	collide->DrawHitboxes(window);
 	m_pickups->drawHitBoxes(window);
 }
+#endif

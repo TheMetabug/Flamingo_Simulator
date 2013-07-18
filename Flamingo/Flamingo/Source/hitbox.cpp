@@ -15,7 +15,9 @@ hitbox::hitbox(al::vector _Position, al::vector _Size, al::vector _Origo, bool _
 
 hitbox::~hitbox()
 {
+#if _DEBUG
 	std::cout<<"deleted hitbox"<<std::endl;
+#endif
 }
 
 void hitbox::draw(sf::RenderWindow* window)
@@ -65,28 +67,40 @@ collision::collision()
 
 collision::~collision()
 {
+#if _DEBUG
 	std::cout<<"deleted collision"<<std::endl;
+#endif
 	for (int i = 0; i < hatchlings.size(); ++i)
 	{
 		delete hatchlings[i];
+#if _DEBUG
 		std::cout<<"hatchling "<<i<<" deleted"<<std::endl;
+#endif
 	}
 
 	if (!head == NULL) 
 	{
 		delete head;
+#if _DEBUG
 		std::cout<<"head hitbox was deleted"<<std::endl;
+#endif
 	}
+#if _DEBUG
 	else
 		std::cout<<"head hitbox was null"<<std::endl;
+#endif
 
 	if (!enemy == NULL)
 	{
 		delete enemy;
+#if _DEBUG
 		std::cout<<"enemy hitbox was deleted"<<std::endl;
+#endif
 	}
+#if _DEBUG
 	else
 		std::cout<<"enemy hitbox was null"<<std::endl;
+#endif
 }
 
 // Public
@@ -107,7 +121,9 @@ hitbox* collision::createHitBox(al::vector position, al::vector size, al::vector
 		enemy = retHitbox;
 		break;
 	default:
+#if _DEBUG
 		std::cout<<"Invalid hitbox id, cannot create hitbox"<<std::endl;
+#endif
 		break;
 	}
 

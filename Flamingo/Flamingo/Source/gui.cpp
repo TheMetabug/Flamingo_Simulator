@@ -261,7 +261,9 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 }
 gui::~gui()
 {
+#if _DEBUG
 	std::cout<<"deleted gui"<<std::endl;
+#endif
 	delete HPtext;
 	delete PAUSEtext;
 	delete TITLEtext;
