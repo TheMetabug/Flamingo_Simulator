@@ -97,31 +97,28 @@ bool item::update(float DeltaTime)
 		m_sprite->setColor(255,255,255,255);
 		break;
 	case 4:
-		m_direction.y += 1000*DeltaTime;
-		m_position += m_direction * DeltaTime;
-		m_sprite->setPosition(m_position);
-		if (m_position.y > 1000)
-			return false;
-		if (m_position.y > (WATER_BOTTOM * 2 + WATER_TOP)/3 && 
-			m_position.y < WINDOW_HEIGHT &&
-			m_position.x > WATER_LEFT && 
-			m_position.x < WINDOW_WIDTH
-			)
-		{
-			m_pickup->m_pickups->m_particleEngine->addSplash(m_position,m_direction);
-			m_pickup->m_pickups->m_soundLibrary->m_sounds[33]->playWithRandPitch(0.2f);
-			m_direction = (rand()%100 +1)/100.0f * (m_direction / m_direction.getLenght());
-			m_state = 0;
-			m_animation->ChangeAnimation(m_pickup->m_itemName * 3,2);
-			m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
-		}
-		break;
 	case 5:
 		m_direction.y += 1000*DeltaTime;
 		m_position += m_direction * DeltaTime;
 		m_sprite->setPosition(m_position);
 		if (m_position.y > 1000)
 			return false;
+		if (m_state == 4)
+		{
+			if (m_position.y > (WATER_BOTTOM * 2 + WATER_TOP)/3 && 
+				m_position.y < WINDOW_HEIGHT &&
+				m_position.x > WATER_LEFT && 
+				m_position.x < WINDOW_WIDTH
+				)
+			{
+				m_pickup->m_pickups->m_particleEngine->addSplash(m_position+vector(0,-16),m_direction);
+				m_pickup->m_pickups->m_soundLibrary->m_sounds[33]->playWithRandPitch(0.2f);
+				m_direction = (rand()%100 +1)/100.0f * (m_direction / m_direction.getLenght());
+				m_state = 0;
+				m_animation->ChangeAnimation(m_pickup->m_itemName * 3,2);
+				m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+			}
+		}
 		break;
 	default:
 		break;
