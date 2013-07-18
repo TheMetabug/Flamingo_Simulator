@@ -7,7 +7,9 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_particleEngine = ParticleEngine;
 	m_enemyRotate = 5;
 	m_enemyOrigin.x = 250;
-	m_enemyOrigin.y = 300;
+	m_enemyOrigin.y = 250;
+	m_enemyDownFall = 0.0f;
+	m_enemyLeftFall = 0.0f;
 	m_birdPhase = 0;
 
 
@@ -18,7 +20,7 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_sprite = new sprite(m_texture);
 	m_sprite->setOrigin(vector(128,128));
 	m_sprite->setScale(0.5f);
-	m_sprite->setLayer(1);
+	m_sprite->setLayer(3);
 	
 
 	m_animation = new animation(m_sprite, 4, 256, 256);
@@ -76,6 +78,12 @@ void enemy::update(float DeltaTime)
 		flyBack(DeltaTime);
 
 		break;
+
+	case 5: //grab the egg
+
+		catchEgg(DeltaTime);
+
+		break;
 	}
 	
 	
@@ -92,6 +100,7 @@ void enemy::reset()
 	m_enemyBirdPosition = -m_enemyOrigin;
 	m_sprite->setPosition(m_enemyBirdPosition);
 	m_hitbox->Position = m_enemyBirdPosition;
+	m_enemyDownFall = 0.0f;
 
 	m_hitbox->isEnabled = false;
 	m_timer = -(rand()%10);
@@ -126,9 +135,19 @@ void enemy::eat(float foodValue, vector itemDirection)
 void enemy::fly(float DeltaTime)
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
-	 
+	m_enemyDownFall += DeltaTime*25;
+
+	if(m_enemyDownFall >= 100)
+	{
+		m_enemyDownFall = 100;
+		if (sin(m_enemyRotate) > 0.5f && sin(2*m_enemyRotate) < 0)
+		{
+			m_sprite->setScale(-0.5f, 0.5f);
+			m_birdPhase = 5;
+		}
+	}
 	
-	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
+	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60.0f * sin(m_enemyRotate),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
 	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
 
 
@@ -170,7 +189,7 @@ void enemy::happy(float DeltaTime)
 	m_timer += DeltaTime;
 	m_prevPosition = vector(m_enemyBirdPosition);
 	 
-	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) );
+	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60 * sin(m_enemyRotate),m_enemyOrigin.y + 100 * sin(2*m_enemyRotate) + m_enemyDownFall );
 	m_sprite->setRotation(5 * sin(m_enemyRotate*10));
 
 	if(m_timer > 2.0f)
@@ -187,6 +206,8 @@ void enemy::respawn()
 	m_birdPhase = 4;
 	m_animation->ChangeAnimation(0,2,0,5);
 	m_sprite->setRotation(0);
+	m_enemyDownFall = 0;
+	m_sprite->setScale(0.5f);
 	
 }
 void enemy::flyBack(float DeltaTime)
@@ -204,4 +225,25 @@ void enemy::flyBack(float DeltaTime)
 		m_birdPhase = 0;
 		m_animation->ChangeAnimation(0,2,0,5);
 	}
+}
+
+void enemy::catchEgg(float DeltaTime)
+{
+	m_timer += DeltaTime;
+
+	if(m_timer < 4.0f)
+		m_enemyBirdPosition = vector(m_enemyOrigin.x + 60.0f * sin(m_enemyRotate),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
+
+	else
+	{
+		m_enemyBirdPosition = vector(m_enemyOrigin.x - 60.0f * (m_timer - 4.0f),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
+	
+		if (m_timer >= 8.0f)
+		{
+			m_timer = 0;
+			respawn();
+		}
+	}
+
+
 }

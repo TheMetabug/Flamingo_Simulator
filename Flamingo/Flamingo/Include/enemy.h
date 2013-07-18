@@ -29,6 +29,7 @@ private:
 	void happy(float DeltaTime);
 	void respawn();
 	void flyBack(float DeltaTime);
+	void catchEgg(float DeltaTime);
 
 	animation* m_animation;
 	hitbox* m_hitbox;
@@ -38,7 +39,7 @@ private:
 
 	int m_birdPhase;
 	float m_timer;
-	float m_enemyRotate;
+	float m_enemyRotate,m_enemyDownFall, m_enemyLeftFall;
 
 
 
