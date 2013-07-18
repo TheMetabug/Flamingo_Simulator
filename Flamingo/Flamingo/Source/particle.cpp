@@ -66,8 +66,8 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 	else
 		setColor();
 	m_scale = vector(
-		0.8f + (rand()%400)/1000.0f,
-		0.8f + (rand()%400)/1000.0f
+		Scale.x + Scale.x * (0.2f - (rand()%400)/1000.0f),
+		Scale.y + Scale.y * (0.2f - (rand()%400)/1000.0f)
 		);
 	if (rand()%100 < 50)
 	{
@@ -75,6 +75,7 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 	}
 	m_sprite.setScale(m_scale);
 	m_timer = -0.08f;
+	m_rotate = (rand()%1000)/100;
 }
 void feather::setColor(int R,int G,int B,int A)
 {
@@ -93,13 +94,26 @@ bool feather::update(float DeltaTime)
 		m_position += m_direction * DeltaTime;
 		m_sprite.setPosition(m_position);
 		particle::update(DeltaTime);
+		m_rotate += DeltaTime*3600.0f;
+		m_sprite.setRotation(m_rotate);
 	}
 	else
 	{
 		m_life -= DeltaTime;
-		m_sprite.setColor(m_r, m_g, m_b, (m_life/m_startLife) * m_a);
 		if (m_life < 0)
 			return true;
+		m_sprite.setColor(m_r, m_g, m_b, (m_life/m_startLife) * m_a);
+		m_rotate += DeltaTime * 3.0f;
+		m_position.y += DeltaTime * 5.0f;
+		m_sprite.setPosition(m_position);
+		if (m_scale.y > 0)
+		{
+			m_sprite.setRotation( sin(m_rotate) * 20);
+		}
+		else
+		{
+			m_sprite.setRotation( 180 + sin(m_rotate) * 20);
+		}
 	}
 	return false;
 }

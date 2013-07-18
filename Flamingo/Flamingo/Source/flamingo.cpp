@@ -234,11 +234,21 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 				m_splashed = true;
 			}
 		}
+		if (m_headPosition.x > WATER_RIGHT)
+		{
+			m_headPosition.x = WATER_RIGHT;
+			m_headAnimation->ChangeAnimation(4,1);
+		}
+		if (m_headPosition.y > WATER_BOTTOM)
+		{
+			m_headPosition.y = WATER_BOTTOM;
+			m_headAnimation->ChangeAnimation(4,1);
+		}
 		if (m_timer > m_moveTime)
 		{
 			m_splashed = false;
 			m_drag = 3;
-			if (!m_hasFood)
+			if (!m_hasFood && m_headPosition.x != WATER_RIGHT && m_headPosition.y != WATER_BOTTOM)
 				m_headHitbox->isEnabled = true;
 		}
 		break;

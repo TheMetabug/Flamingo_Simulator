@@ -44,8 +44,7 @@ public:
 private:
 	void setColor(int R = 255,int G = 255,int B = 255,int A = 255);
 
-	float m_timer;
-	float m_r,m_g,m_b,m_a;
+	float m_timer, m_rotate, m_r, m_g, m_b, m_a;
 };
 
 #endif

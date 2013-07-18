@@ -174,7 +174,7 @@ void hatchling::eat(float foodValue)
 		{
 			die();
 			//m_animation->ChangeAnimation(2,1);
-			m_timer = 0;
+			//m_timer = 0;
 			//m_eatPoints += foodValue;
 		}
 	}

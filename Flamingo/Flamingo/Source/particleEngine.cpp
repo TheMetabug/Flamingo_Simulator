@@ -58,5 +58,5 @@ void particleEngine::addFeather(al::vector Position, al::vector Direction, float
 {
 	if (SpreadDegrees != 0)
 		Direction.rotate((1-((rand()%2000)/1000.0f))*SpreadDegrees);
-	m_particles.push_back(new feather(Position,Direction,vector(1,1),m_featherTexture,Enemy));
+	m_particles.push_back(new feather(Position,Direction,vector(0.6f,0.6f),m_featherTexture,Enemy));
 }
