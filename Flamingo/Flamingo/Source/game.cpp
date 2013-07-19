@@ -573,6 +573,28 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 		break;
+
+	case Tutorial:
+		m_gui->draw(m_viewport);
+		
+		switch(m_tutorialNumber)
+				{
+				case 0:
+					break;
+				case 1:
+					m_viewport->draw(&m_tutorial1);
+					break;
+				case 2:
+					m_viewport->draw(&m_tutorial2);
+					break;
+				case 3:
+					m_viewport->draw(&m_tutorial3);
+					break;
+				case 4:
+					m_viewport->draw(&m_tutorial4);
+					break;
+					}
+		break;
 	
 	case ReturnTitle:
 		m_viewport->draw(&m_ReturnCheck);
