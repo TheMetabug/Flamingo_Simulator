@@ -100,6 +100,7 @@ flamingo::~flamingo()
 #if _DEBUG
 	std::cout<<"deleted flamingo"<<std::endl;
 #endif
+
 	delete m_bodyTexture;
 	delete m_headTexture;
 	delete m_crossTexture;

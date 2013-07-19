@@ -41,8 +41,6 @@ game::~game()
 	delete m_tutorial2Texture;
 	delete m_tutorial3Texture;
 	delete m_tutorial4Texture;
-
-	
 }
 
 void game::init()
@@ -564,7 +562,6 @@ void game::draw()
 
 		switch(m_state)
 	{
-
 	case TitleScreen:
 		// titlecard
 		m_titleCard->draw(m_viewport);
@@ -573,7 +570,20 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 		break;
+	
+	case ReturnTitle:
+		m_viewport->draw(&m_ReturnCheck);
+		
+	
+	case Gamemenu:
 
+		m_viewport->draw(&m_GMenu);
+	case Options:
+		if (m_gui->m_Options)
+		{
+			m_viewport->draw(&m_options);
+		}
+		break;
 	case Tutorial:
 		m_gui->draw(m_viewport);
 		
@@ -596,21 +606,6 @@ void game::draw()
 					}
 		break;
 	
-	case ReturnTitle:
-		m_viewport->draw(&m_ReturnCheck);
-		
-	
-	case Gamemenu:
-
-		m_viewport->draw(&m_GMenu);
-	case Options:
-		if (m_gui->m_Options)
-		{
-			m_viewport->draw(&m_options);
-		}
-		
-	
-	
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);
@@ -629,7 +624,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true ||m_gui->m_Options ==true)
+		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);
