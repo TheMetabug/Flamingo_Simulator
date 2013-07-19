@@ -69,6 +69,14 @@ private:
 	al::sprite m_tutorial2;
 	al::vector m_tutorial2Position;
 
+	al::texture* m_tutorial3Texture;
+	al::sprite m_tutorial3;
+	al::vector m_tutorial3Position;
+	
+	al::texture* m_tutorial4Texture;
+	al::sprite m_tutorial4;
+	al::vector m_tutorial4Position;
+
 	bool P_release;
 	bool M_release;
 	bool ML_release;

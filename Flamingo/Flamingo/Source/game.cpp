@@ -152,7 +152,27 @@ void game::init()
 			m_tutorial2.getSize().y/2));
 			m_tutorial2.setScale(1,1);
 
-			m_tutorial2.setLayer(296);
+			m_tutorial2.setLayer(295);
+
+			m_tutorial3Position = (vector(640,360));
+			m_tutorial3Texture = new texture("Tutorials/tuto3.png");
+			m_tutorial3.setTexture(m_tutorial3Texture);
+			m_tutorial3.setPosition(m_tutorial3Position);
+			m_tutorial3.setOrigin(vector(m_tutorial3.getSize().x/2,
+			m_tutorial3.getSize().y/2));
+			m_tutorial3.setScale(1,1);
+
+			m_tutorial3.setLayer(295);
+
+			m_tutorial4Position = (vector(640,360));
+			m_tutorial4Texture = new texture("Tutorials/tuto4.png");
+			m_tutorial4.setTexture(m_tutorial4Texture);
+			m_tutorial4.setPosition(m_tutorial4Position);
+			m_tutorial4.setOrigin(vector(m_tutorial4.getSize().x/2,
+			m_tutorial4.getSize().y/2));
+			m_tutorial4.setScale(1,1);
+
+			m_tutorial4.setLayer(295);
 
 		// opacity
 
@@ -160,7 +180,7 @@ void game::init()
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	m_pauseOpacitySprite.setLayer(297);
 
-	m_tutorialNumber = 0;
+	m_tutorialNumber = 1;
 			
 }
 void game::update(float deltaTime)
@@ -265,43 +285,43 @@ void game::update(float deltaTime)
 		break;
 	
 	case Menu:
-
+		m_tutorialNumber= 1;
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
 		
 		if(m_gui->m_mainbutton1->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Play;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Play;
+			m_gui->m_menu = false;
+		}
 		if(m_gui->m_mainbutton2->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Tutorial;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Tutorial;
+			m_gui->m_menu = false;
+		}
 		if(m_gui->m_mainbutton3->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Credits;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Credits;
+			m_gui->m_menu = false;
+		}
 		if(m_gui->m_mainbutton4->isPressed() && ML_release)
-			{
-				m_ReturnCheck.setPosition(vector(640,620));
-				ML_release = false;
-				m_state = Quit;
+		{
+			m_ReturnCheck.setPosition(vector(640,620));
+			ML_release = false;
+			m_state = Quit;
 				
-			}
+		}
 
 		//mainbutton4
 
 
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
-				{
-				ML_release = false;
-				}
+		{
+		ML_release = false;
+		}
 	
 
 
@@ -311,34 +331,43 @@ void game::update(float deltaTime)
 		m_gui->m_tutorial = true;
 		
 		
-
 		
 		
 		if(m_gui->m_tutorialbutton1->isPressed() && ML_release)
 		{
 			ML_release = false;
 			m_tutorialNumber++;
-				
-			switch(m_tutorialNumber)
-			{
-			case 0:
-				break;
-			case 1:
-				std::cout<<"Yksi"<<std::endl;
-				break;
-			case 2:
-				std::cout<<"kaksi"<<std::endl;
-				break;
-			case 3:
-				break;
-			}
+		}
+		if(m_gui->m_tutorialbutton2->isPressed() && ML_release)
+		{
+			ML_release = false;
+			m_tutorialNumber--;
 		}
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			ML_release = false;
 		}
 
-		
+		switch(m_tutorialNumber)
+		{
+		case 0:
+			m_state = Menu;
+			m_gui->m_tutorial = false;
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			m_state = Menu;
+			m_gui->m_tutorial = false;
+
+			break;
+		}
 		
 		break;
 	case Credits:
@@ -551,25 +580,29 @@ void game::draw()
 		{
 			m_viewport->draw(&m_options);
 		}
-
+		break;
 	case Tutorial:
 		m_gui->draw(m_viewport);
 		
 		switch(m_tutorialNumber)
-			{
-			case 0:
-				m_viewport->draw(&m_tutorial1);
-				break;
-			case 1:
-				m_viewport->draw(&m_tutorial2);
-				break;
-			case 2:
-				std::cout<<"kaksi"<<std::endl;
-				break;
-			case 3:
-				break;
-			}
+				{
+				case 0:
+					break;
+				case 1:
+					m_viewport->draw(&m_tutorial1);
+					break;
+				case 2:
+					m_viewport->draw(&m_tutorial2);
+					break;
+				case 3:
+					m_viewport->draw(&m_tutorial3);
+					break;
+				case 4:
+					m_viewport->draw(&m_tutorial4);
+					break;
+					}
 		break;
+	
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);

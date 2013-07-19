@@ -205,8 +205,9 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_tutorialbutton1->m_sprite.setLayer(300);
 	
 	
-	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(300,600),m_input, m_soundLibrary);
 	m_tutorialbutton2->m_sprite.setLayer(300);
+	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
 	
 	m_font = new font();
