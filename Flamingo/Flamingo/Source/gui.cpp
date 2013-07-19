@@ -229,7 +229,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext->setColor();
 	HPtext->setLayer(296);
 	
-	SCOREtext->setPosition(vector(50, 50));
+	SCOREtext->setPosition(vector(60, 60));
 	SCOREtext->setColor(83,77,67,255);
 	SCOREtext->setLayer(296);
 	

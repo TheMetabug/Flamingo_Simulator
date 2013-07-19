@@ -124,7 +124,7 @@ void game::init()
 			
 			m_options.setLayer(299);
 
-			m_scorePosition = (vector(115,59));
+			m_scorePosition = (vector(130,70));
 			m_scoreTexture = new texture("scoreBoard.png");
 			m_Score.setTexture(m_scoreTexture);
 			m_Score.setPosition(m_scorePosition);
