@@ -26,9 +26,9 @@ namespace pups
 {
 	enum ItemName
 	{
-		Plancton = 0,
+		Krill = 0,
+		Plancton,
 		Shrimp,
-		Krill,
 		Shoe,
 		Can,
 		ItemsCount

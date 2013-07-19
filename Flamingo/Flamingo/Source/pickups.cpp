@@ -188,9 +188,9 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	m_texture = new texture("Item_sheet.png"); // Texture containing all item animations
 
 	
+	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f, this));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f, this));
-	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f, this));
 	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f, this));
 }
