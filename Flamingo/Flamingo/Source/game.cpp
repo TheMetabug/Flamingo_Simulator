@@ -559,6 +559,7 @@ void game::draw()
 
 		switch(m_state)
 	{
+
 	case TitleScreen:
 		// titlecard
 		m_titleCard->draw(m_viewport);
@@ -580,28 +581,8 @@ void game::draw()
 		{
 			m_viewport->draw(&m_options);
 		}
-		break;
-	case Tutorial:
-		m_gui->draw(m_viewport);
 		
-		switch(m_tutorialNumber)
-				{
-				case 0:
-					break;
-				case 1:
-					m_viewport->draw(&m_tutorial1);
-					break;
-				case 2:
-					m_viewport->draw(&m_tutorial2);
-					break;
-				case 3:
-					m_viewport->draw(&m_tutorial3);
-					break;
-				case 4:
-					m_viewport->draw(&m_tutorial4);
-					break;
-					}
-		break;
+	
 	
 	case Play:
 		// backGround
@@ -621,7 +602,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
+		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true ||m_gui->m_Options ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);

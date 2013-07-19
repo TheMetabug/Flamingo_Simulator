@@ -120,11 +120,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	//gameplay-buttons
 
 	m_buttonTextures.push_back(new texture("buttons/menubutton.png")); // 0
-	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input,m_soundLibrary);
+	m_button2 = new button(m_buttonTextures.back(),vector(1200,75),m_input,m_soundLibrary);
 	m_button2->m_sprite.setLayer(296);
 	
 	m_buttonTextures.push_back(new texture("buttons/muteButton1.png")); // 1
-	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input, m_soundLibrary);
+	m_button3 = new button(m_buttonTextures.back(),vector(1070,75),m_input, m_soundLibrary);
 	m_button3->m_sprite.setLayer(296);
 	m_buttonTextures.push_back(new texture("buttons/muteButton2.png")); // 2
 
