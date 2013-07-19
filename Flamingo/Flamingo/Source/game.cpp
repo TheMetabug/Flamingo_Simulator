@@ -37,6 +37,11 @@ game::~game()
 	delete m_optionsTexture;
 	delete m_particleEngine;
 	delete m_logoTexture;
+	delete m_tutorial1Texture;
+	delete m_tutorial2Texture;
+	delete m_tutorial3Texture;
+	delete m_tutorial4Texture;
+
 	
 }
 
