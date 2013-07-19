@@ -66,7 +66,7 @@ private:
 	bool ML_release;
 	bool m_flamingoHeadPressed;
 	bool m_muted;
-	
+	int m_tutorialNumber;
 	// gameStates
 	enum GameState
 	{
@@ -82,6 +82,8 @@ private:
 	};
 
 	GameState m_state;
+
+	
 
 	// hitbox
 	collision* collide;

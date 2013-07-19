@@ -139,6 +139,8 @@ void game::init()
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	m_pauseOpacitySprite.setLayer(297);
+
+	m_tutorialNumber = 0;
 			
 }
 void game::update(float deltaTime)
@@ -287,6 +289,34 @@ void game::update(float deltaTime)
 	case Tutorial:
 		m_gui->update(deltaTime);
 		m_gui->m_tutorial = true;
+		
+		
+
+		
+		
+		if(m_gui->m_tutorialbutton1->isPressed() && ML_release)
+		{
+			ML_release = false;
+			m_tutorialNumber++;
+				
+			switch(m_tutorialNumber)
+			{
+			case 0:
+				break;
+			case 1:
+				std::cout<<"Yksi"<<std::endl;
+				break;
+			case 2:
+				std::cout<<"kaksi"<<std::endl;
+				break;
+			case 3:
+				break;
+			}
+		}
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			ML_release = false;
+		}
 
 		
 		
@@ -503,7 +533,7 @@ void game::draw()
 		}
 
 	case Tutorial:
-	
+		m_gui->draw(m_viewport);
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);

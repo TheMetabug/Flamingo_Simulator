@@ -201,7 +201,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_xbutton->m_sprite.setLayer(300);
 
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
-	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(500,600),m_input, m_soundLibrary);
 	m_tutorialbutton1->m_sprite.setLayer(300);
 	
 	
@@ -420,7 +420,7 @@ void gui::draw(al::viewport* Viewport)
 	if (m_tutorial)
 	{
 	m_tutorialbutton1->draw(Viewport);
-	m_tutorialbutton1->draw(Viewport);
+	m_tutorialbutton2->draw(Viewport);
 	}
 
 	
