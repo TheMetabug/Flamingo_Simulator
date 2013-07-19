@@ -16,6 +16,21 @@ class nest;
 class nest;
 //Hatchling
 
+class thought
+{
+public:
+	thought(al::texture* ThoughtBubble, pups::pickup* Pickup, float Rotation);
+	~thought(){}
+	void update(float DeltaTime, al::vector Position);
+	void draw(al::viewport* Viewport);
+	void loseThought();
+
+private:
+	al::sprite m_sprite;
+	al::sprite m_pickupSprite;
+	float m_timer;
+};
+
 class hatchling
 {
 public:
@@ -30,6 +45,7 @@ public:
 	void mad();
 	void happy();
 	void die();
+	void desire();
 
 	void reset();
 
@@ -98,6 +114,7 @@ private:
 
 	particleEngine* m_particleEngine;
 
+	al::texture *m_thoughtBubble;
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;
 

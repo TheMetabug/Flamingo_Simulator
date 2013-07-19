@@ -4,42 +4,86 @@ using namespace al;
 
 //Hatchling
 
+thought::thought(texture* ThoughtBubble, pups::pickup* Pickup, float Rotation)
+{
+	m_sprite.setTexture(ThoughtBubble);
+	m_sprite.setLayer(10);
+	m_sprite.setOrigin(vector(m_sprite.getSize().x/2,m_sprite.getSize().y*3/2));
+	m_sprite.setColor(255,255,255,0);
+	m_sprite.setRotation(Rotation-270);
+	
+	vector offset(0,m_sprite.getSize().y);
+	offset.rotate(Rotation-270);
+	m_pickupSprite.setTexture(Pickup->m_texture);
+	m_pickupSprite.setTextureRectangle(rectangle(vector(0,256*Pickup->m_itemName),vector(256,256)));
+	m_pickupSprite.setLayer(10);
+	m_pickupSprite.setOrigin(m_sprite.getSize()/2 + offset);
+	m_pickupSprite.setColor(255,255,255,0);
+
+	m_timer = 0;
+}
+void thought::update(float DeltaTime, vector Position)
+{
+	m_timer += DeltaTime;
+
+	if (m_timer < 3)
+	{
+		m_sprite.setColor(255,255,255,m_timer * 50);
+		m_pickupSprite.setColor(255,255,255,m_timer * 50);
+	}
+	else
+	{
+		m_sprite.setColor(255,255,255,150);
+		m_pickupSprite.setColor(255,255,255,150);
+	}
+
+	m_sprite.setPosition(Position);
+	m_pickupSprite.setPosition(Position);
+}
+void thought::draw(viewport* Viewport)
+{
+	Viewport->draw(&m_sprite);
+	Viewport->draw(&m_pickupSprite);
+}
+void thought::loseThought()
+{}
+
+
 hatchling::hatchling(nest* Nest, collision* Collide)
 	:	m_flyScale(2.0f/3.0f)
 {
 	m_sprite = new sprite(Nest->m_hatchlingTexture);
-		m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
-		m_particleEngine = Nest->m_particleEngine;
+	m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
+	m_particleEngine = Nest->m_particleEngine;
 
-		m_sprite->setPosition(m_position);
-		m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
-		m_sprite->setScale(0.5f,0.5f);
-		m_sprite->setLayer(3);
+	m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
+	m_sprite->setScale(0.5f,0.5f);
+	m_sprite->setLayer(3);
 
 
-		//hitbox
-		m_hitbox = Collide->createHitBox(m_position,
-			al::vector(	m_sprite->getTransformedSize().x,
-						m_sprite->getTransformedSize().y), 
-			al::vector(	m_sprite->getTransformedSize().x/2,
-						m_sprite->getTransformedSize().y/2),
-			0);
+	//hitbox
+	m_hitbox = Collide->createHitBox(m_position,
+		al::vector(	m_sprite->getTransformedSize().x,
+					m_sprite->getTransformedSize().y), 
+		al::vector(	m_sprite->getTransformedSize().x/2,
+					m_sprite->getTransformedSize().y/2),
+		0);
 
 		
-		m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
-		m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
-		m_flySprite->setScale(m_flyScale);
-		m_flySprite->setLayer(2);
-		m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
+	m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
+	m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
+	m_flySprite->setScale(m_flyScale);
+	m_flySprite->setLayer(2);
+	m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
 
-		m_desireTimer = (rand()%100)/100.0f * 4 + 2;
-		m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
 
-		m_travelTime = 0;
+	desire();
 
-		m_nest = Nest;
+	m_travelTime = 0;
 
-		reset();
+	m_nest = Nest;
+
+	reset();
 }
 hatchling::~hatchling()
 {
@@ -64,7 +108,7 @@ void hatchling::update(float DeltaTime)
 			m_desireTimer += DeltaTime;
 			if (m_desireTimer > 0)
 			{
-
+				desire();
 			}
 		}
 
@@ -223,6 +267,11 @@ void hatchling::die()
 		m_particleEngine->addFeather(m_position);
 	}
 }
+void hatchling::desire()
+{
+	m_desireTimer = -( (rand()%100)/100.0f * 4 + 2);
+	m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
+}
 
 void hatchling::reset()
 {
@@ -247,6 +296,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_eggVector = vector(-80,-30);
 
 	m_particleEngine = ParticleEngine;
+
+	m_thoughtBubble = new texture("thoughtBubble.png");
 
 	// score //
 	m_gui = Gui;
