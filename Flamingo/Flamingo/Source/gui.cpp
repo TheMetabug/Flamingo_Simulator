@@ -203,7 +203,10 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
 	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
 	m_tutorialbutton1->m_sprite.setLayer(300);
-
+	
+	
+	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_tutorialbutton2->m_sprite.setLayer(300);
 	
 	
 	m_font = new font();
@@ -215,8 +218,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	
 	
 	HPtext = new text("HP-mittari", m_font, 50);
-	PAUSEtext = new text(".::pAuSE::.", m_font, 50);
-	TITLEtext = new text("Tap the fucking screen or click",m_font, 50);
+	TITLEtext = new text("Tap the screen or click",m_font, 50);
 	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
@@ -230,13 +232,8 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SCOREtext->setPosition(vector(50, 50));
 	SCOREtext->setColor(83,77,67,255);
 	SCOREtext->setLayer(296);
-
-	PAUSEtext->setPosition(vector(640, 360));
-	PAUSEtext->setOrigin(vector(PAUSEtext->getGlobalBounds().width/2,PAUSEtext->getGlobalBounds().height/2));
-	PAUSEtext->setColor();
-	PAUSEtext->setLayer(298);
-
-	TITLEtext->setPosition(vector(300,655));
+	
+	TITLEtext->setPosition(vector(400,655));
 	TITLEtext->setColor();
 	TITLEtext->setLayer(298);
 
@@ -259,7 +256,6 @@ gui::~gui()
 	std::cout<<"deleted gui"<<std::endl;
 #endif
 	delete HPtext;
-	delete PAUSEtext;
 	delete TITLEtext;
 	delete SCOREtext;
 	delete m_font;
@@ -285,7 +281,7 @@ gui::~gui()
 	delete m_mainbutton3;
 	delete m_mainbutton4;
 	delete m_xbutton;
-
+	delete m_tutorialbutton1;
 
 	
 
@@ -330,6 +326,12 @@ void gui::update(float DeltaTime)
 
 	}
 
+	if (m_tutorial)
+	{
+		m_tutorialbutton1->update(DeltaTime);
+		m_tutorialbutton2->update(DeltaTime);
+	}
+
 	if (m_returnTitle)
 	{
 		m_yesbutton->update(DeltaTime);
@@ -371,8 +373,6 @@ void gui::draw(al::viewport* Viewport)
 {
 	
 	
-	if (m_pause)
-		Viewport->draw(PAUSEtext);
 
 	if (m_title)
 	{	
@@ -417,7 +417,12 @@ void gui::draw(al::viewport* Viewport)
 
 		
 	}
-		
+	if (m_tutorial)
+	{
+	m_tutorialbutton1->draw(Viewport);
+	m_tutorialbutton1->draw(Viewport);
+	}
+
 	
 	if (m_Play)
 	{
@@ -439,7 +444,7 @@ void gui::draw(al::viewport* Viewport)
 }
 void gui::reset()
 {
-	m_pause = false;
+	
 	m_title = false;
 	m_Play = true;
 	m_menu = false;
@@ -448,6 +453,7 @@ void gui::reset()
 	m_returnTitle = false;
 	m_credits= false;
 	m_quit = false;
+	m_tutorial = false;
 	
 	SCORE= 0;
 }

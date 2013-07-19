@@ -69,7 +69,7 @@ public:
 	int HPmax;
 	int HPtaken;
 	int SCORE;
-	bool m_pause;
+	
 	bool m_title;
 	bool m_Play;
 	bool m_menu;
@@ -78,6 +78,7 @@ public:
 	bool m_returnTitle;
 	bool m_credits;
 	bool m_quit;
+	bool m_tutorial;
 	
 	button* m_button2;
 	button* m_button3;
@@ -116,7 +117,6 @@ private:
 	al::font* m_font2; // ArialBlack "valikkofontti"
 	
 	al::text* HPtext;
-	al::text* PAUSEtext;
 	al::text* TITLEtext;
 	
 	al::text* SCOREtext;

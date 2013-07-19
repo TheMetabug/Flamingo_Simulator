@@ -36,6 +36,7 @@ game::~game()
 	delete m_creditsTexture;
 	delete m_optionsTexture;
 	delete m_particleEngine;
+	delete m_logoTexture;
 	
 }
 
@@ -285,7 +286,7 @@ void game::update(float deltaTime)
 		break;
 	case Tutorial:
 		m_gui->update(deltaTime);
-		m_gui->m_pause = true;
+		m_gui->m_tutorial = true;
 
 		
 		
@@ -398,6 +399,7 @@ void game::update(float deltaTime)
 				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
 				
+				
 			}
 			else if(m_input->isButtonPressed(al::Button::MouseLeft))
 			{
@@ -420,6 +422,7 @@ void game::update(float deltaTime)
 				m_state = Menu;
 				
 				m_gui->m_returnTitle = false;
+				m_gui->m_Play = false;
 			}
 			else if(m_gui->m_nobutton->isPressed() && ML_release)
 			{
@@ -519,7 +522,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_pause == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
+		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);
