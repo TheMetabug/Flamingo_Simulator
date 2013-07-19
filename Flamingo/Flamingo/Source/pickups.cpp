@@ -190,9 +190,9 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f, this));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f, this));
+	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f, this));
 	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f, this));
-	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 }
 pickups::~pickups()
 {
@@ -320,7 +320,7 @@ void pickups::update(float DeltaTime)
 				}
 				break;
 			default:
-				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
+				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup))
 				{
 					deleteItem(i);
 					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f); // piip piip

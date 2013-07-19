@@ -21,9 +21,9 @@ hatchling::hatchling(nest* Nest, collision* Collide)
 		m_hitbox = Collide->createHitBox(m_position,
 			al::vector(	m_sprite->getTransformedSize().x,
 						m_sprite->getTransformedSize().y), 
-						al::vector(	m_sprite->getTransformedSize().x/2,
-									m_sprite->getTransformedSize().y/2),
-						0);
+			al::vector(	m_sprite->getTransformedSize().x/2,
+						m_sprite->getTransformedSize().y/2),
+			0);
 
 		
 		m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
@@ -31,6 +31,9 @@ hatchling::hatchling(nest* Nest, collision* Collide)
 		m_flySprite->setScale(m_flyScale);
 		m_flySprite->setLayer(2);
 		m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
+
+		m_desireTimer = (rand()%100)/100.0f * 4 + 2;
+		m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
 
 		m_travelTime = 0;
 
@@ -55,6 +58,16 @@ void hatchling::update(float DeltaTime)
 	switch (m_state)
 	{
 	case 0:
+		
+		if (m_desiredItem > pups::ItemName::ItemsCount)
+		{
+			m_desireTimer += DeltaTime;
+			if (m_desireTimer > 0)
+			{
+
+			}
+		}
+
 		m_animation->update(DeltaTime);
 		m_sprite->setRotation(15 * sin(m_rotation*10));
 
@@ -162,15 +175,16 @@ void hatchling::fly()
 		m_animation->ChangeAnimation(0,1);
 	}
 }
-void hatchling::eat(float foodValue)
+void hatchling::eat(pups::pickup* pickup)
 {
 	if (m_state == 0)
 	{
-		if (foodValue > 0)
+
+		if (pickup->m_foodValue > 0)
 		{
 			m_animation->ChangeAnimation(6,2);
 			m_timer = 0;
-			m_eatPoints += foodValue;
+			m_eatPoints += pickup->m_foodValue;
 		}
 		else
 		{
@@ -416,11 +430,11 @@ void nest::sleep(float DeltaTime)
 
 }
 
-bool nest::eat(float DeltaTime, int Id, float foodValue)	
+bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)	
 {
 	if (Id != 0)
 	{
-		if(foodValue > 0)
+		if(pickup->m_foodValue > 0)
 		{
 			if(m_hatchlings[Id-1]->m_eatPoints >= 1) // change 1 to 3!!!!!!!!!! 1 is just for debugging
 			{
@@ -429,14 +443,14 @@ bool nest::eat(float DeltaTime, int Id, float foodValue)
 			else
 			{
  				m_gui->SCORE += 100;
-				m_hatchlings[Id-1]->eat(foodValue);
+				m_hatchlings[Id-1]->eat(pickup);
 			}
 
 		}
 		else
 		{
 			m_gui->SCORE -= 50;
-			m_hatchlings[Id-1]->eat(foodValue);
+			m_hatchlings[Id-1]->eat(pickup);
 			
 			return false;
 		}

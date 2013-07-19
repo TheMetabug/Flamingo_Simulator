@@ -1,6 +1,9 @@
 #ifndef NEST_H
 #define NEST_H
 
+class hatchling;
+class nest;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "hitbox.h"
@@ -9,6 +12,7 @@
 #include "gui.h"
 #include "particleEngine.h"
 #include "sound.h"
+#include "pickups.h"
 class nest;
 //Hatchling
 
@@ -22,7 +26,7 @@ public:
 	void draw(al::viewport* Viewport);
 
 	void fly();
-	void eat(float foodValue);
+	void eat(pups::pickup* pickup);
 	void mad();
 	void happy();
 	void die();
@@ -37,7 +41,8 @@ public:
 	particleEngine* m_particleEngine;
 	animation *m_flyAnimation;
 	hitbox* m_hitbox;
-	float m_timer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
+	pups::ItemName m_desiredItem;
+	float m_timer, m_desireTimer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
 	bool m_isThere;
 	bool m_fly;
 	int m_state;
@@ -61,7 +66,7 @@ public:
 	void egg(float DeltaTime);
 	void sleep(float DeltaTime);
 
-	bool eat(float DeltaTime, int Id, float foodValue);
+	bool eat(float DeltaTime, int Id, pups::pickup* pickup);
 	void die(float DeltaTime);
 	void fly(float DeltaTime, int Id);
 	void mad(float DeltaTime);
