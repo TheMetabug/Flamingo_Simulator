@@ -296,7 +296,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_eggAnimation = new animation(m_theEgg, 6, 256, 256);
 	m_theEgg->setLayer(3);
 	m_theEgg->setPosition(m_eggPosition);
-	m_theEgg->setOrigin(vector(m_theEgg->getSize()/2));
+	m_theEgg->setOrigin(vector(m_theEgg->getSize().x/2,m_theEgg->getSize().x/2));
 	m_theEgg->setScale(0.2f);
 
 	///// hatchlings /////
@@ -352,7 +352,7 @@ void nest::update(float DeltaTime)
 			m_whichBird = i;
 			m_egging = true;
 			m_eggTimer = 0;
-			m_eggTarget = m_hatchlings[i]->m_position;
+			m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
 		}
 	}
 
@@ -393,7 +393,7 @@ void nest::egg(float DeltaTime)
 
 		m_theEgg->setPosition(m_eggPosition +
 			(m_eggTarget - m_eggPosition) * ((m_eggTimer)/m_travelTime));
-		m_theEgg->setScale(m_scale += DeltaTime/5);
+		m_theEgg->setScale(m_scale += DeltaTime/6);
 	}
 	else
 	{
@@ -487,6 +487,22 @@ void nest::happy(float DeltaTime)
 	{
 		m_hatchlings[i]->happy();
 	}
+}
+
+bool nest::enemyTakingEgg()
+{
+	if (m_eggCount > 1)
+	{
+		removeEgg();
+		return true;
+	}
+	else if (m_eggCount == 1)
+	{
+		m_eggAnimation->ChangeAnimation(6,1);
+		m_eggCount--;
+		return true;
+	}
+	return false;
 }
 
 void nest::addEgg()

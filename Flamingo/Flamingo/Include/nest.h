@@ -72,6 +72,8 @@ public:
 	void mad(float DeltaTime);
 	void happy(float DeltaTime);
 
+	bool enemyTakingEgg();
+
 	void addEgg();
 	void removeEgg();
 	void updateEggPositions();

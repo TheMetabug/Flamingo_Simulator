@@ -266,11 +266,18 @@ void game::update(float deltaTime)
 		//flamingo
 		m_flamingo->update(deltaTime, m_flamingoHeadPressed);
 
-		// nest
-		m_nest->update(deltaTime);
-
 		// enemy
 		m_enemy->update(deltaTime);
+
+		if (m_enemy->m_takingEgg)
+		{
+			if (!m_nest->enemyTakingEgg())
+				m_enemy->m_tookEgg = false;
+			m_enemy->m_takingEgg = false;
+		}
+
+		// nest
+		m_nest->update(deltaTime);
 
 		// pickups
 		m_pickups->update(deltaTime);

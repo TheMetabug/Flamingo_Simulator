@@ -11,6 +11,7 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_enemyDownFall = 0.0f;
 	m_enemyLeftFall = 0.0f;
 	m_birdPhase = 0;
+	m_eggPosition = vector(100.0f,100.0f);
 
 
 	// score //
@@ -33,6 +34,14 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 					 m_sprite->getTransformedSize().y/2),
 		2);
 
+
+	m_eggTexture = new texture("hatchingAnimation.png");
+	m_eggSprite = new sprite(m_eggTexture);
+	m_eggSprite->setLayer(3);
+	m_eggSprite->setPosition(m_eggPosition);
+	m_eggSprite->setTextureRectangle(rectangle(vector(),vector(256,256)));
+	m_eggSprite->setOrigin(vector(m_eggSprite->getSize().x/2,m_eggSprite->getSize().y/2));
+
 	reset();
 }
 enemy::~enemy()
@@ -42,6 +51,8 @@ enemy::~enemy()
 #endif
 	delete m_texture;
 	delete m_sprite;
+	delete m_eggTexture;
+	delete m_eggSprite;
 	delete m_animation;
 	
 }
@@ -93,6 +104,8 @@ void enemy::update(float DeltaTime)
 }
 void enemy::draw(al::viewport* Viewport)
 {
+	if (m_tookEgg)
+		Viewport->draw(m_eggSprite);
 	Viewport->draw(m_sprite);
 }
 
@@ -103,9 +116,14 @@ void enemy::reset()
 	m_hitbox->Position = m_enemyBirdPosition;
 	m_enemyDownFall = 0.0f;
 
+	m_eggPosition = vector(0,0);
+	m_eggSprite->setScale(0);
+
 	m_hitbox->isEnabled = false;
 	m_timer = -(rand()%10);
  	m_birdPhase = 2;
+	m_takingEgg = false;
+	m_tookEgg = false;
 }
 
 void enemy::eat(float foodValue, vector itemDirection)
@@ -209,6 +227,11 @@ void enemy::respawn()
 	m_sprite->setRotation(0);
 	m_enemyDownFall = 0;
 	m_sprite->setScale(0.5f);
+
+	m_eggPosition = vector(0,0);
+	m_eggSprite->setScale(0);
+	m_takingEgg = false;
+	m_tookEgg = false;
 	
 }
 void enemy::flyBack(float DeltaTime)
@@ -236,30 +259,24 @@ void enemy::catchEgg(float DeltaTime)
 	else
 	{
 		m_timer += DeltaTime;
-		m_enemyBirdPosition = vector(m_enemyOrigin.x /*+ 60.0f * sin(m_enemyRotate)*/ - m_timer*200.0f,(m_enemyOrigin.y + 200.0f * sin(-1*m_enemyRotate)) + m_enemyDownFall);
-		
+		m_enemyBirdPosition = vector(m_enemyOrigin.x - m_timer*200.0f,(m_enemyOrigin.y + 200.0f * sin(-1*m_enemyRotate)) + m_enemyDownFall);
+			m_eggPosition = m_enemyBirdPosition;
+
+		if(m_timer > 0.9f)
+		{
+			if (!m_tookEgg)
+			{
+				m_takingEgg = true;
+				m_tookEgg = true;
+			}
+			m_eggSprite->setPosition(vector(m_eggPosition.x,m_eggPosition.y + 45));
+			m_eggSprite->setScale(0.2f);
+		}
+
 		if (m_timer > 5)
 		{
 			m_timer = 0;
 			respawn();
 		}
 	}
-
-
-	//if(m_timer < 4.0f)
-	//	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60.0f * sin(m_enemyRotate),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
-
-	//else
-	//{
-	//	m_enemyDownFall += DeltaTime*50;
-	//	m_enemyBirdPosition = vector(m_enemyOrigin.x - 90.0f * (m_timer - 3.81f) + m_enemyLeftFall,(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
-	//
-	//	if (m_timer >= 8.0f)
-	//	{
-	//		m_timer = 0;
-	//		respawn();
-	//	}
-	//}
-
-
 }

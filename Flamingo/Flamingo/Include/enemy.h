@@ -9,6 +9,7 @@
 #include "particleEngine.h"
 #include <math.h>
 #include "gui.h"
+#include "nest.h"
 
 class enemy
 {
@@ -20,6 +21,10 @@ public:
 	void draw(al::viewport* Viewport);
 
 	void reset();
+
+	bool m_takingEgg;
+	bool m_tookEgg;
+	bool m_nestHasEggs;
 
 private:
 	void eat(float foodValue, al::vector itemDirection);
@@ -34,7 +39,7 @@ private:
 	animation* m_animation;
 	hitbox* m_hitbox;
 	collision *m_collision;
-	al::vector m_enemyOrigin, m_enemyBirdPosition, m_prevPosition, m_direction;
+	al::vector m_enemyOrigin, m_enemyBirdPosition, m_prevPosition, m_direction, m_eggPosition;
 	particleEngine* m_particleEngine;
 
 	int m_birdPhase;
@@ -45,6 +50,9 @@ private:
 
 	al::texture *m_texture;
 	al::sprite *m_sprite;
+
+	al::texture *m_eggTexture;
+	al::sprite *m_eggSprite;
 
 	// SCORE-stats
 	gui *m_gui;
