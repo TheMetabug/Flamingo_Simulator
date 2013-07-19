@@ -230,21 +230,36 @@ void enemy::flyBack(float DeltaTime)
 
 void enemy::catchEgg(float DeltaTime)
 {
-	m_timer += DeltaTime;
 
-	if(m_timer < 4.0f)
+	if (sin(2*m_enemyRotate) < 0 && m_timer == 0)
 		m_enemyBirdPosition = vector(m_enemyOrigin.x + 60.0f * sin(m_enemyRotate),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
-
 	else
 	{
-		m_enemyBirdPosition = vector(m_enemyOrigin.x - 60.0f * (m_timer - 4.0f),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
-	
-		if (m_timer >= 8.0f)
+		m_timer += DeltaTime;
+		m_enemyBirdPosition = vector(m_enemyOrigin.x /*+ 60.0f * sin(m_enemyRotate)*/ - m_timer*200.0f,(m_enemyOrigin.y + 200.0f * sin(-1*m_enemyRotate)) + m_enemyDownFall);
+		
+		if (m_timer > 5)
 		{
 			m_timer = 0;
 			respawn();
 		}
 	}
+
+
+	//if(m_timer < 4.0f)
+	//	m_enemyBirdPosition = vector(m_enemyOrigin.x + 60.0f * sin(m_enemyRotate),(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
+
+	//else
+	//{
+	//	m_enemyDownFall += DeltaTime*50;
+	//	m_enemyBirdPosition = vector(m_enemyOrigin.x - 90.0f * (m_timer - 3.81f) + m_enemyLeftFall,(m_enemyOrigin.y + 100.0f * sin(2*m_enemyRotate)) + m_enemyDownFall);
+	//
+	//	if (m_timer >= 8.0f)
+	//	{
+	//		m_timer = 0;
+	//		respawn();
+	//	}
+	//}
 
 
 }
