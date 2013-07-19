@@ -134,6 +134,26 @@ void game::init()
 
 			m_Score.setLayer(295);
 
+			m_tutorial1Position = (vector(640,360));
+			m_tutorial1Texture = new texture("Tutorials/tuto1.png");
+			m_tutorial1.setTexture(m_tutorial1Texture);
+			m_tutorial1.setPosition(m_tutorial1Position);
+			m_tutorial1.setOrigin(vector(m_tutorial1.getSize().x/2,
+			m_tutorial1.getSize().y/2));
+			m_tutorial1.setScale(1,1);
+
+			m_tutorial1.setLayer(295);
+
+			m_tutorial2Position = (vector(640,360));
+			m_tutorial2Texture = new texture("Tutorials/tuto2.png");
+			m_tutorial2.setTexture(m_tutorial2Texture);
+			m_tutorial2.setPosition(m_tutorial2Position);
+			m_tutorial2.setOrigin(vector(m_tutorial2.getSize().x/2,
+			m_tutorial2.getSize().y/2));
+			m_tutorial2.setScale(1,1);
+
+			m_tutorial2.setLayer(296);
+
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
@@ -534,6 +554,22 @@ void game::draw()
 
 	case Tutorial:
 		m_gui->draw(m_viewport);
+		
+		switch(m_tutorialNumber)
+			{
+			case 0:
+				m_viewport->draw(&m_tutorial1);
+				break;
+			case 1:
+				m_viewport->draw(&m_tutorial2);
+				break;
+			case 2:
+				std::cout<<"kaksi"<<std::endl;
+				break;
+			case 3:
+				break;
+			}
+		break;
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);

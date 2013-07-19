@@ -60,7 +60,15 @@ private:
 	al::texture* m_logoTexture;
 	al::sprite m_logoSprite;
 	al::vector m_logoPosition;
+
+	al::texture* m_tutorial1Texture;
+	al::sprite m_tutorial1;
+	al::vector m_tutorial1Position;
 	
+	al::texture* m_tutorial2Texture;
+	al::sprite m_tutorial2;
+	al::vector m_tutorial2Position;
+
 	bool P_release;
 	bool M_release;
 	bool ML_release;
