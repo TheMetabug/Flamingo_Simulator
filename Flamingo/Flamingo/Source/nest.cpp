@@ -101,7 +101,7 @@ void hatchling::update(float DeltaTime)
 
 	switch (m_state)
 	{
-	case 0:
+	case 0: // Hatchling just chilling
 		
 		if (m_desiredItem > pups::ItemName::ItemsCount)
 		{
@@ -124,7 +124,7 @@ void hatchling::update(float DeltaTime)
 		m_sprite->setPosition(m_position);
 		m_hitbox->Position = m_position;
 		break;
-	case 1:
+	case 1: // Hatchling growing
 		m_flyAnimation->update(DeltaTime);
 		if (m_flyAnimation->getCurrentFrame() == 4)
 		{
@@ -132,7 +132,7 @@ void hatchling::update(float DeltaTime)
 			m_timer = -1;
 		}
 		break;
-	case 2:
+	case 2: // Hathling flying away
 		{
 			vector finalPosition = vector(100,70);
 			m_travelTime = 2.0f;
@@ -146,32 +146,34 @@ void hatchling::update(float DeltaTime)
 			{
 				m_flySprite->setPosition(finalPosition);
 				m_state = 3;
-				m_timer = -2;
+				m_timer = -2; // Viive
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
 				m_nest->m_gui->SCORE += 500;
 				m_nest->m_flamCount += 1;
 			}
 		}
 		break;
-	case 3:
+	case 3: // Hatchling flown
 		if (m_timer > 0)
 		{
-			m_flyAnimation->ChangeAnimation(0,1,0,1);
+			m_flyAnimation->ChangeAnimation(0,1);
 			m_flySprite->setScale(m_flyScale);
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
+			m_nest->m_hatchCount--;
 			
 			m_timer = 0;
 		}
 		break;
-	case 4:
+	case 4: // Hathcling killed
 		if (m_timer > 0)
 		{
 			m_state = 0;
 			m_timer = 0;
 			//m_nest->m_soundLibrary->m_sounds[7]->play(); //failure
 			m_fly = false;
+			m_nest->m_hatchCount--;
 		}
 
 		break;
@@ -393,6 +395,9 @@ nest::~nest()
 void nest::update(float DeltaTime)
 {
 	//m_timer += DeltaTime;
+	m_eggCount = m_eggs.size();
+	if (m_eggAnimation->getCurrentFrame() != 7)
+		m_eggCount++;
 	m_gui->m_eggCount = m_eggCount;
 	m_gui->m_flamCount = m_flamCount;
 	m_eggAnimation->update(DeltaTime);
@@ -463,17 +468,20 @@ void nest::egg(float DeltaTime)
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
+			m_theEgg->setLayer(6);
 			
 			m_scale = m_theEggScale;
 			m_theEgg->setScale(m_scale);
 			removeEgg();
+			m_hatchCount++;
+
 			
 			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
-			if (m_eggCount > 0)
+			if (m_eggCount > 1)
 				m_eggAnimation->ChangeAnimation(0,1);
 			else
-				m_eggAnimation->ChangeAnimation(6,1);
+				m_eggAnimation->ChangeAnimation(7,1);
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
 			
@@ -491,6 +499,8 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 	{
 		if(pickup->m_foodValue > 0)
 		{
+			m_hatchlings[Id-1]->eat(pickup);
+
 			if(m_hatchlings[Id-1]->m_eatPoints >= 1) // change 1 to 3!!!!!!!!!! 1 is just for debugging
 			{
 				m_hatchlings[Id-1]->fly();
@@ -498,7 +508,6 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 			else
 			{
  				m_gui->SCORE += 100;
-				m_hatchlings[Id-1]->eat(pickup);
 			}
 
 		}
@@ -554,7 +563,6 @@ bool nest::enemyTakingEgg()
 	else if (m_eggCount == 1)
 	{
 		m_eggAnimation->ChangeAnimation(6,1);
-		m_eggCount--;
 		return true;
 	}
 	return false;
@@ -562,19 +570,22 @@ bool nest::enemyTakingEgg()
 
 void nest::addEgg()
 {
-	m_eggCount++;
-	float width = 256, height = 256;
-	m_eggs.push_back(new sprite(m_eggTexture));
-	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
-	m_eggs.back()->setOrigin(vector(width/2, height/2));
-	m_eggs.back()->setScale(m_theEggScale);
-	m_eggs.back()->setLayer(3);
 
-	updateEggPositions();
+	if (m_eggAnimation->getCurrentFrame() != 7)
+	{
+		updateEggPositions();
+		float width = 256, height = 256;
+		m_eggs.push_back(new sprite(m_eggTexture));
+		m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
+		m_eggs.back()->setOrigin(vector(width/2, height/2));
+		m_eggs.back()->setScale(m_theEggScale);
+		m_eggs.back()->setLayer(6);
+	}
+	else
+		m_eggAnimation->ChangeAnimation(0,1);
 }
 void nest::removeEgg()
 {
-	m_eggCount--;
 	if (m_eggs.size()>0)
 		m_eggs.pop_back();
 
@@ -592,7 +603,7 @@ void nest::updateEggPositions()
 }
 void nest::reset()
 {
-	m_eggCount = 1;
+	m_hatchCount = 0;
 	for (int i = m_eggs.size()-1; i >= 0; --i)
 	{
 		delete m_eggs[i];
@@ -608,6 +619,7 @@ void nest::reset()
 	for (int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->reset();
+		m_hatchCount++;
 	}
 
 	m_hatching = false;
@@ -617,5 +629,6 @@ void nest::reset()
 	m_eggAnimation->ChangeAnimation(0,1);
 	m_scale = m_theEggScale;
 	m_theEgg->setScale(m_scale);
+	m_theEgg->setLayer(6);
 	m_flamCount = 0;
 }

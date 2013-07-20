@@ -87,11 +87,14 @@ private:
 	bool m_flamingoHeadPressed;
 	bool m_muted;
 	int m_tutorialNumber;
+	float m_timer;
+	int m_countSpeed;
 	// gameStates
 	enum GameState
 	{
 		TitleScreen = 0,
 		Play,
+		Levelscore,
 		Menu,
 		Tutorial,
 		Credits,

@@ -98,6 +98,7 @@ public:
 	int m_whichBird;
 	int m_eggCount;
 	int m_flamCount;
+	int m_hatchCount;
 
 private:
 

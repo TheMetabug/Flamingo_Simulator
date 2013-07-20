@@ -14,6 +14,8 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	
 	m_titleCard = new titleCard();
 	m_titleCard->draw(Viewport);
+
+	m_countSpeed = 0;
 }
 game::~game()
 {
@@ -224,6 +226,12 @@ void game::update(float deltaTime)
 		break;
 	
 	case Play:
+		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
+		{
+			m_state = Levelscore;
+			m_countSpeed = m_nest->m_flamCount+10;
+			break;
+		}
 		
 		// show text
 		m_gui->m_Play = true;
@@ -261,15 +269,15 @@ void game::update(float deltaTime)
 
 		
 		
-		if(!m_input->isKeyPressed(al::Key::Menu))
-			M_release = true;
-		else if (M_release)
-		{
-			m_soundLibrary->m_musics[0]->pause();
-			M_release = false;
-			m_state = Gamemenu;
-			
-		}
+		//if(!m_input->isKeyPressed(al::Key::Menu))
+		//	M_release = true;
+		//else if (M_release)
+		//{
+		//	m_soundLibrary->m_musics[0]->pause();
+		//	M_release = false;
+		//	m_state = Gamemenu;
+		//	
+		//}
 		// hitbox
 
 		//flamingo
@@ -302,6 +310,29 @@ void game::update(float deltaTime)
 		
 
 		break;
+
+	case Levelscore:
+
+		if(m_nest->m_flamCount > 0)
+		{
+			m_timer += deltaTime;
+			m_gui->update(deltaTime);
+			m_nest->update(deltaTime);
+			if(m_timer >= 1)// 3/m_countSpeed)
+			{
+				m_timer = 0;
+				m_soundLibrary->m_sounds[29]->play();
+				m_nest->addEgg();
+				m_nest->m_flamCount--;
+			}
+		}
+		else
+		{
+			m_state = Play;
+			m_enemy->reset();
+		}
+
+		break;
 	
 	case Menu:
 		m_tutorialNumber= 1;
@@ -313,6 +344,7 @@ void game::update(float deltaTime)
 			ML_release = false;
 			m_state = Play;
 			m_gui->m_menu = false;
+			reset();
 		}
 		if(m_gui->m_mainbutton2->isPressed() && ML_release)
 		{
@@ -623,7 +655,7 @@ void game::draw()
 		{
 			m_viewport->draw(&m_options);
 		}
-	
+	case Levelscore:
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);
@@ -657,6 +689,9 @@ void game::draw()
 
 
 		break;
+
+
+
 	case Menu:
 
 		// gui
@@ -691,6 +726,7 @@ void game::reset()
 	m_enemy->reset();
 	m_pickups->reset();
 	m_gui->reset();
+	m_timer = 0;
 }
 
 #if _DEBUG
