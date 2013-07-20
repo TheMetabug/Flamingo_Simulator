@@ -47,4 +47,16 @@ private:
 	float m_timer, m_rotate, m_r, m_g, m_b, m_a;
 };
 
+class scoreParticle : public particle
+{
+public:
+	scoreParticle(al::vector Position, al::vector Direction, al::texture* Texture, float Score);
+	~scoreParticle(){}
+	bool update(float DeltaTime);
+private:
+	void stayOnScreen();
+
+	float m_timer, m_rotate, m_r, m_g, m_b, m_a;
+};
+
 #endif

@@ -122,3 +122,46 @@ bool feather::update(float DeltaTime)
 	}
 	return false;
 }
+
+scoreParticle::scoreParticle(al::vector Position, al::vector Direction, al::texture* Texture, float Score)
+	: particle(Position,Direction,vector(),Texture,5.0f)
+{
+
+
+}
+bool scoreParticle::update(float DeltaTime)
+{
+	stayOnScreen();
+	
+
+	return true;
+}
+void scoreParticle::stayOnScreen()
+{
+	float left = 0;
+	float right = WINDOW_WIDTH;
+	float top = 0;
+	float bottom = WINDOW_HEIGHT;
+	if (m_position.x < left)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = left;
+	}
+	else 
+		if (m_position.x > right)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = right;
+	}
+	if (m_position.y < top)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = top;
+	}
+	else 
+		if (m_position.y > bottom)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = bottom;
+	}
+}
