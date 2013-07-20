@@ -149,6 +149,7 @@ void hatchling::update(float DeltaTime)
 				m_timer = -2;
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
 				m_nest->m_gui->SCORE += 500;
+				m_nest->m_flamCount += 1;
 			}
 		}
 		break;
@@ -391,7 +392,8 @@ nest::~nest()
 void nest::update(float DeltaTime)
 {
 	//m_timer += DeltaTime;
-
+	m_gui->m_eggCount = m_eggCount;
+	m_gui->m_flamCount = m_flamCount;
 	m_eggAnimation->update(DeltaTime);
 
 	for (int i = 0; i < 3; ++i)
@@ -613,4 +615,5 @@ void nest::reset()
 	m_eggAnimation->ChangeAnimation(0,1);
 	m_scale = m_theEggScale;
 	m_theEgg->setScale(m_scale);
+	m_flamCount = 0;
 }

@@ -37,6 +37,7 @@ game::~game()
 	delete m_optionsTexture;
 	delete m_particleEngine;
 	delete m_logoTexture;
+	delete m_counterTexture;
 	delete m_tutorial1Texture;
 	delete m_tutorial2Texture;
 	delete m_tutorial3Texture;
@@ -87,6 +88,13 @@ void game::init()
 			m_logoSprite.setOrigin(vector(m_logoSprite.getSize().x/2, m_logoSprite.getSize().y/2));
 			m_logoSprite.setScale(1,1);
 			//m_logoSprite.setLayer(299);
+
+			m_counterPosition = vector(0,640);
+			m_counterTexture = new texture("eggCounter.png");
+			m_counterSprite.setTexture(m_counterTexture);
+			m_counterSprite.setPosition(m_counterPosition);
+			m_counterSprite.setScale(1.3f,1.3f);
+			m_counterSprite.setLayer(296);
 
 			m_ReturnPosition = (vector(640,375));
 			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
@@ -219,6 +227,7 @@ void game::update(float deltaTime)
 		
 		// show text
 		m_gui->m_Play = true;
+		//m_gui->update(deltaTime);
 
 
 		if(m_gui->m_button2->isPressed() && ML_release)
@@ -568,7 +577,7 @@ void game::draw()
 {
 	// gameStates
 
-		switch(m_state)
+	switch(m_state)
 	{
 	case TitleScreen:
 		// titlecard
@@ -643,7 +652,8 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 
-		// hitbox
+		// counter
+		m_viewport->draw(&m_counterSprite);
 
 
 		break;

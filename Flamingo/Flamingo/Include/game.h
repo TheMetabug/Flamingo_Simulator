@@ -61,6 +61,10 @@ private:
 	al::sprite m_logoSprite;
 	al::vector m_logoPosition;
 
+	al::texture* m_counterTexture;
+	al::sprite m_counterSprite;
+	al::vector m_counterPosition;
+
 	al::texture* m_tutorial1Texture;
 	al::sprite m_tutorial1;
 	al::vector m_tutorial1Position;

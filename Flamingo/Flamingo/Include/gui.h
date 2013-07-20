@@ -7,6 +7,7 @@
 #include "program.h"
 #include "input.h"
 #include "sound.h"
+#include "nest.h"
 
 
 class button
@@ -109,6 +110,8 @@ public:
 	button* m_tutorialbutton1;
 	button* m_tutorialbutton2;
 
+	int m_eggCount, m_flamCount;
+
 
 private:
 	soundLibrary* m_soundLibrary;
@@ -122,7 +125,11 @@ private:
 	al::text* SCOREtext;
 	al::text* MUSICtext;
 	al::text* SOUNDtext;
+	al::text* EGGtext;
+	al::text* FLAMtext;
 	std::vector<al::texture*> m_buttonTextures;
+
+	nest* m_nest;
 
 
 

@@ -107,10 +107,13 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_input = Input;
 	m_soundLibrary = SoundLibrary;
 
+
 	// HP-basics
 	HPmax = 100; //max HP
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
+	m_eggCount = 0;
+	m_flamCount = 0;
 
 
 	/*button = "test" button
@@ -223,6 +226,8 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
+	EGGtext = new text("egg count", m_font2,40);
+	FLAMtext = new text("flamingo count", m_font2,40);
 
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
@@ -245,9 +250,15 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SOUNDtext->setPosition (vector(686,365));
 	SOUNDtext->setColor(83,77,67,255);
 	SOUNDtext->setLayer(299);
-	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 
+	EGGtext->setPosition(vector(100,655));
+	EGGtext->setColor(83,77,67,255);
+	EGGtext->setLayer(299);
 	
+	FLAMtext->setPosition(vector(230,655));
+	FLAMtext->setColor(83,77,67,255);
+	FLAMtext->setLayer(299);
+
 	reset();
 	m_Play = false;
 }
@@ -259,6 +270,8 @@ gui::~gui()
 	delete HPtext;
 	delete TITLEtext;
 	delete SCOREtext;
+	delete EGGtext;
+	delete FLAMtext;
 	delete m_font;
 	delete m_button2;
 	delete m_button3;
@@ -296,7 +309,7 @@ void gui::update(float DeltaTime)
 {
 	
 	//edit  HP settings
-		if( HPnow < 0) 
+	if( HPnow < 0) 
 	{
 		HPnow = 0;
 	}
@@ -305,6 +318,8 @@ void gui::update(float DeltaTime)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
 		SCOREtext->setString(std::to_string((long double)SCORE) );
+		EGGtext->setString(std::to_string((long double)m_eggCount));
+		FLAMtext->setString(std::to_string((long double)m_flamCount));
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
 		//HPtext->
@@ -431,6 +446,8 @@ void gui::draw(al::viewport* Viewport)
 		m_button3->draw(Viewport); //button3
 		//Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
+		Viewport->draw(EGGtext);
+		Viewport->draw(FLAMtext);
 	}
 	if (m_credits)
 		m_xbutton->draw(Viewport);

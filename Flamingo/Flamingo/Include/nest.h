@@ -96,6 +96,8 @@ public:
 	void reset();
 
 	int m_whichBird;
+	int m_eggCount;
+	int m_flamCount;
 
 private:
 
@@ -133,7 +135,7 @@ private:
 	//al::sprite *m_hatchlingFly;
 	//animation *m_hatchlingFlyAnimation;
 
-	int m_eggCount;
+
 	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime, m_scale, m_theEggScale;
 	bool m_hatching;
 	bool m_egging;

@@ -268,6 +268,7 @@ void enemy::catchEgg(float DeltaTime)
 			{
 				m_takingEgg = true;
 				m_tookEgg = true;
+				m_hitbox->isEnabled = false;
 			}
 			m_eggSprite->setPosition(vector(m_eggPosition.x,m_eggPosition.y + 45));
 			m_eggSprite->setScale(0.2f);
