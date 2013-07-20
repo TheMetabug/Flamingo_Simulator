@@ -154,7 +154,7 @@ void enemy::eat(float foodValue, vector itemDirection)
 void enemy::fly(float DeltaTime)
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
-	m_enemyDownFall += DeltaTime*25;
+	m_enemyDownFall += DeltaTime*5;
 
 	if(m_enemyDownFall >= 100)
 	{

@@ -509,6 +509,7 @@ void game::update(float deltaTime)
 			{
 				ML_release = false;
 				m_state = Menu;
+				reset();
 				
 				m_gui->m_returnTitle = false;
 				m_gui->m_Play = false;
@@ -578,19 +579,6 @@ void game::draw()
 
 		break;
 	
-	case ReturnTitle:
-		m_viewport->draw(&m_ReturnCheck);
-		
-	
-	case Gamemenu:
-
-		m_viewport->draw(&m_GMenu);
-	case Options:
-		if (m_gui->m_Options)
-		{
-			m_viewport->draw(&m_options);
-		}
-		break;
 	case Tutorial:
 		m_gui->draw(m_viewport);
 		
@@ -612,6 +600,20 @@ void game::draw()
 					break;
 					}
 		break;
+
+		
+	case ReturnTitle:
+		m_viewport->draw(&m_ReturnCheck);
+		
+	
+	case Gamemenu:
+
+		m_viewport->draw(&m_GMenu);
+	case Options:
+		if (m_gui->m_Options)
+		{
+			m_viewport->draw(&m_options);
+		}
 	
 	case Play:
 		// backGround
@@ -631,7 +633,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
+		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true ||m_gui->m_Options ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);
