@@ -10,18 +10,18 @@ vector::vector()
 {}
 vector::vector(sf::Vector2f sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
 vector::vector(sf::Vector2i sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
 vector::vector(sf::Vector2u sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
 vector::vector(float X, float Y)
 	: x(X), y(Y)
@@ -41,7 +41,7 @@ float vector::getAngle()
 	}
 	else
 	{
-		float angle = atan(y/x)*(180.0f/PI);
+		float angle = float(atan(y/x)*(180.0f/PI));
 		if (x < 0)
 			angle += 180;
 		else if (angle < 0)
@@ -245,16 +245,16 @@ void sprite::setTexture(al::texture *Texture)
 }
 void sprite::setTextureRectangle(rectangle Rectangle)
 {
-	int left = Rectangle.left;
-	int top = Rectangle.top;
-	int width = Rectangle.width;
-	int height = Rectangle.height;
+	int left = int(Rectangle.left + 0.5f);
+	int top = int(Rectangle.top + 0.5f);
+	int width = int(Rectangle.width + 0.5f);
+	int height = int(Rectangle.height + 0.5f);
 	m_sprite->setTextureRect(sf::IntRect(left,top,width,height));
 }
 vector sprite::getTextureSize()
 {
-	vector qwerty(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
-	return vector(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
+	return vector((float)m_sprite->getTexture()->getSize().x,
+		(float)m_sprite->getTexture()->getSize().y);
 }
 
 void sprite::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
@@ -552,7 +552,7 @@ void viewport::renderSprites()
 {
  	for (int i = 0; i < LAYER_COUNT + 1; ++i)
 	{
-		for(int j = 0; j < m_objects[i].size(); ++j)
+		for(unsigned int j = 0; j < m_objects[i].size(); ++j)
 		{
 			m_window->draw(*m_objects[i][j]);
 		}
