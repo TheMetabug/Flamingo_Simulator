@@ -21,7 +21,7 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_sprite = new sprite(m_texture);
 	m_sprite->setOrigin(vector(128,128));
 	m_sprite->setScale(0.5f);
-	m_sprite->setLayer(3);
+	m_sprite->setLayer(10);
 	
 
 	m_animation = new animation(m_sprite, 4, 256, 256);
@@ -37,7 +37,7 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	m_eggTexture = new texture("hatchingAnimation.png");
 	m_eggSprite = new sprite(m_eggTexture);
-	m_eggSprite->setLayer(3);
+	m_eggSprite->setLayer(10);
 	m_eggSprite->setPosition(m_eggPosition);
 	m_eggSprite->setTextureRectangle(rectangle(vector(),vector(256,256)));
 	m_eggSprite->setOrigin(vector(m_eggSprite->getSize().x/2,m_eggSprite->getSize().y/2));
@@ -180,14 +180,16 @@ void enemy::die(float DeltaTime)
 	{
 		m_birdPhase = 2;
 		m_timer = -(4.0f + rand()%10);
+
+		for (int i = 0; i < 100; ++i)
+		{
+			m_particleEngine->addFeather(m_enemyBirdPosition,true);
+		}
 	}
 
-	m_enemyBirdPosition.x -= 300*DeltaTime;
 
-	for (int i = 0; i < 100; ++i)
-	{
-		m_particleEngine->addFeather(m_enemyBirdPosition,true);
-	}
+	//m_enemyBirdPosition.x -= 300*DeltaTime;
+
 }
 void enemy::fall(float DeltaTime)
 {

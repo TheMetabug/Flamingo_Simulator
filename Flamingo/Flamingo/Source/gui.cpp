@@ -251,11 +251,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SOUNDtext->setColor(83,77,67,255);
 	SOUNDtext->setLayer(299);
 
-	EGGtext->setPosition(vector(100,655));
+	EGGtext->setPosition(vector(60,655));
 	EGGtext->setColor(83,77,67,255);
 	EGGtext->setLayer(299);
 	
-	FLAMtext->setPosition(vector(230,655));
+	FLAMtext->setPosition(vector(160,655));
 	FLAMtext->setColor(83,77,67,255);
 	FLAMtext->setLayer(299);
 

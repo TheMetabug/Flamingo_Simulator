@@ -7,7 +7,7 @@ using namespace al;
 thought::thought(texture* ThoughtBubble, pups::pickup* Pickup, float Rotation)
 {
 	m_sprite.setTexture(ThoughtBubble);
-	m_sprite.setLayer(10);
+	m_sprite.setLayer(9);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2,m_sprite.getSize().y*3/2));
 	m_sprite.setColor(255,255,255,0);
 	m_sprite.setRotation(Rotation-270);
@@ -322,7 +322,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_flamingonestFront.setOrigin(vector(m_flamingonest.getSize().x/2,
 									m_flamingonest.getSize().y/2));
 	m_flamingonestFront.setScale(1,1);
-	m_flamingonestFront.setLayer(3);
+	m_flamingonestFront.setLayer(7);
 
 
 	m_travelTime = 2.0f;
@@ -359,6 +359,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	for (int i = 0; i < 3; ++i)
 	{
 		m_hatchlings.push_back(new hatchling(this, Collide));
+		m_hatchlings.back()->m_sprite->setLayer(4 + i);
 	}
 
 
@@ -403,6 +404,7 @@ void nest::update(float DeltaTime)
 		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
 		{
 			m_whichBird = i;
+			m_theEgg->setLayer(3 + i);
 			m_egging = true;
 			m_eggTimer = 0;
 			m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
