@@ -1,6 +1,8 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
+class enemy;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "animation.h"
