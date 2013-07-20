@@ -177,6 +177,7 @@ public:
 	~text();
 	void setFont(al::font* Font);
 	void setString(std::string string);
+	void setCharacterSize(unsigned int CharacterSize = 30);
 
 	void setColor(unsigned int Red = 255, unsigned int Green = 255, unsigned int Blue = 255, unsigned int Alpha = 255);
 	void setPosition(al::vector Position);

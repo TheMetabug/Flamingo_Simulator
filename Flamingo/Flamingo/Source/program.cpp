@@ -425,6 +425,10 @@ void text::setString(std::string string)
 {
 	m_text->setString(string);
 }
+void text::setCharacterSize(unsigned int CharacterSize)
+{
+	m_text->setCharacterSize(CharacterSize);
+}
 void text::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
 {
 	sf::Color color(Red, Green, Blue, Alpha);
