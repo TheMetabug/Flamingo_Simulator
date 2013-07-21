@@ -69,7 +69,7 @@ bool button::mouseOver()
 titleCard::titleCard()
 {
 	m_titlePosition = vector(640, 360);
-	setTexture("titlescreen_Placeholder.png");
+	setTexture("titlescreen.png");
 
 	
 	
