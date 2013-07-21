@@ -265,6 +265,7 @@ void hatchling::die()
 	m_hitbox->isEnabled = false;
 	m_state = 4;
 	m_timer = -5;
+	m_nest->shocked();
 	for (int i = 0; i < 100; ++i)
 	{
 		m_particleEngine->addFeather(m_position);
@@ -274,6 +275,15 @@ void hatchling::desire()
 {
 	m_desireTimer = -( (rand()%100)/100.0f * 4 + 2);
 	m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
+}
+
+void hatchling::shocked()
+{
+	if (m_state == 0)
+	{
+		m_animation->ChangeAnimation(4,1);
+		m_timer = 0;
+	}
 }
 
 void hatchling::reset()
@@ -538,21 +548,27 @@ void nest::fly(float DeltaTime, int Id)
 	
 
 }
-void nest::mad(float DeltaTime)
+void nest::mad()
 {
 	for(int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->mad();
 	}
 }
-void nest::happy(float DeltaTime)
+void nest::happy()
 {
 	for(int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->happy();
 	}
 }
-
+void nest::shocked()
+{
+	for(int i = 0; i < m_hatchlings.size(); ++i)
+	{
+		m_hatchlings[i]->shocked();
+	}
+}
 bool nest::enemyTakingEgg()
 {
 	if (m_eggCount > 1)

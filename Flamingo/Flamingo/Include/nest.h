@@ -46,6 +46,7 @@ public:
 	void happy();
 	void die();
 	void desire();
+	void shocked();
 
 	void reset();
 
@@ -85,8 +86,9 @@ public:
 	bool eat(float DeltaTime, int Id, pups::pickup* pickup);
 	void die(float DeltaTime);
 	void fly(float DeltaTime, int Id);
-	void mad(float DeltaTime);
-	void happy(float DeltaTime);
+	void mad();
+	void shocked();
+	void happy();
 
 	bool enemyTakingEgg();
 

@@ -11,7 +11,6 @@ enemy::enemy(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_enemyDownFall = 0.0f;
 	m_enemyLeftFall = 0.0f;
 	m_birdPhase = 0;
-	m_eggPosition = vector(100.0f,100.0f);
 
 
 	// score //

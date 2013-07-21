@@ -301,7 +301,7 @@ void pickups::update(float DeltaTime)
 					
 					if(itemList[i]->m_pickup->m_foodValue <= 0)
 					{
-						m_nest->happy(DeltaTime);
+						m_nest->happy();
 						m_soundLibrary->m_sounds[9]->playWithRandPitch(0.4f); // mäisk
 						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu 
@@ -312,7 +312,7 @@ void pickups::update(float DeltaTime)
 					}
 					else
 					{
-						m_nest->mad(DeltaTime);
+						m_nest->mad();
 						m_soundLibrary->m_sounds[17]->m_sound->setPitch(1.0);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu
 						deleteItem(i);

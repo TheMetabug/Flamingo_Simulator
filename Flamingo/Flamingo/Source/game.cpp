@@ -267,18 +267,6 @@ void game::update(float deltaTime)
 		}
 			
 
-		
-		
-		//if(!m_input->isKeyPressed(al::Key::Menu))
-		//	M_release = true;
-		//else if (M_release)
-		//{
-		//	m_soundLibrary->m_musics[0]->pause();
-		//	M_release = false;
-		//	m_state = Gamemenu;
-		//	
-		//}
-		// hitbox
 
 		//flamingo
 		m_flamingo->update(deltaTime, m_flamingoHeadPressed);
@@ -289,7 +277,13 @@ void game::update(float deltaTime)
 		if (m_enemy->m_takingEgg)
 		{
 			if (!m_nest->enemyTakingEgg())
+			{
 				m_enemy->m_tookEgg = false;
+			}
+			else
+			{
+				m_nest->shocked();
+			}
 			m_enemy->m_takingEgg = false;
 		}
 
