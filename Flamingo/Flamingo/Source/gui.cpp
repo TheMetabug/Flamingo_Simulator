@@ -316,7 +316,7 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
-		SCOREtext->setString(std::to_string(long double(int(SCORE+0.5f))));
+		SCOREtext->setString(std::to_string(long double(floor(SCORE+0.5f))));
 		EGGtext->setString(std::to_string((long double)m_eggCount));
 		FLAMtext->setString(std::to_string((long double)m_flamCount));
 		m_button2->update(DeltaTime);
