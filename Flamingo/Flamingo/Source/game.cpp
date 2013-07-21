@@ -108,6 +108,13 @@ void game::init()
 			m_logoSprite.setScale(1,1);
 			//m_logoSprite.setLayer(299);
 
+			m_gameoverPosition = vector();
+			m_gameoverTexture = new texture("gameoverScreen.png");
+			m_gameoverSprite.setTexture(m_gameoverTexture);
+			m_gameoverSprite.setPosition(m_gameoverPosition);
+			m_gameoverSprite.setScale(1,1);
+			m_gameoverSprite.setLayer(296);
+
 			m_counterPosition = vector(0,650);
 			m_counterTexture = new texture("eggCounter2.png");
 			m_counterSprite.setTexture(m_counterTexture);
@@ -247,11 +254,17 @@ void game::update(float deltaTime)
 	case Play:
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
-			m_state = Levelscore;
-			m_countSpeed = m_nest->m_flamCount+10;
+			if (m_nest->m_flamCount == 0)
+			{
+				m_state = GameOver;// game over
+			}
+			else
+			{
+				m_state = Levelscore;
+				m_countSpeed = m_nest->m_flamCount+10;
+			}
 			break;
 		}
-		
 		// show text
 		m_gui->m_Play = true;
 		//m_gui->update(deltaTime);
@@ -347,6 +360,23 @@ void game::update(float deltaTime)
 		}
 
 		break;
+
+	case GameOver:
+		
+		m_gui->update(deltaTime);
+		m_gui->m_title = true;
+
+		if (m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			m_state = Menu;
+			/*m_state = ReturnTitle;*/
+			/*m_state = Credits;*/
+			m_gui->m_title =false;	
+			ML_release = false;
+		}
+
+
+		break;
 	
 	case Menu:
 		m_tutorialNumber= 1;
@@ -385,7 +415,7 @@ void game::update(float deltaTime)
 
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 		{
-		ML_release = false;
+			ML_release = false;
 		}
 	
 

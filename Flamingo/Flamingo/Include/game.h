@@ -61,6 +61,10 @@ private:
 	al::sprite m_logoSprite;
 	al::vector m_logoPosition;
 
+	al::texture* m_gameoverTexture;
+	al::sprite m_gameoverSprite;
+	al::vector m_gameoverPosition;
+
 	al::texture* m_counterTexture;
 	al::sprite m_counterSprite;
 	al::vector m_counterPosition;
@@ -98,6 +102,7 @@ private:
 		TitleScreen = 0,
 		Play,
 		Levelscore,
+		GameOver,
 		Menu,
 		Tutorial,
 		Credits,
