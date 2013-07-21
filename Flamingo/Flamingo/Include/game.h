@@ -64,6 +64,10 @@ private:
 	al::sprite m_logoSprite;
 	al::vector m_logoPosition;
 
+	al::texture* m_gameoverTexture;
+	al::sprite m_gameoverSprite;
+	al::vector m_gameoverPosition;
+
 	al::texture* m_counterTexture;
 	al::sprite m_counterSprite;
 	al::vector m_counterPosition;
@@ -97,6 +101,7 @@ private:
 	float m_timer;
 	int m_countSpeed;
 	// gameStates
+		GameOver,
 
 	GameState m_state;
 

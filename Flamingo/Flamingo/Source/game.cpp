@@ -108,6 +108,13 @@ void game::init()
 			m_logoSprite.setScale(1,1);
 			//m_logoSprite.setLayer(299);
 
+			m_gameoverPosition = vector();
+			m_gameoverTexture = new texture("gameoverScreen.png");
+			m_gameoverSprite.setTexture(m_gameoverTexture);
+			m_gameoverSprite.setPosition(m_gameoverPosition);
+			m_gameoverSprite.setScale(1,1);
+			m_gameoverSprite.setLayer(296);
+
 			m_counterPosition = vector(0,650);
 			m_counterTexture = new texture("eggCounter2.png");
 			m_counterSprite.setTexture(m_counterTexture);
@@ -225,6 +232,8 @@ void game::update(float deltaTime)
 		ML_release = true;
 	}
 
+	m_soundLibrary->findSound("asdf");
+
 	switch(m_state)
 	{
 
@@ -248,13 +257,20 @@ void game::update(float deltaTime)
 	case Play:
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
-			m_state = Levelscore;
-			m_countSpeed = m_nest->m_flamCount+10;
-			m_nest->m_egging == true;
+			if (m_nest->m_flamCount == 0)
+			{
+				m_state = GameOver;// game over
+			}
+			else
+			{
+				m_state = Levelscore;
+				m_countSpeed = m_nest->m_flamCount+10;
+				m_nest->m_egging = true;
+				m_countingEggs = true;
+			}
 			m_countingEggs = true;
 			break;
 		}
-		
 		// show text
 		m_gui->m_Play = true;
 		//m_gui->update(deltaTime);
@@ -358,6 +374,28 @@ void game::update(float deltaTime)
 		}
 
 		break;
+
+	case GameOver:
+		
+		m_gui->update(deltaTime);
+		m_gui->m_title = true;
+
+		if (m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			m_state = Menu;
+			/*m_state = ReturnTitle;*/
+			/*m_state = Credits;*/
+			m_gui->m_title =false;	
+			ML_release = false;
+			reset();
+				
+			m_gui->m_returnTitle = false;
+			m_gui->m_Play = false;
+
+		}
+
+
+		break;
 	
 	case GameState::Menu:
 		m_tutorialNumber= 1;
@@ -396,7 +434,7 @@ void game::update(float deltaTime)
 
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 		{
-		ML_release = false;
+			ML_release = false;
 		}
 	
 
@@ -712,6 +750,12 @@ void game::draw()
 		// counter
 		m_viewport->draw(&m_counterSprite);
 
+
+		break;
+
+	case GameOver:
+
+		m_viewport->draw(&m_gameoverSprite);
 
 		break;
 
