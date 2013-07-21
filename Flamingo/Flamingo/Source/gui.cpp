@@ -465,7 +465,7 @@ void gui::addScore(vector Position,float Score)
 	SCORE += Score;
 	m_particleEngine->addScore(Position,Score);
 	if (SCORE < 0)
-		SCORE == 0;
+		SCORE = 0;
 }
 void gui::reset()
 {

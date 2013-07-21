@@ -256,11 +256,25 @@ void game::update(float deltaTime)
 		break;
 	
 	case Play:
+		//if (m_input->isButtonPressed(al::Button::MouseRight))
+		//{
+		//
+		//		m_state = GameOver;// game over
+		//		m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
+		//		m_gui->TITLEtext->setLayer(300);
+		//		m_gui->TITLEtext->setColor(255,0,0,255);
+		//		break;
+		//}
+
+
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
 			if (m_nest->m_flamCount == 0)
 			{
 				m_state = GameOver;// game over
+				m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
+				m_gui->TITLEtext->setLayer(300);
+				m_gui->TITLEtext->setColor(255,0,0,255);
 			}
 			else
 			{
@@ -771,6 +785,7 @@ void game::draw()
 	case GameOver:
 
 		m_viewport->draw(&m_gameoverSprite);
+		m_viewport->draw(m_gui->TITLEtext);
 
 		break;
 
