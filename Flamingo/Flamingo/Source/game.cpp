@@ -231,6 +231,8 @@ void game::update(float deltaTime)
 		ML_release = true;
 	}
 
+	m_soundLibrary->findSound("asdf");
+
 	switch(m_state)
 	{
 
@@ -373,6 +375,11 @@ void game::update(float deltaTime)
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
 			ML_release = false;
+			reset();
+				
+			m_gui->m_returnTitle = false;
+			m_gui->m_Play = false;
+
 		}
 
 
@@ -731,6 +738,12 @@ void game::draw()
 		// counter
 		m_viewport->draw(&m_counterSprite);
 
+
+		break;
+
+	case GameOver:
+
+		m_viewport->draw(&m_gameoverSprite);
 
 		break;
 
