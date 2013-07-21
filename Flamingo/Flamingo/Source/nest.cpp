@@ -130,11 +130,12 @@ void hatchling::update(float DeltaTime)
 		{
 			m_state = 2;
 			m_timer = -1;
+			m_flySprite->setLayer(10);
 		}
 		break;
 	case 2: // Hathling flying away
 		{
-			vector finalPosition = vector(100,70);
+			vector finalPosition = vector(140,700);
 			m_travelTime = 2.0f;
 			if (m_timer > 0.0f)
 			{
@@ -149,7 +150,7 @@ void hatchling::update(float DeltaTime)
 				m_timer = -2; // Viive
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
 				m_nest->m_gui->SCORE += 500;
-				m_nest->m_particleEngine->addScore(m_position,500);
+				m_nest->m_particleEngine->addScore(finalPosition,500);
 				m_nest->m_flamCount += 1;
 			}
 		}
@@ -498,6 +499,7 @@ void nest::egg(float DeltaTime)
 
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
+			m_hatchlings[m_whichBird]->m_sprite->setLayer(4 + m_whichBird);
 			
 		}
 	}
@@ -642,6 +644,8 @@ void nest::reset()
 	{
 		m_hatchlings[i]->reset();
 		m_hatchCount++;
+		m_hatchlings.back()->m_sprite->setLayer(4 + i);
+		
 	}
 
 	m_hatching = false;
