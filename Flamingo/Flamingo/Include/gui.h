@@ -59,7 +59,7 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input, soundLibrary* SoundLibrary);
+	gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2);
 	~gui();
 
 	void update(float DeltaTime);

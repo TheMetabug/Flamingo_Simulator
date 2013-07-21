@@ -124,22 +124,24 @@ bool feather::update(float DeltaTime)
 }
 
 scoreParticle::scoreParticle(al::vector Position, al::vector Direction, al::texture* Texture, al::font* Font, float Score)
-	: particle(Position,Direction,vector(),Texture,5.0f)
+	: particle(Position,Direction,vector(1,1),Texture,3.0f)
 {
 	m_sprite.setTexture(Texture);
 	m_sprite.setOriginPoint(5);
+	m_sprite.setLayer(300);
 	m_text.setFont(Font);
 	m_text.setCharacterSize();
 	m_text.setString(std::to_string(long double(Score)));
 	m_text.setOriginPoint(5);
+	m_text.setLayer(300);
 
 }
 bool scoreParticle::update(float DeltaTime)
 {
-	m_direction.y += 20 * DeltaTime;
-	m_position += m_direction * DeltaTime;
+	//m_direction.y += 20 * DeltaTime;
+	//m_position += 50 * m_direction * DeltaTime;
 	m_life -= DeltaTime;
-	m_scale = vector();
+	m_scale = vector(1-(m_life/m_startLife),1-(m_life/m_startLife));
 
 	m_sprite.setColor(255, 255, 255, (m_life/m_startLife) * 255);
 	m_sprite.setPosition(m_position);
@@ -149,7 +151,7 @@ bool scoreParticle::update(float DeltaTime)
 	m_text.setPosition(m_position);
 	m_text.setScale(m_scale);
 
-	stayOnScreen();
+	//stayOnScreen();
 
 	if (m_life < 0)
 		return true;

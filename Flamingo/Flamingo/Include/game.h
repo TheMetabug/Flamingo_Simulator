@@ -80,6 +80,9 @@ private:
 	al::texture* m_tutorial4Texture;
 	al::sprite m_tutorial4;
 	al::vector m_tutorial4Position;
+	
+	al::font* m_font; //perusfontti
+	al::font* m_font2; // ArialBlack "valikkofontti"
 
 	bool P_release;
 	bool M_release;

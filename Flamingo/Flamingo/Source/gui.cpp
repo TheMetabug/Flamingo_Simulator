@@ -101,7 +101,7 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input, soundLibrary* SoundLibrary)
+gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2)
 {
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
@@ -213,11 +213,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
 	
-	m_font = new font();
-	m_font2 = new font();
+	m_font = Font;// new font();
+	m_font2 = Font2;// new font();
 
-	m_font->loadFromFile("arial.ttf");
-	m_font2->loadFromFile("Arial black.ttf");
+	//m_font->loadFromFile("arial.ttf");
+	//m_font2->loadFromFile("Arial black.ttf");
 
 	
 	
@@ -272,7 +272,6 @@ gui::~gui()
 	delete SCOREtext;
 	delete EGGtext;
 	delete FLAMtext;
-	delete m_font;
 	delete m_button2;
 	delete m_button3;
 	delete m_Gmenubutton1;

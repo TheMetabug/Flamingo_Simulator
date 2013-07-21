@@ -20,8 +20,10 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 game::~game()
 {
 #if _DEBUG
-	std::cout<<"deleted maingame"<<std::endl;
+	std::cout<<"deleting maingame... "<<std::endl;
 #endif
+	delete m_font;
+	delete m_font2;
 	delete m_input;
 	delete m_flamingo;
 	delete m_nest;
@@ -44,20 +46,28 @@ game::~game()
 	delete m_tutorial2Texture;
 	delete m_tutorial3Texture;
 	delete m_tutorial4Texture;
+#if _DEBUG
+	std::cout<<"done deleting maingame"<<std::endl;
+#endif
 }
 
 void game::init()
 {
+	m_font = new font();
+	m_font2 = new font();
+
+	m_font->loadFromFile("arial.ttf");
+	m_font2->loadFromFile("Arial black.ttf");
 	
 	// particles
-	m_particleEngine = new particleEngine();
+	m_particleEngine = new particleEngine(m_font2);
 
 	// gameStates
 
 	m_state = TitleScreen;
 
 	// gui
-	m_gui = new gui(m_input, m_soundLibrary);
+	m_gui = new gui(m_input, m_soundLibrary, m_font, m_font2);
 
 	// hitbox
 	collide = new collision();
@@ -307,11 +317,12 @@ void game::update(float deltaTime)
 
 	case Levelscore:
 
+		m_gui->update(deltaTime);
+		m_nest->update(deltaTime);
+
 		if(m_nest->m_flamCount > 0)
 		{
 			m_timer += deltaTime;
-			m_gui->update(deltaTime);
-			m_nest->update(deltaTime);
 			if(m_timer >= 1)// 3/m_countSpeed)
 			{
 				m_timer = 0;
