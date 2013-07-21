@@ -101,11 +101,11 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2)
+gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2, particleEngine* ParticleEngine)
 {
 	m_soundLibrary = SoundLibrary;
 	m_input = Input;
-	m_soundLibrary = SoundLibrary;
+	m_particleEngine = ParticleEngine;
 
 
 	// HP-basics
@@ -316,7 +316,7 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
-		SCOREtext->setString(std::to_string((long double)SCORE) );
+		SCOREtext->setString(std::to_string(long double(int(SCORE+0.5f))));
 		EGGtext->setString(std::to_string((long double)m_eggCount));
 		FLAMtext->setString(std::to_string((long double)m_flamCount));
 		m_button2->update(DeltaTime);
@@ -458,6 +458,11 @@ void gui::draw(al::viewport* Viewport)
 	}
 	/*if (1)
 		m_button2->draw();*/
+}
+void gui::addScore(vector Position,float Score)
+{
+	SCORE += Score;
+	m_particleEngine->addScore(Position,Score);
 }
 void gui::reset()
 {

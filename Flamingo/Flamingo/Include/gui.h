@@ -8,6 +8,7 @@
 #include "input.h"
 #include "sound.h"
 #include "nest.h"
+#include "particleEngine.h"
 
 
 class button
@@ -59,17 +60,18 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2);
+	gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2, particleEngine* ParticleEngine);
 	~gui();
 
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
+	void addScore(al::vector Position,float Score);
 	void reset();
 
 	int HPnow;
 	int HPmax;
 	int HPtaken;
-	int SCORE;
+	float SCORE;
 	
 	bool m_title;
 	bool m_Play;
@@ -115,6 +117,7 @@ public:
 
 private:
 	soundLibrary* m_soundLibrary;
+	particleEngine* m_particleEngine;
 	al::input* m_input;
 	al::font* m_font; //perusfontti
 	al::font* m_font2; // ArialBlack "valikkofontti"

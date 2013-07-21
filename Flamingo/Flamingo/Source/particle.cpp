@@ -59,7 +59,7 @@ bool splashParticle::update(float DeltaTime)
 }
 
 feather::feather(vector Position, vector Direction, vector Scale, texture* Texture, bool Enemy)
-	: particle(Position,1000*Direction,Scale,Texture,5.0f)
+	: particle(Position,1000*Direction,Scale,Texture,5.0f + (0-(rand()%300)/100.0f))
 {
 	if (Enemy)
 		setColor(140,182,123);
@@ -130,7 +130,7 @@ scoreParticle::scoreParticle(al::vector Position, al::vector Direction, al::text
 	m_sprite.setOriginPoint(5);
 	m_sprite.setLayer(300);
 	m_text.setFont(Font);
-	m_text.setCharacterSize();
+	m_text.setCharacterSize(60);
 	m_text.setString(std::to_string(long double(Score)));
 	m_text.setOriginPoint(5);
 	m_text.setLayer(300);

@@ -148,7 +148,7 @@ void hatchling::update(float DeltaTime)
 				m_state = 3;
 				m_timer = -2; // Viive
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
-				m_nest->m_gui->SCORE += 500;
+				m_nest->m_gui->addScore(finalPosition,500);
 				m_nest->m_particleEngine->addScore(m_position,500);
 				m_nest->m_flamCount += 1;
 			}
@@ -521,14 +521,13 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 			}
 			else
 			{
- 				m_gui->SCORE += 100;
-				m_particleEngine->addScore(m_hatchlings[Id-1]->m_position, 100);
+				m_gui->addScore(m_hatchlings[Id-1]->m_position,100);
 			}
 
 		}
 		else
 		{
-			m_gui->SCORE -= 50;
+			m_gui->addScore(m_hatchlings[Id-1]->m_position,-50);
 			m_hatchlings[Id-1]->eat(pickup);
 			
 			return false;

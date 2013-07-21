@@ -66,7 +66,7 @@ void particleEngine::addFeather(al::vector Position, al::vector Direction, float
 
 void particleEngine::addScore(al::vector Position, float Score)
 {
-	Score = float(int(Score + 0.5f));
+	Score = float(int(floor(Score)));
 	vector direction = vector((rand()%200 / 100.0f)-1,0);
 	direction.rotate((rand()%3600)/10.0f);
 	if (Score > 0)

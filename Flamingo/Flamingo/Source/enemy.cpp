@@ -133,20 +133,20 @@ void enemy::eat(float foodValue, vector itemDirection)
 		m_direction = itemDirection;
 		m_animation->ChangeAnimation(2,2,2,10);
 		m_hitbox->isEnabled = false;
-		m_gui->SCORE += 50;
+		m_gui->addScore(m_enemyBirdPosition,50);
 	}
 	else // when any food hits enemy
 	{
 		if (m_birdPhase == 4)
 		{
 			m_animation->ChangeAnimation(4,2,4,10);
-			m_gui->SCORE -= 100;
+			m_gui->addScore(m_enemyBirdPosition,-100);
 		}
 		else
 		{
 			m_animation->ChangeAnimation(4,2,4,10);
 			m_birdPhase = 3;
-			m_gui->SCORE -= 100;
+			m_gui->addScore(m_enemyBirdPosition,-100);
 		}
 	}
 }
