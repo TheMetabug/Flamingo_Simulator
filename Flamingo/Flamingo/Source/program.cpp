@@ -455,42 +455,45 @@ void text::setOriginPoint(int Point)
 }
 void text::updateOrigin()
 {
+	float charWidth = m_text->getCharacterSize()/12.0f;
+	float charHeight = m_text->getCharacterSize()/3.8f;
 	switch (m_originPoint)
 	{
 	case 1:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 2:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 3:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 4:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 5:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 6:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 7:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	case 8:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	case 9:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	default:
-		m_text->setOrigin(0,0);
+		m_text->setOrigin(charWidth,charHeight);
 #if _DEBUG
 		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
 #endif
 		break;
 	}
+	
 }
 void text::setScale(float ScaleX, float ScaleY)
 {
