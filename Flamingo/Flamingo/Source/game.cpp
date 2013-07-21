@@ -5,17 +5,21 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	:	window(Window),
 		m_viewport(Viewport)
 {
-	m_muted = false;
-	m_input = new input(window);
-
 	////sound
 	m_soundLibrary = new soundLibrary();
 	m_soundLibrary->m_musics[0]->play();
-	
+
+	//// load Title Screen
 	m_titleCard = new titleCard();
 	m_titleCard->draw(Viewport);
 
-	m_countSpeed = 0;
+	m_logoPosition = vector(640, 580);
+	m_logoTexture = new texture("nameLogo.png");
+	m_logoSprite.setTexture(m_logoTexture);
+	m_logoSprite.setPosition(m_logoPosition);
+	m_logoSprite.setOrigin(vector(m_logoSprite.getSize().x/2, m_logoSprite.getSize().y/2));
+	m_logoSprite.setScale(1,1);
+	Viewport->draw(&m_logoSprite);
 }
 game::~game()
 {
@@ -53,6 +57,9 @@ game::~game()
 
 void game::init()
 {
+	m_muted = false;
+	m_input = new input(window);
+
 	m_font = new font();
 	m_font2 = new font();
 
@@ -204,6 +211,8 @@ void game::init()
 	m_pauseOpacitySprite.setLayer(297);
 
 	m_tutorialNumber = 1;
+
+	m_countSpeed = 0;
 			
 }
 void game::update(float deltaTime)

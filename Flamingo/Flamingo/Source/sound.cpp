@@ -126,8 +126,8 @@ soundLibrary::soundLibrary()
 
 	for (int i = 0; i < m_musics.size(); ++i)
 	{
-		m_musics[i]->m_volumeMultiplier = 50;
-		m_musics[i]->setVolume(m_musicVolume);
+		m_musics[i]->m_volumeMultiplier = m_musicVolume;
+		m_musics[i]->setVolume(40);
 	}
 
 #pragma endregion here we keep the musics, dont mix us plz
@@ -177,8 +177,8 @@ soundLibrary::soundLibrary()
 
 	for (int i = 0; i < m_sounds.size(); ++i)
 	{
-		m_sounds[i]->m_volumeMultiplier = 50;
-		m_sounds[i]->setVolume(m_soundVolume);
+		m_sounds[i]->m_volumeMultiplier = m_soundVolume;
+		m_sounds[i]->setVolume(60);
 	}
 
 #pragma endregion here we keep the sounds, dont mix us plz

@@ -204,11 +204,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font*
 	m_xbutton->m_sprite.setLayer(300);
 
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
-	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(500,600),m_input, m_soundLibrary);
+	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(1225,70),m_input, m_soundLibrary);
 	m_tutorialbutton1->m_sprite.setLayer(300);
 	
 	
-	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(300,600),m_input, m_soundLibrary);
+	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(50,70),m_input, m_soundLibrary);
 	m_tutorialbutton2->m_sprite.setLayer(300);
 	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
@@ -222,7 +222,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font*
 	
 	
 	HPtext = new text("HP-mittari", m_font, 50);
-	TITLEtext = new text("Tap the screen or click",m_font, 50);
+	TITLEtext = new text("Click or Tap the screen",m_font, 50);
 	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
