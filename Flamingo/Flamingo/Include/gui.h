@@ -1,6 +1,10 @@
 #ifndef GUI_H
 #define GUI_H
 
+class button;
+class titleCard;
+class gui;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "animation.h"
@@ -9,6 +13,7 @@
 #include "sound.h"
 #include "nest.h"
 #include "particleEngine.h"
+#include "game.h"
 
 
 class button
@@ -60,7 +65,7 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2, particleEngine* ParticleEngine);
+	gui(game* Game);
 	~gui();
 
 	void update(float DeltaTime);
@@ -118,6 +123,7 @@ public:
 private:
 	soundLibrary* m_soundLibrary;
 	particleEngine* m_particleEngine;
+	game* m_game;
 	al::input* m_input;
 	al::font* m_font; //perusfontti
 	al::font* m_font2; // ArialBlack "valikkofontti"

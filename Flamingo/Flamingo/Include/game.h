@@ -1,8 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+class game;
+enum GameState;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "program.h"
 #include "hitbox.h"
 #include "background.h"
 #include "gui.h"
@@ -11,7 +15,6 @@
 #include "flamingo.h"
 #include "pickups.h"
 #include "sound.h"
-#include "program.h"
 #include "input.h"
 #include "particleEngine.h"
 
@@ -89,23 +92,11 @@ private:
 	bool ML_release;
 	bool m_flamingoHeadPressed;
 	bool m_muted;
+	bool m_countingEggs;
 	int m_tutorialNumber;
 	float m_timer;
 	int m_countSpeed;
 	// gameStates
-	enum GameState
-	{
-		TitleScreen = 0,
-		Play,
-		Levelscore,
-		Menu,
-		Tutorial,
-		Credits,
-		Options,
-		Gamemenu,
-		ReturnTitle,
-		Quit
-	};
 
 	GameState m_state;
 
@@ -152,6 +143,21 @@ private:
 	al::texture m_pauseOpacityTexture;
 	al::sprite m_pauseOpacitySprite;
 
+	friend class gui;
+};
+
+enum GameState
+{
+	TitleScreen = 0,
+	Play,
+	Levelscore,
+	Menu,
+	Tutorial,
+	Credits,
+	Options,
+	Gamemenu,
+	ReturnTitle,
+	Quit
 };
 
 #endif

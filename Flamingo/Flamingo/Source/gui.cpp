@@ -101,12 +101,15 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font* Font2, particleEngine* ParticleEngine)
+gui::gui(game* Game)
 {
-	m_soundLibrary = SoundLibrary;
-	m_input = Input;
-	m_particleEngine = ParticleEngine;
+	m_game = Game;
+	m_input = Game->m_input;
+	m_soundLibrary = Game->m_soundLibrary;
+	m_particleEngine = Game->m_particleEngine;
 
+	m_font = Game->m_font;// new font();
+	m_font2 = Game->m_font2;// new font();
 
 	// HP-basics
 	HPmax = 100; //max HP
@@ -213,8 +216,6 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary, al::font* Font, al::font*
 	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
 	
-	m_font = Font;// new font();
-	m_font2 = Font2;// new font();
 
 	//m_font->loadFromFile("arial.ttf");
 	//m_font2->loadFromFile("Arial black.ttf");
@@ -463,6 +464,8 @@ void gui::addScore(vector Position,float Score)
 {
 	SCORE += Score;
 	m_particleEngine->addScore(Position,Score);
+	if (SCORE < 0)
+		SCORE == 0;
 }
 void gui::reset()
 {

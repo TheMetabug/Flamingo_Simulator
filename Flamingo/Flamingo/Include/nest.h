@@ -154,6 +154,7 @@ private:
 	friend class pickups;
 	friend class hatchling;
 	friend class gui;
+	friend class game;
 };
 
 #endif

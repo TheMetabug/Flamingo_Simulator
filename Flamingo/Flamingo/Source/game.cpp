@@ -74,7 +74,7 @@ void game::init()
 	m_state = TitleScreen;
 
 	// gui
-	m_gui = new gui(m_input, m_soundLibrary, m_font, m_font2, m_particleEngine);
+	m_gui = new gui(this);
 
 	// hitbox
 	collide = new collision();
@@ -213,6 +213,7 @@ void game::init()
 	m_tutorialNumber = 1;
 
 	m_countSpeed = 0;
+	m_countingEggs = false;
 			
 }
 void game::update(float deltaTime)
@@ -235,7 +236,7 @@ void game::update(float deltaTime)
 
 		if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
-			m_state = Menu;
+			m_state = GameState::Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
@@ -249,6 +250,8 @@ void game::update(float deltaTime)
 		{
 			m_state = Levelscore;
 			m_countSpeed = m_nest->m_flamCount+10;
+			m_nest->m_egging == true;
+			m_countingEggs = true;
 			break;
 		}
 		
@@ -329,18 +332,26 @@ void game::update(float deltaTime)
 		m_gui->update(deltaTime);
 		m_nest->update(deltaTime);
 
-		if(m_nest->m_flamCount > 0)
+		if (m_countingEggs)
 		{
-			m_timer += deltaTime;
-			if(m_timer >= 1)// 3/m_countSpeed)
+			if(m_nest->m_flamCount > 0)
 			{
-				m_timer = 0;
-				m_soundLibrary->m_sounds[29]->play();
-				m_nest->addEgg();
-				m_nest->m_flamCount--;
+				m_timer += deltaTime;
+				if(m_timer >= 1)// 3/m_countSpeed)
+				{
+					m_timer = 0;
+					m_soundLibrary->m_sounds[29]->play();
+					m_nest->addEgg();
+					m_nest->m_flamCount--;
+				}
+			}
+			else
+			{
+				m_countingEggs = false;
+				m_timer = -10;
 			}
 		}
-		else
+		else if (m_timer > 0)
 		{
 			m_state = Play;
 			m_enemy->reset();
@@ -348,7 +359,7 @@ void game::update(float deltaTime)
 
 		break;
 	
-	case Menu:
+	case GameState::Menu:
 		m_tutorialNumber= 1;
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
@@ -416,7 +427,7 @@ void game::update(float deltaTime)
 		switch(m_tutorialNumber)
 		{
 		case 0:
-			m_state = Menu;
+			m_state = GameState::Menu;
 			m_gui->m_tutorial = false;
 			break;
 		case 1:
@@ -428,7 +439,7 @@ void game::update(float deltaTime)
 		case 4:
 			break;
 		case 5:
-			m_state = Menu;
+			m_state = GameState::Menu;
 			m_gui->m_tutorial = false;
 
 			break;
@@ -441,7 +452,7 @@ void game::update(float deltaTime)
 		if(m_gui->m_xbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
 				m_gui->m_credits = false;
 			}
 
@@ -563,7 +574,7 @@ void game::update(float deltaTime)
 			if(m_gui->m_yesbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
 				reset();
 				
 				m_gui->m_returnTitle = false;
@@ -597,7 +608,7 @@ void game::update(float deltaTime)
 			else if(m_gui->m_nobutton2->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
 				
 				m_gui->m_quit = false;
 			}
@@ -706,7 +717,7 @@ void game::draw()
 
 
 
-	case Menu:
+	case GameState::Menu:
 
 		// gui
 		m_titleCard->draw(m_viewport);
