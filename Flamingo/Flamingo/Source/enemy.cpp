@@ -119,7 +119,7 @@ void enemy::reset()
 	m_eggSprite->setScale(0);
 
 	m_hitbox->isEnabled = false;
-	m_timer = -(rand()%10);
+	m_timer = -(rand()%15);
  	m_birdPhase = 2;
 	m_takingEgg = false;
 	m_tookEgg = false;
@@ -178,7 +178,7 @@ void enemy::die(float DeltaTime)
 	if(m_timer > 0.0f)
 	{
 		m_birdPhase = 2;
-		m_timer = -(4.0f + rand()%10);
+		m_timer = -(7.0f + rand()%15);
 
 		for (int i = 0; i < 100; ++i)
 		{
@@ -275,7 +275,7 @@ void enemy::catchEgg(float DeltaTime)
 			m_eggSprite->setScale(0.2f);
 		}
 
-		if (m_timer > 5)
+		if (m_timer > 10)
 		{
 			m_timer = 0;
 			respawn();
