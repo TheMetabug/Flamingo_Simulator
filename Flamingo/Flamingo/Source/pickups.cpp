@@ -443,38 +443,49 @@ void pickups::addItem()
 			float posY = WATER_TOP + (WATER_BOTTOM-WATER_TOP) * (rand()%100)/100.0f;
 			vector position(posX,posY);
 
-			int rarity = rand()%100;
 			ItemName name;
-			if (rarity < 15)
+			int rarity = rand()%100;
+
+			if (itemList.size() >= 3 && countItem(Shoe) + countItem(Can) < 1)
 			{
-				if (countItem(Shoe) <3)
+				if (rarity < 60)
 					name = Shoe;
-				else if (countItem(Can) <2)
-					name = Can;
 				else
-					name = Plancton;
+					name = Can;
 			}
-			else if (rarity < 25)
+			else
 			{
+				if (rarity < 15)
+				{
+					if (countItem(Shoe) <3)
+						name = Shoe;
+					else if (countItem(Can) <2)
+						name = Can;
+					else
+						name = Plancton;
+				}
+				else if (rarity < 25)
+				{
 				
-				if (countItem(Can) <2)
-					name = Can;
-				else if (countItem(Shoe) <3)
-					name = Shoe;
-				else
+					if (countItem(Can) <2)
+						name = Can;
+					else if (countItem(Shoe) <3)
+						name = Shoe;
+					else
+						name = Plancton;
+				}
+				else if (rarity < 50)
+				{
+					name = Shrimp;
+				}
+				else if (rarity < 75)
+				{
 					name = Plancton;
-			}
-			else if (rarity < 50)
-			{
-				name = Shrimp;
-			}
-			else if (rarity < 75)
-			{
-				name = Plancton;
-			}
-			else if (rarity < 100)
-			{
-				name = Krill;
+				}
+				else if (rarity < 100)
+				{
+					name = Krill;
+				}
 			}
 
 			itemList.push_back(new item(position,pickupList[name]));
