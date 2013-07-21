@@ -101,7 +101,6 @@ private:
 	float m_timer;
 	int m_countSpeed;
 	// gameStates
-		GameOver,
 
 	GameState m_state;
 
@@ -156,6 +155,7 @@ enum GameState
 	TitleScreen = 0,
 	Play,
 	Levelscore,
+	GameOver,
 	Menu,
 	Tutorial,
 	Credits,

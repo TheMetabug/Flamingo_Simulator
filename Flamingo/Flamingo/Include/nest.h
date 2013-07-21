@@ -142,6 +142,7 @@ private:
 	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime, m_scale, m_theEggScale;
 	bool m_hatching;
 	bool m_egging;
+	bool m_countingEggs;
 
 	bool m_noEggs;
 	

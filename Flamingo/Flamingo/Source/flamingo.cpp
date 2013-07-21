@@ -263,8 +263,8 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			m_headPosition += Movement;
 		}
 
-		if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
-			m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
+		if(m_headPosition.x < m_headOrigin.x+3 && m_headPosition.x > m_headOrigin.x-3 &&
+			m_headPosition.y < m_headOrigin.y+3 && m_headPosition.y > m_headOrigin.y-3)
 		{
 			m_drag = 0;
 			m_crossHair = m_headOrigin;

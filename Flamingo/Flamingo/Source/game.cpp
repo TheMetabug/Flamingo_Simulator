@@ -225,14 +225,15 @@ void game::init()
 }
 void game::update(float deltaTime)
 {
+	if (deltaTime > 0.1f)
+		deltaTime = 0.1f;
+
 	m_flamingoHeadPressed = false;
 	// gameStates
 	if (!m_input->isButtonPressed(al::Button::MouseLeft))
 	{
 		ML_release = true;
 	}
-
-	m_soundLibrary->findSound("asdf");
 
 	switch(m_state)
 	{
@@ -265,10 +266,11 @@ void game::update(float deltaTime)
 			{
 				m_state = Levelscore;
 				m_countSpeed = m_nest->m_flamCount+10;
-				m_nest->m_egging = true;
 				m_countingEggs = true;
+				m_nest->m_countingEggs = true;
+				m_countingEggs = true;
+				m_enemy->reset();
 			}
-			m_countingEggs = true;
 			break;
 		}
 		// show text
@@ -352,6 +354,10 @@ void game::update(float deltaTime)
 		{
 			if(m_nest->m_flamCount > 0)
 			{
+				if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+					for (int i = 0; i < 3; ++i)
+						m_timer += deltaTime;
+
 				m_timer += deltaTime;
 				if(m_timer >= 1)// 3/m_countSpeed)
 				{
@@ -364,13 +370,22 @@ void game::update(float deltaTime)
 			else
 			{
 				m_countingEggs = false;
+				m_nest->m_countingEggs = false;
 				m_timer = -10;
 			}
 		}
-		else if (m_timer > 0)
+		else if (m_timer < 0)
+		{
+			if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+				for (int i = 0; i < 3; ++i)
+					m_nest->update(deltaTime);
+					m_timer += deltaTime;
+
+			m_timer += deltaTime;
+		}
+		else if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			m_state = Play;
-			m_enemy->reset();
 		}
 
 		break;
@@ -382,7 +397,7 @@ void game::update(float deltaTime)
 
 		if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
-			m_state = Menu;
+			m_state = GameState::Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
@@ -796,6 +811,7 @@ void game::reset()
 	m_pickups->reset();
 	m_gui->reset();
 	m_timer = 0;
+	m_countingEggs = false;
 }
 
 #if _DEBUG

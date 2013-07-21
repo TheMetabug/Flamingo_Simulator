@@ -387,6 +387,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	//sound
 	m_soundLibrary = new soundLibrary();
 
+	m_countingEggs = false;
+
 }
 nest::~nest()
 {
@@ -411,28 +413,30 @@ void nest::update(float DeltaTime)
 		m_eggCount++;
 	m_gui->m_eggCount = m_eggCount;
 	m_gui->m_flamCount = m_flamCount;
-	m_eggAnimation->update(DeltaTime);
 
-	for (int i = 0; i < 3; ++i)
+	if (!m_countingEggs)
 	{
-		m_hatchlings[i]->update(DeltaTime);
+		m_eggAnimation->update(DeltaTime);
 
-		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
+		for (int i = 0; i < 3; ++i)
 		{
-			m_whichBird = i;
-			m_theEgg->setLayer(3 + i);
-			m_egging = true;
-			m_eggTimer = 0;
-			m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
+			m_hatchlings[i]->update(DeltaTime);
+
+			if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
+			{
+				m_whichBird = i;
+				m_theEgg->setLayer(3 + i);
+				m_egging = true;
+				m_eggTimer = 0;
+				m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
+			}
+		}
+
+		if (m_egging || m_hatching)
+		{
+			egg(DeltaTime);
 		}
 	}
-
-	if (m_egging || m_hatching)
-	{
-		egg(DeltaTime);
-	}
-
-
 }
 void nest::draw(al::viewport* Viewport)
 {
@@ -516,7 +520,7 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 		{
 			m_hatchlings[Id-1]->eat(pickup);
 
-			if(m_hatchlings[Id-1]->m_eatPoints >= 2) // change 1 to 3!!!!!!!!!! 1 is just for debugging
+			if(m_hatchlings[Id-1]->m_eatPoints >= 3)
 			{
 				m_hatchlings[Id-1]->fly();
 			}
