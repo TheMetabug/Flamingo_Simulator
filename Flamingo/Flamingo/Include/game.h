@@ -100,6 +100,7 @@ private:
 	int m_tutorialNumber;
 	float m_timer;
 	int m_countSpeed;
+	int m_yearCount;
 	// gameStates
 
 	GameState m_state;

@@ -265,7 +265,9 @@ void game::update(float deltaTime)
 		//		m_gui->TITLEtext->setColor(255,0,0,255);
 		//		break;
 		//}
-
+		//m_gui->m_levelscore = true;
+		//m_gui->YEARtext->setString(std::string("Completed year") + std::to_string((long double)m_yearCount)); 
+		//m_gui->YEARtext->setPosition(vector(100,500));
 
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
@@ -278,6 +280,9 @@ void game::update(float deltaTime)
 			}
 			else
 			{
+				m_yearCount++;
+				m_gui->YEARtext->setString(std::string("Completed year") + std::to_string((long double)m_yearCount)); 
+
 				m_state = Levelscore;
 				m_countSpeed = m_nest->m_flamCount+10;
 				m_countingEggs = true;
@@ -363,6 +368,7 @@ void game::update(float deltaTime)
 
 		m_gui->update(deltaTime);
 		m_nest->update(deltaTime);
+		m_gui->m_levelscore = true;
 
 		if (m_countingEggs)
 		{
@@ -400,6 +406,7 @@ void game::update(float deltaTime)
 		else if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			m_state = Play;
+			m_gui->m_levelscore = false;
 		}
 
 		break;
@@ -458,23 +465,17 @@ void game::update(float deltaTime)
 				
 		}
 
-		//mainbutton4
-
 
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
 		{
 			ML_release = false;
 		}
 	
-
-
 		break;
+
 	case Tutorial:
 		m_gui->update(deltaTime);
 		m_gui->m_tutorial = true;
-		
-		
-		
 		
 		if(m_gui->m_tutorialbutton1->isPressed() && ML_release)
 		{
@@ -827,6 +828,7 @@ void game::reset()
 	m_gui->reset();
 	m_timer = 0;
 	m_countingEggs = false;
+	m_yearCount = 0;
 }
 
 #if _DEBUG

@@ -262,7 +262,7 @@ gui::gui(game* Game)
 	FLAMtext->setLayer(299);
 
 	FLAMtext->setPosition(vector());
-	YEARtext->setCharacterSize(0);
+	YEARtext->setCharacterSize(100);
 	YEARtext->setColor();
 	YEARtext->setLayer(299);
 
@@ -391,6 +391,10 @@ void gui::update(float DeltaTime)
 	{
 		m_xbutton->update(DeltaTime);
 	}
+	if (m_levelscore)
+	{
+	//	YEARtext->setString(std::string("Year"));
+	}
 }
 void gui::draw(al::viewport* Viewport)
 {
@@ -464,6 +468,10 @@ void gui::draw(al::viewport* Viewport)
 		m_yesbutton2->draw(Viewport);
 		m_nobutton2->draw(Viewport);
 	}
+	if (m_levelscore)
+	{
+		Viewport->draw(YEARtext);
+	}
 	/*if (1)
 		m_button2->draw();*/
 }
@@ -486,6 +494,7 @@ void gui::reset()
 	m_credits= false;
 	m_quit = false;
 	m_tutorial = false;
+	m_levelscore = false;
 	
 	SCORE= 0;
 }

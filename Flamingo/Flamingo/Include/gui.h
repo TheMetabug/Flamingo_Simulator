@@ -87,6 +87,7 @@ public:
 	bool m_credits;
 	bool m_quit;
 	bool m_tutorial;
+	bool m_levelscore;
 	
 	button* m_button2;
 	button* m_button3;
