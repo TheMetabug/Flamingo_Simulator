@@ -136,6 +136,7 @@ private:
 	al::text* SOUNDtext;
 	al::text* EGGtext;
 	al::text* FLAMtext;
+	al::text* YEARtext;
 	std::vector<al::texture*> m_buttonTextures;
 
 	nest* m_nest;

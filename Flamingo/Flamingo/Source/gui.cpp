@@ -229,6 +229,7 @@ gui::gui(game* Game)
 	SOUNDtext = new text("sounds volume", m_font2,20);
 	EGGtext = new text("egg count", m_font2,40);
 	FLAMtext = new text("flamingo count", m_font2,40);
+	YEARtext = new text("year one", m_font2, 120);
 
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
@@ -260,6 +261,11 @@ gui::gui(game* Game)
 	FLAMtext->setColor(83,77,67,255);
 	FLAMtext->setLayer(299);
 
+	FLAMtext->setPosition(vector());
+	YEARtext->setCharacterSize(0);
+	YEARtext->setColor();
+	YEARtext->setLayer(299);
+
 	reset();
 	m_Play = false;
 }
@@ -271,6 +277,7 @@ gui::~gui()
 	delete HPtext;
 	delete TITLEtext;
 	delete SCOREtext;
+	delete YEARtext;
 	delete EGGtext;
 	delete FLAMtext;
 	delete m_button2;
