@@ -14,7 +14,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_distance = 0;
 	m_maxDistance = 200;
 
-	/////////BODY//////////
+	/////////BODY/////////
 	m_flamingoPosition = vector(980,515);
 
 	////////HEAD/////////
