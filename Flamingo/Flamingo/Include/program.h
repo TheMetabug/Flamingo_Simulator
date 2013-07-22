@@ -13,11 +13,14 @@
 #define WATER_TOP 430
 #define WATER_BOTTOM 680
 
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
 namespace al
 {
+	static int SCREENX, SCREENY;
+	static float DIFFICULTY;
 
 #pragma region Vector
 

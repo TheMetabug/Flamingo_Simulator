@@ -587,7 +587,7 @@ bool nest::enemyTakingEgg()
 	}
 	else if (m_eggCount == 1)
 	{
-		m_eggAnimation->ChangeAnimation(6,1);
+		m_eggAnimation->ChangeAnimation(7,1);
 		return true;
 	}
 	return false;

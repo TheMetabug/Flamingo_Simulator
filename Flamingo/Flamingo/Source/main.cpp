@@ -21,6 +21,13 @@
 
 int main()
 {
+	//CClientDC dc()
+	if (!(al::SCREENX = GetSystemMetrics(SM_CXSCREEN)))
+		std::cout<<"screenX failed"<<std::endl;
+	if (!(al::SCREENY = GetSystemMetrics(SM_CYSCREEN)))
+		std::cout<<"screenY failed"<<std::endl;
+
+
 	srand(time(NULL));
 
 #if _DEBUG
@@ -34,10 +41,10 @@ int main()
 	ShowWindow(hwnd, SW_HIDE);
 #endif
 
-
+	int asdf = al::SCREENX;
 	// Set window parametres
 	
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(800, 450), "Flamia");//, sf::Style::Fullscreen);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(al::SCREENX, al::SCREENY), "Flamia", sf::Style::Fullscreen);
 	sf::Image icon;
 	if (icon.loadFromFile("Assets/icon.png"))
 		window->setIcon(64,64,icon.getPixelsPtr());
