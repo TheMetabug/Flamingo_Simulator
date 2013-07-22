@@ -35,7 +35,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_flamingoBody.setScale(0.5f, 0.5f);
 	m_flamingoBody.setLayer(220);
 
-	////////////HEAD///////////
+	////////////HEAD//////////
 	m_headTexture = new texture("Flamingo_player_head_Animation.png");
 	m_flamingoHead.setTexture(m_headTexture);
 	m_flamingoHead.setPosition(m_headOrigin);
