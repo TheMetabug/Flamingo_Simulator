@@ -116,10 +116,10 @@ void game::init()
 			m_gameoverSprite.setLayer(296);
 
 			m_counterPosition = vector(0,650);
-			m_counterTexture = new texture("eggCounter2.png");
+			m_counterTexture = new texture("eggCounter.png");
 			m_counterSprite.setTexture(m_counterTexture);
 			m_counterSprite.setPosition(m_counterPosition);
-			m_counterSprite.setScale(1,1);
+			m_counterSprite.setScale(0.3333f,0.3333f);
 			m_counterSprite.setLayer(296);
 
 			m_ReturnPosition = (vector(640,375));
