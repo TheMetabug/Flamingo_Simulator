@@ -40,7 +40,7 @@ void renderStatistics::update(sf::Time dt)
 	
 	if(m_second > 1.0f)
 	{
-	m_fps = (m_fpsFrames - m_prevFrame) / m_second;
+	m_fps = (int)((m_fpsFrames - m_prevFrame) / m_second);
 	m_prevFrame = m_fpsFrames;
 	text->setString("FPS " + std::to_string((long double)m_fps));
 	m_second -= 1.0f;

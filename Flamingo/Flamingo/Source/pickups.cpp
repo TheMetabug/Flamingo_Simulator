@@ -66,14 +66,14 @@ bool item::update(float DeltaTime)
 	{
 	case -1:
 		m_timer += DeltaTime;
-		m_sprite->setColor(170,210,250, m_timer * m_pickup->m_opacity*255);
+		m_sprite->setColor(170,210,250,unsigned int(m_timer * m_pickup->m_opacity*255));
 		if (m_timer > 0.5)
 		{
 			m_hitbox->isEnabled = true;
 		}
 		if (m_timer > 1)
 		{
-			m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+			m_sprite->setColor(170,210,250,unsigned int(m_pickup->m_opacity*255));
 			m_state = 0;
 		}
 	case 0:
@@ -81,7 +81,7 @@ bool item::update(float DeltaTime)
 
 		stayInWater();
 		{
-			int layer = ((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 10;
+			int layer = int(((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 10);
 			//if (layer < 40 || layer > 280)
 			//	std::cout<<layer<<std::endl;
 
@@ -116,7 +116,7 @@ bool item::update(float DeltaTime)
 				m_direction = (rand()%100 +1)/100.0f * (m_direction / m_direction.getLenght());
 				m_state = 0;
 				m_animation->ChangeAnimation(m_pickup->m_itemName * 3,2);
-				m_sprite->setColor(170,210,250,m_pickup->m_opacity*255);
+				m_sprite->setColor(170,210,250,unsigned int(m_pickup->m_opacity*255));
 			}
 		}
 		break;
@@ -143,10 +143,10 @@ void item::stayInWater()
 		m_position += (1-(direction.getLenght() / WATERR)) * direction;
 	}
 
-	float left = WATER_LEFT;
-	float right = WATER_RIGHT;
+	//float left = WATER_LEFT;
+	//float right = WATER_RIGHT;
 	//float top = WATER_TOP;
-	float bottom = WATER_BOTTOM;
+	//float bottom = WATER_BOTTOM;
 	if (m_position.x < WATER_LEFT)
 	{
 		m_direction.x = -m_direction.x;
@@ -200,7 +200,7 @@ pickups::~pickups()
 	std::cout<<"deleting pickups"<<std::endl;
 #endif
 	delete m_texture;
-	for (int i = 0; i < pickupList.size(); ++i)
+	for (unsigned int i = 0; i < pickupList.size(); ++i)
 	{
 		delete pickupList[i];
 #if _DEBUG
@@ -208,7 +208,7 @@ pickups::~pickups()
 #endif
 	}
 
-	for (int i = 0; i < itemList.size(); ++i)
+	for (unsigned int i = 0; i < itemList.size(); ++i)
 	{
 #if _DEBUG
 		std::cout<<"deleting item "<<i+1<<" ";
@@ -303,7 +303,7 @@ void pickups::update(float DeltaTime)
 					{
 						m_nest->happy();
 						m_soundLibrary->m_sounds[9]->playWithRandPitch(0.4f); // mäisk
-						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8);
+						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8f);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu 
 						
 
@@ -365,14 +365,14 @@ void pickups::update(float DeltaTime)
 }
 void pickups::draw(al::viewport* Viewport)
 {
-	for (int i = 0; i < itemList.size(); ++i)
+	for (unsigned int i = 0; i < itemList.size(); ++i)
 	{
 		itemList[i]->draw(Viewport);
 	}
 }
 void pickups::drawHitBoxes(sf::RenderWindow* window)
 {
-	for (int i = 0; i < itemList.size(); ++i)
+	for (unsigned int i = 0; i < itemList.size(); ++i)
 	{
 		itemList[i]->m_hitbox->draw(window);
 	}
@@ -415,7 +415,7 @@ void pickups::drawHitBoxes(sf::RenderWindow* window)
 }
 void pickups::reset()
 {
-	for (int i = 0; i < itemList.size(); ++i)
+	for (unsigned int i = 0; i < itemList.size(); ++i)
 	{
 #if _DEBUG
 		std::cout<<"deleting item "<<i+1<<" ";
@@ -496,7 +496,7 @@ void pickups::addItem()
 int pickups::countItem(ItemName itemName)
 {
 	int retVal = 0;
-	for (int i = 0; i < itemList.size(); ++i)
+	for (unsigned int i = 0; i < itemList.size(); ++i)
 	{
 		if (itemList[i]->m_pickup->m_itemName == itemName)
 			retVal++;

@@ -8,14 +8,14 @@
 namespace al
 {
 
-enum Button
+const enum Button
 {
 	MouseLeft,
 	MouseRight,
 	MouseMiddle
 };
 
-enum Key
+const enum Key
 {
 	Pause,
 	Menu,

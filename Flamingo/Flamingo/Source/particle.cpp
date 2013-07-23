@@ -51,8 +51,8 @@ bool splashParticle::update(float DeltaTime)
 	m_animation->update(DeltaTime);
 	particle::update(DeltaTime);
 	//m_life-= DeltaTime;
-	m_sprite.setPosition(vector(m_position.x, m_startY + 50 * sin(PI*(-m_life/m_startLife))));
-	m_sprite.setLayer(((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 80);
+	m_sprite.setPosition(vector(m_position.x, float(m_startY + 50 * sin(PI*(-m_life/m_startLife)))));
+	m_sprite.setLayer(int(((m_position.y - WATER_TOP) / (WATER_BOTTOM - WATER_TOP)) * 275 + 80));
 	if (m_animation->getCurrentFrame() > 5)
 		return true;
 	return false;
@@ -80,15 +80,15 @@ feather::feather(vector Position, vector Direction, vector Scale, texture* Textu
 	m_sprite.setLayer(280);
 
 	m_timer = -0.08f;
-	m_rotate = (rand()%1000)/100;
+	m_rotate = (rand()%1000)/100.0f;
 }
 void feather::setColor(int R,int G,int B,int A)
 {
-	m_r = R - 15 + rand()%15;
-	m_g = G - 15 + rand()%15;
-	m_b = B - 15 + rand()%15;
-	m_a = A - 100 + rand()%50;
-	m_sprite.setColor(m_r, m_g, m_b, m_a);
+	m_r = R - 15.0f + rand()%15;
+	m_g = G - 15.0f + rand()%15;
+	m_b = B - 15.0f + rand()%15;
+	m_a = A - 100.0f + rand()%50;
+	m_sprite.setColor(unsigned int(m_r), unsigned int(m_g), unsigned int(m_b), unsigned int(m_a));
 }
 bool feather::update(float DeltaTime)
 {
@@ -107,7 +107,7 @@ bool feather::update(float DeltaTime)
 		m_life -= DeltaTime;
 		if (m_life < 0)
 			return true;
-		m_sprite.setColor(m_r, m_g, m_b, (m_life/m_startLife) * m_a);
+		m_sprite.setColor(unsigned int(m_r), unsigned int(m_g), unsigned int(m_b), unsigned int((m_life/m_startLife) * m_a));
 		m_rotate += DeltaTime * 3.0f;
 		m_position.y += DeltaTime * 5.0f;
 		m_sprite.setPosition(m_position);
@@ -143,11 +143,11 @@ bool scoreParticle::update(float DeltaTime)
 	m_life -= DeltaTime;
 	m_scale = vector(1-(m_life/m_startLife),1-(m_life/m_startLife));
 
-	m_sprite.setColor(255, 255, 255, (m_life/m_startLife) * 255);
+	m_sprite.setColor(255, 255, 255, unsigned int((m_life/m_startLife) * 255));
 	m_sprite.setPosition(m_position);
 	m_sprite.setScale(m_scale);
 
-	m_text.setColor(255, 255, 255, (m_life/m_startLife) * 255);
+	m_text.setColor(255, 255, 255, unsigned int((m_life/m_startLife) * 255));
 	m_text.setPosition(m_position);
 	m_text.setScale(m_scale);
 

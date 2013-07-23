@@ -124,7 +124,7 @@ soundLibrary::soundLibrary()
 	m_musics.push_back(new music("versio3_3"));
 	m_musics.push_back(new music("version2"));
 
-	for (int i = 0; i < m_musics.size(); ++i)
+	for (unsigned int i = 0; i < m_musics.size(); ++i)
 	{
 		m_musics[i]->m_volumeMultiplier = m_musicVolume;
 		m_musics[i]->setVolume(40);
@@ -175,7 +175,7 @@ soundLibrary::soundLibrary()
 
 
 
-	for (int i = 0; i < m_sounds.size(); ++i)
+	for (unsigned int i = 0; i < m_sounds.size(); ++i)
 	{
 		m_sounds[i]->m_volumeMultiplier = m_soundVolume;
 		m_sounds[i]->setVolume(60);
@@ -185,15 +185,15 @@ soundLibrary::soundLibrary()
 }
 soundLibrary::~soundLibrary()
 {
-	for (int i = 0; i < m_sounds.size(); ++i)
+	for (unsigned int i = 0; i < m_sounds.size(); ++i)
 		delete m_sounds[i];
-	for (int i = 0; i < m_musics.size(); ++i)
+	for (unsigned int i = 0; i < m_musics.size(); ++i)
 		delete m_musics[i];
 }
 
 sound* soundLibrary::findSound(std::string soundName)
 {
-	for (int i = 0; i < m_sounds.size(); ++i)
+	for (unsigned int i = 0; i < m_sounds.size(); ++i)
 	{
 		if (m_sounds[i]->m_soundName == soundName)
 			return m_sounds[i];
@@ -202,7 +202,7 @@ sound* soundLibrary::findSound(std::string soundName)
 }
 music* soundLibrary::findMusic(std::string musicName)
 {
-	for (int i = 0; i < m_musics.size(); ++i)
+	for (unsigned int i = 0; i < m_musics.size(); ++i)
 	{
 		if (m_musics[i]->m_musicName == musicName)
 			return m_musics[i];
@@ -214,12 +214,12 @@ void soundLibrary::mute(bool Mute)
 {
 	if (Mute)
 	{
-		for (int i = 0; i < m_musics.size(); ++i)
+		for (unsigned int i = 0; i < m_musics.size(); ++i)
 		{
 			m_musics[i]->m_mute = true;
 			m_musics[i]->setVolume(m_musics[i]->m_volume);
 		}
-		for (int i = 0; i < m_sounds.size(); ++i)
+		for (unsigned int i = 0; i < m_sounds.size(); ++i)
 		{
 			m_sounds[i]->m_mute = true;
 			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
@@ -227,12 +227,12 @@ void soundLibrary::mute(bool Mute)
 	}
 	else
 	{
-		for (int i = 0; i < m_musics.size(); ++i)
+		for (unsigned int i = 0; i < m_musics.size(); ++i)
 		{
 			m_musics[i]->m_mute = false;
 			m_musics[i]->setVolume(m_musics[i]->m_volume);
 		}
-		for (int i = 0; i < m_sounds.size(); ++i)
+		for (unsigned int i = 0; i < m_sounds.size(); ++i)
 		{
 			m_sounds[i]->m_mute = false;
 			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
@@ -246,7 +246,7 @@ void soundLibrary::setMusicVolume(float volume)
 		volume = 0;
 	if (volume > 100)
 		volume = 100;
-	for (int i = 0; i < m_musics.size(); ++i)
+	for (unsigned int i = 0; i < m_musics.size(); ++i)
 	{
 		m_musics[i]->m_volumeMultiplier = volume;
 		m_musics[i]->setVolume(m_musics[i]->m_volume);
@@ -260,7 +260,7 @@ void soundLibrary::setSoundsVolume(float volume)
 		volume = 0;
 	if (volume > 100)
 		volume = 100;
-	for (int i = 0; i < m_sounds.size(); ++i)
+	for (unsigned int i = 0; i < m_sounds.size(); ++i)
 	{
 		m_sounds[i]->m_volumeMultiplier = volume;
 		m_sounds[i]->setVolume(m_sounds[i]->m_volume);

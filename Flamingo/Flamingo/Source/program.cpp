@@ -259,7 +259,7 @@ vector sprite::getTextureSize()
 
 void sprite::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
 {
-	m_sprite->setColor(sf::Color(Red,Green,Blue,Alpha));
+	m_sprite->setColor(sf::Color((sf::Uint8)Red,(sf::Uint8)Green,(sf::Uint8)Blue,(sf::Uint8)Alpha));
 }
 void sprite::setPosition(al::vector Position)
 {
@@ -431,7 +431,7 @@ void text::setCharacterSize(unsigned int CharacterSize)
 }
 void text::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
 {
-	sf::Color color(Red, Green, Blue, Alpha);
+	sf::Color color((sf::Uint8)Red, (sf::Uint8)Green, (sf::Uint8)Blue, (sf::Uint8)Alpha);
 	m_text->setColor(color);
 }
 void text::setPosition(al::vector Position)

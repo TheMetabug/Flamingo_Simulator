@@ -15,7 +15,7 @@ thought::thought(texture* ThoughtBubble, pups::pickup* Pickup, float Rotation)
 	vector offset(0,m_sprite.getSize().y);
 	offset.rotate(Rotation-270);
 	m_pickupSprite.setTexture(Pickup->m_texture);
-	m_pickupSprite.setTextureRectangle(rectangle(vector(0,256*Pickup->m_itemName),vector(256,256)));
+	m_pickupSprite.setTextureRectangle(rectangle(vector(0,float(256*Pickup->m_itemName)),vector(256,256)));
 	m_pickupSprite.setLayer(10);
 	m_pickupSprite.setOrigin(m_sprite.getSize()/2 + offset);
 	m_pickupSprite.setColor(255,255,255,0);
@@ -28,8 +28,8 @@ void thought::update(float DeltaTime, vector Position)
 
 	if (m_timer < 3)
 	{
-		m_sprite.setColor(255,255,255,m_timer * 50);
-		m_pickupSprite.setColor(255,255,255,m_timer * 50);
+		m_sprite.setColor(255,255,255,unsigned int(m_timer * 50));
+		m_pickupSprite.setColor(255,255,255,unsigned int(m_timer * 50));
 	}
 	else
 	{
@@ -103,7 +103,7 @@ void hatchling::update(float DeltaTime)
 	{
 	case 0: // Hatchling just chilling
 		
-		if (m_desiredItem > pups::ItemName::ItemsCount)
+		if (m_desiredItem > pups::ItemsCount)
 		{
 			m_desireTimer += DeltaTime;
 			if (m_desireTimer > 0)
@@ -275,7 +275,7 @@ void hatchling::die()
 void hatchling::desire()
 {
 	m_desireTimer = -( (rand()%100)/100.0f * 4 + 2);
-	m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
+	m_desiredItem = pups::ItemName(rand()%pups::Shoe); //randoms one of the edible
 }
 
 void hatchling::shocked()
@@ -400,7 +400,7 @@ nest::~nest()
 	delete m_nestTexture;
 	delete m_theEgg;
 	delete m_eggAnimation;
-	for (int i = 0; i < m_eggs.size(); ++i)
+	for (unsigned int i = 0; i < m_eggs.size(); ++i)
 		delete m_eggs[i];
 
 }
@@ -445,7 +445,7 @@ void nest::draw(al::viewport* Viewport)
 
 	//Viewport->draw(m_hatchlingFly);
 
-	for (int i = 0; i < m_hatchlings.size(); ++i)
+	for (unsigned int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->draw(Viewport);
 	}

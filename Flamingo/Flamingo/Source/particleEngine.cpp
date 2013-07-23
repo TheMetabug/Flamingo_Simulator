@@ -13,7 +13,7 @@ particleEngine::particleEngine(al::font* Font)
 particleEngine::~particleEngine()
 {
 	delete m_splashTexture;
-	for (int i = 0; i < m_particles.size(); ++i)
+	for (unsigned int i = 0; i < m_particles.size(); ++i)
 	{
 		delete m_particles[i];
 	}
@@ -21,7 +21,7 @@ particleEngine::~particleEngine()
 
 void particleEngine::update(float DeltaTime)
 {
- 	for (int i = 0; i < m_particles.size(); ++i)
+ 	for (unsigned int i = 0; i < m_particles.size(); ++i)
 	{
 		if (m_particles[i]->update(DeltaTime))
 		{
@@ -33,14 +33,14 @@ void particleEngine::update(float DeltaTime)
 
 void particleEngine::draw(al::viewport* Viewport)
 {
-	for (int i = 0; i < m_particles.size(); ++i)
+	for (unsigned int i = 0; i < m_particles.size(); ++i)
 	{
 		m_particles[i]->draw(Viewport);
 	}
 }
 void particleEngine::reset()
 {
-	for (int i = 0; i < m_particles.size(); ++i)
+	for (unsigned int i = 0; i < m_particles.size(); ++i)
 	{
 		delete m_particles[i];
 	}

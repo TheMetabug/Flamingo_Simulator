@@ -192,16 +192,16 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			}
 
 			m_arrowSprite.setColor(
-				(m_distance/m_maxDistance) * 255,
-				(1-(m_distance/m_maxDistance)) * 255,
-				(m_distance/m_maxDistance) * 0 * 255,
-				(m_distance/m_maxDistance * 0.0f + 0.8f) * 255);
+				(unsigned int)((m_distance/m_maxDistance) * 255),
+				(unsigned int)((1-(m_distance/m_maxDistance)) * 255),
+				(unsigned int)((m_distance/m_maxDistance) * 0 * 255),
+				(unsigned int)((m_distance/m_maxDistance * 0.0f + 0.8f) * 255));
 
 			m_arrowSprite.setScale((m_distance*2) / m_arrowSprite.getTextureSize().x,m_distance/m_arrowSprite.getTextureSize().y/4);
 			m_arrowSprite.setRotation((-m_direction).getAngle());
 
 		}
-		if(!m_input->isButtonPressed(al::Button::MouseLeft)) // head released
+		if(!m_input->isButtonPressed(MouseLeft)) // head released
 		{
 			if (m_direction.getLenght()>15)
 			{
@@ -299,7 +299,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 		}
 
 
-		for (int i = 0; i < m_neckPieces.size(); ++i)
+		for (unsigned int i = 0; i < m_neckPieces.size(); ++i)
 		{
 			m_neckPieces[i]->m_positionRelative = 
 				(m_neckPieces[i]->m_positionMultiplier * (1-turn) +
@@ -327,7 +327,7 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 void flamingo::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_flamingoBody);
-	for (int i = 0; i < m_neckPieces.size(); ++i)
+	for (unsigned int i = 0; i < m_neckPieces.size(); ++i)
 		Viewport->draw(&m_neckPieces[i]->m_sprite);
 	Viewport->draw(&m_flamingoHead);
 	Viewport->draw(&m_crosshairSprite);
