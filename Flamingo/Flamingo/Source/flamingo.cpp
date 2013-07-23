@@ -345,7 +345,7 @@ void flamingo::flip(bool HeadFlipped)
 
 void flamingo::reset()
 {
-
+	m_arrowSprite.setScale(0,0);
 	m_hasFood = false;
 	m_distance = 0;
 

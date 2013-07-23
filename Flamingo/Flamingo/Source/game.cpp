@@ -257,29 +257,28 @@ void game::update(float deltaTime)
 	
 	case Play:
 
+		if (m_gui->m_errorCount >= 3)
+		{
+			m_state = GameOver;// game over
+			m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
+			m_gui->TITLEtext->setLayer(300);
+			m_gui->TITLEtext->setColor(255,0,0,255);
+		}
 
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
-			if (m_nest->m_flamCount == 0)
-			{
-				m_state = GameOver;// game over
-				m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
-				m_gui->TITLEtext->setLayer(300);
-				m_gui->TITLEtext->setColor(255,0,0,255);
-			}
-			else
-			{
-				m_yearCount++;
-				m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
-				m_gui->m_yearPos.x = -500;
 
-				m_state = Levelscore;
-				m_countSpeed = m_nest->m_flamCount+10;
-				m_countingEggs = true;
-				m_nest->m_countingEggs = true;
-				m_countingEggs = true;
-				m_enemy->reset();
-			}
+			m_yearCount++;
+			m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
+			m_gui->m_yearPos.x = -500;
+
+			m_state = Levelscore;
+			m_countSpeed = m_nest->m_flamCount+10;
+			m_countingEggs = true;
+			m_nest->m_countingEggs = true;
+			m_countingEggs = true;
+			m_enemy->reset();
+			
 			break;
 		}
 		// show text
@@ -328,10 +327,12 @@ void game::update(float deltaTime)
 			if (!m_nest->enemyTakingEgg())
 			{
 				m_enemy->m_tookEgg = false;
+				
 			}
 			else
 			{
 				m_nest->shocked();
+				m_gui->m_errorCount++;
 			}
 			m_enemy->m_takingEgg = false;
 		}

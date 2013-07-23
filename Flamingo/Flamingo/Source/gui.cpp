@@ -266,6 +266,17 @@ gui::gui(game* Game)
 	YEARtext->setOriginPoint(5);
 	YEARtext->setLayer(299);
 
+	m_errorPosition = vector(100,650);
+	m_errorTexture = new texture("flamingoHeadMistake.png");
+
+	for(int i = 0; i < 3; i++)
+	{
+		m_errorSprites.push_back(new sprite(m_errorTexture));
+		m_errorSprites[i]->setPosition(vector(m_errorPosition.x + i*80, m_errorPosition.y));
+		m_errorSprites[i]->setLayer(296);
+	}
+
+
 	reset();
 	m_Play = false;
 }
@@ -303,9 +314,13 @@ gui::~gui()
 	delete m_mainbutton4;
 	delete m_xbutton;
 	delete m_tutorialbutton1;
+	delete m_errorTexture;
 
+	for (unsigned int i = 0; i < m_errorSprites.size(); ++i)
+	{
+		delete m_errorSprites[i];
+	}
 	
-
 	for (int i = 0; i < m_buttonTextures.size(); ++i)
 	{
 		delete m_buttonTextures[i];
@@ -479,7 +494,13 @@ void gui::draw(al::viewport* Viewport)
 		//Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
 		Viewport->draw(EGGtext);
-		Viewport->draw(FLAMtext);
+		//Viewport->draw(FLAMtext);
+
+		for(int i = 0; i < m_errorSprites.size(); ++i)
+	{
+		Viewport->draw(m_errorSprites[i]);
+	}
+
 	}
 	if (m_credits)
 		m_xbutton->draw(Viewport);
@@ -498,12 +519,59 @@ void gui::draw(al::viewport* Viewport)
 	/*if (1)
 		m_button2->draw();*/
 }
-void gui::addScore(vector Position,float Score)
+void gui::addScore(vector Position,float Score, bool Fatal)
 {
 	SCORE += Score;
 	m_particleEngine->addScore(Position,Score);
 	if (SCORE < 0)
 		SCORE = 0;
+
+	if(Score < 0 && Fatal)
+	{
+		m_errorCount++;
+
+		if (m_errorCount < 0)
+				m_errorCount = 0;
+
+		if (m_errorCount > 3)
+				m_errorCount = 3;
+
+		updateErrorlist();
+	}
+
+}
+void gui::updateErrorlist()
+{
+		switch(m_errorCount)
+		{
+		case 0:
+			m_errorSprites[0]->setColor(255,255,255,255);
+			m_errorSprites[1]->setColor(255,255,255,255);
+			m_errorSprites[2]->setColor(255,255,255,255);
+			
+			break;
+
+		case 1:
+			m_errorSprites[0]->setColor(30,30,30,255);
+			m_errorSprites[1]->setColor(255,255,255,255);
+			m_errorSprites[2]->setColor(255,255,255,255);
+			
+			break;
+
+		case 2:
+			m_errorSprites[0]->setColor(30,30,30,255);
+			m_errorSprites[1]->setColor(30,30,30,255);
+			m_errorSprites[2]->setColor(255,255,255,255);
+			
+			break;
+
+		case 3:
+			m_errorSprites[0]->setColor(30,30,30,255);
+			m_errorSprites[1]->setColor(30,30,30,255);
+			m_errorSprites[2]->setColor(30,30,30,255);
+
+			break;
+		}
 }
 void gui::reset()
 {
@@ -518,6 +586,8 @@ void gui::reset()
 	m_quit = false;
 	m_tutorial = false;
 	m_levelscore = false;
+	m_errorCount = 0;
+	updateErrorlist();
 
 	m_yearPos = vector(1600,250);
 	YEARtext->setPosition(m_yearPos);
@@ -525,3 +595,4 @@ void gui::reset()
 
 	SCORE= 0;
 }
+
