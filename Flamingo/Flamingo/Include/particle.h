@@ -11,7 +11,7 @@ public:
 	particle(al::vector Position, al::vector Direction, al::vector Scale, al::texture* Texture, float Life);
 	virtual ~particle();
 	virtual bool update(float DeltaTime);
-	void draw(al::viewport* Viewport);
+	virtual void draw(al::viewport* Viewport);
 
 protected:
 	al::vector m_position;
@@ -45,6 +45,19 @@ private:
 	void setColor(int R = 255,int G = 255,int B = 255,int A = 255);
 
 	float m_timer, m_rotate, m_r, m_g, m_b, m_a;
+};
+
+class scoreParticle : public particle
+{
+public:
+	scoreParticle(al::vector Position, al::vector Direction, al::texture* Texture, al::font* Font, float Score);
+	~scoreParticle(){}
+	bool update(float DeltaTime);
+	void draw(al::viewport* Viewport);
+private:
+	void stayOnScreen();
+	al::text m_text;
+	float m_r, m_g, m_b, m_a;
 };
 
 #endif

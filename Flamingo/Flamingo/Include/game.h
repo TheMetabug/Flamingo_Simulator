@@ -1,8 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
+class game;
+enum GameState;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "program.h"
 #include "hitbox.h"
 #include "background.h"
 #include "gui.h"
@@ -11,7 +15,6 @@
 #include "flamingo.h"
 #include "pickups.h"
 #include "sound.h"
-#include "program.h"
 #include "input.h"
 #include "particleEngine.h"
 
@@ -60,28 +63,49 @@ private:
 	al::texture* m_logoTexture;
 	al::sprite m_logoSprite;
 	al::vector m_logoPosition;
+
+	al::texture* m_gameoverTexture;
+	al::sprite m_gameoverSprite;
+	al::vector m_gameoverPosition;
+
+	al::texture* m_counterTexture;
+	al::sprite m_counterSprite;
+	al::vector m_counterPosition;
+
+	al::texture* m_tutorial1Texture;
+	al::sprite m_tutorial1;
+	al::vector m_tutorial1Position;
 	
+	al::texture* m_tutorial2Texture;
+	al::sprite m_tutorial2;
+	al::vector m_tutorial2Position;
+
+	al::texture* m_tutorial3Texture;
+	al::sprite m_tutorial3;
+	al::vector m_tutorial3Position;
+	
+	al::texture* m_tutorial4Texture;
+	al::sprite m_tutorial4;
+	al::vector m_tutorial4Position;
+	
+	al::font* m_font; //perusfontti
+	al::font* m_font2; // ArialBlack "valikkofontti"
+
 	bool P_release;
 	bool M_release;
 	bool ML_release;
 	bool m_flamingoHeadPressed;
 	bool m_muted;
-	
+	bool m_countingEggs;
+	int m_tutorialNumber;
+	float m_timer;
+	int m_countSpeed;
+	int m_yearCount;
 	// gameStates
-	enum GameState
-	{
-		TitleScreen = 0,
-		Play,
-		Menu,
-		Tutorial,
-		Credits,
-		Options,
-		Gamemenu,
-		ReturnTitle,
-		Quit
-	};
 
 	GameState m_state;
+
+	
 
 	// hitbox
 	collision* collide;
@@ -124,6 +148,22 @@ private:
 	al::texture m_pauseOpacityTexture;
 	al::sprite m_pauseOpacitySprite;
 
+	friend class gui;
+};
+
+enum GameState
+{
+	TitleScreen = 0,
+	Play,
+	Levelscore,
+	GameOver,
+	Menu,
+	Tutorial,
+	Credits,
+	Options,
+	Gamemenu,
+	ReturnTitle,
+	Quit
 };
 
 #endif

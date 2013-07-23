@@ -1,6 +1,15 @@
 #ifndef PICKUPS_H
 #define PICKUPS_H
 
+namespace pups
+{
+	enum ItemName;
+	class pickup;
+	class item;
+}
+class pickups;
+
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <stdlib.h>
@@ -17,11 +26,12 @@ namespace pups
 {
 	enum ItemName
 	{
-		Plancton = 0,
+		Krill = 0,
+		Plancton,
 		Shrimp,
 		Shoe,
 		Can,
-		Krill
+		ItemsCount
 	};
 
 	//Class for pickup types, containing texture, sprite, id and edibility

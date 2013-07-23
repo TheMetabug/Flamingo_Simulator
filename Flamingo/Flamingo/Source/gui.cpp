@@ -69,7 +69,7 @@ bool button::mouseOver()
 titleCard::titleCard()
 {
 	m_titlePosition = vector(640, 360);
-	setTexture("titlescreen_Placeholder.png");
+	setTexture("titlescreen.png");
 
 	
 	
@@ -101,16 +101,22 @@ void titleCard::draw(al::viewport* Viewport)
 
 //////////////////////////////////////////////////////////////////////////
 
-gui::gui(al::input* Input, soundLibrary* SoundLibrary)
+gui::gui(game* Game)
 {
-	m_soundLibrary = SoundLibrary;
-	m_input = Input;
-	m_soundLibrary = SoundLibrary;
+	m_game = Game;
+	m_input = Game->m_input;
+	m_soundLibrary = Game->m_soundLibrary;
+	m_particleEngine = Game->m_particleEngine;
+
+	m_font = Game->m_font;// new font();
+	m_font2 = Game->m_font2;// new font();
 
 	// HP-basics
 	HPmax = 100; //max HP
 	HPtaken = 0; // damage/heal
 	HPnow = HPmax-HPtaken;
+	m_eggCount = 0;
+	m_flamCount = 0;
 
 
 	/*button = "test" button
@@ -120,11 +126,11 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	//gameplay-buttons
 
 	m_buttonTextures.push_back(new texture("buttons/menubutton.png")); // 0
-	m_button2 = new button(m_buttonTextures.back(),vector(1054,75),m_input,m_soundLibrary);
+	m_button2 = new button(m_buttonTextures.back(),vector(1200,75),m_input,m_soundLibrary);
 	m_button2->m_sprite.setLayer(296);
 	
 	m_buttonTextures.push_back(new texture("buttons/muteButton1.png")); // 1
-	m_button3 = new button(m_buttonTextures.back(),vector(908,75),m_input, m_soundLibrary);
+	m_button3 = new button(m_buttonTextures.back(),vector(1070,75),m_input, m_soundLibrary);
 	m_button3->m_sprite.setLayer(296);
 	m_buttonTextures.push_back(new texture("buttons/muteButton2.png")); // 2
 
@@ -201,27 +207,29 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	m_xbutton->m_sprite.setLayer(300);
 
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
-	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(1225,70),m_input, m_soundLibrary);
 	m_tutorialbutton1->m_sprite.setLayer(300);
 	
 	
-	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(100,600),m_input, m_soundLibrary);
+	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(50,70),m_input, m_soundLibrary);
 	m_tutorialbutton2->m_sprite.setLayer(300);
+	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
 	
-	m_font = new font();
-	m_font2 = new font();
 
-	m_font->loadFromFile("arial.ttf");
-	m_font2->loadFromFile("Arial black.ttf");
+	//m_font->loadFromFile("arial.ttf");
+	//m_font2->loadFromFile("Arial black.ttf");
 
 	
 	
 	HPtext = new text("HP-mittari", m_font, 50);
-	TITLEtext = new text("Tap the screen or click",m_font, 50);
+	TITLEtext = new text("Click or Tap the screen",m_font, 50);
 	SCOREtext = new text("SCORE", m_font2,50);
 	MUSICtext = new text("music volume", m_font2,20);
 	SOUNDtext = new text("sounds volume", m_font2,20);
+	EGGtext = new text("egg count", m_font2,40);
+	FLAMtext = new text("flamingo count", m_font2,40);
+	YEARtext = new text("year one", m_font2, 120);
 
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
@@ -229,7 +237,7 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	HPtext->setColor();
 	HPtext->setLayer(296);
 	
-	SCOREtext->setPosition(vector(50, 50));
+	SCOREtext->setPosition(vector(60, 60));
 	SCOREtext->setColor(83,77,67,255);
 	SCOREtext->setLayer(296);
 	
@@ -244,9 +252,20 @@ gui::gui(al::input* Input, soundLibrary* SoundLibrary)
 	SOUNDtext->setPosition (vector(686,365));
 	SOUNDtext->setColor(83,77,67,255);
 	SOUNDtext->setLayer(299);
-	//std::cout << text.getPosition().x << std::endl << text.getPosition().y << std::endl;
 
+	EGGtext->setPosition(vector(60,655));
+	EGGtext->setColor(83,77,67,255);
+	EGGtext->setLayer(299);
 	
+	FLAMtext->setPosition(vector(160,655));
+	FLAMtext->setColor(83,77,67,255);
+	FLAMtext->setLayer(299);
+
+	YEARtext->setCharacterSize(100);
+	YEARtext->setColor();
+	YEARtext->setOriginPoint(5);
+	YEARtext->setLayer(299);
+
 	reset();
 	m_Play = false;
 }
@@ -258,7 +277,9 @@ gui::~gui()
 	delete HPtext;
 	delete TITLEtext;
 	delete SCOREtext;
-	delete m_font;
+	delete YEARtext;
+	delete EGGtext;
+	delete FLAMtext;
 	delete m_button2;
 	delete m_button3;
 	delete m_Gmenubutton1;
@@ -295,7 +316,7 @@ void gui::update(float DeltaTime)
 {
 	
 	//edit  HP settings
-		if( HPnow < 0) 
+	if( HPnow < 0) 
 	{
 		HPnow = 0;
 	}
@@ -303,7 +324,9 @@ void gui::update(float DeltaTime)
 	if (m_Play)
 	{
 		HPtext->setString("HP: Hitpoints " + std::to_string((long double)HPnow) + " / " + std::to_string((long double)HPmax));
-		SCOREtext->setString(std::to_string((long double)SCORE) );
+		SCOREtext->setString(std::to_string(long double(floor(SCORE+0.5f))));
+		EGGtext->setString(std::to_string((long double)m_eggCount));
+		FLAMtext->setString(std::to_string((long double)m_flamCount));
 		m_button2->update(DeltaTime);
 		m_button3->update(DeltaTime);
 		//HPtext->
@@ -368,6 +391,31 @@ void gui::update(float DeltaTime)
 	{
 		m_xbutton->update(DeltaTime);
 	}
+	if (m_levelscore)
+	{	
+		if(m_yearPos.x >= 400)
+		{
+			m_yearPos.x = 400;
+		}
+		else
+		{
+			m_yearPos.x += DeltaTime*200;
+			YEARtext->setPosition(m_yearPos);
+		}
+	}
+	else
+	{	
+		if(m_yearPos.x >= 1600)
+		{
+			m_yearPos.x = 1600;
+		}
+		else
+		{
+			m_yearPos.x += DeltaTime*200;
+			YEARtext->setPosition(m_yearPos);
+		}
+	}
+
 }
 void gui::draw(al::viewport* Viewport)
 {
@@ -420,7 +468,7 @@ void gui::draw(al::viewport* Viewport)
 	if (m_tutorial)
 	{
 	m_tutorialbutton1->draw(Viewport);
-	m_tutorialbutton1->draw(Viewport);
+	m_tutorialbutton2->draw(Viewport);
 	}
 
 	
@@ -430,6 +478,8 @@ void gui::draw(al::viewport* Viewport)
 		m_button3->draw(Viewport); //button3
 		//Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
+		Viewport->draw(EGGtext);
+		Viewport->draw(FLAMtext);
 	}
 	if (m_credits)
 		m_xbutton->draw(Viewport);
@@ -439,8 +489,21 @@ void gui::draw(al::viewport* Viewport)
 		m_yesbutton2->draw(Viewport);
 		m_nobutton2->draw(Viewport);
 	}
+	if (m_levelscore)
+	{
+		Viewport->draw(YEARtext);
+	}
+	else
+		Viewport->draw(YEARtext);
 	/*if (1)
 		m_button2->draw();*/
+}
+void gui::addScore(vector Position,float Score)
+{
+	SCORE += Score;
+	m_particleEngine->addScore(Position,Score);
+	if (SCORE < 0)
+		SCORE = 0;
 }
 void gui::reset()
 {
@@ -454,6 +517,11 @@ void gui::reset()
 	m_credits= false;
 	m_quit = false;
 	m_tutorial = false;
-	
+	m_levelscore = false;
+
+	m_yearPos = vector(1600,250);
+	YEARtext->setPosition(m_yearPos);
+
+
 	SCORE= 0;
 }

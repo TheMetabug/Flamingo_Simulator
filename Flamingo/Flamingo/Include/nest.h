@@ -1,6 +1,9 @@
 #ifndef NEST_H
 #define NEST_H
 
+class hatchling;
+class nest;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "hitbox.h"
@@ -9,8 +12,24 @@
 #include "gui.h"
 #include "particleEngine.h"
 #include "sound.h"
+#include "pickups.h"
 class nest;
 //Hatchling
+
+class thought
+{
+public:
+	thought(al::texture* ThoughtBubble, pups::pickup* Pickup, float Rotation);
+	~thought(){}
+	void update(float DeltaTime, al::vector Position);
+	void draw(al::viewport* Viewport);
+	void loseThought();
+
+private:
+	al::sprite m_sprite;
+	al::sprite m_pickupSprite;
+	float m_timer;
+};
 
 class hatchling
 {
@@ -22,10 +41,12 @@ public:
 	void draw(al::viewport* Viewport);
 
 	void fly();
-	void eat(float foodValue);
+	void eat(pups::pickup* pickup);
 	void mad();
 	void happy();
 	void die();
+	void desire();
+	void shocked();
 
 	void reset();
 
@@ -37,7 +58,8 @@ public:
 	particleEngine* m_particleEngine;
 	animation *m_flyAnimation;
 	hitbox* m_hitbox;
-	float m_timer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
+	pups::ItemName m_desiredItem;
+	float m_timer, m_desireTimer, m_eatPoints, m_rotation, m_flyScale, m_travelTime;
 	bool m_isThere;
 	bool m_fly;
 	int m_state;
@@ -61,11 +83,14 @@ public:
 	void egg(float DeltaTime);
 	void sleep(float DeltaTime);
 
-	bool eat(float DeltaTime, int Id, float foodValue);
+	bool eat(float DeltaTime, int Id, pups::pickup* pickup);
 	void die(float DeltaTime);
 	void fly(float DeltaTime, int Id);
-	void mad(float DeltaTime);
-	void happy(float DeltaTime);
+	void mad();
+	void shocked();
+	void happy();
+
+	bool enemyTakingEgg();
 
 	void addEgg();
 	void removeEgg();
@@ -73,6 +98,9 @@ public:
 	void reset();
 
 	int m_whichBird;
+	int m_eggCount;
+	int m_flamCount;
+	int m_hatchCount;
 
 private:
 
@@ -91,6 +119,7 @@ private:
 
 	particleEngine* m_particleEngine;
 
+	al::texture *m_thoughtBubble;
 	al::texture *m_eggTexture;
 	std::vector<al::sprite*> m_eggs;
 
@@ -109,10 +138,11 @@ private:
 	//al::sprite *m_hatchlingFly;
 	//animation *m_hatchlingFlyAnimation;
 
-	int m_eggCount;
+
 	float m_hatchlingRotation, m_timer, m_eggTimer, m_travelTime, m_scale, m_theEggScale;
 	bool m_hatching;
 	bool m_egging;
+	bool m_countingEggs;
 
 	bool m_noEggs;
 	
@@ -125,6 +155,7 @@ private:
 	friend class pickups;
 	friend class hatchling;
 	friend class gui;
+	friend class game;
 };
 
 #endif

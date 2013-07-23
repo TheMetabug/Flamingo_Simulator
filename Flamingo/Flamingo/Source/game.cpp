@@ -5,21 +5,29 @@ game::game(sf::RenderWindow* Window, viewport* Viewport)
 	:	window(Window),
 		m_viewport(Viewport)
 {
-	m_muted = false;
-	m_input = new input(window);
-
 	////sound
 	m_soundLibrary = new soundLibrary();
 	m_soundLibrary->m_musics[0]->play();
-	
+
+	//// load Title Screen
 	m_titleCard = new titleCard();
 	m_titleCard->draw(Viewport);
+
+	m_logoPosition = vector(640, 580);
+	m_logoTexture = new texture("nameLogo.png");
+	m_logoSprite.setTexture(m_logoTexture);
+	m_logoSprite.setPosition(m_logoPosition);
+	m_logoSprite.setOrigin(vector(m_logoSprite.getSize().x/2, m_logoSprite.getSize().y/2));
+	m_logoSprite.setScale(1,1);
+	Viewport->draw(&m_logoSprite);
 }
 game::~game()
 {
 #if _DEBUG
-	std::cout<<"deleted maingame"<<std::endl;
+	std::cout<<"deleting maingame... "<<std::endl;
 #endif
+	delete m_font;
+	delete m_font2;
 	delete m_input;
 	delete m_flamingo;
 	delete m_nest;
@@ -37,21 +45,36 @@ game::~game()
 	delete m_optionsTexture;
 	delete m_particleEngine;
 	delete m_logoTexture;
-	
+	delete m_counterTexture;
+	delete m_tutorial1Texture;
+	delete m_tutorial2Texture;
+	delete m_tutorial3Texture;
+	delete m_tutorial4Texture;
+#if _DEBUG
+	std::cout<<"done deleting maingame"<<std::endl;
+#endif
 }
 
 void game::init()
 {
+	m_muted = false;
+	m_input = new input(window);
+
+	m_font = new font();
+	m_font2 = new font();
+
+	m_font->loadFromFile("arial.ttf");
+	m_font2->loadFromFile("Arial black.ttf");
 	
 	// particles
-	m_particleEngine = new particleEngine();
+	m_particleEngine = new particleEngine(m_font2);
 
 	// gameStates
 
 	m_state = TitleScreen;
 
 	// gui
-	m_gui = new gui(m_input, m_soundLibrary);
+	m_gui = new gui(this);
 
 	// hitbox
 	collide = new collision();
@@ -84,6 +107,20 @@ void game::init()
 			m_logoSprite.setOrigin(vector(m_logoSprite.getSize().x/2, m_logoSprite.getSize().y/2));
 			m_logoSprite.setScale(1,1);
 			//m_logoSprite.setLayer(299);
+
+			m_gameoverPosition = vector();
+			m_gameoverTexture = new texture("gameoverScreen.png");
+			m_gameoverSprite.setTexture(m_gameoverTexture);
+			m_gameoverSprite.setPosition(m_gameoverPosition);
+			m_gameoverSprite.setScale(1,1);
+			m_gameoverSprite.setLayer(296);
+
+			m_counterPosition = vector(0,650);
+			m_counterTexture = new texture("eggCounter.png");
+			m_counterSprite.setTexture(m_counterTexture);
+			m_counterSprite.setPosition(m_counterPosition);
+			m_counterSprite.setScale(0.3333f,0.3333f);
+			m_counterSprite.setLayer(296);
 
 			m_ReturnPosition = (vector(640,375));
 			m_ReturnTexture = new texture("GameMenu/yesnoMenu.png");
@@ -124,7 +161,7 @@ void game::init()
 			
 			m_options.setLayer(299);
 
-			m_scorePosition = (vector(115,59));
+			m_scorePosition = (vector(130,70));
 			m_scoreTexture = new texture("scoreBoard.png");
 			m_Score.setTexture(m_scoreTexture);
 			m_Score.setPosition(m_scorePosition);
@@ -134,15 +171,63 @@ void game::init()
 
 			m_Score.setLayer(295);
 
+			m_tutorial1Position = (vector(640,360));
+			m_tutorial1Texture = new texture("Tutorials/tuto1.png");
+			m_tutorial1.setTexture(m_tutorial1Texture);
+			m_tutorial1.setPosition(m_tutorial1Position);
+			m_tutorial1.setOrigin(vector(m_tutorial1.getSize().x/2,
+			m_tutorial1.getSize().y/2));
+			m_tutorial1.setScale(1,1);
+
+			m_tutorial1.setLayer(295);
+
+			m_tutorial2Position = (vector(640,360));
+			m_tutorial2Texture = new texture("Tutorials/tuto2.png");
+			m_tutorial2.setTexture(m_tutorial2Texture);
+			m_tutorial2.setPosition(m_tutorial2Position);
+			m_tutorial2.setOrigin(vector(m_tutorial2.getSize().x/2,
+			m_tutorial2.getSize().y/2));
+			m_tutorial2.setScale(1,1);
+
+			m_tutorial2.setLayer(295);
+
+			m_tutorial3Position = (vector(640,360));
+			m_tutorial3Texture = new texture("Tutorials/tuto3.png");
+			m_tutorial3.setTexture(m_tutorial3Texture);
+			m_tutorial3.setPosition(m_tutorial3Position);
+			m_tutorial3.setOrigin(vector(m_tutorial3.getSize().x/2,
+			m_tutorial3.getSize().y/2));
+			m_tutorial3.setScale(1,1);
+
+			m_tutorial3.setLayer(295);
+
+			m_tutorial4Position = (vector(640,360));
+			m_tutorial4Texture = new texture("Tutorials/tuto4.png");
+			m_tutorial4.setTexture(m_tutorial4Texture);
+			m_tutorial4.setPosition(m_tutorial4Position);
+			m_tutorial4.setOrigin(vector(m_tutorial4.getSize().x/2,
+			m_tutorial4.getSize().y/2));
+			m_tutorial4.setScale(1,1);
+
+			m_tutorial4.setLayer(295);
+
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
 	m_pauseOpacitySprite.setTexture(&m_pauseOpacityTexture);
 	m_pauseOpacitySprite.setLayer(297);
+
+	m_tutorialNumber = 1;
+
+	m_countSpeed = 0;
+	m_countingEggs = false;
 			
 }
 void game::update(float deltaTime)
 {
+	if (deltaTime > 0.1f)
+		deltaTime = 0.1f;
+
 	m_flamingoHeadPressed = false;
 	// gameStates
 	if (!m_input->isButtonPressed(al::Button::MouseLeft))
@@ -161,7 +246,7 @@ void game::update(float deltaTime)
 
 		if (m_input->isButtonPressed(al::Button::MouseLeft))
 		{
-			m_state = Menu;
+			m_state = GameState::Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
@@ -171,9 +256,35 @@ void game::update(float deltaTime)
 		break;
 	
 	case Play:
-		
+
+
+		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
+		{
+			if (m_nest->m_flamCount == 0)
+			{
+				m_state = GameOver;// game over
+				m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
+				m_gui->TITLEtext->setLayer(300);
+				m_gui->TITLEtext->setColor(255,0,0,255);
+			}
+			else
+			{
+				m_yearCount++;
+				m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
+				m_gui->m_yearPos.x = -500;
+
+				m_state = Levelscore;
+				m_countSpeed = m_nest->m_flamCount+10;
+				m_countingEggs = true;
+				m_nest->m_countingEggs = true;
+				m_countingEggs = true;
+				m_enemy->reset();
+			}
+			break;
+		}
 		// show text
 		m_gui->m_Play = true;
+		//m_gui->update(deltaTime);
 
 
 		if(m_gui->m_button2->isPressed() && ML_release)
@@ -205,27 +316,28 @@ void game::update(float deltaTime)
 		}
 			
 
-		
-		
-		if(!m_input->isKeyPressed(al::Key::Menu))
-			M_release = true;
-		else if (M_release)
-		{
-			m_soundLibrary->m_musics[0]->pause();
-			M_release = false;
-			m_state = Gamemenu;
-			
-		}
-		// hitbox
 
 		//flamingo
 		m_flamingo->update(deltaTime, m_flamingoHeadPressed);
 
-		// nest
-		m_nest->update(deltaTime);
-
 		// enemy
 		m_enemy->update(deltaTime);
+
+		if (m_enemy->m_takingEgg)
+		{
+			if (!m_nest->enemyTakingEgg())
+			{
+				m_enemy->m_tookEgg = false;
+			}
+			else
+			{
+				m_nest->shocked();
+			}
+			m_enemy->m_takingEgg = false;
+		}
+
+		// nest
+		m_nest->update(deltaTime);
 
 		// pickups
 		m_pickups->update(deltaTime);
@@ -241,54 +353,155 @@ void game::update(float deltaTime)
 		
 
 		break;
-	
-	case Menu:
 
+	case Levelscore:
+
+		m_gui->update(deltaTime);
+		m_nest->update(deltaTime);
+		m_gui->m_levelscore = true;
+
+		if (m_countingEggs)
+		{
+			if(m_nest->m_flamCount > 0)
+			{
+				if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+					for (int i = 0; i < 3; ++i)
+						m_timer += deltaTime;
+
+				m_timer += deltaTime;
+				if(m_timer >= 1)// 3/m_countSpeed)
+				{
+					m_timer = 0;
+					m_soundLibrary->m_sounds[29]->play();
+					m_nest->addEgg();
+					m_nest->m_flamCount--;
+				}
+			}
+			else
+			{
+				m_countingEggs = false;
+				m_nest->m_countingEggs = false;
+				m_timer = -10;
+			}
+		}
+		else if (m_timer < 0)
+		{
+			if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+				for (int i = 0; i < 3; ++i)
+					m_nest->update(deltaTime);
+					m_timer += deltaTime;
+
+			m_timer += deltaTime;
+		}
+		else if (m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			m_state = Play;
+			m_gui->m_levelscore = false;
+		}
+
+		break;
+
+	case GameOver:
+		
+		m_gui->update(deltaTime);
+		m_gui->m_title = true;
+
+		if (m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			m_state = GameState::Menu;
+			/*m_state = ReturnTitle;*/
+			/*m_state = Credits;*/
+			m_gui->m_title =false;	
+			ML_release = false;
+			reset();
+				
+			m_gui->m_returnTitle = false;
+			m_gui->m_Play = false;
+
+		}
+
+
+		break;
+	
+	case GameState::Menu:
+		m_tutorialNumber= 1;
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
 		
 		if(m_gui->m_mainbutton1->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Play;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Play;
+			m_gui->m_menu = false;
+			reset();
+		}
 		if(m_gui->m_mainbutton2->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Tutorial;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Tutorial;
+			m_gui->m_menu = false;
+		}
 		if(m_gui->m_mainbutton3->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Credits;
-				m_gui->m_menu = false;
-			}
+		{
+			ML_release = false;
+			m_state = Credits;
+			m_gui->m_menu = false;
+		}
 		if(m_gui->m_mainbutton4->isPressed() && ML_release)
-			{
-				m_ReturnCheck.setPosition(vector(640,620));
-				ML_release = false;
-				m_state = Quit;
+		{
+			m_ReturnCheck.setPosition(vector(640,620));
+			ML_release = false;
+			m_state = Quit;
 				
-			}
-
-		//mainbutton4
+		}
 
 
 		else if(m_input->isButtonPressed(al::Button::MouseLeft))
-				{
-				ML_release = false;
-				}
+		{
+			ML_release = false;
+		}
 	
-
-
 		break;
+
 	case Tutorial:
 		m_gui->update(deltaTime);
 		m_gui->m_tutorial = true;
-
 		
+		if(m_gui->m_tutorialbutton1->isPressed() && ML_release)
+		{
+			ML_release = false;
+			m_tutorialNumber++;
+		}
+		if(m_gui->m_tutorialbutton2->isPressed() && ML_release)
+		{
+			ML_release = false;
+			m_tutorialNumber--;
+		}
+		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		{
+			ML_release = false;
+		}
+
+		switch(m_tutorialNumber)
+		{
+		case 0:
+			m_state = GameState::Menu;
+			m_gui->m_tutorial = false;
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			m_state = GameState::Menu;
+			m_gui->m_tutorial = false;
+
+			break;
+		}
 		
 		break;
 	case Credits:
@@ -297,7 +510,7 @@ void game::update(float deltaTime)
 		if(m_gui->m_xbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
 				m_gui->m_credits = false;
 			}
 
@@ -419,7 +632,8 @@ void game::update(float deltaTime)
 			if(m_gui->m_yesbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
+				reset();
 				
 				m_gui->m_returnTitle = false;
 				m_gui->m_Play = false;
@@ -452,7 +666,7 @@ void game::update(float deltaTime)
 			else if(m_gui->m_nobutton2->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = Menu;
+				m_state = GameState::Menu;
 				
 				m_gui->m_quit = false;
 			}
@@ -478,7 +692,7 @@ void game::draw()
 {
 	// gameStates
 
-		switch(m_state)
+	switch(m_state)
 	{
 	case TitleScreen:
 		// titlecard
@@ -489,6 +703,29 @@ void game::draw()
 
 		break;
 	
+	case Tutorial:
+		m_gui->draw(m_viewport);
+		
+		switch(m_tutorialNumber)
+				{
+				case 0:
+					break;
+				case 1:
+					m_viewport->draw(&m_tutorial1);
+					break;
+				case 2:
+					m_viewport->draw(&m_tutorial2);
+					break;
+				case 3:
+					m_viewport->draw(&m_tutorial3);
+					break;
+				case 4:
+					m_viewport->draw(&m_tutorial4);
+					break;
+					}
+		break;
+
+		
 	case ReturnTitle:
 		m_viewport->draw(&m_ReturnCheck);
 		
@@ -501,9 +738,7 @@ void game::draw()
 		{
 			m_viewport->draw(&m_options);
 		}
-
-	case Tutorial:
-	
+	case Levelscore:
 	case Play:
 		// backGround
 		m_background->draw(m_viewport);
@@ -522,7 +757,7 @@ void game::draw()
 		// flamingo
 		m_flamingo->draw(m_viewport);		
 
-		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true)
+		if(m_gui->m_tutorial == true || m_gui->m_Gmenu == true || m_gui->m_returnTitle ==true ||m_gui->m_Options ==true)
 		{
 			// pauseopacity
 			m_viewport->draw(&m_pauseOpacitySprite);
@@ -532,11 +767,22 @@ void game::draw()
 		m_gui->draw(m_viewport);
 
 
-		// hitbox
+		// counter
+		m_viewport->draw(&m_counterSprite);
 
 
 		break;
-	case Menu:
+
+	case GameOver:
+
+		m_viewport->draw(&m_gameoverSprite);
+		m_viewport->draw(m_gui->TITLEtext);
+
+		break;
+
+
+
+	case GameState::Menu:
 
 		// gui
 		m_titleCard->draw(m_viewport);
@@ -570,6 +816,9 @@ void game::reset()
 	m_enemy->reset();
 	m_pickups->reset();
 	m_gui->reset();
+	m_timer = 0;
+	m_countingEggs = false;
+	m_yearCount = 0;
 }
 
 #if _DEBUG

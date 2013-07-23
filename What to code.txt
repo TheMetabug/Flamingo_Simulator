@@ -1,34 +1,15 @@
 pickups
-	spawni
-	alue
+	kenki‰ ei v‰lill‰ tule mill‰‰n, fix it
 
-
-gui + game	
-	menut
 flamingo
-
-
-	animaatio
-
-
-
-
-
-
-
-
-
-
-
-
+	on iloinen jossain vaiheessa?
+game
+	flamingo update ja iloinen kun lasketaan munia
+	munien laskeminen 3 osainen, ensin tulee munat, sitten ne kuoriutuvat, sitten voi painaa continue
 
 nest
-	munat
-	healthit
-	kasvaneet flamingot menev‰t scoreksi
-
-animation
-	parantelua
+	kasvaneet flamingot menev‰t oikeaan paikkaan
 
 
 partikkelit
+	

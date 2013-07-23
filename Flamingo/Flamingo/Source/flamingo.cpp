@@ -14,7 +14,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_distance = 0;
 	m_maxDistance = 200;
 
-	/////////BODY//////////
+	/////////BODY/////////
 	m_flamingoPosition = vector(980,515);
 
 	////////HEAD/////////
@@ -35,7 +35,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_flamingoBody.setScale(0.5f, 0.5f);
 	m_flamingoBody.setLayer(220);
 
-	////////////HEAD///////////
+	////////////HEAD//////////
 	m_headTexture = new texture("Flamingo_player_head_Animation.png");
 	m_flamingoHead.setTexture(m_headTexture);
 	m_flamingoHead.setPosition(m_headOrigin);
@@ -100,6 +100,7 @@ flamingo::~flamingo()
 #if _DEBUG
 	std::cout<<"deleted flamingo"<<std::endl;
 #endif
+
 	delete m_bodyTexture;
 	delete m_headTexture;
 	delete m_crossTexture;
@@ -262,8 +263,8 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 			m_headPosition += Movement;
 		}
 
-		if(m_headPosition.x < m_headOrigin.x+1 && m_headPosition.x > m_headOrigin.x-1 &&
-			m_headPosition.y < m_headOrigin.y+1 && m_headPosition.y > m_headOrigin.y-1)
+		if(m_headPosition.x < m_headOrigin.x+3 && m_headPosition.x > m_headOrigin.x-3 &&
+			m_headPosition.y < m_headOrigin.y+3 && m_headPosition.y > m_headOrigin.y-3)
 		{
 			m_drag = 0;
 			m_crossHair = m_headOrigin;

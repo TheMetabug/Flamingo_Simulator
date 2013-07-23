@@ -13,11 +13,14 @@
 #define WATER_TOP 430
 #define WATER_BOTTOM 680
 
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
 namespace al
 {
+	static int SCREENX, SCREENY;
+	static float DIFFICULTY;
 
 #pragma region Vector
 
@@ -116,14 +119,17 @@ public:
 	sprite();
 	sprite(al::texture* Texture);
 	~sprite();
-
-	void setColor(sf::Uint8 R = 255, sf::Uint8 G = 255, sf::Uint8 B = 255, sf::Uint8 A = 255);
 	void setTexture(al::texture* Texture);
+	void setTextureRectangle(rectangle Rectangle);
+	vector getTextureSize();
+
+	void setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha);
 	void setPosition(al::vector Position);
 	void setRotation(float Angle);
 	void setOrigin(al::vector Origin);
 	/*Set Origin Point according to location on numpad*/
 	void setOriginPoint(int Point);
+	void updateOrigin();
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);
@@ -136,8 +142,6 @@ public:
 	vector getSize();
 	vector getTransformedSize();
 	rectangle getGlobalBounds();
-	void setTextureRectangle(rectangle Rectangle);
-	vector getTextureSize();
 
 private:
 	sprite(sprite& Sprite);
@@ -174,14 +178,16 @@ public:
 	text();
 	text(const std::string string, al::font* Font, unsigned int CharacterSize = 30);
 	~text();
-
 	void setFont(al::font* Font);
 	void setString(std::string string);
+	void setCharacterSize(unsigned int CharacterSize = 30);
+
 	void setColor(unsigned int Red = 255, unsigned int Green = 255, unsigned int Blue = 255, unsigned int Alpha = 255);
 	void setPosition(al::vector Position);
 	void setOrigin(al::vector Origin);
 	/*Set Origin Point according to location on numpad*/
 	void setOriginPoint(int Point);
+	void updateOrigin();
 	void setScale(float ScaleX, float ScaleY);
 	void setScale(float Scale);
 	void setScale(vector Scale);

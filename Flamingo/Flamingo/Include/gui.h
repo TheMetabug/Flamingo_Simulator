@@ -1,12 +1,19 @@
 #ifndef GUI_H
 #define GUI_H
 
+class button;
+class titleCard;
+class gui;
+
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "animation.h"
 #include "program.h"
 #include "input.h"
 #include "sound.h"
+#include "nest.h"
+#include "particleEngine.h"
+#include "game.h"
 
 
 class button
@@ -58,17 +65,18 @@ private:
 class gui
 {
 public:
-	gui(al::input* Input, soundLibrary* SoundLibrary);
+	gui(game* Game);
 	~gui();
 
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
+	void addScore(al::vector Position,float Score);
 	void reset();
 
 	int HPnow;
 	int HPmax;
 	int HPtaken;
-	int SCORE;
+	float SCORE;
 	
 	bool m_title;
 	bool m_Play;
@@ -79,6 +87,7 @@ public:
 	bool m_credits;
 	bool m_quit;
 	bool m_tutorial;
+	bool m_levelscore;
 	
 	button* m_button2;
 	button* m_button3;
@@ -109,9 +118,14 @@ public:
 	button* m_tutorialbutton1;
 	button* m_tutorialbutton2;
 
+	int m_eggCount, m_flamCount;
+	al::vector m_yearPos;
+
 
 private:
 	soundLibrary* m_soundLibrary;
+	particleEngine* m_particleEngine;
+	game* m_game;
 	al::input* m_input;
 	al::font* m_font; //perusfontti
 	al::font* m_font2; // ArialBlack "valikkofontti"
@@ -122,7 +136,12 @@ private:
 	al::text* SCOREtext;
 	al::text* MUSICtext;
 	al::text* SOUNDtext;
+	al::text* EGGtext;
+	al::text* FLAMtext;
+	al::text* YEARtext;
 	std::vector<al::texture*> m_buttonTextures;
+
+	nest* m_nest;
 
 
 

@@ -188,11 +188,11 @@ pickups::pickups(collision *Collision, nest* Nest, enemy* Enemy, flamingo* Flami
 	m_texture = new texture("Item_sheet.png"); // Texture containing all item animations
 
 	
+	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 	pickupList.push_back(new pickup(m_texture, Plancton, 1.0f, 40.0f, 0.35f, 0.75f, this));
 	pickupList.push_back(new pickup(m_texture, Shrimp, 1.0f, 60.0f, 0.35f, 0.85f, this));
 	pickupList.push_back(new pickup(m_texture, Shoe, -1.0f, 5.0f, 0.35f, 0.9f, this));
 	pickupList.push_back(new pickup(m_texture, Can, -1.0f, 0.0f, 0.35f, 0.9f, this));
-	pickupList.push_back(new pickup(m_texture, Krill, 1.0f, 5.0f, 0.35f, 0.85f, this));
 }
 pickups::~pickups()
 {
@@ -301,7 +301,7 @@ void pickups::update(float DeltaTime)
 					
 					if(itemList[i]->m_pickup->m_foodValue <= 0)
 					{
-						m_nest->happy(DeltaTime);
+						m_nest->happy();
 						m_soundLibrary->m_sounds[9]->playWithRandPitch(0.4f); // mäisk
 						m_soundLibrary->m_sounds[17]->m_sound->setPitch(0.8);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu 
@@ -312,7 +312,7 @@ void pickups::update(float DeltaTime)
 					}
 					else
 					{
-						m_nest->mad(DeltaTime);
+						m_nest->mad();
 						m_soundLibrary->m_sounds[17]->m_sound->setPitch(1.0);
 						m_soundLibrary->m_sounds[17]->play(); //vihollislintu
 						deleteItem(i);
@@ -320,7 +320,7 @@ void pickups::update(float DeltaTime)
 				}
 				break;
 			default:
-				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup->m_foodValue))
+				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup))
 				{
 					deleteItem(i);
 					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f); // piip piip
@@ -443,38 +443,49 @@ void pickups::addItem()
 			float posY = WATER_TOP + (WATER_BOTTOM-WATER_TOP) * (rand()%100)/100.0f;
 			vector position(posX,posY);
 
-			int rarity = rand()%100;
 			ItemName name;
-			if (rarity < 15)
+			int rarity = rand()%100;
+
+			if (itemList.size() >= 3 && countItem(Shoe) + countItem(Can) < 1)
 			{
-				if (countItem(Shoe) <3)
+				if (rarity < 60)
 					name = Shoe;
-				else if (countItem(Can) <2)
-					name = Can;
 				else
-					name = Plancton;
+					name = Can;
 			}
-			else if (rarity < 25)
+			else
 			{
+				if (rarity < 15)
+				{
+					if (countItem(Shoe) <3)
+						name = Shoe;
+					else if (countItem(Can) <2)
+						name = Can;
+					else
+						name = Plancton;
+				}
+				else if (rarity < 25)
+				{
 				
-				if (countItem(Can) <2)
-					name = Can;
-				else if (countItem(Shoe) <3)
-					name = Shoe;
-				else
+					if (countItem(Can) <2)
+						name = Can;
+					else if (countItem(Shoe) <3)
+						name = Shoe;
+					else
+						name = Plancton;
+				}
+				else if (rarity < 50)
+				{
+					name = Shrimp;
+				}
+				else if (rarity < 75)
+				{
 					name = Plancton;
-			}
-			else if (rarity < 50)
-			{
-				name = Shrimp;
-			}
-			else if (rarity < 75)
-			{
-				name = Plancton;
-			}
-			else if (rarity < 100)
-			{
-				name = Krill;
+				}
+				else if (rarity < 100)
+				{
+					name = Krill;
+				}
 			}
 
 			itemList.push_back(new item(position,pickupList[name]));

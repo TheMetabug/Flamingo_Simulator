@@ -4,39 +4,86 @@ using namespace al;
 
 //Hatchling
 
+thought::thought(texture* ThoughtBubble, pups::pickup* Pickup, float Rotation)
+{
+	m_sprite.setTexture(ThoughtBubble);
+	m_sprite.setLayer(9);
+	m_sprite.setOrigin(vector(m_sprite.getSize().x/2,m_sprite.getSize().y*3/2));
+	m_sprite.setColor(255,255,255,0);
+	m_sprite.setRotation(Rotation-270);
+	
+	vector offset(0,m_sprite.getSize().y);
+	offset.rotate(Rotation-270);
+	m_pickupSprite.setTexture(Pickup->m_texture);
+	m_pickupSprite.setTextureRectangle(rectangle(vector(0,256*Pickup->m_itemName),vector(256,256)));
+	m_pickupSprite.setLayer(10);
+	m_pickupSprite.setOrigin(m_sprite.getSize()/2 + offset);
+	m_pickupSprite.setColor(255,255,255,0);
+
+	m_timer = 0;
+}
+void thought::update(float DeltaTime, vector Position)
+{
+	m_timer += DeltaTime;
+
+	if (m_timer < 3)
+	{
+		m_sprite.setColor(255,255,255,m_timer * 50);
+		m_pickupSprite.setColor(255,255,255,m_timer * 50);
+	}
+	else
+	{
+		m_sprite.setColor(255,255,255,150);
+		m_pickupSprite.setColor(255,255,255,150);
+	}
+
+	m_sprite.setPosition(Position);
+	m_pickupSprite.setPosition(Position);
+}
+void thought::draw(viewport* Viewport)
+{
+	Viewport->draw(&m_sprite);
+	Viewport->draw(&m_pickupSprite);
+}
+void thought::loseThought()
+{}
+
+
 hatchling::hatchling(nest* Nest, collision* Collide)
 	:	m_flyScale(2.0f/3.0f)
 {
 	m_sprite = new sprite(Nest->m_hatchlingTexture);
-		m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
-		m_particleEngine = Nest->m_particleEngine;
+	m_animation = new animation(m_sprite, 2, 254, 254, false, 0);
+	m_particleEngine = Nest->m_particleEngine;
 
-		m_sprite->setPosition(m_position);
-		m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
-		m_sprite->setScale(0.5f,0.5f);
-		m_sprite->setLayer(3);
+	m_sprite->setOrigin(al::vector(	m_sprite->getSize().x/2, m_sprite->getSize().y/2));
+	m_sprite->setScale(0.5f,0.5f);
+	m_sprite->setLayer(3);
 
 
-		//hitbox
-		m_hitbox = Collide->createHitBox(m_position,
-			al::vector(	m_sprite->getTransformedSize().x,
-						m_sprite->getTransformedSize().y), 
-						al::vector(	m_sprite->getTransformedSize().x/2,
-									m_sprite->getTransformedSize().y/2),
-						0);
+	//hitbox
+	m_hitbox = Collide->createHitBox(m_position,
+		al::vector(	m_sprite->getTransformedSize().x,
+					m_sprite->getTransformedSize().y), 
+		al::vector(	m_sprite->getTransformedSize().x/2,
+					m_sprite->getTransformedSize().y/2),
+		0);
 
 		
-		m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
-		m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
-		m_flySprite->setScale(m_flyScale);
-		m_flySprite->setLayer(2);
-		m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
+	m_flySprite = new sprite(Nest->m_hatchlingFlyTexture);
+	m_flyAnimation = new animation(m_flySprite, 1, 256, 472, 7.0f,0);
+	m_flySprite->setScale(m_flyScale);
+	m_flySprite->setLayer(2);
+	m_flySprite->setOrigin(vector(m_flySprite->getSize().x/2, 430));
 
-		m_travelTime = 0;
 
-		m_nest = Nest;
+	desire();
 
-		reset();
+	m_travelTime = 0;
+
+	m_nest = Nest;
+
+	reset();
 }
 hatchling::~hatchling()
 {
@@ -54,7 +101,17 @@ void hatchling::update(float DeltaTime)
 
 	switch (m_state)
 	{
-	case 0:
+	case 0: // Hatchling just chilling
+		
+		if (m_desiredItem > pups::ItemName::ItemsCount)
+		{
+			m_desireTimer += DeltaTime;
+			if (m_desireTimer > 0)
+			{
+				desire();
+			}
+		}
+
 		m_animation->update(DeltaTime);
 		m_sprite->setRotation(15 * sin(m_rotation*10));
 
@@ -67,17 +124,18 @@ void hatchling::update(float DeltaTime)
 		m_sprite->setPosition(m_position);
 		m_hitbox->Position = m_position;
 		break;
-	case 1:
+	case 1: // Hatchling growing
 		m_flyAnimation->update(DeltaTime);
 		if (m_flyAnimation->getCurrentFrame() == 4)
 		{
 			m_state = 2;
 			m_timer = -1;
+			m_flySprite->setLayer(10);
 		}
 		break;
-	case 2:
+	case 2: // Hathling flying away
 		{
-			vector finalPosition = vector(100,70);
+			vector finalPosition = vector(140,700);
 			m_travelTime = 2.0f;
 			if (m_timer > 0.0f)
 			{
@@ -89,31 +147,34 @@ void hatchling::update(float DeltaTime)
 			{
 				m_flySprite->setPosition(finalPosition);
 				m_state = 3;
-				m_timer = -2;
+				m_timer = -2; // Viive
 				m_nest->m_soundLibrary->m_sounds[29]->play(); //point
-				m_nest->m_gui->SCORE += 500;
+				m_nest->m_gui->addScore(finalPosition,500);
+				m_nest->m_flamCount += 1;
 			}
 		}
 		break;
-	case 3:
+	case 3: // Hatchling flown
 		if (m_timer > 0)
 		{
-			m_flyAnimation->ChangeAnimation(0,1,0,1);
+			m_flyAnimation->ChangeAnimation(0,1);
 			m_flySprite->setScale(m_flyScale);
 			m_state = 0;
 			m_eatPoints = 0;
 			m_fly = false;
+			m_nest->m_hatchCount--;
 			
 			m_timer = 0;
 		}
 		break;
-	case 4:
+	case 4: // Hathcling killed
 		if (m_timer > 0)
 		{
 			m_state = 0;
 			m_timer = 0;
 			//m_nest->m_soundLibrary->m_sounds[7]->play(); //failure
 			m_fly = false;
+			m_nest->m_hatchCount--;
 		}
 
 		break;
@@ -162,15 +223,16 @@ void hatchling::fly()
 		m_animation->ChangeAnimation(0,1);
 	}
 }
-void hatchling::eat(float foodValue)
+void hatchling::eat(pups::pickup* pickup)
 {
 	if (m_state == 0)
 	{
-		if (foodValue > 0)
+
+		if (pickup->m_foodValue > 0)
 		{
 			m_animation->ChangeAnimation(6,2);
 			m_timer = 0;
-			m_eatPoints += foodValue;
+			m_eatPoints += pickup->m_foodValue;
 		}
 		else
 		{
@@ -204,9 +266,24 @@ void hatchling::die()
 	m_hitbox->isEnabled = false;
 	m_state = 4;
 	m_timer = -5;
+	m_nest->shocked();
 	for (int i = 0; i < 100; ++i)
 	{
 		m_particleEngine->addFeather(m_position);
+	}
+}
+void hatchling::desire()
+{
+	m_desireTimer = -( (rand()%100)/100.0f * 4 + 2);
+	m_desiredItem = pups::ItemName(rand()%pups::ItemName::Shoe); //randoms one of the edible
+}
+
+void hatchling::shocked()
+{
+	if (m_state == 0)
+	{
+		m_animation->ChangeAnimation(4,1);
+		m_timer = 0;
 	}
 }
 
@@ -234,6 +311,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	m_particleEngine = ParticleEngine;
 
+	m_thoughtBubble = new texture("thoughtBubble.png");
+
 	// score //
 	m_gui = Gui;
 
@@ -256,7 +335,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_flamingonestFront.setOrigin(vector(m_flamingonest.getSize().x/2,
 									m_flamingonest.getSize().y/2));
 	m_flamingonestFront.setScale(1,1);
-	m_flamingonestFront.setLayer(3);
+	m_flamingonestFront.setLayer(7);
 
 
 	m_travelTime = 2.0f;
@@ -282,7 +361,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	m_eggAnimation = new animation(m_theEgg, 6, 256, 256);
 	m_theEgg->setLayer(3);
 	m_theEgg->setPosition(m_eggPosition);
-	m_theEgg->setOrigin(vector(m_theEgg->getSize()/2));
+	m_theEgg->setOrigin(vector(m_theEgg->getSize().x/2,m_theEgg->getSize().x/2));
 	m_theEgg->setScale(0.2f);
 
 	///// hatchlings /////
@@ -293,6 +372,7 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 	for (int i = 0; i < 3; ++i)
 	{
 		m_hatchlings.push_back(new hatchling(this, Collide));
+		m_hatchlings.back()->m_sprite->setLayer(4 + i);
 	}
 
 
@@ -306,6 +386,8 @@ nest::nest(collision* Collide, gui* Gui, particleEngine* ParticleEngine)
 
 	//sound
 	m_soundLibrary = new soundLibrary();
+
+	m_countingEggs = false;
 
 }
 nest::~nest()
@@ -326,28 +408,35 @@ nest::~nest()
 void nest::update(float DeltaTime)
 {
 	//m_timer += DeltaTime;
+	m_eggCount = m_eggs.size();
+	if (!(m_egging || m_hatching) && m_eggAnimation->getCurrentFrame() != 7)
+		m_eggCount++;
+	m_gui->m_eggCount = m_eggCount;
+	m_gui->m_flamCount = m_flamCount;
 
-	m_eggAnimation->update(DeltaTime);
-
-	for (int i = 0; i < 3; ++i)
+	if (!m_countingEggs)
 	{
-		m_hatchlings[i]->update(DeltaTime);
+		m_eggAnimation->update(DeltaTime);
 
-		if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
+		for (int i = 0; i < 3; ++i)
 		{
-			m_whichBird = i;
-			m_egging = true;
-			m_eggTimer = 0;
-			m_eggTarget = m_hatchlings[i]->m_position;
+			m_hatchlings[i]->update(DeltaTime);
+
+			if (!m_hatchlings[i]->m_isThere && !m_hatchlings[i]->m_fly && !m_hatching && !m_egging && m_eggCount > 0)
+			{
+				m_whichBird = i;
+				m_theEgg->setLayer(3 + i);
+				m_egging = true;
+				m_eggTimer = 0;
+				m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
+			}
+		}
+
+		if (m_egging || m_hatching)
+		{
+			egg(DeltaTime);
 		}
 	}
-
-	if (m_egging || m_hatching)
-	{
-		egg(DeltaTime);
-	}
-
-
 }
 void nest::draw(al::viewport* Viewport)
 {
@@ -379,7 +468,7 @@ void nest::egg(float DeltaTime)
 
 		m_theEgg->setPosition(m_eggPosition +
 			(m_eggTarget - m_eggPosition) * ((m_eggTimer)/m_travelTime));
-		m_theEgg->setScale(m_scale += DeltaTime/5);
+		m_theEgg->setScale(m_scale += DeltaTime/6);
 	}
 	else
 	{
@@ -394,19 +483,26 @@ void nest::egg(float DeltaTime)
 		if (m_eggAnimation->getCurrentFrame() == 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
+			m_theEgg->setLayer(6);
 			
 			m_scale = m_theEggScale;
 			m_theEgg->setScale(m_scale);
-			removeEgg();
+			m_hatchCount++;
+
 			
 			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
-			if (m_eggCount > 0)
+			if (m_eggs.size() > 0) // remove egg from vector
+			{
 				m_eggAnimation->ChangeAnimation(0,1);
-			else
-				m_eggAnimation->ChangeAnimation(6,1);
+				removeEgg();
+			}
+			else // remove the egg
+				m_eggAnimation->ChangeAnimation(7,1);
+
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
+			m_hatchlings[m_whichBird]->m_sprite->setLayer(4 + m_whichBird);
 			
 		}
 	}
@@ -416,27 +512,28 @@ void nest::sleep(float DeltaTime)
 
 }
 
-bool nest::eat(float DeltaTime, int Id, float foodValue)	
+bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)	
 {
 	if (Id != 0)
 	{
-		if(foodValue > 0)
+		if(pickup->m_foodValue > 0)
 		{
-			if(m_hatchlings[Id-1]->m_eatPoints >= 1) // change 1 to 3!!!!!!!!!! 1 is just for debugging
+			m_hatchlings[Id-1]->eat(pickup);
+
+			if(m_hatchlings[Id-1]->m_eatPoints >= 3)
 			{
 				m_hatchlings[Id-1]->fly();
 			}
 			else
 			{
- 				m_gui->SCORE += 100;
-				m_hatchlings[Id-1]->eat(foodValue);
+				m_gui->addScore(m_hatchlings[Id-1]->m_position,100);
 			}
 
 		}
 		else
 		{
-			m_gui->SCORE -= 50;
-			m_hatchlings[Id-1]->eat(foodValue);
+			m_gui->addScore(m_hatchlings[Id-1]->m_position,-50);
+			m_hatchlings[Id-1]->eat(pickup);
 			
 			return false;
 		}
@@ -460,36 +557,61 @@ void nest::fly(float DeltaTime, int Id)
 	
 
 }
-void nest::mad(float DeltaTime)
+void nest::mad()
 {
 	for(int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->mad();
 	}
 }
-void nest::happy(float DeltaTime)
+void nest::happy()
 {
 	for(int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->happy();
 	}
 }
+void nest::shocked()
+{
+	for(int i = 0; i < m_hatchlings.size(); ++i)
+	{
+		m_hatchlings[i]->shocked();
+	}
+}
+bool nest::enemyTakingEgg()
+{
+	if (m_eggCount > 1)
+	{
+		removeEgg();
+		return true;
+	}
+	else if (m_eggCount == 1)
+	{
+		m_eggAnimation->ChangeAnimation(7,1);
+		return true;
+	}
+	return false;
+}
 
 void nest::addEgg()
 {
-	m_eggCount++;
-	float width = 256, height = 256;
-	m_eggs.push_back(new sprite(m_eggTexture));
-	m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
-	m_eggs.back()->setOrigin(vector(width/2, height/2));
-	m_eggs.back()->setScale(m_theEggScale);
-	m_eggs.back()->setLayer(3);
+
+	if (m_eggAnimation->getCurrentFrame() != 7)
+	{
+		float width = 256, height = 256;
+		m_eggs.push_back(new sprite(m_eggTexture));
+		m_eggs.back()->setTextureRectangle(rectangle(vector(),width,height));
+		m_eggs.back()->setOrigin(vector(width/2, height/2));
+		m_eggs.back()->setScale(m_theEggScale);
+		m_eggs.back()->setLayer(6);
+	}
+	else
+		m_eggAnimation->ChangeAnimation(0,1);
 
 	updateEggPositions();
 }
 void nest::removeEgg()
 {
-	m_eggCount--;
 	if (m_eggs.size()>0)
 		m_eggs.pop_back();
 
@@ -507,7 +629,7 @@ void nest::updateEggPositions()
 }
 void nest::reset()
 {
-	m_eggCount = 1;
+	m_hatchCount = 0;
 	for (int i = m_eggs.size()-1; i >= 0; --i)
 	{
 		delete m_eggs[i];
@@ -515,7 +637,7 @@ void nest::reset()
 
 	m_eggs.clear();
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 2; ++i) // how many eggs are in game from start
 	{
 		addEgg();
 	}
@@ -523,6 +645,9 @@ void nest::reset()
 	for (int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->reset();
+		m_hatchCount++;
+		m_hatchlings.back()->m_sprite->setLayer(4 + i);
+		
 	}
 
 	m_hatching = false;
@@ -532,4 +657,6 @@ void nest::reset()
 	m_eggAnimation->ChangeAnimation(0,1);
 	m_scale = m_theEggScale;
 	m_theEgg->setScale(m_scale);
+	m_theEgg->setLayer(6);
+	m_flamCount = 0;
 }

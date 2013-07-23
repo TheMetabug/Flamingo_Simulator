@@ -59,7 +59,7 @@ bool splashParticle::update(float DeltaTime)
 }
 
 feather::feather(vector Position, vector Direction, vector Scale, texture* Texture, bool Enemy)
-	: particle(Position,1000*Direction,Scale,Texture,5.0f)
+	: particle(Position,1000*Direction,Scale,Texture,5.0f + (0-(rand()%300)/100.0f))
 {
 	if (Enemy)
 		setColor(140,182,123);
@@ -121,4 +121,73 @@ bool feather::update(float DeltaTime)
 		}
 	}
 	return false;
+}
+
+scoreParticle::scoreParticle(al::vector Position, al::vector Direction, al::texture* Texture, al::font* Font, float Score)
+	: particle(Position,Direction,vector(1,1),Texture,3.0f)
+{
+	m_sprite.setTexture(Texture);
+	m_sprite.setOriginPoint(5);
+	m_sprite.setLayer(300);
+	m_text.setFont(Font);
+	m_text.setCharacterSize(60);
+	m_text.setString(std::to_string(long double(Score)));
+	m_text.setOriginPoint(5);
+	m_text.setLayer(300);
+
+}
+bool scoreParticle::update(float DeltaTime)
+{
+	//m_direction.y += 20 * DeltaTime;
+	//m_position += 50 * m_direction * DeltaTime;
+	m_life -= DeltaTime;
+	m_scale = vector(1-(m_life/m_startLife),1-(m_life/m_startLife));
+
+	m_sprite.setColor(255, 255, 255, (m_life/m_startLife) * 255);
+	m_sprite.setPosition(m_position);
+	m_sprite.setScale(m_scale);
+
+	m_text.setColor(255, 255, 255, (m_life/m_startLife) * 255);
+	m_text.setPosition(m_position);
+	m_text.setScale(m_scale);
+
+	//stayOnScreen();
+
+	if (m_life < 0)
+		return true;
+	return false;
+}
+void scoreParticle::draw(viewport* Viewport)
+{
+	Viewport->draw(&m_sprite);
+	Viewport->draw(&m_text);
+}
+void scoreParticle::stayOnScreen()
+{
+	float left = 0;
+	float right = WINDOW_WIDTH;
+	float top = 0;
+	float bottom = WINDOW_HEIGHT;
+	if (m_position.x < left)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = left;
+	}
+	else 
+		if (m_position.x > right)
+	{
+		m_direction.x = -m_direction.x;
+		m_position.x = right;
+	}
+	if (m_position.y < top)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = top;
+	}
+	else 
+		if (m_position.y > bottom)
+	{
+		m_direction.y = -m_direction.y;
+		m_position.y = bottom;
+	}
 }

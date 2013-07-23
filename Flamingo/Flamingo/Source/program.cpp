@@ -4,41 +4,33 @@
 
 using namespace al;
 
-#pragma region Vector
-
+// Vector
 vector::vector()
 	: x(0), y(0)
 {}
-
 vector::vector(sf::Vector2f sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
-
 vector::vector(sf::Vector2i sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
-
 vector::vector(sf::Vector2u sfVector)
 {
-	x = sfVector.x;
-	y = sfVector.y;
+	x = (float)sfVector.x;
+	y = (float)sfVector.y;
 }
-
 vector::vector(float X, float Y)
 	: x(X), y(Y)
 {}
-
 vector::~vector(){}
-
 float vector::getLenght()
 {
 	return sqrt(pow(x,2) + pow(y,2));
 }
-
 float vector::getAngle()
 {
 	if (x == 0)
@@ -49,7 +41,7 @@ float vector::getAngle()
 	}
 	else
 	{
-		float angle = atan(y/x)*(180.0f/PI);
+		float angle = float(atan(y/x)*(180.0f/PI));
 		if (x < 0)
 			angle += 180;
 		else if (angle < 0)
@@ -57,7 +49,6 @@ float vector::getAngle()
 		return angle;
 	}
 }
-
 void vector::rotate(float Degrees)
 {
 	Degrees = fmod(Degrees,360);
@@ -67,7 +58,6 @@ void vector::rotate(float Degrees)
 	x = rotated.x;
 	y = rotated.y;
 }
-
 #pragma region operators
 
 vector vector::operator-()
@@ -149,10 +139,7 @@ const vector &operator *=(vector& LeftVal, float RightVal)
 
 #pragma endregion
 
-#pragma endregion
-
-#pragma region Rectangle
-
+// Rectangle
 rectangle::rectangle()
 {
 	left = 0;
@@ -190,7 +177,6 @@ rectangle::rectangle(sf::FloatRect Rect)
 }
 rectangle::~rectangle()
 {}
-
 bool rectangle::intersects(rectangle Rectangle)
 {
 	return sf::Rect<float>(left, top, width, height).intersects(sf::Rect<float>(Rectangle.left, Rectangle.top, Rectangle.width, Rectangle.height));
@@ -200,27 +186,19 @@ bool rectangle::contains(vector Position)
 	return sf::Rect<float>(left, top, width, height).contains(sf::Vector2f(Position.x, Position.y));
 }
 
-#pragma endregion
-
-#pragma region Drawing Methods
-
-#pragma region Texture
-
+// Texture
 texture::texture()
 	: m_texture(NULL)
 {}
-
 texture::texture(std::string TextureName)
 	: m_texture(NULL)
 {
 	loadTexture(TextureName);
 }
-
 texture::~texture()
 {
 	delete m_texture;
 }
-
 void texture::loadTexture(std::string TextureName)
 {
 	if (m_texture == NULL)
@@ -237,17 +215,13 @@ void texture::loadTexture(std::string TextureName)
 	}
 }
 
-#pragma endregion
-
-#pragma region Sprite
-
+// Sprite
 sprite::sprite()
 	: m_layer(0),
 	  m_originPoint(0)
 {
 	m_sprite = new sf::Sprite();
 }
-
 sprite::sprite(al::texture *Texture)
 	: m_layer(0),
 	  m_originPoint(0)
@@ -255,39 +229,47 @@ sprite::sprite(al::texture *Texture)
 	m_sprite = new sf::Sprite();
 	setTexture(Texture);
 }
-
 sprite::~sprite()
 {
 #if _DEBUG
-	std::cout<<"deleting...  ";
+	std::cout<<"deleting sprite... ";
 #endif
 	delete m_sprite;
 #if _DEBUG
-	std::cout<<"deleted sprite"<<std::endl;
+	std::cout<<"done"<<std::endl;
 #endif
 }
-
-void sprite::setColor(sf::Uint8 R, sf::Uint8 G, sf::Uint8 B, sf::Uint8 A)
-{
-	m_sprite->setColor(sf::Color(R,G,B,A));
-}
-
 void sprite::setTexture(al::texture *Texture)
 {
 	m_sprite->setTexture(*Texture->m_texture); 
 }
+void sprite::setTextureRectangle(rectangle Rectangle)
+{
+	int left = int(Rectangle.left + 0.5f);
+	int top = int(Rectangle.top + 0.5f);
+	int width = int(Rectangle.width + 0.5f);
+	int height = int(Rectangle.height + 0.5f);
+	m_sprite->setTextureRect(sf::IntRect(left,top,width,height));
+}
+vector sprite::getTextureSize()
+{
+	return vector((float)m_sprite->getTexture()->getSize().x,
+		(float)m_sprite->getTexture()->getSize().y);
+}
 
+void sprite::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
+{
+	m_sprite->setColor(sf::Color(Red,Green,Blue,Alpha));
+}
 void sprite::setPosition(al::vector Position)
 {
 	sf::Vector2f pos(Position.x,Position.y);
 	m_sprite->setPosition(pos);
 }
-
 void sprite::setRotation(float Angle)
 {
 	m_sprite->setRotation(Angle);
 }
-
 void sprite::setOrigin(al::vector Origin)
 {
 	sf::Vector2f pos(Origin.x,Origin.y);
@@ -300,7 +282,11 @@ void sprite::setOriginPoint(int Point)
 	else 
 		m_originPoint = 0;
 
-	switch (Point)
+	updateOrigin();
+}
+void sprite::updateOrigin()
+{
+	switch (m_originPoint)
 	{
 	case 1:
 		m_sprite->setOrigin(m_sprite->getLocalBounds().width * 0.0f, m_sprite->getLocalBounds().height * 1.0f);
@@ -337,7 +323,6 @@ void sprite::setOriginPoint(int Point)
 		break;
 	}
 }
-
 void sprite::setScale(float ScaleX, float ScaleY)
 {
 	m_sprite->setScale(ScaleX,ScaleY);
@@ -389,25 +374,8 @@ rectangle sprite::getGlobalBounds()
 {
 	return rectangle(m_sprite->getGlobalBounds());
 }
-void sprite::setTextureRectangle(rectangle Rectangle)
-{
-	int left = Rectangle.left;
-	int top = Rectangle.top;
-	int width = Rectangle.width;
-	int height = Rectangle.height;
-	m_sprite->setTextureRect(sf::IntRect(left,top,width,height));
-}
 
-vector sprite::getTextureSize()
-{
-	vector qwerty(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
-	return vector(m_sprite->getTexture()->getSize().x,m_sprite->getTexture()->getSize().y);
-}
-
-#pragma endregion
-
-#pragma region Font
-
+// Font
 font::font()
 {
 	m_font = new sf::Font();
@@ -426,10 +394,7 @@ void font::loadFromFile(std::string Filename)
 	m_font->loadFromFile("Assets/" + Filename);
 }
 
-#pragma endregion
-
-#pragma region Text
-
+// Text
 text::text()
 	: m_layer(0),
 	  m_originPoint(0)
@@ -444,37 +409,41 @@ text::text(const std::string string, al::font* Font, unsigned int CharacterSize)
 }
 text::~text()
 {
+#if _DEBUG
+	std::cout<<"deleting text... ";
+#endif
 	delete m_text;
+#if _DEBUG
+	std::cout<<"done"<<std::endl;
+#endif
 }
-
 void text::setFont(al::font* Font)
 {
 	m_text->setFont(*(Font->m_font));
 }
-
 void text::setString(std::string string)
 {
 	m_text->setString(string);
 }
-
+void text::setCharacterSize(unsigned int CharacterSize)
+{
+	m_text->setCharacterSize(CharacterSize);
+}
 void text::setColor(unsigned int Red, unsigned int Green, unsigned int Blue, unsigned int Alpha)
 {
 	sf::Color color(Red, Green, Blue, Alpha);
 	m_text->setColor(color);
 }
-
 void text::setPosition(al::vector Position)
 {
 	sf::Vector2f pos(Position.x,Position.y);
 	m_text->setPosition(pos);
 }
-
 void text::setOrigin(al::vector Origin)
 {
 	sf::Vector2f pos(Origin.x,Origin.y);
 	m_text->setOrigin(pos);
 }
-
 void text::setOriginPoint(int Point)
 {
 	if (0 < Point && Point < 10)
@@ -482,59 +451,62 @@ void text::setOriginPoint(int Point)
 	else 
 		m_originPoint = 0;
 
-	switch (Point)
+	updateOrigin();
+}
+void text::updateOrigin()
+{
+	float charWidth = m_text->getCharacterSize()/12.0f;
+	float charHeight = m_text->getCharacterSize()/3.8f;
+	switch (m_originPoint)
 	{
 	case 1:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 2:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 3:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 1.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 1.0f);
 		break;
 	case 4:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 5:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 6:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.5f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 0.5f);
 		break;
 	case 7:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.0f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.0f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	case 8:
-		m_text->setOrigin(m_text->getLocalBounds().width * 0.5f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 0.5f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	case 9:
-		m_text->setOrigin(m_text->getLocalBounds().width * 1.0f, m_text->getLocalBounds().height * 0.0f);
+		m_text->setOrigin(charWidth + m_text->getGlobalBounds().width * 1.0f, charHeight + m_text->getGlobalBounds().height * 0.0f);
 		break;
 	default:
-		m_text->setOrigin(0,0);
+		m_text->setOrigin(charWidth,charHeight);
 #if _DEBUG
 		std::cout<<"Sprite origin out of range, origin set to top left"<<std::endl;
 #endif
 		break;
 	}
+	
 }
-
 void text::setScale(float ScaleX, float ScaleY)
 {
 	m_text->setScale(ScaleX,ScaleY);
 }
-
 void text::setScale(float Scale)
 {
 	setScale(Scale,Scale);
 }
-
 void text::setScale(vector Scale)
 {
 	setScale(Scale.x,Scale.y);
 }
-
 void text::setLayer(int Layer)
 {
 	if (Layer >= 0 && Layer <= 1000)
@@ -544,76 +516,57 @@ void text::setLayer(int Layer)
 	else if (Layer > 1000)
 		m_layer = 1000;
 }
-
-
 vector text::getPosition()
 {
 	return m_text->getPosition();
 }
-
 vector text::getOrigin()
 {
 	return m_text->getOrigin();
 }
-
 vector text::getScale()
 {
 	return m_text->getScale();
 }
-
 vector text::getSize()
 {
 	return vector(m_text->getLocalBounds().width, m_text->getLocalBounds().height);
 }
-
 vector text::getTransformedSize()
 {
 	return vector(m_text->getGlobalBounds().width, m_text->getGlobalBounds().height);
 }
-
 rectangle text::getGlobalBounds()
 {
 	return rectangle(m_text->getGlobalBounds());
 }
 
-#pragma endregion
-
-#pragma region Viewport
-
+// Viewport
 viewport::viewport(sf::RenderWindow* window)
 	: m_window(window)
 {}
-
 viewport::~viewport()
 {}
-
 void viewport::draw(al::sprite* Sprite)
 {
 	m_objects[Sprite->m_layer].push_back(Sprite->m_sprite);
 }
-
 void viewport::draw(al::text* Text)
 {
 	m_objects[Text->m_layer].push_back(Text->m_text);
 }
-
 void viewport::renderSprites()
 {
  	for (int i = 0; i < LAYER_COUNT + 1; ++i)
 	{
-		for(int j = 0; j < m_objects[i].size(); ++j)
+		for(unsigned int j = 0; j < m_objects[i].size(); ++j)
 		{
 			m_window->draw(*m_objects[i][j]);
 		}
 		m_objects[i].clear();
 	}
 }
-
 void viewport::close()
 {
 	m_window->close();
 }
-
-#pragma endregion
-
-#pragma endregion
