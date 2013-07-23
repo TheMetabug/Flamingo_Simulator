@@ -409,6 +409,7 @@ void nest::update(float DeltaTime)
 {
 	//m_timer += DeltaTime;
 	m_eggCount = m_eggs.size();
+	this;
 	if (!(m_egging || m_hatching) && m_eggAnimation->getCurrentFrame() != 7)
 		m_eggCount++;
 	m_gui->m_eggCount = m_eggCount;
@@ -492,13 +493,7 @@ void nest::egg(float DeltaTime)
 			
 			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
-			if (m_eggs.size() > 0) // remove egg from vector
-			{
-				m_eggAnimation->ChangeAnimation(0,1);
-				removeEgg();
-			}
-			else // remove the egg
-				m_eggAnimation->ChangeAnimation(7,1);
+			removeEgg();
 
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
@@ -580,16 +575,12 @@ void nest::shocked()
 }
 bool nest::enemyTakingEgg()
 {
-	if (m_eggCount > 1)
+	if (m_eggCount >= 1)
 	{
 		removeEgg();
 		return true;
 	}
-	else if (m_eggCount == 1)
-	{
-		m_eggAnimation->ChangeAnimation(7,1);
-		return true;
-	}
+
 	return false;
 }
 
@@ -612,8 +603,14 @@ void nest::addEgg()
 }
 void nest::removeEgg()
 {
-	if (m_eggs.size()>0)
+	if (m_eggs.size() > 0) // remove egg from vector
+	{
+		m_eggAnimation->ChangeAnimation(0,1);
 		m_eggs.pop_back();
+	}
+	else // remove the egg
+		m_eggAnimation->ChangeAnimation(7,1);
+
 
 	updateEggPositions();
 }

@@ -30,6 +30,7 @@ public:
 	~flamingo();
 	void update(float DeltaTime, bool MLPressed);
 	void draw(al::viewport* Viewport);
+	void reset();
 	
 	animation *m_headAnimation;
 

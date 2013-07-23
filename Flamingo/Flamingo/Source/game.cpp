@@ -816,6 +816,7 @@ void game::reset()
 	m_enemy->reset();
 	m_pickups->reset();
 	m_gui->reset();
+	m_flamingo->reset();
 	m_timer = 0;
 	m_countingEggs = false;
 	m_yearCount = 0;

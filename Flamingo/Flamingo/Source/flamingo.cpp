@@ -10,18 +10,14 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_multiplier = 3.0f;
 	m_throwMultiplier = 1.2f;
 	m_moveTime = 0.3f;
-	m_hasFood = false;
-	m_distance = 0;
 	m_maxDistance = 200;
 
 	/////////BODY/////////
 	m_flamingoPosition = vector(980,515);
 
-	////////HEAD/////////
+	//////////HEAD/////////
 	m_headOrigin = m_flamingoPosition + vector(-19,-165);
-	m_headRotate = 0;
-	m_drag = 0;
-	m_splashed = false;
+
 
 	
 	// Textures and sprites
@@ -44,7 +40,7 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 	m_flamingoHead.setLayer(291);
 
 	m_headAnimation = new animation(&m_flamingoHead, 6, 214, 143, false);
-	m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+	/*m_headAnimation->ChangeAnimation(0, 1, 0, 20);*/
 
 	m_crossTexture = new texture("crosshair.png");	
 	m_crosshairSprite.setTexture(m_crossTexture);
@@ -92,7 +88,9 @@ flamingo::flamingo(soundLibrary* SoundLibrary, collision* Collide, input* Input,
 		vector(HBW,HBH), 
 		vector(HBOX,HBOY),1);
 
-	m_headHitbox->isEnabled = false;
+	//m_headHitbox->isEnabled = false;
+
+	reset();
 }
 
 flamingo::~flamingo()
@@ -343,4 +341,21 @@ void flamingo::flip(bool HeadFlipped)
 		m_flamingoHead.setScale(-0.5f,0.5f);
 	else
 		m_flamingoHead.setScale(0.5f,0.5f);
+}
+
+void flamingo::reset()
+{
+
+	m_hasFood = false;
+	m_distance = 0;
+
+	////////HEAD/////////
+	m_headPosition = m_headOrigin;
+	m_flamingoHead.setPosition(m_headPosition);
+	m_headRotate = 0;
+	m_drag = 0;
+	m_splashed = false;
+	m_headAnimation->ChangeAnimation(0, 1, 0, 20);
+
+	m_headHitbox->isEnabled = false;
 }
