@@ -21,11 +21,8 @@
 
 int main()
 {
-	//CClientDC dc()
-	if (!(al::SCREENX = GetSystemMetrics(SM_CXSCREEN)))
-		std::cout<<"screenX failed"<<std::endl;
-	if (!(al::SCREENY = GetSystemMetrics(SM_CYSCREEN)))
-		std::cout<<"screenY failed"<<std::endl;
+	al::SCREENX = GetSystemMetrics(SM_CXSCREEN);
+	al::SCREENY = GetSystemMetrics(SM_CYSCREEN);
 
 
 	srand(unsigned int(time(NULL)));

@@ -35,7 +35,7 @@ private:
 	void fall(float DeltaTime);
 	void happy(float DeltaTime);
 	void respawn();
-	void flyBack(float DeltaTime);
+	void flyBack();
 	void catchEgg(float DeltaTime);
 
 	animation* m_animation;

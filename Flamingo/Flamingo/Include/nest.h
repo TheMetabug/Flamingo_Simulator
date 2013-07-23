@@ -81,11 +81,8 @@ public:
 	void draw(al::viewport* Viewport);
 
 	void egg(float DeltaTime);
-	void sleep(float DeltaTime);
 
-	bool eat(float DeltaTime, int Id, pups::pickup* pickup);
-	void die(float DeltaTime);
-	void fly(float DeltaTime, int Id);
+	bool eat(int Id, pups::pickup* pickup);
 	void mad();
 	void shocked();
 	void happy();

@@ -350,7 +350,6 @@ void game::update(float deltaTime)
 		m_gui->update(deltaTime);
 
 		// titlecard
-		m_titleCard->update(deltaTime);
 		
 
 		break;

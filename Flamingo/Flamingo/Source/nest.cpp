@@ -502,12 +502,8 @@ void nest::egg(float DeltaTime)
 		}
 	}
 }
-void nest::sleep(float DeltaTime)
-{
 
-}
-
-bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)	
+bool nest::eat(int Id, pups::pickup* pickup)	
 {
 	if (Id != 0)
 	{
@@ -537,20 +533,6 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 	else
 		return false;
 	return true;
-}
-void nest::die(float DeltaTime)	
-{
-
-}
-void nest::fly(float DeltaTime, int Id)	
-{
-	//if(m_hatchlingFlyAnimation->getCurrentFrame() == 4)
-	//{
-	//	m_hatchlingFlyAnimation->ChangeAnimation(5,1,5,5);
-	//	//m_hatchlingFly->setPosition(
-	//}
-	
-
 }
 void nest::mad()
 {

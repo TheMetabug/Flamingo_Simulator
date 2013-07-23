@@ -320,7 +320,7 @@ void pickups::update(float DeltaTime)
 				}
 				break;
 			default:
-				if (m_nest->eat(DeltaTime, c_item, itemList[i]->m_pickup))
+				if (m_nest->eat(c_item, itemList[i]->m_pickup))
 				{
 					deleteItem(i);
 					m_soundLibrary->m_sounds[5]->playWithRandPitch(0.1f); // piip piip
@@ -482,7 +482,7 @@ void pickups::addItem()
 				{
 					name = Plancton;
 				}
-				else if (rarity < 100)
+				else
 				{
 					name = Krill;
 				}

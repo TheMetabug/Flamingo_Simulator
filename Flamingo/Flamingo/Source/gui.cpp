@@ -88,10 +88,6 @@ void titleCard::setTexture(std::string TextureName)
 	m_titleSprite.setScale(1,1);
 
 }
-void titleCard::update(float DeltaTime)
-{
-
-}
 void titleCard::draw(al::viewport* Viewport)
 {
 	Viewport->draw(&m_titleSprite);

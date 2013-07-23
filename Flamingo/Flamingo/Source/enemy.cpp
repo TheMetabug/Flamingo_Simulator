@@ -86,7 +86,7 @@ void enemy::update(float DeltaTime)
 		break;
 	case 4: // Fly back to originposition
 
-		flyBack(DeltaTime);
+		flyBack();
 
 		break;
 
@@ -235,7 +235,7 @@ void enemy::respawn()
 	m_tookEgg = false;
 	
 }
-void enemy::flyBack(float DeltaTime)
+void enemy::flyBack()
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
 

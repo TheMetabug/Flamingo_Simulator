@@ -49,7 +49,6 @@ public:
 	~titleCard();
 
 	void setTexture(std::string TextureName);
-   	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
 
 	al::vector m_titlePosition;
