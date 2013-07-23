@@ -637,7 +637,7 @@ void nest::reset()
 
 	m_eggs.clear();
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 2; ++i) // how many eggs are in game from start
 	{
 		addEgg();
 	}

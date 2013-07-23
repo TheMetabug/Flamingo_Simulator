@@ -119,6 +119,7 @@ public:
 	button* m_tutorialbutton2;
 
 	int m_eggCount, m_flamCount;
+	al::vector m_yearPos;
 
 
 private:

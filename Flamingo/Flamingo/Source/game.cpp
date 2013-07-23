@@ -256,18 +256,7 @@ void game::update(float deltaTime)
 		break;
 	
 	case Play:
-		//if (m_input->isButtonPressed(al::Button::MouseRight))
-		//{
-		//
-		//		m_state = GameOver;// game over
-		//		m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
-		//		m_gui->TITLEtext->setLayer(300);
-		//		m_gui->TITLEtext->setColor(255,0,0,255);
-		//		break;
-		//}
-		//m_gui->m_levelscore = true;
-		//m_gui->YEARtext->setString(std::string("Completed year") + std::to_string((long double)m_yearCount)); 
-		//m_gui->YEARtext->setPosition(vector(100,500));
+
 
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
@@ -281,7 +270,8 @@ void game::update(float deltaTime)
 			else
 			{
 				m_yearCount++;
-				m_gui->YEARtext->setString(std::string("Completed year") + std::to_string((long double)m_yearCount)); 
+				m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
+				m_gui->m_yearPos.x = -500;
 
 				m_state = Levelscore;
 				m_countSpeed = m_nest->m_flamCount+10;

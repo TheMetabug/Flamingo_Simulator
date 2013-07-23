@@ -44,7 +44,7 @@ int main()
 	int asdf = al::SCREENX;
 	// Set window parametres
 	
-	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(al::SCREENX, al::SCREENY), "Flamia", sf::Style::Fullscreen);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(al::SCREENX, al::SCREENY), "Flamia");//, sf::Style::Fullscreen);
 	sf::Image icon;
 	if (icon.loadFromFile("Assets/icon.png"))
 		window->setIcon(64,64,icon.getPixelsPtr());
