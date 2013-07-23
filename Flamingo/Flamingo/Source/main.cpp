@@ -28,7 +28,7 @@ int main()
 		std::cout<<"screenY failed"<<std::endl;
 
 
-	srand(time(NULL));
+	srand(unsigned int(time(NULL)));
 
 #if _DEBUG
 	bool F1Released = false;
@@ -41,7 +41,6 @@ int main()
 	ShowWindow(hwnd, SW_HIDE);
 #endif
 
-	int asdf = al::SCREENX;
 	// Set window parametres
 	
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(al::SCREENX, al::SCREENY), "Flamia");//, sf::Style::Fullscreen);

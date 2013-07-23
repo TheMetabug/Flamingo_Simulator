@@ -18,8 +18,7 @@ void button::setTexture(al::texture* Texture)
 {
 	//m_texture.loadTexture(TextureName);
 	m_sprite.setTexture(Texture);
-	float asdf = m_sprite.getTextureSize().x/2;
-	m_animation = new animation(&m_sprite, 1, m_sprite.getTextureSize().x/2, m_sprite.getTextureSize().y/2, false, 0);
+	m_animation = new animation(&m_sprite, 1, int(m_sprite.getTextureSize().x/2), int(m_sprite.getTextureSize().y/2), false, 0);
 	m_sprite.setPosition(m_position);
 	m_sprite.setOrigin(vector(m_sprite.getSize().x/2, m_sprite.getSize().y/2));
 	m_sprite.setScale(1,1);
@@ -37,7 +36,7 @@ bool button::isPressed()
 {
 	if(mouseOver())
 	{
-		if(m_input->isButtonPressed(al::Button::MouseLeft))
+		if(m_input->isButtonPressed(MouseLeft))
 		{
 			if (m_animation->getCurrentFrame() == 1)
 			{
@@ -306,7 +305,7 @@ gui::~gui()
 
 	
 
-	for (int i = 0; i < m_buttonTextures.size(); ++i)
+	for (unsigned int i = 0; i < m_buttonTextures.size(); ++i)
 	{
 		delete m_buttonTextures[i];
 	}

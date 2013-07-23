@@ -230,7 +230,7 @@ void game::update(float deltaTime)
 
 	m_flamingoHeadPressed = false;
 	// gameStates
-	if (!m_input->isButtonPressed(al::Button::MouseLeft))
+	if (!m_input->isButtonPressed(MouseLeft))
 	{
 		ML_release = true;
 	}
@@ -244,7 +244,7 @@ void game::update(float deltaTime)
 
 		m_gui->m_title = true;
 
-		if (m_input->isButtonPressed(al::Button::MouseLeft))
+		if (m_input->isButtonPressed(MouseLeft))
 		{
 			m_state = GameState::Menu;
 			/*m_state = ReturnTitle;*/

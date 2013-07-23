@@ -70,7 +70,7 @@ collision::~collision()
 #if _DEBUG
 	std::cout<<"deleted collision"<<std::endl;
 #endif
-	for (int i = 0; i < hatchlings.size(); ++i)
+	for (unsigned int i = 0; i < hatchlings.size(); ++i)
 	{
 		delete hatchlings[i];
 #if _DEBUG
@@ -132,7 +132,7 @@ hitbox* collision::createHitBox(al::vector position, al::vector size, al::vector
 
 void collision::DrawHitboxes(sf::RenderWindow* window)
 {
-	for (int i = 0; i < hatchlings.size(); ++i)
+	for (unsigned int i = 0; i < hatchlings.size(); ++i)
 	{
 		hatchlings[i]->draw(window);
 	}
@@ -162,7 +162,7 @@ bool collision::HitHead(hitbox* ItemHitbox)
 
 int collision::HitHatchling(hitbox* ItemHitbox)
 {
-	for (int i = 0; i < hatchlings.size(); ++i)
+	for (unsigned int i = 0; i < hatchlings.size(); ++i)
 	{
 		if (isCollided(ItemHitbox,hatchlings[i]))
 			return i;

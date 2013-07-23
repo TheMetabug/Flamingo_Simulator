@@ -15,13 +15,12 @@ const enum Button
 	MouseMiddle
 };
 
-const enum Key
-{
-	Pause,
-	Menu,
-	Space,
-	Esc
-};
+//const enum Key
+//{
+//	Pause,
+//	Space,
+//	Esc
+//};
 
 class input
 {
@@ -32,7 +31,7 @@ public:
 	
 	bool isButtonPressed(Button button);
 
-	bool isKeyPressed(Key key);
+	//bool isKeyPressed(Key key);
 	
 	//vector getAbsoluteMousePosition();
 	

@@ -17,13 +17,13 @@ bool input::isButtonPressed(Button button)
 		switch (button)
 		{
 		case MouseLeft:
-			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Left);
+			return sf::Mouse::isButtonPressed(sf::Mouse::Left);
 			break;
 		case MouseRight:
-			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Right);
+			return sf::Mouse::isButtonPressed(sf::Mouse::Right);
 			break;
 		case MouseMiddle:
-			return sf::Mouse::isButtonPressed(sf::Mouse::Button::Middle);
+			return sf::Mouse::isButtonPressed(sf::Mouse::Middle);
 			break;
 		default:
 #if _DEBUG
@@ -35,34 +35,31 @@ bool input::isButtonPressed(Button button)
 	return false;
 }
 
-bool input::isKeyPressed(Key key)
-{
-	if (active)
-	{
-		switch (key)
-		{
-		case Pause:
-			return sf::Keyboard::isKeyPressed(sf::Keyboard::P);
-			break;
-		case Menu:
-			return sf::Keyboard::isKeyPressed(sf::Keyboard::M);
-			break;
-		case Space:
-			return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)57);
-			break;
-		case Esc:
-			return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
-			break;
-		default:
-#if _DEBUG
-			std::cout<<"key not definied"<<std::endl;
-#endif
-			break;
-		}
-	}
-
-	return false;
-}
+//bool input::isKeyPressed(Key key)
+//{
+//	if (active)
+//	{
+//		switch (key)
+//		{
+//		case Pause:
+//			return sf::Keyboard::isKeyPressed(sf::Keyboard::P);
+//			break;
+//		case Space:
+//			return sf::Keyboard::isKeyPressed((sf::Keyboard::Key)57);
+//			break;
+//		case Esc:
+//			return sf::Keyboard::isKeyPressed(sf::Keyboard::Escape);
+//			break;
+//		default:
+//#if _DEBUG
+//			std::cout<<"key not definied"<<std::endl;
+//#endif
+//			break;
+//		}
+//	}
+//
+//	return false;
+//}
 
 //vector input::getAbsoluteMousePosition()
 //{

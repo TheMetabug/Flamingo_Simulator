@@ -554,21 +554,21 @@ void nest::fly(float DeltaTime, int Id)
 }
 void nest::mad()
 {
-	for(int i = 0; i < m_hatchlings.size(); ++i)
+	for(unsigned int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->mad();
 	}
 }
 void nest::happy()
 {
-	for(int i = 0; i < m_hatchlings.size(); ++i)
+	for(unsigned int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->happy();
 	}
 }
 void nest::shocked()
 {
-	for(int i = 0; i < m_hatchlings.size(); ++i)
+	for(unsigned int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->shocked();
 	}
@@ -616,11 +616,11 @@ void nest::removeEgg()
 }
 void nest::updateEggPositions()
 {
-	for (int i = 0; i < m_eggs.size(); ++i)
+	for (unsigned int i = 0; i < m_eggs.size(); ++i)
 	{
 		m_eggs[i]->setPosition(
 			m_eggPosition +
-			(m_eggVector / m_eggs.size()) * (i + 1)
+			(m_eggVector / float(m_eggs.size()) * float(i + 1))
 			);
 	}
 }
@@ -639,7 +639,7 @@ void nest::reset()
 		addEgg();
 	}
 	
-	for (int i = 0; i < m_hatchlings.size(); ++i)
+	for (unsigned int i = 0; i < m_hatchlings.size(); ++i)
 	{
 		m_hatchlings[i]->reset();
 		m_hatchCount++;
