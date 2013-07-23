@@ -70,13 +70,19 @@ public:
 
 	void update(float DeltaTime);
 	void draw(al::viewport* Viewport);
-	void addScore(al::vector Position,float Score);
+	void addScore(al::vector Position,float Score, bool Fatal = false);
+	void updateErrorlist();
 	void reset();
 
 	int HPnow;
 	int HPmax;
 	int HPtaken;
 	float SCORE;
+	int m_errorCount;
+
+	al::vector m_errorPosition;
+	al::texture* m_errorTexture;
+	std::vector<al::sprite*> m_errorSprites;
 	
 	bool m_title;
 	bool m_Play;

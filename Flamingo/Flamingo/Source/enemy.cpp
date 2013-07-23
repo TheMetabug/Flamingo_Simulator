@@ -137,12 +137,12 @@ void enemy::eat(float foodValue, vector itemDirection)
 	}
 	else // when any food hits enemy
 	{
-		if (m_birdPhase == 4)
+		if (m_birdPhase == 4)// stealing egg
 		{
 			m_animation->ChangeAnimation(4,2,4,10);
 			m_gui->addScore(m_enemyBirdPosition,-100);
 		}
-		else
+		else // normal
 		{
 			m_animation->ChangeAnimation(4,2,4,10);
 			m_birdPhase = 3;

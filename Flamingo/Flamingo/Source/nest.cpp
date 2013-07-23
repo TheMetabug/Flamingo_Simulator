@@ -527,7 +527,7 @@ bool nest::eat(float DeltaTime, int Id, pups::pickup* pickup)
 		}
 		else
 		{
-			m_gui->addScore(m_hatchlings[Id-1]->m_position,-50);
+			m_gui->addScore(m_hatchlings[Id-1]->m_position,-50, true);
 			m_hatchlings[Id-1]->eat(pickup);
 			
 			return false;
