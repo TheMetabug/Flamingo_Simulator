@@ -495,7 +495,7 @@ void gui::draw(al::viewport* Viewport)
 		Viewport->draw(EGGtext);
 		//Viewport->draw(FLAMtext);
 
-		for(int i = 0; i < m_errorSprites.size(); ++i)
+		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
 	{
 		Viewport->draw(m_errorSprites[i]);
 	}

@@ -24,14 +24,14 @@ background::background()
 	m_waterOpacity.setPosition(vector(WINDOW_WIDTH, WINDOW_HEIGHT));
 	m_waterOpacity.setOrigin(vector(m_waterOpacity.getTextureSize()));
 	m_waterOpacity.setLayer(290);
-	m_waterOpacity.setColor(255,255,255, 0.6f * 255);
+	m_waterOpacity.setColor(255,255,255, unsigned int(0.6f * 255));
 
 		//cloud
 	m_cloud = new cloud();
 
 	// tree
-	m_tree1 = new tree(vector(0.4,0.4),vector(315,420),1.0f);
-	m_tree2 = new tree(vector(0.6,0.6),vector(1015,400),3.0f);
+	m_tree1 = new tree(vector(0.4f,0.4f),vector(315,420),1.0f);
+	m_tree2 = new tree(vector(0.6f,0.6f),vector(1015,400),3.0f);
 
 
 
@@ -108,10 +108,10 @@ cloud::~cloud()
 	std::cout<<"deleted cloud"<<std::endl;
 #endif
 
-	for (int i = 0; i < m_clouds.size(); ++i)
+	for (unsigned int i = 0; i < m_clouds.size(); ++i)
 		delete m_clouds[i];
 
-	for (int i = 0; i < m_cloudsTexture.size(); ++i)
+	for (unsigned int i = 0; i < m_cloudsTexture.size(); ++i)
 		delete m_cloudsTexture[i];
 }
 

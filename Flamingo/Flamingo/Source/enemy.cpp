@@ -119,7 +119,7 @@ void enemy::reset()
 	m_eggSprite->setScale(0);
 
 	m_hitbox->isEnabled = false;
-	m_timer = -(rand()%15);
+	m_timer = -float(rand()%15);
  	m_birdPhase = 2;
 	m_takingEgg = false;
 	m_tookEgg = false;

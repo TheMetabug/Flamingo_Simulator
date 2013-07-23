@@ -246,7 +246,7 @@ void game::update(float deltaTime)
 
 		if (m_input->isButtonPressed(MouseLeft))
 		{
-			m_state = GameState::Menu;
+			m_state = Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
@@ -308,7 +308,7 @@ void game::update(float deltaTime)
 				m_gui->m_button3->setTexture(m_gui->m_buttonTextures[1]);
 			}
 		}
-		else if(m_input->isButtonPressed(al::Button::MouseLeft) && ML_release)
+		else if(m_input->isButtonPressed(MouseLeft) && ML_release)
 		{
 			ML_release = false;
 			m_flamingoHeadPressed = true;
@@ -365,7 +365,7 @@ void game::update(float deltaTime)
 		{
 			if(m_nest->m_flamCount > 0)
 			{
-				if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+				if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
 					for (int i = 0; i < 3; ++i)
 						m_timer += deltaTime;
 
@@ -387,14 +387,14 @@ void game::update(float deltaTime)
 		}
 		else if (m_timer < 0)
 		{
-			if (m_input->isButtonPressed(al::Button::MouseLeft)) // makes time go faster
+			if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
 				for (int i = 0; i < 3; ++i)
 					m_nest->update(deltaTime);
 					m_timer += deltaTime;
 
 			m_timer += deltaTime;
 		}
-		else if (m_input->isButtonPressed(al::Button::MouseLeft))
+		else if (m_input->isButtonPressed(MouseLeft))
 		{
 			m_state = Play;
 			m_gui->m_levelscore = false;
@@ -407,9 +407,9 @@ void game::update(float deltaTime)
 		m_gui->update(deltaTime);
 		m_gui->m_title = true;
 
-		if (m_input->isButtonPressed(al::Button::MouseLeft))
+		if (m_input->isButtonPressed(MouseLeft))
 		{
-			m_state = GameState::Menu;
+			m_state = Menu;
 			/*m_state = ReturnTitle;*/
 			/*m_state = Credits;*/
 			m_gui->m_title =false;	
@@ -424,7 +424,7 @@ void game::update(float deltaTime)
 
 		break;
 	
-	case GameState::Menu:
+	case Menu:
 		m_tutorialNumber= 1;
 		m_gui->update(deltaTime);
 		m_gui->m_menu = true;
@@ -457,7 +457,7 @@ void game::update(float deltaTime)
 		}
 
 
-		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		else if(m_input->isButtonPressed(MouseLeft))
 		{
 			ML_release = false;
 		}
@@ -478,7 +478,7 @@ void game::update(float deltaTime)
 			ML_release = false;
 			m_tutorialNumber--;
 		}
-		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		else if(m_input->isButtonPressed(MouseLeft))
 		{
 			ML_release = false;
 		}
@@ -486,7 +486,7 @@ void game::update(float deltaTime)
 		switch(m_tutorialNumber)
 		{
 		case 0:
-			m_state = GameState::Menu;
+			m_state = Menu;
 			m_gui->m_tutorial = false;
 			break;
 		case 1:
@@ -498,7 +498,7 @@ void game::update(float deltaTime)
 		case 4:
 			break;
 		case 5:
-			m_state = GameState::Menu;
+			m_state = Menu;
 			m_gui->m_tutorial = false;
 
 			break;
@@ -511,11 +511,11 @@ void game::update(float deltaTime)
 		if(m_gui->m_xbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = GameState::Menu;
+				m_state = Menu;
 				m_gui->m_credits = false;
 			}
 
-		else if(m_input->isButtonPressed(al::Button::MouseLeft))
+		else if(m_input->isButtonPressed(MouseLeft))
 				{
 				ML_release = false;
 				}
@@ -565,7 +565,7 @@ void game::update(float deltaTime)
 					m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
 				}
 
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			else if(m_input->isButtonPressed(MouseLeft))
 				{
 				ML_release = false;
 				}
@@ -615,7 +615,7 @@ void game::update(float deltaTime)
 				
 				
 			}
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			else if(m_input->isButtonPressed(MouseLeft))
 			{
 				ML_release = false;
 			}
@@ -633,7 +633,7 @@ void game::update(float deltaTime)
 			if(m_gui->m_yesbutton->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = GameState::Menu;
+				m_state = Menu;
 				reset();
 				
 				m_gui->m_returnTitle = false;
@@ -646,7 +646,7 @@ void game::update(float deltaTime)
 				
 				m_gui->m_returnTitle = false;
 			}
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			else if(m_input->isButtonPressed(MouseLeft))
 			{
 				ML_release = false;
 			}
@@ -667,11 +667,11 @@ void game::update(float deltaTime)
 			else if(m_gui->m_nobutton2->isPressed() && ML_release)
 			{
 				ML_release = false;
-				m_state = GameState::Menu;
+				m_state = Menu;
 				
 				m_gui->m_quit = false;
 			}
-			else if(m_input->isButtonPressed(al::Button::MouseLeft))
+			else if(m_input->isButtonPressed(MouseLeft))
 			{
 				ML_release = false;
 				
@@ -783,7 +783,7 @@ void game::draw()
 
 
 
-	case GameState::Menu:
+	case Menu:
 
 		// gui
 		m_titleCard->draw(m_viewport);
