@@ -332,7 +332,7 @@ void game::update(float deltaTime)
 			else
 			{
 				m_nest->shocked();
-				m_gui->m_errorCount++;
+				m_gui->addScore(m_nest->m_eggPosition,-500,true);
 			}
 			m_enemy->m_takingEgg = false;
 		}
@@ -382,7 +382,7 @@ void game::update(float deltaTime)
 			{
 				m_countingEggs = false;
 				m_nest->m_countingEggs = false;
-				m_timer = -10;
+				m_timer = -3;
 			}
 		}
 		else if (m_timer < 0)

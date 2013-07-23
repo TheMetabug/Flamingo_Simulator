@@ -413,7 +413,7 @@ void gui::update(float DeltaTime)
 		}
 		else
 		{
-			m_yearPos.x += DeltaTime*200;
+			m_yearPos.x += DeltaTime*500;
 			YEARtext->setPosition(m_yearPos);
 		}
 	}
@@ -425,7 +425,7 @@ void gui::update(float DeltaTime)
 		}
 		else
 		{
-			m_yearPos.x += DeltaTime*200;
+			m_yearPos.x += DeltaTime*500;
 			YEARtext->setPosition(m_yearPos);
 		}
 	}
