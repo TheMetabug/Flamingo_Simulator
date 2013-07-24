@@ -97,10 +97,10 @@ int main()
 		}
 #endif
 
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-		//{
-		//	window->close();
-		//}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+		{
+			window->close();
+		}
 
         sf::Event event;
         while (window->pollEvent(event))
