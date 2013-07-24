@@ -17,8 +17,7 @@ bool input::isButtonPressed(Button button)
 		switch (button)
 		{
 		case MouseLeft:
-			return sf::Mouse::isButtonPressed(sf::Mouse::Left) || 
-				sf::Mouse::isButtonPressed(sf::Mouse::Right);
+			return sf::Mouse::isButtonPressed(sf::Mouse::Left);
 			break;
 		case MouseRight:
 			return sf::Mouse::isButtonPressed(sf::Mouse::Right);
@@ -84,9 +83,9 @@ vector input::getMousePosition()
 //	sf::Vector2i pos(position.x, position.y);
 //	sf::Mouse::setPosition(pos);
 //}
-//	
-//void input::setMousePosition(const vector& position)
-//{
-//	sf::Vector2i pos(position.x, position.y);
-//	sf::Mouse::setPosition(pos,*window);
-//}
+	
+void input::setMousePosition(const vector& position)
+{
+	sf::Vector2i pos(position.x, position.y);
+	sf::Mouse::setPosition(pos,*window);
+}

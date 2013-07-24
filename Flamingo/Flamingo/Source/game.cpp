@@ -221,7 +221,8 @@ void game::init()
 
 	m_countSpeed = 0;
 	m_countingEggs = false;
-			
+
+	m_input->setMousePosition(vector());
 }
 void game::update(float deltaTime)
 {
@@ -229,11 +230,13 @@ void game::update(float deltaTime)
 		deltaTime = 0.1f;
 
 	m_flamingoHeadPressed = false;
-	// gameStates
-	if (!m_input->isButtonPressed(MouseLeft))
+
+	if (m_input->getMousePosition() == vector())
 	{
 		ML_release = true;
 	}
+	// gameStates
+
 
 	switch(m_state)
 	{
@@ -244,7 +247,7 @@ void game::update(float deltaTime)
 
 		m_gui->m_title = true;
 
-		if (m_input->isButtonPressed(MouseLeft))
+		if (m_input->getMousePosition() != vector())
 		{
 			m_state = Menu;
 			/*m_state = ReturnTitle;*/
@@ -395,8 +398,10 @@ void game::update(float deltaTime)
 		//	m_timer += deltaTime;
 		//}
 		//else 
-		if (m_input->isButtonPressed(MouseLeft))
+		if (m_input->getMousePosition() != vector())
 		{
+			ML_release = false;
+
 			for (int i = 0; i < 6; ++i)
 				m_nest->addEgg();
 			m_state = Play;
@@ -414,14 +419,14 @@ void game::update(float deltaTime)
 		if(m_timer > 3)
 		{
 			m_gui->m_title = true;
-
-			if (m_input->isButtonPressed(MouseLeft) && ML_release == true)
+			
+			if (m_input->getMousePosition() != vector())
 			{
+				ML_release = false;
 				m_state = Menu;
 				/*m_state = ReturnTitle;*/
 				/*m_state = Credits;*/
 				m_gui->m_title =false;	
-				ML_release = false;
 				m_timer = 0;
 				reset();
 				
@@ -448,27 +453,24 @@ void game::update(float deltaTime)
 			m_gui->m_menu = false;
 			reset();
 		}
-		if(m_gui->m_mainbutton2->isPressed() && ML_release)
+		else if(m_gui->m_mainbutton2->isPressed() && ML_release)
 		{
 			ML_release = false;
 			m_state = Tutorial;
 			m_gui->m_menu = false;
 		}
-		if(m_gui->m_mainbutton3->isPressed() && ML_release)
+		else if(m_gui->m_mainbutton3->isPressed() && ML_release)
 		{
 			ML_release = false;
 			m_state = Credits;
 			m_gui->m_menu = false;
 		}
-		if(m_gui->m_mainbutton4->isPressed() && ML_release)
+		else if(m_gui->m_mainbutton4->isPressed() && ML_release)
 		{
 			m_ReturnCheck.setPosition(vector(640,620));
 			ML_release = false;
 			m_state = Quit;
-				
 		}
-
-
 		else if(m_input->isButtonPressed(MouseLeft))
 		{
 			ML_release = false;
@@ -485,7 +487,7 @@ void game::update(float deltaTime)
 			ML_release = false;
 			m_tutorialNumber++;
 		}
-		if(m_gui->m_tutorialbutton2->isPressed() && ML_release)
+		else if(m_gui->m_tutorialbutton2->isPressed() && ML_release)
 		{
 			ML_release = false;
 			m_tutorialNumber--;
@@ -521,16 +523,15 @@ void game::update(float deltaTime)
 		m_gui->m_credits = true;
 		m_gui->update(deltaTime);
 		if(m_gui->m_xbutton->isPressed() && ML_release)
-			{
-				ML_release = false;
-				m_state = Menu;
-				m_gui->m_credits = false;
-			}
-
+		{
+			ML_release = false;
+			m_state = Menu;
+			m_gui->m_credits = false;
+		}
 		else if(m_input->isButtonPressed(MouseLeft))
-				{
-				ML_release = false;
-				}
+		{
+			ML_release = false;
+		}
 
 
 		break;
@@ -545,42 +546,41 @@ void game::update(float deltaTime)
 				m_gui->m_Options = false;
 			}
 			else if(m_gui->m_plusmusic->isPressed() && ML_release)
-				{
-#if _DEBUG
-					std::cout<<"plusmusic"<<std::endl;
-#endif
-					ML_release = false;
-					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume+10);
-				}
-			else if(m_gui->m_minusmusic->isPressed() && ML_release)
-				{
-#if _DEBUG
-					std::cout<<"minusmusic"<<std::endl;
-#endif
-					ML_release = false;
-					m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume-10);
-				}
-			else if(m_gui->m_plussounds->isPressed() && ML_release)
-				{
-#if _DEBUG
-					std::cout<<"plussounds"<<std::endl;
-#endif
-					ML_release = false;
-						m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume+10);
-				}
-			else if(m_gui->m_minussounds->isPressed() && ML_release)
-				{
-#if _DEBUG
-					std::cout<<"minussounds"<<std::endl;
-#endif
-					ML_release = false;
-					m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
-				}
-
-			else if(m_input->isButtonPressed(MouseLeft))
-				{
+			{
 				ML_release = false;
-				}
+#if _DEBUG
+				std::cout<<"plusmusic"<<std::endl;
+#endif
+				m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume+10);
+			}
+			else if(m_gui->m_minusmusic->isPressed() && ML_release)
+			{
+				ML_release = false;
+#if _DEBUG
+				std::cout<<"minusmusic"<<std::endl;
+#endif
+				m_soundLibrary->setMusicVolume(m_soundLibrary->m_musicVolume-10);
+			}
+			else if(m_gui->m_plussounds->isPressed() && ML_release)
+			{
+				ML_release = false;
+#if _DEBUG
+				std::cout<<"plussounds"<<std::endl;
+#endif
+				m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume+10);
+			}
+			else if(m_gui->m_minussounds->isPressed() && ML_release)
+			{
+				ML_release = false;
+#if _DEBUG
+				std::cout<<"minussounds"<<std::endl;
+#endif
+				m_soundLibrary->setSoundsVolume(m_soundLibrary->m_soundVolume-10);
+			}
+			else if(m_input->isButtonPressed(MouseLeft))
+			{
+				ML_release = false;
+			}
 
 			
 
@@ -620,12 +620,10 @@ void game::update(float deltaTime)
 			}
 			else if(m_gui->m_Gmenubutton4->isPressed() && ML_release)
 			{
-				m_ReturnCheck.setPosition(vector(640,375));
 				ML_release = false;
+				m_ReturnCheck.setPosition(vector(640,375));
 				m_state = ReturnTitle;
 				m_gui->m_Gmenu = false;
-				
-				
 			}
 			else if(m_input->isButtonPressed(MouseLeft))
 			{
@@ -822,7 +820,8 @@ void game::draw()
 	// particles
 	m_particleEngine->draw(m_viewport);
 
-	
+	if (!m_input->isButtonPressed(MouseLeft))
+		m_input->setMousePosition(vector());
 }
 
 void game::reset()

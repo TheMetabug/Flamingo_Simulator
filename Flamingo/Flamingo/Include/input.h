@@ -39,7 +39,7 @@ public:
 	
 	//void setAbsoluteMousePosition(const vector& position);
 	
-	//void setMousePosition(const vector& position);
+	void setMousePosition(const vector& position);
 
 	bool active;
 private:

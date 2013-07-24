@@ -36,6 +36,7 @@ bool button::isPressed()
 {
 	if(mouseOver())
 	{
+		return true;
 		if(m_input->isButtonPressed(MouseLeft))
 		{
 			if (m_animation->getCurrentFrame() == 1)

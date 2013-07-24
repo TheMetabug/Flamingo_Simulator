@@ -135,7 +135,8 @@ void flamingo::update(float DeltaTime, bool MLPressed)
 		
 
 			//cant drag head too far away.
-			m_direction = m_mouseStartPos - m_input->getMousePosition();
+			if (m_input->getMousePosition() != vector())
+				m_direction = m_mouseStartPos - m_input->getMousePosition();
 
 			m_distance = m_direction.getLenght();
 			if (!m_hasFood)
