@@ -212,31 +212,40 @@ music* soundLibrary::findMusic(std::string musicName)
 
 void soundLibrary::mute(bool Mute)
 {
+	//if (Mute)
+	//{
+	//	for (unsigned int i = 0; i < m_musics.size(); ++i)
+	//	{
+	//		m_musics[i]->m_mute = true;
+	//		m_musics[i]->setVolume(m_musics[i]->m_volume);
+	//	}
+	//	for (unsigned int i = 0; i < m_sounds.size(); ++i)
+	//	{
+	//		m_sounds[i]->m_mute = true;
+	//		m_sounds[i]->setVolume(m_sounds[i]->m_volume);
+	//	}
+	//}
+	//else
+	//{
+	//	for (unsigned int i = 0; i < m_musics.size(); ++i)
+	//	{
+	//		m_musics[i]->m_mute = false;
+	//		m_musics[i]->setVolume(m_musics[i]->m_volume);
+	//	}
+	//	for (unsigned int i = 0; i < m_sounds.size(); ++i)
+	//	{
+	//		m_sounds[i]->m_mute = false;
+	//		m_sounds[i]->setVolume(m_sounds[i]->m_volume);
+	//	}
+	//}
+
 	if (Mute)
 	{
-		for (unsigned int i = 0; i < m_musics.size(); ++i)
-		{
-			m_musics[i]->m_mute = true;
-			m_musics[i]->setVolume(m_musics[i]->m_volume);
-		}
-		for (unsigned int i = 0; i < m_sounds.size(); ++i)
-		{
-			m_sounds[i]->m_mute = true;
-			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
-		}
+		sf::Listener::setGlobalVolume(0);
 	}
 	else
 	{
-		for (unsigned int i = 0; i < m_musics.size(); ++i)
-		{
-			m_musics[i]->m_mute = false;
-			m_musics[i]->setVolume(m_musics[i]->m_volume);
-		}
-		for (unsigned int i = 0; i < m_sounds.size(); ++i)
-		{
-			m_sounds[i]->m_mute = false;
-			m_sounds[i]->setVolume(m_sounds[i]->m_volume);
-		}
+		sf::Listener::setGlobalVolume(100);
 	}
 }
 

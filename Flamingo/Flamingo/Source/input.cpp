@@ -17,7 +17,8 @@ bool input::isButtonPressed(Button button)
 		switch (button)
 		{
 		case MouseLeft:
-			return sf::Mouse::isButtonPressed(sf::Mouse::Left);
+			return sf::Mouse::isButtonPressed(sf::Mouse::Left) || 
+				sf::Mouse::isButtonPressed(sf::Mouse::Right);
 			break;
 		case MouseRight:
 			return sf::Mouse::isButtonPressed(sf::Mouse::Right);
