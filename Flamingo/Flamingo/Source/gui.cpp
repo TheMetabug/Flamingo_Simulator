@@ -261,6 +261,18 @@ gui::gui(game* Game)
 	YEARtext->setOriginPoint(5);
 	YEARtext->setLayer(299);
 
+	m_yearTexture = new texture("yearCompletedSign.png");
+	m_yearSprite.setTexture(m_yearTexture);
+	m_yearSprite.setOriginPoint(5);
+	m_yearSprite.setPosition(vector(-200,-200));
+	m_yearSprite.setLayer(299);
+
+	m_goverTexture = new texture("gameOverScoreboard.png");
+	m_goverSprite.setTexture(m_goverTexture);
+	m_goverSprite.setOriginPoint(5);
+	m_goverSprite.setPosition(vector(640, 360));
+	m_goverSprite.setLayer(299);
+
 	m_errorPosition = vector(100,650);
 	m_errorTexture = new texture("flamingoHeadMistake.png");
 
@@ -324,6 +336,31 @@ gui::~gui()
 
 void gui::update(float DeltaTime)
 {
+	switch (m_game->m_state)
+	{
+	case TitleScreen:
+		break;
+	case Play:
+		break;
+	case Levelscore:
+		break;
+	case GameOver:
+		break;
+	case Menu:
+		break;
+	case Tutorial:
+		break;
+	case Credits:
+		break;
+	case Options:
+		break;
+	case Gamemenu:
+		break;
+	case ReturnTitle:
+		break;
+	case Quit:
+		break;
+	}
 	
 	//edit  HP settings
 	if( HPnow < 0) 
@@ -403,14 +440,14 @@ void gui::update(float DeltaTime)
 	}
 	if (m_levelscore)
 	{	
-		if(m_yearPos.x >= 400)
+		if(m_yearPos.x >= 650)
 		{
-			m_yearPos.x = 400;
+			m_yearPos.x = 650;
 		}
 		else
 		{
 			m_yearPos.x += DeltaTime*500;
-			YEARtext->setPosition(m_yearPos);
+			m_yearSprite.setPosition(m_yearPos);
 		}
 	}
 	else
@@ -422,14 +459,47 @@ void gui::update(float DeltaTime)
 		else
 		{
 			m_yearPos.x += DeltaTime*500;
-			YEARtext->setPosition(m_yearPos);
+			m_yearSprite.setPosition(m_yearPos);
 		}
 	}
+	if (m_gameOver)
+	{
 
+	}
 }
 void gui::draw(al::viewport* Viewport)
 {
-	
+	switch (m_game->m_state)
+	{
+	case TitleScreen:
+		Viewport->draw(TITLEtext);
+		break;
+	case Play:
+		break;
+	case Levelscore:
+		break;
+	case GameOver:
+		if(m_game->m_timer > 3)
+		{
+			Viewport->draw(TITLEtext);
+		}
+		Viewport->draw(&m_goverSprite);
+		break;
+	case Menu:
+		break;
+	case Tutorial:
+		break;
+	case Credits:
+		break;
+	case Options:
+		break;
+	case Gamemenu:
+		break;
+	case ReturnTitle:
+		break;
+	case Quit:
+		break;
+	}
 	
 
 	if (m_title)
@@ -507,10 +577,10 @@ void gui::draw(al::viewport* Viewport)
 	}
 	if (m_levelscore)
 	{
-		Viewport->draw(YEARtext);
+		Viewport->draw(&m_yearSprite);
 	}
 	else
-		Viewport->draw(YEARtext);
+		Viewport->draw(&m_yearSprite);
 	/*if (1)
 		m_button2->draw();*/
 }
@@ -581,6 +651,7 @@ void gui::reset()
 	m_quit = false;
 	m_tutorial = false;
 	m_levelscore = false;
+	m_gameOver = false;
 	m_errorCount = 0;
 	updateErrorlist();
 

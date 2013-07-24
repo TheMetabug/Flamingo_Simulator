@@ -260,6 +260,8 @@ void game::update(float deltaTime)
 		if (m_gui->m_errorCount >= 3)
 		{
 			m_state = GameOver;// game over
+			m_gui->m_gameOver = true;
+			m_timer = 0;
 			m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
 			m_gui->TITLEtext->setLayer(300);
 			m_gui->TITLEtext->setColor(255,0,0,255);
@@ -404,21 +406,29 @@ void game::update(float deltaTime)
 	case GameOver:
 		
 		m_gui->update(deltaTime);
-		m_gui->m_title = true;
+		m_timer += deltaTime;
 
-		if (m_input->isButtonPressed(MouseLeft))
+		if(m_timer > 3)
 		{
-			m_state = Menu;
-			/*m_state = ReturnTitle;*/
-			/*m_state = Credits;*/
-			m_gui->m_title =false;	
-			ML_release = false;
-			reset();
-				
-			m_gui->m_returnTitle = false;
-			m_gui->m_Play = false;
+			m_gui->m_title = true;
 
+			if (m_input->isButtonPressed(MouseLeft) && ML_release == true)
+			{
+				m_state = Menu;
+				/*m_state = ReturnTitle;*/
+				/*m_state = Credits;*/
+				m_gui->m_title =false;	
+				ML_release = false;
+				m_timer = 0;
+				reset();
+				
+				m_gui->m_returnTitle = false;
+				m_gui->m_Play = false;
+				m_gui->m_gameOver = false;
+			}
 		}
+
+
 
 
 		break;
@@ -775,8 +785,10 @@ void game::draw()
 
 	case GameOver:
 
+		m_gui->draw(m_viewport);
+
 		m_viewport->draw(&m_gameoverSprite);
-		m_viewport->draw(m_gui->TITLEtext);
+		//m_viewport->draw(m_gui->TITLEtext);
 
 		break;
 

@@ -93,6 +93,7 @@ public:
 	bool m_quit;
 	bool m_tutorial;
 	bool m_levelscore;
+	bool m_gameOver;
 	
 	button* m_button2;
 	button* m_button3;
@@ -144,6 +145,13 @@ private:
 	al::text* EGGtext;
 	al::text* FLAMtext;
 	al::text* YEARtext;
+
+	al::texture* m_yearTexture;
+	al::sprite m_yearSprite;
+
+	al::texture* m_goverTexture;
+	al::sprite m_goverSprite;
+
 	std::vector<al::texture*> m_buttonTextures;
 
 	nest* m_nest;
