@@ -271,14 +271,13 @@ void game::update(float deltaTime)
 		{
 
 			m_yearCount++;
-			m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
+			//m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
 			m_gui->m_yearPos.x = -500;
 
 			m_state = Levelscore;
 			m_countSpeed = m_nest->m_flamCount+10;
-			m_countingEggs = true;
-			m_nest->m_countingEggs = true;
-			m_countingEggs = true;
+			//m_countingEggs = true;
+			//m_nest->m_countingEggs = true;
 			m_enemy->reset();
 			
 			break;
@@ -362,43 +361,47 @@ void game::update(float deltaTime)
 		m_nest->update(deltaTime);
 		m_gui->m_levelscore = true;
 
-		if (m_countingEggs)
-		{
-			if(m_nest->m_flamCount > 0)
-			{
-				if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
-					for (int i = 0; i < 3; ++i)
-						m_timer += deltaTime;
+		//if (m_countingEggs)
+		//{
+		//	if(m_nest->m_flamCount > 0)
+		//	{
+		//		if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
+		//			for (int i = 0; i < 3; ++i)
+		//				m_timer += deltaTime;
 
-				m_timer += deltaTime;
-				if(m_timer >= 1)// 3/m_countSpeed)
-				{
-					m_timer = 0;
-					m_soundLibrary->m_sounds[29]->play();
-					m_nest->addEgg();
-					m_nest->m_flamCount--;
-				}
-			}
-			else
-			{
-				m_countingEggs = false;
-				m_nest->m_countingEggs = false;
-				m_timer = -3;
-			}
-		}
-		else if (m_timer < 0)
-		{
-			if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
-				for (int i = 0; i < 3; ++i)
-					m_nest->update(deltaTime);
-					m_timer += deltaTime;
+		//		m_timer += deltaTime;
+		//		if(m_timer >= 1)// 3/m_countSpeed)
+		//		{
+		//			m_timer = 0;
+		//			m_soundLibrary->m_sounds[29]->play();
+		//			m_nest->addEgg();
+		//			m_nest->m_flamCount--;
+		//		}
+		//	}
+		//	else
+		//	{
+		//		m_countingEggs = false;
+		//		m_nest->m_countingEggs = false;
+		//		m_timer = -3;
+		//	}
+		//}
+		//else if (m_timer < 0)
+		//{
+		//	if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
+		//		for (int i = 0; i < 3; ++i)
+		//			m_nest->update(deltaTime);
+		//			m_timer += deltaTime;
 
-			m_timer += deltaTime;
-		}
-		else if (m_input->isButtonPressed(MouseLeft))
+		//	m_timer += deltaTime;
+		//}
+		//else 
+		if (m_input->isButtonPressed(MouseLeft))
 		{
+			for (int i = 0; i < 6; ++i)
+				m_nest->addEgg();
 			m_state = Play;
 			m_gui->m_levelscore = false;
+			m_nest->update(deltaTime);
 		}
 
 		break;
@@ -832,6 +835,7 @@ void game::reset()
 	m_timer = 0;
 	m_countingEggs = false;
 	m_yearCount = 0;
+	DIFFICULTY = 1;
 }
 
 #if _DEBUG
