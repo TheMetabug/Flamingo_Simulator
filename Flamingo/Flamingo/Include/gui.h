@@ -145,6 +145,7 @@ private:
 	al::text* EGGtext;
 	al::text* FLAMtext;
 	al::text* YEARtext;
+	al::text* GSCOREtext;
 
 	al::texture* m_yearTexture;
 	al::sprite m_yearSprite;
