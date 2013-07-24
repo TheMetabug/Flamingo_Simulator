@@ -147,8 +147,8 @@ soundLibrary::soundLibrary()
 	m_sounds.push_back(new sound("mäisk2"));
 	m_sounds.push_back(new sound("Energy"));
 	m_sounds.push_back(new sound("iloinen piip piip"));
-	m_sounds.push_back(new sound("kuoriutuminenfixed"));
-	m_sounds.push_back(new sound("kuoriutuminen kaksifixed"));
+	m_sounds.push_back(new sound("kuoriutuminen"));
+	m_sounds.push_back(new sound("kuoriutuminen kaksi"));
 	m_sounds.push_back(new sound("vihainen piipiip"));
 	m_sounds.push_back(new sound("yksi piip"));
 	m_sounds.push_back(new sound("vihollislintu"));
@@ -163,7 +163,7 @@ soundLibrary::soundLibrary()
 	m_sounds.push_back(new sound("flamingo5"));
 	m_sounds.push_back(new sound("kuminauha2_1"));
 	m_sounds.push_back(new sound("boing"));
-	m_sounds.push_back(new sound("pointfixed"));
+	m_sounds.push_back(new sound("point"));
 	m_sounds.push_back(new sound("loiskis"));
 	m_sounds.push_back(new sound("loiskis2"));
 	m_sounds.push_back(new sound("loiskis3"));
