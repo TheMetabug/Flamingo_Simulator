@@ -154,6 +154,9 @@ private:
 	al::texture* m_goverTexture;
 	al::sprite m_goverSprite;
 
+	al::texture* m_clickTexture;
+	al::sprite m_clickSprite;
+
 	std::vector<al::texture*> m_buttonTextures;
 
 	nest* m_nest;
