@@ -637,4 +637,5 @@ void nest::reset()
 	m_theEgg->setScale(m_scale);
 	m_theEgg->setLayer(6);
 	m_flamCount = 0;
+	m_eggTimer = 0;
 }
