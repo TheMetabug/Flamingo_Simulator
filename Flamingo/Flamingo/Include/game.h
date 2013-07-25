@@ -105,6 +105,7 @@ private:
 	float m_timer;
 	int m_countSpeed;
 	int m_yearCount;
+	float m_difficultyMultiplier;
 	// gameStates
 
 	GameState m_state;

@@ -27,7 +27,7 @@ public:
 	bool m_takingEgg;
 	bool m_tookEgg;
 	bool m_nestHasEggs;
-
+	float m_enemySpeed;
 private:
 	void eat(float foodValue, al::vector itemDirection);
 	void fly(float DeltaTime);

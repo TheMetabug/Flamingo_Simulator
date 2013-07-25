@@ -227,6 +227,7 @@ gui::gui(game* Game)
 	FLAMtext = new text("flamingo count", m_font2,40);
 	YEARtext = new text("year one", m_font2, 120);
 	GSCOREtext = new text("Your score was: ",m_font2,23);
+	GYEARtext = new text("bjsfgfhj", m_font2, 23);
 
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
@@ -238,9 +239,10 @@ gui::gui(game* Game)
 	SCOREtext->setColor(83,77,67,255);
 	SCOREtext->setLayer(298);
 	
-	TITLEtext->setPosition(vector(400,655));
-	TITLEtext->setColor();
-	TITLEtext->setLayer(299);
+	TITLEtext->setPosition(vector(640,690));
+	//TITLEtext->setColor();
+	TITLEtext->setOriginPoint(5);
+	TITLEtext->setLayer(300);
 
 	MUSICtext->setPosition (vector(686,310));
 	MUSICtext->setColor(83,77,67,255);
@@ -267,6 +269,10 @@ gui::gui(game* Game)
 	GSCOREtext->setCharacterSize(25);
 	GSCOREtext->setColor(83,77,67,255);
 	GSCOREtext->setLayer(299);
+
+	GYEARtext->setCharacterSize(25);
+	GYEARtext->setColor(83,77,67,255);
+	GYEARtext->setLayer(299);
 
 
 	m_yearTexture = new texture("yearCompletedSign.png");
@@ -515,6 +521,13 @@ void gui::draw(al::viewport* Viewport)
 		GSCOREtext->setString(std::string("Score:  ")
 								+ std::to_string((long double)SCORE));
 		Viewport->draw(GSCOREtext);
+
+		GYEARtext->setPosition(vector(500, 450));
+		GYEARtext->setString(std::string("Years passed:  ")
+								+ std::to_string((long double)m_game->m_yearCount));
+		Viewport->draw(GYEARtext);
+
+
 		break;
 	case Menu:
 		m_mainbutton1->draw(Viewport);
@@ -549,6 +562,7 @@ void gui::draw(al::viewport* Viewport)
 		//Viewport->draw(HPtext);
 		Viewport->draw(SCOREtext);
 		Viewport->draw(EGGtext);
+		Viewport->draw(GYEARtext);
 		//Viewport->draw(FLAMtext);
 
 		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
@@ -569,7 +583,7 @@ void gui::draw(al::viewport* Viewport)
 }
 void gui::addScore(vector Position,float Score, bool Fatal)
 {
-	Score *= DIFFICULTY;
+	Score *= 1+(m_game->m_difficultyMultiplier/10.0f);
 	SCORE += Score;
 	m_particleEngine->addScore(Position,Score);
 	if (SCORE < 0)
