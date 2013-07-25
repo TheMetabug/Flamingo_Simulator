@@ -492,12 +492,11 @@ void nest::egg(float DeltaTime)
 			
 			m_soundLibrary->m_sounds[14]->playWithRandPitch(0.2f); //kuoriutuminen kaksi
 
-			removeEgg();
-
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
 			m_hatchlings[m_whichBird]->m_sprite->setLayer(4 + m_whichBird);
 			m_eggTimer = 0;
+			removeEgg();
 			
 		}
 	}
