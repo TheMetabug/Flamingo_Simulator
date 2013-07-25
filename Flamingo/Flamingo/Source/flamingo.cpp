@@ -352,6 +352,7 @@ void flamingo::reset()
 	////////HEAD/////////
 	m_headPosition = m_headOrigin;
 	m_flamingoHead.setPosition(m_headPosition);
+	flip(false);
 	m_headRotate = 0;
 	m_drag = 0;
 	m_splashed = false;
