@@ -428,7 +428,6 @@ void nest::update(float DeltaTime)
 				m_whichBird = i;
 				m_theEgg->setLayer(3 + i);
 				m_egging = true;
-				m_eggTimer = 0;
 				m_eggTarget = vector(m_hatchlings[i]->m_position.x + 5.0f,m_hatchlings[i]->m_position.y + 10.0f);
 			}
 		}
@@ -476,12 +475,12 @@ void nest::egg(float DeltaTime)
 		if (m_egging)
 		{
 			m_theEgg->setPosition(m_eggTarget);
-			m_eggAnimation->ChangeAnimation(0,7);
+			m_eggAnimation->ChangeAnimation(0,10);
 			m_egging = false;
 			m_hatching = true;
 			m_soundLibrary->m_sounds[13]->playWithRandPitch(0.2f); //kuoriutuminen
 		}
-		if (m_eggAnimation->getCurrentFrame() == 6)
+		if (m_eggAnimation->getCurrentFrame() >= 6)
 		{
 			m_theEgg->setPosition(m_eggPosition);
 			m_theEgg->setLayer(6);
@@ -498,6 +497,7 @@ void nest::egg(float DeltaTime)
 			m_hatching = false;
 			m_hatchlings[m_whichBird]->reset();
 			m_hatchlings[m_whichBird]->m_sprite->setLayer(4 + m_whichBird);
+			m_eggTimer = 0;
 			
 		}
 	}
@@ -590,7 +590,7 @@ void nest::removeEgg()
 		m_eggAnimation->ChangeAnimation(0,1);
 		m_eggs.pop_back();
 	}
-	else // remove the egg
+	else if (m_eggTimer == 0) // remove the egg
 		m_eggAnimation->ChangeAnimation(7,1);
 
 
