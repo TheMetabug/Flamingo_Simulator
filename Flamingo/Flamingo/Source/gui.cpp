@@ -549,19 +549,27 @@ void gui::draw(al::viewport* Viewport)
 		m_minussounds->draw(Viewport);
 		Viewport->draw(MUSICtext);
 		Viewport->draw(SOUNDtext);
+
+		Viewport->draw(SCOREtext);
+		Viewport->draw(EGGtext);
+		//Viewport->draw(FLAMtext);
+
+		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
+		{
+			Viewport->draw(m_errorSprites[i]);
+		}
+		Viewport->draw(&m_yearSprite);
+
 		break;
 	case Gamemenu:
 		m_Gmenubutton1->draw(Viewport);
 		m_Gmenubutton2->draw(Viewport);
 		m_Gmenubutton3->draw(Viewport);
 		m_Gmenubutton4->draw(Viewport);
-		m_button2->draw(Viewport); //button2
-		m_button3->draw(Viewport); //button3
-		//Viewport->draw(HPtext);
+
 		Viewport->draw(SCOREtext);
 		Viewport->draw(EGGtext);
-		Viewport->draw(GYEARtext);
-		//Viewport->draw(FLAMtext);
+
 
 		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
 		{
@@ -571,6 +579,15 @@ void gui::draw(al::viewport* Viewport)
 	case ReturnTitle:
 		m_yesbutton->draw(Viewport);
 		m_nobutton->draw(Viewport);
+
+		Viewport->draw(SCOREtext);
+		Viewport->draw(EGGtext);
+
+		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
+		{
+			Viewport->draw(m_errorSprites[i]);
+		}
+
 		break;
 	case Quit:
 		m_yesbutton2->draw(Viewport);
