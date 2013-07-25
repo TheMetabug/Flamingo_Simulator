@@ -202,11 +202,11 @@ gui::gui(game* Game)
 	m_xbutton->m_sprite.setLayer(300);
 
 	m_buttonTextures.push_back(new texture("tutorialButton.png")); // 13
-	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(1225,70),m_input, m_soundLibrary);
+	m_tutorialbutton1 = new button(m_buttonTextures.back(),vector(1225,665),m_input, m_soundLibrary);
 	m_tutorialbutton1->m_sprite.setLayer(300);
 	
 	
-	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(50,70),m_input, m_soundLibrary);
+	m_tutorialbutton2 = new button(m_buttonTextures.back(),vector(50,665),m_input, m_soundLibrary);
 	m_tutorialbutton2->m_sprite.setLayer(300);
 	m_tutorialbutton2->m_sprite.setScale(-1,1);
 	
