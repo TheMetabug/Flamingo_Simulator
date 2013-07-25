@@ -88,6 +88,10 @@ private:
 	al::sprite m_tutorial4;
 	al::vector m_tutorial4Position;
 	
+	al::texture* m_tutorial5Texture;
+	al::sprite m_tutorial5;
+	al::vector m_tutorial5Position;
+
 	al::font* m_font; //perusfontti
 	al::font* m_font2; // ArialBlack "valikkofontti"
 

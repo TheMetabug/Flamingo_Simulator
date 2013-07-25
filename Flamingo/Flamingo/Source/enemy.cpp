@@ -59,6 +59,7 @@ enemy::~enemy()
 void enemy::update(float DeltaTime)
 {
 	m_animation->update(DeltaTime);
+	//DeltaTime *= 2;
 	m_prevPosition = m_enemyBirdPosition;
 	m_enemyRotate += DeltaTime*2;
 
@@ -153,7 +154,7 @@ void enemy::eat(float foodValue, vector itemDirection)
 void enemy::fly(float DeltaTime)
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
-	m_enemyDownFall += DeltaTime*5;
+	m_enemyDownFall += DeltaTime*5/**2*/;
 
 	if(m_enemyDownFall >= 100)
 	{

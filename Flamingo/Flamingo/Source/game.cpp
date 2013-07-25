@@ -50,6 +50,7 @@ game::~game()
 	delete m_tutorial2Texture;
 	delete m_tutorial3Texture;
 	delete m_tutorial4Texture;
+	delete m_tutorial5Texture;
 #if _DEBUG
 	std::cout<<"done deleting maingame"<<std::endl;
 #endif
@@ -65,6 +66,8 @@ void game::init()
 
 	m_font->loadFromFile("arial.ttf");
 	m_font2->loadFromFile("Arial black.ttf");
+
+	DIFFICULTY = 1;
 	
 	// particles
 	m_particleEngine = new particleEngine(m_font2);
@@ -113,7 +116,7 @@ void game::init()
 			m_gameoverSprite.setTexture(m_gameoverTexture);
 			m_gameoverSprite.setPosition(m_gameoverPosition);
 			m_gameoverSprite.setScale(1,1);
-			m_gameoverSprite.setLayer(296);
+			m_gameoverSprite.setLayer(297);
 
 			m_counterPosition = vector(0,650);
 			m_counterTexture = new texture("eggCounter.png");
@@ -211,6 +214,16 @@ void game::init()
 
 			m_tutorial4.setLayer(295);
 
+			m_tutorial5Position = (vector(640,360));
+			m_tutorial5Texture = new texture("Tutorials/tuto5.png");
+			m_tutorial5.setTexture(m_tutorial5Texture);
+			m_tutorial5.setPosition(m_tutorial5Position);
+			m_tutorial5.setOrigin(vector(m_tutorial5.getSize().x/2,
+			m_tutorial5.getSize().y/2));
+			m_tutorial5.setScale(1,1);
+					  
+			m_tutorial5.setLayer(295);
+
 		// opacity
 
 	m_pauseOpacityTexture.loadTexture("GameMenu/pauseScreenOpacity.png");
@@ -250,8 +263,6 @@ void game::update(float deltaTime)
 		if (m_input->getMousePosition() != vector())
 		{
 			m_state = Menu;
-			/*m_state = ReturnTitle;*/
-			/*m_state = Credits;*/
 			m_gui->m_title =false;	
 			ML_release = false;
 		}
@@ -274,7 +285,7 @@ void game::update(float deltaTime)
 		{
 
 			m_yearCount++;
-			//m_gui->YEARtext->setString(std::string("Completed year  ") + std::to_string((long double)m_yearCount)); 
+			DIFFICULTY++;
 			m_gui->m_yearPos.x = -500;
 
 			m_state = Levelscore;
@@ -364,40 +375,6 @@ void game::update(float deltaTime)
 		m_nest->update(deltaTime);
 		m_gui->m_levelscore = true;
 
-		//if (m_countingEggs)
-		//{
-		//	if(m_nest->m_flamCount > 0)
-		//	{
-		//		if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
-		//			for (int i = 0; i < 3; ++i)
-		//				m_timer += deltaTime;
-
-		//		m_timer += deltaTime;
-		//		if(m_timer >= 1)// 3/m_countSpeed)
-		//		{
-		//			m_timer = 0;
-		//			m_soundLibrary->m_sounds[29]->play();
-		//			m_nest->addEgg();
-		//			m_nest->m_flamCount--;
-		//		}
-		//	}
-		//	else
-		//	{
-		//		m_countingEggs = false;
-		//		m_nest->m_countingEggs = false;
-		//		m_timer = -3;
-		//	}
-		//}
-		//else if (m_timer < 0)
-		//{
-		//	if (m_input->isButtonPressed(MouseLeft)) // makes time go faster
-		//		for (int i = 0; i < 3; ++i)
-		//			m_nest->update(deltaTime);
-		//			m_timer += deltaTime;
-
-		//	m_timer += deltaTime;
-		//}
-		//else 
 		if (m_input->getMousePosition() != vector())
 		{
 			ML_release = false;
@@ -435,9 +412,6 @@ void game::update(float deltaTime)
 				m_gui->m_gameOver = false;
 			}
 		}
-
-
-
 
 		break;
 	
@@ -512,6 +486,8 @@ void game::update(float deltaTime)
 		case 4:
 			break;
 		case 5:
+			break;
+		case 6:
 			m_state = Menu;
 			m_gui->m_tutorial = false;
 
@@ -733,6 +709,9 @@ void game::draw()
 				case 4:
 					m_viewport->draw(&m_tutorial4);
 					break;
+				case 5:
+					m_viewport->draw(&m_tutorial5);
+					break;
 					}
 		break;
 
@@ -786,9 +765,9 @@ void game::draw()
 
 	case GameOver:
 
+		m_viewport->draw(&m_gameoverSprite);
 		m_gui->draw(m_viewport);
 
-		m_viewport->draw(&m_gameoverSprite);
 		//m_viewport->draw(m_gui->TITLEtext);
 
 		break;
@@ -834,7 +813,6 @@ void game::reset()
 	m_timer = 0;
 	m_countingEggs = false;
 	m_yearCount = 0;
-	DIFFICULTY = 1;
 }
 
 #if _DEBUG

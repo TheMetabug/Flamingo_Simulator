@@ -135,7 +135,7 @@ void hatchling::update(float DeltaTime)
 		break;
 	case 2: // Hathling flying away
 		{
-			vector finalPosition = vector(140,700);
+			vector finalPosition = vector(140,100);
 			m_travelTime = 2.0f;
 			if (m_timer > 0.0f)
 			{

@@ -226,6 +226,7 @@ gui::gui(game* Game)
 	EGGtext = new text("egg count", m_font2,40);
 	FLAMtext = new text("flamingo count", m_font2,40);
 	YEARtext = new text("year one", m_font2, 120);
+	GSCOREtext = new text("Your score was: ",m_font2,23);
 
 	
 	//// Layers, 296 and below will get dark, when paused. 298 will be bright when paused. ///
@@ -235,11 +236,11 @@ gui::gui(game* Game)
 	
 	SCOREtext->setPosition(vector(60, 60));
 	SCOREtext->setColor(83,77,67,255);
-	SCOREtext->setLayer(296);
+	SCOREtext->setLayer(298);
 	
 	TITLEtext->setPosition(vector(400,655));
 	TITLEtext->setColor();
-	TITLEtext->setLayer(298);
+	TITLEtext->setLayer(299);
 
 	MUSICtext->setPosition (vector(686,310));
 	MUSICtext->setColor(83,77,67,255);
@@ -254,6 +255,7 @@ gui::gui(game* Game)
 	EGGtext->setLayer(299);
 	
 	FLAMtext->setPosition(vector(160,655));
+	FLAMtext->setCharacterSize(23);
 	FLAMtext->setColor(83,77,67,255);
 	FLAMtext->setLayer(299);
 
@@ -261,6 +263,11 @@ gui::gui(game* Game)
 	YEARtext->setColor();
 	YEARtext->setOriginPoint(5);
 	YEARtext->setLayer(299);
+
+	GSCOREtext->setCharacterSize(25);
+	GSCOREtext->setColor(83,77,67,255);
+	GSCOREtext->setLayer(299);
+
 
 	m_yearTexture = new texture("yearCompletedSign.png");
 	m_yearSprite.setTexture(m_yearTexture);
@@ -272,7 +279,7 @@ gui::gui(game* Game)
 	m_goverSprite.setTexture(m_goverTexture);
 	m_goverSprite.setOriginPoint(5);
 	m_goverSprite.setPosition(vector(640, 360));
-	m_goverSprite.setLayer(299);
+	m_goverSprite.setLayer(298);
 
 	m_errorPosition = vector(100,650);
 	m_errorTexture = new texture("flamingoHeadMistake.png");
@@ -476,85 +483,6 @@ void gui::draw(al::viewport* Viewport)
 		Viewport->draw(TITLEtext);
 		break;
 	case Play:
-		break;
-	case Levelscore:
-		break;
-	case GameOver:
-		if(m_game->m_timer > 3)
-		{
-			Viewport->draw(TITLEtext);
-		}
-		Viewport->draw(&m_goverSprite);
-		break;
-	case Menu:
-		break;
-	case Tutorial:
-		break;
-	case Credits:
-		break;
-	case Options:
-		break;
-	case Gamemenu:
-		break;
-	case ReturnTitle:
-		break;
-	case Quit:
-		break;
-	}
-	
-
-	if (m_title)
-	{	
-		Viewport->draw(TITLEtext);
-	}
-		
-
-	if(m_menu)
-	{
-		m_mainbutton1->draw(Viewport);
-		m_mainbutton2->draw(Viewport);
-		m_mainbutton3->draw(Viewport);
-		m_mainbutton4->draw(Viewport);
-	}
-	
-	
-	if(m_Gmenu)
-	{
-		
-		m_Gmenubutton1->draw(Viewport);
-		m_Gmenubutton2->draw(Viewport);
-		m_Gmenubutton3->draw(Viewport);
-		m_Gmenubutton4->draw(Viewport);
-		
-	}
-	if(m_returnTitle)
-	{
-		m_yesbutton->draw(Viewport);
-		m_nobutton->draw(Viewport);
-	}
-
-	if (m_Options)
-	{
-		m_donebutton->draw(Viewport);
-		m_donebutton->draw(Viewport);
-		m_plusmusic->draw(Viewport);
-		m_plussounds->draw(Viewport);
-		m_minusmusic->draw(Viewport);
-		m_minussounds->draw(Viewport);
-		Viewport->draw(MUSICtext);
-		Viewport->draw(SOUNDtext);
-
-		
-	}
-	if (m_tutorial)
-	{
-	m_tutorialbutton1->draw(Viewport);
-	m_tutorialbutton2->draw(Viewport);
-	}
-
-	
-	if (m_Play)
-	{
 		m_button2->draw(Viewport); //button2
 		m_button3->draw(Viewport); //button3
 		//Viewport->draw(HPtext);
@@ -563,30 +491,85 @@ void gui::draw(al::viewport* Viewport)
 		//Viewport->draw(FLAMtext);
 
 		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
-	{
-		Viewport->draw(m_errorSprites[i]);
-	}
+		{
+			Viewport->draw(m_errorSprites[i]);
+		}
+		Viewport->draw(&m_yearSprite);
+		break;
+	case Levelscore:
+		Viewport->draw(&m_yearSprite);
+		break;
+	case GameOver:
+		if(m_game->m_timer > 3)
+		{
+			Viewport->draw(TITLEtext);
+		}
+		Viewport->draw(&m_goverSprite);
 
-	}
-	if (m_credits)
+		FLAMtext->setPosition(vector(500,400));
+		FLAMtext->setString(std::string("Adult flamingoes:  ")
+								+ std::to_string((long double)m_flamCount));
+		Viewport->draw(FLAMtext);
+
+		GSCOREtext->setPosition(vector(500, 350));
+		GSCOREtext->setString(std::string("Score:  ")
+								+ std::to_string((long double)SCORE));
+		Viewport->draw(GSCOREtext);
+		break;
+	case Menu:
+		m_mainbutton1->draw(Viewport);
+		m_mainbutton2->draw(Viewport);
+		m_mainbutton3->draw(Viewport);
+		m_mainbutton4->draw(Viewport);
+		break;
+	case Tutorial:
+		m_tutorialbutton1->draw(Viewport);
+		m_tutorialbutton2->draw(Viewport);
+		break;
+	case Credits:
 		m_xbutton->draw(Viewport);
-	
-	if (m_quit)
-	{
+		break;
+	case Options:
+		m_donebutton->draw(Viewport);
+		m_donebutton->draw(Viewport);
+		m_plusmusic->draw(Viewport);
+		m_plussounds->draw(Viewport);
+		m_minusmusic->draw(Viewport);
+		m_minussounds->draw(Viewport);
+		Viewport->draw(MUSICtext);
+		Viewport->draw(SOUNDtext);
+		break;
+	case Gamemenu:
+		m_Gmenubutton1->draw(Viewport);
+		m_Gmenubutton2->draw(Viewport);
+		m_Gmenubutton3->draw(Viewport);
+		m_Gmenubutton4->draw(Viewport);
+		m_button2->draw(Viewport); //button2
+		m_button3->draw(Viewport); //button3
+		//Viewport->draw(HPtext);
+		Viewport->draw(SCOREtext);
+		Viewport->draw(EGGtext);
+		//Viewport->draw(FLAMtext);
+
+		for(unsigned int i = 0; i < m_errorSprites.size(); ++i)
+		{
+			Viewport->draw(m_errorSprites[i]);
+		}
+		break;
+	case ReturnTitle:
+		m_yesbutton->draw(Viewport);
+		m_nobutton->draw(Viewport);
+		break;
+	case Quit:
 		m_yesbutton2->draw(Viewport);
 		m_nobutton2->draw(Viewport);
+		break;
 	}
-	if (m_levelscore)
-	{
-		Viewport->draw(&m_yearSprite);
-	}
-	else
-		Viewport->draw(&m_yearSprite);
-	/*if (1)
-		m_button2->draw();*/
+
 }
 void gui::addScore(vector Position,float Score, bool Fatal)
 {
+	Score *= DIFFICULTY;
 	SCORE += Score;
 	m_particleEngine->addScore(Position,Score);
 	if (SCORE < 0)
