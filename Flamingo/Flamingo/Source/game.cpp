@@ -50,6 +50,7 @@ game::~game()
 	delete m_tutorial2Texture;
 	delete m_tutorial3Texture;
 	delete m_tutorial4Texture;
+	delete m_tutorial5Texture;
 #if _DEBUG
 	std::cout<<"done deleting maingame"<<std::endl;
 #endif
@@ -212,6 +213,16 @@ void game::init()
 			m_tutorial4.setScale(1,1);
 
 			m_tutorial4.setLayer(295);
+
+			m_tutorial5Position = (vector(640,360));
+			m_tutorial5Texture = new texture("Tutorials/tuto5.png");
+			m_tutorial5.setTexture(m_tutorial5Texture);
+			m_tutorial5.setPosition(m_tutorial5Position);
+			m_tutorial5.setOrigin(vector(m_tutorial5.getSize().x/2,
+			m_tutorial5.getSize().y/2));
+			m_tutorial5.setScale(1,1);
+					  
+			m_tutorial5.setLayer(295);
 
 		// opacity
 
@@ -473,6 +484,8 @@ void game::update(float deltaTime)
 		case 4:
 			break;
 		case 5:
+			break;
+		case 6:
 			m_state = Menu;
 			m_gui->m_tutorial = false;
 
@@ -697,6 +710,9 @@ void game::draw()
 					break;
 				case 4:
 					m_viewport->draw(&m_tutorial4);
+					break;
+				case 5:
+					m_viewport->draw(&m_tutorial5);
 					break;
 					}
 		break;
