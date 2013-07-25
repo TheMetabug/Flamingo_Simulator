@@ -488,6 +488,7 @@ void gui::draw(al::viewport* Viewport)
 		Viewport->draw(TITLEtext);
 		break;
 	case Play:
+	case Levelscore:
 		m_button2->draw(Viewport); //button2
 		m_button3->draw(Viewport); //button3
 		//Viewport->draw(HPtext);
@@ -500,9 +501,7 @@ void gui::draw(al::viewport* Viewport)
 			Viewport->draw(m_errorSprites[i]);
 		}
 		Viewport->draw(&m_yearSprite);
-		break;
-	case Levelscore:
-		Viewport->draw(&m_yearSprite);
+	
 		break;
 	case GameOver:
 		if(m_game->m_timer > 3)
