@@ -286,6 +286,13 @@ gui::gui(game* Game)
 	m_goverSprite.setPosition(vector(640, 360));
 	m_goverSprite.setLayer(298);
 
+	m_clickTexture = new texture("Buttons/taptoProceedButton.png");
+	m_clickSprite.setTexture(m_clickTexture);
+	m_clickSprite.setOriginPoint(5);
+	m_clickSprite.setPosition(vector(640,690));
+	m_clickSprite.setScale(0.8f);
+	m_clickSprite.setLayer(300);
+
 	m_errorPosition = vector(100,650);
 	m_errorTexture = new texture("flamingoHeadMistake.png");
 
@@ -485,7 +492,7 @@ void gui::draw(al::viewport* Viewport)
 	switch (m_game->m_state)
 	{
 	case TitleScreen:
-		Viewport->draw(TITLEtext);
+		Viewport->draw(&m_clickSprite);
 		break;
 	case Play:
 	case Levelscore:
@@ -506,7 +513,7 @@ void gui::draw(al::viewport* Viewport)
 	case GameOver:
 		if(m_game->m_timer > 3)
 		{
-			Viewport->draw(TITLEtext);
+			Viewport->draw(&m_clickSprite);
 		}
 		Viewport->draw(&m_goverSprite);
 
