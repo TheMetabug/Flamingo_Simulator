@@ -58,8 +58,8 @@ enemy::~enemy()
 
 void enemy::update(float DeltaTime)
 {
+	DeltaTime *= 1+(m_enemySpeed/10.0f);
 	m_animation->update(DeltaTime);
-	//DeltaTime *= 2;
 	m_prevPosition = m_enemyBirdPosition;
 	m_enemyRotate += DeltaTime*2;
 
@@ -124,6 +124,8 @@ void enemy::reset()
  	m_birdPhase = 2;
 	m_takingEgg = false;
 	m_tookEgg = false;
+	m_nestHasEggs = true;
+	m_enemySpeed = 0;
 }
 
 void enemy::eat(float foodValue, vector itemDirection)
@@ -154,12 +156,12 @@ void enemy::eat(float foodValue, vector itemDirection)
 void enemy::fly(float DeltaTime)
 {
 	m_prevPosition = vector(m_enemyBirdPosition);
-	m_enemyDownFall += DeltaTime*5/**2*/;
+	m_enemyDownFall += DeltaTime*5 * (1+(m_enemySpeed/10.0f));
 
 	if(m_enemyDownFall >= 100)
 	{
 		m_enemyDownFall = 100;
-		if (sin(m_enemyRotate) > 0.5f && sin(2*m_enemyRotate) < 0)
+		if (sin(m_enemyRotate) > 0.5f && sin(2*m_enemyRotate) < 0 && m_nestHasEggs)
 		{
 			m_sprite->setScale(-0.5f, 0.5f);
 			m_birdPhase = 5;

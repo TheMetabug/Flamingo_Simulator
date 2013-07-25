@@ -274,15 +274,20 @@ void game::update(float deltaTime)
 			m_gui->m_gameOver = true;
 			m_timer = 0;
 			m_gui->TITLEtext->setString("Click or tap to return to Main Menu");
-			m_gui->TITLEtext->setLayer(300);
-			m_gui->TITLEtext->setColor(255,0,0,255);
+			//m_gui->TITLEtext->setLayer(300);
+			//m_gui->TITLEtext->setColor(255,255,0,255);
+		}
+
+		if (m_nest->m_eggCount == 0)
+		{
+			m_enemy->m_nestHasEggs = false;
 		}
 
 		if (m_nest->m_hatchCount + m_nest->m_eggCount == 0)
 		{
 
 			m_yearCount++;
-			DIFFICULTY++;
+			m_difficultyMultiplier++;
 			m_gui->m_yearPos.x = -500;
 
 			m_state = Levelscore;
@@ -290,6 +295,7 @@ void game::update(float deltaTime)
 			//m_countingEggs = true;
 			//m_nest->m_countingEggs = true;
 			m_enemy->reset();
+			m_enemy->m_enemySpeed = m_difficultyMultiplier;
 			
 			break;
 		}
@@ -814,6 +820,7 @@ void game::reset()
 	m_timer = 0;
 	m_countingEggs = false;
 	m_yearCount = 0;
+	m_difficultyMultiplier = 0;
 }
 
 #if _DEBUG
